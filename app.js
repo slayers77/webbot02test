@@ -43,7 +43,20 @@ var bot = new builder.UniversalBot(connector,[
         //session.endDialog(result.response.entity);
     },
     function (session, result) {
-        sessin.send("Your preferred language is now %s.", result.response.entity);
+        session.preferredLocale(locale, function (err) {
+            if (!err) {
+                // Locale files loaded
+                session.endDialog("Your preferred language is now %s.", results.response.entity);
+            } else {
+                // Problem loading the selected locale
+                session.error(err);
+            }
+        });
+        builder.Prompts.text(session, 'What is your name?');
+    },
+    function (session, results) {
+        session.send('Hello %s!', results.response);
+        session.endDialog(results);
     }
 
 ]);
