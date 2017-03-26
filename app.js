@@ -24,10 +24,33 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
+/*
 bot.dialog('/', function (session) {
 
     session.send("Hello World from " + botenv );
+    session.beginDialog('/askName');
 });
+*/    
+    
+bot.dialog('/', [
+    function (session) {
+    		session.send("Hello World from " + botenv );
+        session.beginDialog('/askName');
+        
+    },
+    function (session, results) {
+        session.send('Hello %s!', results.response);
+    }
+]);
+bot.dialog('/askName', [
+    function (session) {
+        builder.Prompts.text(session, 'Hi! What is your name?');
+    },
+    function (session, results) {
+        session.endDialogWithResult(results);
+    }
+]);
+
 
 
 var app = express();
