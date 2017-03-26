@@ -36,7 +36,7 @@ bot.dialog('/', [
     function (session) {
         session.send("Hello World from " + botenv);
         session.beginDialog('/localePicker');
-        session.beginDialog('/askName');
+        
         
     },
     function (session, results) {
@@ -79,6 +79,7 @@ bot.dialog('/localePicker', [
                 session.error(err);
             }
         });
+        session.beginDialog('/askName');
     }
 ]);
 
