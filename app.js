@@ -34,7 +34,8 @@ bot.dialog('/', function (session) {
     
 bot.dialog('/', [
     function (session) {
-    		session.send("Hello World from " + botenv );
+        session.send("Hello World from " + botenv);
+        session.beginDialog('/localePicker');
         session.beginDialog('/askName');
         
     },
@@ -47,10 +48,39 @@ bot.dialog('/askName', [
         builder.Prompts.text(session, 'Hi! What is your name?');
     },
     function (session, results) {
-        session.endDialogWithResult(results);
+        session.endDialog(results);
     }
 ]);
 
+
+bot.dialog('/localePicker', [
+    function (session) {
+        // Prompt the user to select their preferred locale
+        builder.Prompts.choice(session, "What's your preferred language?", 'English|Espa?ol|Italiano');
+    },
+    function (session, results) {
+        // Update preferred locale
+        var locale;
+        switch (results.response.entity) {
+            case 'English':
+                locale = 'en';
+            case 'Espa?ol':
+                locale = 'es';
+            case 'Italiano':
+                locale = 'it';
+                break;
+        }
+        session.preferredLocale(locale, function (err) {
+            if (!err) {
+                // Locale files loaded
+                session.endDialog("Your preferred language is now %s.", results.response.entity);
+            } else {
+                // Problem loading the selected locale
+                session.error(err);
+            }
+        });
+    }
+]);
 
 
 var app = express();
