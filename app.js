@@ -69,8 +69,8 @@ bot.dialog('/', [
 
     },
     function (session, results) {
-        session.send("Your preferred language is now %s.", results.response.entity);
-        session.beginDialog('/askName');
+        //session.send("Your preferred language is now %s.", results.response.entity);
+        //session.beginDialog('/askName');
         //session.send('Hello %s!', results.response);
     }
 ]);
