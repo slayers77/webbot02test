@@ -43,8 +43,7 @@ var bot = new builder.UniversalBot(connector,[
         //session.endDialog(result.response.entity);
     },
     function (session, result) {
-        session.userData.language = result.response.entity;
-        sessin.send("Your preferred language is now %s.", session.userData.language);
+        sessin.send("Your preferred language is now %s.", result.response.entity);
     }
 
 ]);
