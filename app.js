@@ -106,30 +106,65 @@ bot.dialog('/', [
     }
 ]);
 
+
 bot.dialog('choiceLanguage', [
-
-    function (session) {
-        //var style = builder.ListStyle[button];
-        //builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean');
-        builder.Prompts.choice(session, "Choose a Language", "Yes|No", { listStyle: builder.ListStyle.button });
+         function (session) {
+        // Prompt the user to select their preferred locale 
+                 builder.Prompts.choice(session, "locale_prompt", 'English|Korean|');
+        
     },
-    function (session, results) {
-        alert('results.response.entity : ' + results.response.entity);
-        switch (results.response.entity) {
-
-            case 'English':
-                session.beginDialog('askNameEng');
-                
-            case 'Korean':
-                session.beginDialog('askNameKor');
-                
-            //default:
-            //    session.endDialog();
-                break;
-                
+         function (session, results) {
+                 // Update preferred locale 
+                 var locale;
+                 switch (results.response.entity) { 
+             case 'English': 
+                         locale = 'en';
+                         break;
+                     case 'Korean': 
+                         locale = 'es';
+                         break;
+    } 
+         session.preferredLocale(locale, function (err) {
+                     if (!err) {
+                             // Locale files loaded 
+                             session.endDialog('locale_updated');
+            
+        } else {
+                             // Problem loading the selected locale 
+                             session.error(err);
+            
         }
-    }
-]);
+    }); 
+     } 
+]); 
+
+
+
+
+//bot.dialog('choiceLanguage', [
+
+//    function (session) {
+//        //var style = builder.ListStyle[button];
+//        //builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean');
+//        builder.Prompts.choice(session, "Choose a Language", "English|Korean", { listStyle: builder.ListStyle.button });
+//    },
+//    function (session, results) {
+
+//        switch (results.response.entity) {
+
+//            case 'English':
+//                session.beginDialog('askNameEng');
+                
+//            case 'Korean':
+//                session.beginDialog('askNameKor');
+                
+//            //default:
+//            //    session.endDialog();
+//                break;
+                
+//        }
+//    }
+//]);
 
 
 
