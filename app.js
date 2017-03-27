@@ -62,18 +62,22 @@ server.post('/api/messages', connector.listen());
 //]);
 
 
-bot.dialog('/', [
-    function (session) {
+bot.dialog('/', new builder.IntentDialog()
+    .matches(/^hello/i || /^hi/i || /^«œ¿Ã/i || /^æ»≥Á/i , function (session) {
+        //session.send("Hi there!");
         session.send("Hello World from " + botenv);
         session.beginDialog('/askName');
 
-    },
+    })
+    .onDefault(function (session) {
+        session.send("I did not understand. Say Hello or hi or «œ¿Ã or æ»≥Á  to me!!!");
+    }),
     function (session, results) {
         //session.send("Your preferred language is now %s.", results.response.entity);
         //session.beginDialog('/askName');
         //session.send('Hello %s!', results.response);
     }
-]);
+);
 bot.dialog('/askName', [
     function (session) {
         builder.Prompts.text(session, 'What is your name?');
@@ -106,11 +110,24 @@ bot.dialog('/localePicker', [
             if (!err) {
                 // Locale files loaded
                 session.send("Your preferred language is now %s.", results.response.entity);
+                session.beginDialog('/askAge');
             } else {
                 // Problem loading the selected locale
                 session.error(err);
             }
         });
+    }
+]);
+
+
+bot.dialog('/askAge', [
+    function (session) {
+        builder.Prompts.text(session, 'What is your name?');
+    },
+    function (session, results) {
+        session.send('Hello %s!', results.response);
+        session.beginDialog('/localePicker');
+        //session.endDialog(results);
     }
 ]);
 
