@@ -134,7 +134,8 @@ bot.dialog('/askAgeKor', [
 ]);
 
 
-
+luisEngServer.create(bot);
+luisKorServer.create(bot);
 
 
 
@@ -161,5 +162,3 @@ app.get('/', function (req, res) {
 
 
 
-luisEngServer.create(bot);
-luisKorServer.create(bot);
