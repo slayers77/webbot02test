@@ -5,7 +5,7 @@ var express = require('express');
 var request = require('request');
 
 var luisEngServer = require('./LuisEnglishServer');
-//var luisKorServer = require('./LuisKoreanServer');
+var luisKorServer = require('./LuisKoreanServer');
 //=========================================================
 // Bot Setup
 //=========================================================
