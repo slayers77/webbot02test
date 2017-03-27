@@ -1,6 +1,12 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var express = require('express');
+
+var request = require('request');
+var iconv = require('iconv-lite');
+
+var luisEngServer = require('./LuisEnglishServer');
+var luisKorServer = require('./LuisKoreanServer');
 //=========================================================
 // Bot Setup
 //=========================================================
@@ -24,86 +30,30 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-
-// 첫번째
-//bot.dialog('/', [
-//    function (session) {
-//        session.send("Hello World from " + botenv);
-//        session.send( botenv + " 안녕!! 난 현대자동차 챗봇 부릉이야...");
-        
-//        session.beginDialog('/localePicker');
-
-//    },
-//    function (session, results) {
-//        //session.send("Your preferred language is now %s.", results.response.entity);
-//        //session.beginDialog('/askName');
-//        //session.send('Hello %s!', results.response);
-//    }
-//]);
-
-//bot.dialog('/localePicker', [
-//    function (session) {
-//        // Prompt the user to select their preferred locale
-//        builder.Prompts.choice(session, "Choice Your Language ? ", ["English","Korean"]);
-//    },
-//    function (session, results) {
-//        // Update preferred locale
-//        var locale;
-//        switch (results.response.entity) {
-//            case 'English':
-//                locale = 'en';
-//            case 'Korean':
-//                locale = 'kr';
-//                break;
-//        }
-//        //session.endDialog(result.response.entity);
-//        session.preferredLocale(locale, function (err) {
-//            if (!err) {
-//                // Locale files loaded
-//                session.send("Your preferred language is now %s.", results.response.entity);
-//                if (results.response.entity == "English") {
-//                    session.beginDialog('/askNameEng');
-//                }
-//                else if (results.response.entity == "Korean") {
-//                    session.beginDialog('/askNameKor');
-//                }
-                
-//            } else {
-//                // Problem loading the selected locale
-//                session.error(err);
-//            }
-//        });
-//    }
-//]);
-
-//bot.dialog('/askName', [
-//    function (session) {
-//        builder.Prompts.text(session, 'What is your name?');
-//    },
-//    function (session, results) {
-//        session.send('Hello %s!', results.response);
-//        session.beginDialog('/askAge');
-//        //session.endDialog(results);
-//    }
-//]);
-
-
-
-
-// 두번째
-
 bot.dialog('/', [
 
     function (session) {
-
-        session.send("안녕!! 난 현대자동차 챗봇 부릉이야 !!");
+        iconv.encodingExists("us-ascii");
+        session.send(iconv.decode("안녕!! 난 현대자동차 챗봇 부릉이야 !!",'win1251'));
         session.beginDialog('choiceLanguage');
 
     },
     function (session, results) {
 
-        //session.endConversation('Good Bye until next time...');
-        session.send("Your Choice ==> Language : " + session.userData.language + " Name : " + session.userData.name + " Age : " + session.userData.age);
+        if (session.userData.language == 'English') {
+
+            session.send("Your Choice Language : " + session.userData.language + "\n Your Name : " + session.userData.name + "\n Your Age : " + session.userData.age);
+            session.send("OK.. Let`s Go " + session.userData.name);
+            //luisEngServer.beginDialog(session); 
+
+
+        } else if (session.userData.language == 'Korean') {
+
+            session.send("당신이 선택한 언어 : " + session.userData.language + " 당신의 이름 : " + session.userData.name + " 당신의 연령대 : " + session.userData.age);
+            session.send("OK.. 부릉이를 시작해볼까요..!! " + session.userData.name + "님");
+            //luisKorServer.beginDialog(session); 
+
+        }
     }
 ]);
 
@@ -166,7 +116,6 @@ bot.dialog('/askAgeEng', [
     function (session, results) {
         session.send('Your AgeGroup :  %s!', results.response.entity);
         session.userData.age = results.response.entity;
-        //session.beginDialog('/askAgeEng');
         session.endDialog(results);
     }
 ]);
@@ -179,7 +128,6 @@ bot.dialog('/askAgeKor', [
     function (session, results) {
         session.send('당신의 연령대는 : %s!', results.response.entity);
         session.userData.age = results.response.entity;
-        //session.beginDialog('/askAgeKor');
         session.endDialog(results);
     }
 ]);
@@ -209,3 +157,8 @@ app.get('/', function (req, res) {
 		} 
 	});
 });
+
+
+
+luisEngServer.create(bot);
+luisKorServer.create(bot);
