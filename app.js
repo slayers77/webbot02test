@@ -40,7 +40,7 @@ bot.dialog('/', [
     function (session) {
         //iconv = new iconv
         //var str = new Buffer();
-        session.send(iconv.convert("안녕!! 난 현대자동차 챗봇 부릉이야 !!"));
+        //session.send(iconv.convert("안녕!! 난 현대자동차 챗봇 부릉이야 !!"));
         session.send("안녕!! 난 현대자동차 챗봇 부릉이야 !!");
         session.beginDialog('choiceLanguage');
 
