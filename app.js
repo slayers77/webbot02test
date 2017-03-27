@@ -26,66 +26,66 @@ server.post('/api/messages', connector.listen());
 
 
 // Ã¹¹øÂ°
-bot.dialog('/', [
-    function (session) {
-        session.send("Hello World from " + botenv);
-        session.send( botenv + " ¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß...");
+//bot.dialog('/', [
+//    function (session) {
+//        session.send("Hello World from " + botenv);
+//        session.send( botenv + " ¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß...");
         
-        session.beginDialog('/localePicker');
+//        session.beginDialog('/localePicker');
 
-    },
-    function (session, results) {
-        //session.send("Your preferred language is now %s.", results.response.entity);
-        //session.beginDialog('/askName');
-        //session.send('Hello %s!', results.response);
-    }
-]);
+//    },
+//    function (session, results) {
+//        //session.send("Your preferred language is now %s.", results.response.entity);
+//        //session.beginDialog('/askName');
+//        //session.send('Hello %s!', results.response);
+//    }
+//]);
 
-bot.dialog('/localePicker', [
-    function (session) {
-        // Prompt the user to select their preferred locale
-        builder.Prompts.choice(session, "Choice Your Language ? ", ["English","Korean"]);
-    },
-    function (session, results) {
-        // Update preferred locale
-        var locale;
-        switch (results.response.entity) {
-            case 'English':
-                locale = 'en';
-            case 'Korean':
-                locale = 'kr';
-                break;
-        }
-        //session.endDialog(result.response.entity);
-        session.preferredLocale(locale, function (err) {
-            if (!err) {
-                // Locale files loaded
-                session.send("Your preferred language is now %s.", results.response.entity);
-                if (results.response.entity == "English") {
-                    session.beginDialog('/askNameEng');
-                }
-                else if (results.response.entity == "Korean") {
-                    session.beginDialog('/askNameKor');
-                }
+//bot.dialog('/localePicker', [
+//    function (session) {
+//        // Prompt the user to select their preferred locale
+//        builder.Prompts.choice(session, "Choice Your Language ? ", ["English","Korean"]);
+//    },
+//    function (session, results) {
+//        // Update preferred locale
+//        var locale;
+//        switch (results.response.entity) {
+//            case 'English':
+//                locale = 'en';
+//            case 'Korean':
+//                locale = 'kr';
+//                break;
+//        }
+//        //session.endDialog(result.response.entity);
+//        session.preferredLocale(locale, function (err) {
+//            if (!err) {
+//                // Locale files loaded
+//                session.send("Your preferred language is now %s.", results.response.entity);
+//                if (results.response.entity == "English") {
+//                    session.beginDialog('/askNameEng');
+//                }
+//                else if (results.response.entity == "Korean") {
+//                    session.beginDialog('/askNameKor');
+//                }
                 
-            } else {
-                // Problem loading the selected locale
-                session.error(err);
-            }
-        });
-    }
-]);
+//            } else {
+//                // Problem loading the selected locale
+//                session.error(err);
+//            }
+//        });
+//    }
+//]);
 
-bot.dialog('/askName', [
-    function (session) {
-        builder.Prompts.text(session, 'What is your name?');
-    },
-    function (session, results) {
-        session.send('Hello %s!', results.response);
-        session.beginDialog('/askAge');
-        //session.endDialog(results);
-    }
-]);
+//bot.dialog('/askName', [
+//    function (session) {
+//        builder.Prompts.text(session, 'What is your name?');
+//    },
+//    function (session, results) {
+//        session.send('Hello %s!', results.response);
+//        session.beginDialog('/askAge');
+//        //session.endDialog(results);
+//    }
+//]);
 
 
 
