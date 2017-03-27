@@ -110,7 +110,8 @@ bot.dialog('choiceLanguage', [
 
     function (session) {
         //var style = builder.ListStyle[button];
-        builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean');
+        //builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean');
+        builder.Prompts.choice(session, "Choose a Language", "Yes|No", { listStyle: builder.ListStyle.button });
     },
     function (session, results) {
         alert('results.response.entity : ' + results.response.entity);
