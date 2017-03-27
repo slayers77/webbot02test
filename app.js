@@ -101,7 +101,7 @@ bot.dialog('/localePicker', [
                 locale = 'kr';
                 break;
         }
-        session.endDialog(result.response.entity);
+        //session.endDialog(result.response.entity);
         session.preferredLocale(locale, function (err) {
             if (!err) {
                 // Locale files loaded
