@@ -115,16 +115,16 @@ bot.dialog('choiceLanguage', [
     },
          function (session, results) {
                  // Update preferred locale 
-                 var locale;
-                 switch (results.response.entity) { 
-             case 'English': 
-                         locale = 'eng';
-                         break;
-                     case 'Korean': 
-                         locale = 'kor';
-                         break;
-    } 
-         session.preferredLocale(locale, function (err) {
+    //             var locale;
+    //             switch (results.response.entity) { 
+    //         case 'English': 
+    //                     locale = 'eng';
+    //                     break;
+    //                 case 'Korean': 
+    //                     locale = 'kor';
+    //                     break;
+    //} 
+    session.preferredLocale(results.response.entity, function (err) {
         if (!err) {
                     // Locale files loaded 
                 session.send("Your preferred language is now %s.", results.response.entity);
