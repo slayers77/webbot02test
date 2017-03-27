@@ -110,16 +110,16 @@ bot.dialog('choiceLanguage', [
 
     function (session) {
 
-        builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean ');
+        builder.Prompts.choice(session, "Choose a Language : ", ["English","Korean"] );
     },
     function (session, results) {
 
-        switch (results.response.index) {
+        switch (results.response.entity) {
 
-            case 0:
+            case "English":
                 session.beginDialog('askNameEng');
                 break;
-            case 1:
+            case "Korean":
                 session.beginDialog('askNameKor');
                 break;
             default:
