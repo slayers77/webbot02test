@@ -113,7 +113,7 @@ bot.dialog('choiceLanguage', [
         builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean');
     },
     function (session, results) {
-
+        alert('results.response.entity : ' + results.response.entity);
         switch (results.response.entity) {
 
             case 'English':
