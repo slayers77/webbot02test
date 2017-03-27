@@ -102,7 +102,7 @@ bot.dialog('/', [
     },
     function (session, results) {
 
-        session.endConversation('Good Bye until next time...');
+        //session.endConversation('Good Bye until next time...');
     }
 ]);
 
@@ -110,66 +110,25 @@ bot.dialog('/', [
 bot.dialog('choiceLanguage', [
          function (session) {
         // Prompt the user to select their preferred locale 
-                 builder.Prompts.choice(session, "Choose Your Language : ", 'English|Korean');
+             builder.Prompts.choice(session, "Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
         
     },
          function (session, results) {
-                 // Update preferred locale 
-    //             var locale;
-    //             switch (results.response.entity) { 
-    //         case 'English': 
-    //                     locale = 'eng';
-    //                     break;
-    //                 case 'Korean': 
-    //                     locale = 'kor';
-    //                     break;
-    //} 
-    session.preferredLocale(results.response.entity, function (err) {
-        if (!err) {
-                    // Locale files loaded 
-                session.send("Your preferred language is now %s.", results.response.entity);
-            if (results.response.entity == "English") {
-                session.beginDialog('/askNameEng');
+            session.preferredLocale(results.response.entity, function (err) {
+            if (!err) {
+                    session.send("Your Choice Language %s.", results.response.entity);
+                if (results.response.entity == "English") {
+                    session.beginDialog('/askNameEng');
+                }
+                else if (results.response.entity == "Korean") {
+                    session.beginDialog('/askNameKor');
+                }
+            } else {
+                    session.error(err);
             }
-            else if (results.response.entity == "Korean") {
-                session.beginDialog('/askNameKor');
-            }
-        } else {
-                // Problem loading the selected locale 
-                session.error(err);
-        }
-    }); 
+        }); 
      } 
 ]); 
-
-
-
-
-//bot.dialog('choiceLanguage', [
-
-//    function (session) {
-//        //var style = builder.ListStyle[button];
-//        //builder.Prompts.choice(session, "Choose a Language : ", 'English|Korean');
-//        builder.Prompts.choice(session, "Choose a Language", "English|Korean", { listStyle: builder.ListStyle.button });
-//    },
-//    function (session, results) {
-
-//        switch (results.response.entity) {
-
-//            case 'English':
-//                session.beginDialog('askNameEng');
-                
-//            case 'Korean':
-//                session.beginDialog('askNameKor');
-                
-//            //default:
-//            //    session.endDialog();
-//                break;
-                
-//        }
-//    }
-//]);
-
 
 
 bot.dialog('/askNameEng', [
@@ -178,7 +137,7 @@ bot.dialog('/askNameEng', [
     },
     function (session, results) {
         session.send('Hello %s!', results.response);
-        //session.beginDialog('/askAgeEng');
+        session.beginDialog('/askAgeEng');
         //session.endDialog(results);
     }
 ]);
@@ -190,10 +149,39 @@ bot.dialog('/askNameKor', [
     },
     function (session, results) {
         session.send('æ»≥Á %s!', results.response);
-        //session.beginDialog('/askAgeKor');
+        session.beginDialog('/askAgeKor');
         //session.endDialog(results);
     }
 ]);
+
+bot.dialog('/askAgeEng', [
+    function (session) {
+        builder.Prompts.text(session, 'What is your Age?');
+    },
+    function (session, results) {
+        session.send('Hello %s!', results.response);
+        //session.beginDialog('/askAgeEng');
+        session.endDialog(results);
+    }
+]);
+
+
+bot.dialog('/askAgeKor', [
+    function (session) {
+        builder.Prompts.text(session, '¥ÁΩ≈¿« ø¨∑…¿∫?');
+    },
+    function (session, results) {
+        session.send('æ»≥Á %s!', results.response);
+        //session.beginDialog('/askAgeKor');
+        session.endDialog(results);
+    }
+]);
+
+
+
+
+
+
 
 
 
