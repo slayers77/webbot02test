@@ -1,7 +1,8 @@
 ﻿
+var builder = require('botbuilder');
 
 exports.beginDialog = function (session, options) {
-    session.beginDialog('luisEngServer', options || {});
+    session.beginDialog('luisEngServer', options);
 
 } 
 
