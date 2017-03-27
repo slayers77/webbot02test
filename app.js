@@ -127,7 +127,7 @@ bot.dialog('choiceLanguage', [
          session.preferredLocale(locale, function (err) {
                      if (!err) {
                              // Locale files loaded 
-                             session.endDialog('locale_updated');
+                         session.endDialog(locale + 'locale_updated');
             
         } else {
                              // Problem loading the selected locale 
