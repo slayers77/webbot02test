@@ -163,5 +163,5 @@ app.get('/', function (req, res) {
 
 
 
-luisEngServer.create(bot);
-luisKorServer.create(bot);
+//luisEngServer.create(bot);
+//luisKorServer.create(bot);
