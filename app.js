@@ -103,6 +103,7 @@ bot.dialog('/', [
     function (session, results) {
 
         //session.endConversation('Good Bye until next time...');
+        session.send("Your Choice ==> Language : " + session.userData.language + " Name : " + session.userData.name + " Age : " + session.userData.age);
     }
 ]);
 
@@ -116,7 +117,8 @@ bot.dialog('choiceLanguage', [
          function (session, results) {
             session.preferredLocale(results.response.entity, function (err) {
             if (!err) {
-                    session.send("Your Choice Language %s.", results.response.entity);
+                session.send("Your Choice Language %s.", results.response.entity);
+                session.userData.language = results.response.entity;
                 if (results.response.entity == "English") {
                     session.beginDialog('/askNameEng');
                 }
@@ -137,6 +139,7 @@ bot.dialog('/askNameEng', [
     },
     function (session, results) {
         session.send('Hello %s!', results.response);
+        session.userData.name = results.response;
         session.beginDialog('/askAgeEng');
         //session.endDialog(results);
     }
@@ -149,6 +152,7 @@ bot.dialog('/askNameKor', [
     },
     function (session, results) {
         session.send('¾È³ç %s!', results.response);
+        session.userData.name = results.response;
         session.beginDialog('/askAgeKor');
         //session.endDialog(results);
     }
@@ -160,6 +164,7 @@ bot.dialog('/askAgeEng', [
     },
     function (session, results) {
         session.send('Hello %s!', results.response);
+        session.userData.age = results.response;
         //session.beginDialog('/askAgeEng');
         session.endDialog(results);
     }
@@ -172,6 +177,7 @@ bot.dialog('/askAgeKor', [
     },
     function (session, results) {
         session.send('¾È³ç %s!', results.response);
+        session.userData.age = results.response;
         //session.beginDialog('/askAgeKor');
         session.endDialog(results);
     }
