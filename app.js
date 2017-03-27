@@ -33,7 +33,7 @@ bot.dialog('/', [
 
     function (session) {
 
-        session.send("안녕!! 난 현대자동차 챗봇 부릉이야 !!");
+        session.send("HI..");
         session.beginDialog('choiceLanguage');
 
     },
@@ -42,15 +42,15 @@ bot.dialog('/', [
         if (session.userData.language == 'English') {
 
             session.send("Your Choice Language : " + session.userData.language + "\n Your Name : " + session.userData.name + "\n Your Age : " + session.userData.age);
-            session.send("OK.. Let`s Go " + session.userData.name);
+            session.send("OK.. Let`s Go Grandizer..!!" + session.userData.name);
             luisEngServer.beginDialog(session); 
 
 
         } else if (session.userData.language == 'Korean') {
 
             session.send("당신이 선택한 언어 : " + session.userData.language + " 당신의 이름 : " + session.userData.name + " 당신의 연령대 : " + session.userData.age);
-            session.send("OK.. 부릉이를 시작해볼까요..!! " + session.userData.name + "님");
-            //luisKorServer.beginDialog(session); 
+            session.send("OK.. 그랜다이저를 시작해볼까요..!! " + session.userData.name + "님");
+            luisKorServer.beginDialog(session); 
 
         }
     }
@@ -60,7 +60,7 @@ bot.dialog('/', [
 bot.dialog('choiceLanguage', [
          function (session) {
         // Prompt the user to select their preferred locale 
-             builder.Prompts.choice(session, "Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
+             builder.Prompts.choice(session, "Hi.. Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
         
     },
          function (session, results) {
@@ -69,9 +69,11 @@ bot.dialog('choiceLanguage', [
                 session.send("Your Choice Language %s.", results.response.entity);
                 session.userData.language = results.response.entity;
                 if (results.response.entity == "English") {
+                    session.send("Hi!! I`m Hyundai Motors ChatBot  Grandizer!!");
                     session.beginDialog('/askNameEng');
                 }
                 else if (results.response.entity == "Korean") {
+                    session.send("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!");
                     session.beginDialog('/askNameKor');
                 }
             } else {
@@ -160,4 +162,4 @@ app.get('/', function (req, res) {
 
 
 luisEngServer.create(bot);
-//luisKorServer.create(bot);
+luisKorServer.create(bot);
