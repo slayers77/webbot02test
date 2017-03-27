@@ -161,10 +161,11 @@ bot.dialog('/askNameKor', [
 bot.dialog('/askAgeEng', [
     function (session) {
         builder.Prompts.text(session, 'What is your Age?');
+        builder.Prompts.choice(session, 'What is your Age Group?', '10~20 AgeGroup|30 AgeGroup|40 AgeGroup|50 AgeGroup| 60 Over AgeGroup', { listStyle: builder.ListStyle.button });
     },
     function (session, results) {
-        session.send('Hello %s!', results.response);
-        session.userData.age = results.response;
+        session.send('Your AgeGroup :  %s!', results.response.entity);
+        session.userData.age = results.response.entity;
         //session.beginDialog('/askAgeEng');
         session.endDialog(results);
     }
@@ -173,11 +174,11 @@ bot.dialog('/askAgeEng', [
 
 bot.dialog('/askAgeKor', [
     function (session) {
-        builder.Prompts.text(session, '당신의 연령은?');
+        builder.Prompts.text(session, '당신의 연령대는?', '10~20대|30대|40대|50대|60대이상', { listStyle: builder.ListStyle.button });
     },
     function (session, results) {
-        session.send('안녕 %s!', results.response);
-        session.userData.age = results.response;
+        session.send('당신의 연령대는 : %s!', results.response.entity);
+        session.userData.age = results.response.entity;
         //session.beginDialog('/askAgeKor');
         session.endDialog(results);
     }
