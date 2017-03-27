@@ -43,7 +43,7 @@ bot.dialog('/', [
 
             session.send("Your Choice Language : " + session.userData.language + "\n Your Name : " + session.userData.name + "\n Your Age : " + session.userData.age);
             session.send("OK.. Let`s Go " + session.userData.name);
-            luisEngServer.beginDialog(session); 
+            //luisEngServer.beginDialog(session); 
 
 
         } else if (session.userData.language == 'Korean') {
@@ -159,5 +159,5 @@ app.get('/', function (req, res) {
 
 
 
-luisEngServer.create(bot);
+//luisEngServer.create(bot);
 //luisKorServer.create(bot);
