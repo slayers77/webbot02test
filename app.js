@@ -24,39 +24,39 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-//var bot = new builder.UniversalBot(connector,[
+//var bot = new builder.universalbot(connector,[
 
 //    function (session) {
-//        session.send("Hello World from " + botenv);
-//        builder.Prompts.choice(session, "Hello What is your preferred language?", 'English|Korean');
+//        session.send("hello world from " + botenv);
+//        builder.prompts.choice(session, "hello what is your preferred language?", ["english","korean"]);
 //    },
 //    function (session, results) {
 
 //        var locale;
 //        switch (results.response.entity) {
-//            case 'English':
+//            case 'english':
 //                locale = 'en';
-//            case 'Korean':
+//            case 'korean':
 //                locale = 'kr';
 //                break;
 //        }
-//        //session.endDialog(result.response.entity);
+//        //session.enddialog(result.response.entity);
 //    },
 //    function (session, result) {
-//        session.preferredLocale(locale, function (err) {
+//        session.preferredlocale(locale, function (err) {
 //            if (!err) {
-//                // Locale files loaded
-//                session.endDialog("Your preferred language is now %s.", results.response.entity);
+//                // locale files loaded
+//                session.enddialog("your preferred language is now %s.", results.response.entity);
 //            } else {
-//                // Problem loading the selected locale
+//                // problem loading the selected locale
 //                session.error(err);
 //            }
 //        });
-//        builder.Prompts.text(session, 'What is your name?');
+//        builder.prompts.text(session, 'what is your name?');
 //    },
 //    function (session, results) {
-//        session.send('Hello %s!', results.response);
-//        session.endDialog(results);
+//        session.send('hello %s!', results.response);
+//        session.enddialog(results);
 //    }
 
 //]);
@@ -80,7 +80,8 @@ bot.dialog('/askName', [
     },
     function (session, results) {
         session.send('Hello %s!', results.response);
-        session.endDialog(results);
+        session.beginDialog('/localePicker');
+        //session.endDialog(results);
     }
 ]);
 
@@ -88,7 +89,7 @@ bot.dialog('/askName', [
 bot.dialog('/localePicker', [
     function (session) {
         // Prompt the user to select their preferred locale
-        builder.Prompts.choice(session, "What is your preferred language?", 'English|Korean');
+        builder.Prompts.choice(session, "What is your preferred language?", ["English","Korean"]);
     },
     function (session, results) {
         // Update preferred locale
