@@ -7,7 +7,7 @@ exports.beginDialog = function (session, options) {
 
 
 exports.create = function (bot) {
-    bot.dialog('/', [
+    bot.dialog('luisEngServer', [
         function (session) {
             builder.Prompts.choice(session, 'What do you want menu?', 'testDrive|Design|Convenience|Price', { listStyle: builder.ListStyle.button });
         },
