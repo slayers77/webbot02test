@@ -110,7 +110,7 @@ bot.dialog('/', [
 bot.dialog('choiceLanguage', [
          function (session) {
         // Prompt the user to select their preferred locale 
-                 builder.Prompts.choice(session, "locale_prompt", 'English|Korean|');
+                 builder.Prompts.choice(session, "Choose Your Language : ", 'English|Korean');
         
     },
          function (session, results) {
@@ -118,21 +118,25 @@ bot.dialog('choiceLanguage', [
                  var locale;
                  switch (results.response.entity) { 
              case 'English': 
-                         locale = 'en';
+                         locale = 'eng';
                          break;
                      case 'Korean': 
-                         locale = 'es';
+                         locale = 'kor';
                          break;
     } 
          session.preferredLocale(locale, function (err) {
-                     if (!err) {
-                             // Locale files loaded 
-                         session.endDialog(locale + 'locale_updated');
-            
+        if (!err) {
+                    // Locale files loaded 
+                session.send("Your preferred language is now %s.", results.response.entity);
+            if (results.response.entity == "English") {
+                session.beginDialog('/askNameEng');
+            }
+            else if (results.response.entity == "Korean") {
+                session.beginDialog('/askNameKor');
+            }
         } else {
-                             // Problem loading the selected locale 
-                             session.error(err);
-            
+                // Problem loading the selected locale 
+                session.error(err);
         }
     }); 
      } 
