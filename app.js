@@ -5,6 +5,10 @@ var express = require('express');
 var request = require('request');
 var iconv = require('iconv-lite');
 
+var Iconv = require('iconv').Iconv;
+var iconv = new Iconv('euc-kr', 'utf-8//translit//ignore');
+
+
 
 var luisEngServer = require('./LuisEnglishServer');
 var luisKorServer = require('./LuisKoreanServer');
@@ -36,7 +40,7 @@ bot.dialog('/', [
     function (session) {
         //iconv = new iconv
         //var str = new Buffer();
-        session.send(iconv.decode("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!", 'EUC-KR').toString);
+        session.send(iconv.convert("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!"));
         session.send("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!");
         session.beginDialog('choiceLanguage');
 
