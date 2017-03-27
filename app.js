@@ -36,7 +36,8 @@ bot.dialog('/', [
     function (session) {
         //iconv = new iconv
         //var str = new Buffer();
-        session.send(iconv.decode("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!", 'EUC-KR').toString);
+        //session.send(iconv.decode("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!", 'EUC-KR').toString);
+        session.send("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!");
         session.beginDialog('choiceLanguage');
 
     },
