@@ -5,6 +5,7 @@ var express = require('express');
 var request = require('request');
 var iconv = require('iconv-lite');
 
+
 var luisEngServer = require('./LuisEnglishServer');
 var luisKorServer = require('./LuisKoreanServer');
 //=========================================================
@@ -33,8 +34,9 @@ server.post('/api/messages', connector.listen());
 bot.dialog('/', [
 
     function (session) {
-        iconv.encodingExists("us-ascii");
-        session.send(iconv.decode("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!",'win1251'));
+        //iconv = new iconv
+        //var str = new Buffer();
+        session.send(iconv.decode("¾È³ç!! ³­ Çö´ëÀÚµ¿Â÷ Ãªº¿ ºÎ¸ªÀÌ¾ß !!", 'EUC-KR').toString);
         session.beginDialog('choiceLanguage');
 
     },
