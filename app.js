@@ -105,7 +105,7 @@ bot.dialog('/localePicker', [
         session.preferredLocale(locale, function (err) {
             if (!err) {
                 // Locale files loaded
-                session.endDialog("Your preferred language is now %s.", results.response.entity);
+                session.send("Your preferred language is now %s.", results.response.entity);
             } else {
                 // Problem loading the selected locale
                 session.error(err);
