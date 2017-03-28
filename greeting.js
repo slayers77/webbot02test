@@ -1,4 +1,5 @@
-﻿
+﻿var builder = require('botbuilder');
+
 exports.create = function (bot) {
 
     bot.dialog('/', [
