@@ -80,7 +80,11 @@ exports.create = function (bot) {
                 builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
 
             }
-        },
+        }
+    ]);
+
+
+    bot.dialog('/시승', [
         function (session, results) {
 
             if (session.userData.language == 'English') {
@@ -109,8 +113,8 @@ exports.create = function (bot) {
                 if (results.response.entity == '시승') {
                     session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                     //korTestDrive.beginDialog(session, bot);
-                    korTestDrive.create(bot);
-                    session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
+                    //korTestDrive.create(bot);
+                    //session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
                 }
                 else if (results.response.entity == '디자인') {
                     korDesign.beginDialog(session);
@@ -127,6 +131,7 @@ exports.create = function (bot) {
 
             }
         }
-    ])
+
+    ]);
 }
 
