@@ -1,13 +1,13 @@
 ﻿
 var builder = require('botbuilder');
 
-exports.beginDialog = function (session, options) {
-    session.beginDialog('korTestDrive', options);
+//exports.beginDialog = function (session, options) {
+//    session.beginDialog('korTestDrive', options);
 
-}
+//}
 
 
-exports.create = function (bot) {
+exports.create = function (bot, session) {
 
     bot.dialog('korTestDrive', [
 
