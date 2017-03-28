@@ -36,9 +36,9 @@ var dialog = new builder.LuisDialog('https://westus.api.cognitive.microsoft.com/
     //=========================================================
 
 
-bot.dialog('/', dialog);
-console.log('111111111111');
-dialog.on('none', [
+//bot.dialog('/', dialog);
+//console.log('111111111111');
+bot.dialog('/', [
 
     function (session) {
 
