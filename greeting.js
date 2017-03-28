@@ -1,18 +1,24 @@
 ﻿var builder = require('botbuilder');
 
-var korTestDrive = require('./testDriveKor');
-var korConvenience = require('./convenienceKor');
-var korDesign = require('./designKor');
-var korPrice = require('./priceKor');
+//var korTestDrive = require('./testDriveKor');
+//var korConvenience = require('./convenienceKor');
+//var korDesign = require('./designKor');
+//var korPrice = require('./priceKor');
 
-var engTestDrive = require('./testDriveEng');
-var engConvenience = require('./convenienceEng');
-var engDesign = require('./designEng');
-var engPrice = require('./priceEng');
+//var engTestDrive = require('./testDriveEng');
+//var engConvenience = require('./convenienceEng');
+//var engDesign = require('./designEng');
+//var engPrice = require('./priceEng');
+
+
+exports.beginDialog = function (session, options) {
+    session.beginDialog('greeting', options);
+} 
+
 
 exports.create = function (bot) {
     
-    bot.dialog('/', [
+    bot.dialog('greeting', [
 
     function (session) {
 
@@ -116,11 +122,11 @@ exports.create = function (bot) {
 }
 
 
-korTestDrive.create(bot);
-korConvenience.create(bot);
-korDesign.create(bot);
-korPrice.create(bot);
-engTestDrive.create(bot);
-engConvenience.create(bot);
-engDesign.create(bot);
-engPrice.create(bot);
+//korTestDrive.create(bot);
+//korConvenience.create(bot);
+//korDesign.create(bot);
+//korPrice.create(bot);
+//engTestDrive.create(bot);
+//engConvenience.create(bot);
+//engDesign.create(bot);
+//engPrice.create(bot);
