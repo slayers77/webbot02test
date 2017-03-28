@@ -1,7 +1,17 @@
 ﻿var builder = require('botbuilder');
 
-exports.create = function (bot) {
+var korTestDrive = require('testDriveKor');
+var korConvenience = require('convenienceKor');
+var korDesign = require('designKor');
+var korPrice = require('priceKor');
 
+var engTestDrive = require('testDriveEng');
+var engConvenience = require('convenienceEng');
+var engDesign = require('designEng');
+var engPrice = require('priceEng');
+
+exports.create = function (bot) {
+    
     bot.dialog('/', [
 
     function (session) {
@@ -70,17 +80,48 @@ exports.create = function (bot) {
 
         if (session.userData.language == 'English') {
 
-            session.send('Your Select menu :  %s!', results.response.entity);
-            
+            //session.send('Your Select menu :  %s!', results.response.entity);
+            if (results.response.entity == 'testDrive') {
+                engTestDrive.beginDialog(session);
+            }
+            else if (results.response.entity == 'Design') {
+                engDesign.beginDialog(session);
+            }
+            else if (results.response.entity == 'Convenience') {
+                engConvenience.beginDialog(session);
+            }
+            else if (results.response.entity == 'Price') {
+                engPrice.beginDialog(session);
+            }
 
         } else if (session.userData.language == 'Korean') {
 
             session.send('당신의 선택 메뉴 : %s!', results.response.entity);
-            if (results.response.entity == '시승') { }
-            else if (results.response.entity == '디자인') { }
-            else if (results.response.entity == '편의사항') { }
-            else if (results.response.entity == '가격') { }
+            if (results.response.entity == '시승') {
+                korTestDrive.beginDialog(session);
+            }
+            else if (results.response.entity == '디자인') {
+                korDesign.beginDialog(session);
+            }
+            else if (results.response.entity == '편의사항') {
+                korConvenience.beginDialog(session);
+            }
+            else if (results.response.entity == '가격') {
+                korPrice.beginDialog(session);
+            }
         }
     }
-]);
+    ]);
+
+
+    korTestDrive.create(bot);
+    korConvenience.create(bot);
+    korDesign.create(bot);
+    korPrice.create(bot);
+    engTestDrive.create(bot);
+    engConvenience.create(bot);
+    engDesign.create(bot);
+    engPrice.create(bot);
 }
+
+
