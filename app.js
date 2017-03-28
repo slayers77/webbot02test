@@ -25,17 +25,14 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("Hi... I am chatbot!!");
-});
+var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 
 
-//var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11';
-//var recognizer = new builder.LuisRecognizer(model);
-//var luisDialog = new builder.IntentDialog({ recognizers: [recognizer] }); 
-
-//bot.dialog('/', luisDialog);
+    var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11';
+    var recognizer = new builder.LuisRecognizer(model);
+    //var luisDialog = new builder.IntentDialog({ recognizers: [recognizer] }); 
+    bot.recognizer(recognizer);
 
 
 //=========================================================

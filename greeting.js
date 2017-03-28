@@ -12,11 +12,12 @@ var engPrice = require('./priceEng');
 
 exports.create = function (bot) {
 
-    var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11';
-    var recognizer = new builder.LuisRecognizer(model);
-    var luisDialog = new builder.IntentDialog({ recognizers: [recognizer] }); 
+    //var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11';
+    //var recognizer = new builder.LuisRecognizer(model);
+    ////var luisDialog = new builder.IntentDialog({ recognizers: [recognizer] }); 
+    //bot.recognizer(recognizer);
 
-    bot.dialog('/greeting', [
+    bot.dialog('greeting', [
 
         function (session) {
 
@@ -127,8 +128,7 @@ exports.create = function (bot) {
             }
         }
     ]).triggerAction({
-        matches: 'greeting',
-        confirmPrompt: "This will cancel the current alarm. Are you sure?"
+        matches: 'greeting'
     });
 }
 
