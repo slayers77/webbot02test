@@ -19,7 +19,7 @@ var builder = require('botbuilder');
     
 
 
-exports.create = function (bot, session) {
+exports.create = function (bot) {
 
     bot.dialog('/', [
 

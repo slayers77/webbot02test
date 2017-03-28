@@ -103,7 +103,7 @@ exports.create = function (bot) {
                 //session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                 if (results.response.entity == '시승') {
                     //korTestDrive.beginDialog(session, bot);
-                    korTestDrive.create(bot, session);
+                    korTestDrive.create(bot);
                 }
                 else if (results.response.entity == '디자인') {
                     korDesign.beginDialog(session);
