@@ -8,14 +8,19 @@ exports.beginDialog = function (session, options) {
 
 
 exports.create = function (bot) {
-    bot.dialog('luisKorServer', [
-        function (session) {
-            builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요?', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
-        },
-        function (session, results) {
-            session.send('당신이 선택한 메뉴는 : %s!', results.response.entity);
-            session.userData.menu = results.response.entity;
-            session.endDialog(results);
+
+    //var LuisKorModel = process.env.LuisKorModel || 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11';
+    //bot.recognizer(new builder.LuisRecognizer(LuisKorModel));
+    var dialog = new builder.LuisDialog('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11');
+
+    //bot.add('/', dialog);
+
+    bot.dialog('시승', [
+
+        function (session, args, next) {
+            var entity = builder.EntityRecognizer.findEntity(args.entities,'메인::시승');
+            //var entity = builder.EntityRecognizer.findEntity(args.intent.entities, '메인주제::시승');
+            console.log('entity : ' + entity);
         }
     ]);
 }

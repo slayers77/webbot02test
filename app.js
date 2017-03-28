@@ -31,9 +31,9 @@ server.post('/api/messages', connector.listen());
 
 bot.dialog('/', [
 
-    function (session) {
+    function (session,args,next) {
 
-        session.send("HI..");
+        //session.send("HI..");
         session.beginDialog('choiceLanguage');
 
     },
@@ -43,16 +43,20 @@ bot.dialog('/', [
 
             session.send("Your Choice Language : " + session.userData.language + "\n Your Name : " + session.userData.name + "\n Your Age : " + session.userData.age);
             session.send("OK.. Let`s Go Grandizer..!!" + session.userData.name);
-            luisEngServer.beginDialog(session); 
+            session.beginDialog('/luisEngServer');
+            
 
 
         } else if (session.userData.language == 'Korean') {
 
-            session.send("당신이 선택한 언어 : " + session.userData.language + " 당신의 이름 : " + session.userData.name + " 당신의 연령대 : " + session.userData.age);
-            session.send("OK.. 그랜다이저를 시작해볼까요..!! " + session.userData.name + "님");
-            luisKorServer.beginDialog(session); 
+            //session.send("당신이 선택한 언어 : %s" + session.userData.language + " 당신의 이름 : " + session.userData.name + " 당신의 연령대 : " + session.userData.age);
+            session.send("당신이 선택한 언어 : %s  당신의 이름 : %s  당신의 연령대 : %s", session.userData.language, session.userData.name ,session.userData.age);
+            session.send("OK.. 그랜다이저를 시작해볼까요..!! %s 님", session.userData.name);
+            session.beginDialog('/luisKorServer');
+            
 
         }
+
     }
 ]);
 
@@ -60,7 +64,9 @@ bot.dialog('/', [
 bot.dialog('choiceLanguage', [
          function (session) {
         // Prompt the user to select their preferred locale 
-             builder.Prompts.choice(session, "Hi.. Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
+             //builder.Prompts.choice(session, "Hi.. Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
+             builder.Prompts.choice(session, "Hi.. Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.inline });
+             //builder.Prompts.choice(session, "Hi.. Choose Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.list });
         
     },
          function (session, results) {
@@ -132,6 +138,34 @@ bot.dialog('/askAgeKor', [
         session.endDialog(results);
     }
 ]);
+
+
+
+
+
+bot.dialog('luisKorServer', [
+    function (session) {
+        builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요?', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
+    },
+    function (session, results) {
+        session.send('당신이 선택한 메뉴는 : %s!', results.response.entity);
+        session.userData.menu = results.response.entity;
+        luisKorServer.beginDialog(session);
+    }
+]);
+
+bot.dialog('luisEngServer', [
+    function (session) {
+        builder.Prompts.choice(session, 'What do you want menu?', 'testDrive|Design|Convenience|Price', { listStyle: builder.ListStyle.button });
+    },
+    function (session, results) {
+        session.send('Your Choice Menu : %s!', results.response.entity);
+        session.userData.menu = results.response.entity;
+        //luisEngServer.beginDialog(session); 
+    }
+]);
+
+
 
 
 luisEngServer.create(bot);
