@@ -51,7 +51,7 @@ exports.create = function (bot) {
 
             session.send('Your AgeGroup :  %s!', results.response.entity);
             //session.userData.age = results.response.entity;
-            ession.send("Your Choice Language : " + session.userData.language + "\n Your Name : " + session.userData.name + "\n Your Age : " + results.response.entity);
+            ession.send("Your Choice Language : " + session.userData.language + " Your Name : " + session.userData.name + " Your Age : " + results.response.entity);
             session.send("OK.. Let`s Go Grandizer..!!" + session.userData.name);
             builder.Prompts.choice(session, 'What do you want menu?', 'testDrive|Design|Convenience|Price', { listStyle: builder.ListStyle.button });
 
