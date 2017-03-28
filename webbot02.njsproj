@@ -17,6 +17,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Compile Include="app - Copy.js" />
+    <Compile Include="greeting.js" />
     <Compile Include="LuisEnglishServer.js" />
     <Compile Include="LuisKoreanServer.js" />
     <Content Include="index.html" />
