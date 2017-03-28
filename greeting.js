@@ -12,7 +12,7 @@ var engPrice = require('./priceEng');
 
 exports.create = function (bot) {
 
-    bot.dialog('greeding', [
+    bot.dialog('/', [
 
         function (session) {
 
