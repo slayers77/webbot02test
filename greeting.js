@@ -127,8 +127,6 @@ exports.create = function (bot) {
 
             }
         }
-    ]).triggerAction({
-        matches: 'greeting'
-    });
+    ])
 }
 
