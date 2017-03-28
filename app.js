@@ -4,8 +4,8 @@ var express = require('express');
 
 var request = require('request');
 
-var luisEngServer = require('./LuisEnglishServer');
-var luisKorServer = require('./LuisKoreanServer');
+//var luisEngServer = require('./LuisEnglishServer');
+//var luisKorServer = require('./LuisKoreanServer');
 //=========================================================
 // Bot Setup
 //=========================================================
@@ -43,7 +43,7 @@ bot.dialog('/', [
 
             session.send("Your Choice Language : " + session.userData.language + "\n Your Name : " + session.userData.name + "\n Your Age : " + session.userData.age);
             session.send("OK.. Let`s Go Grandizer..!!" + session.userData.name);
-            session.beginDialog('/selectEngMenu');
+            session.beginDialog('selectEngMenu');
             
 
 
@@ -52,7 +52,8 @@ bot.dialog('/', [
             //session.send("당신이 선택한 언어 : %s" + session.userData.language + " 당신의 이름 : " + session.userData.name + " 당신의 연령대 : " + session.userData.age);
             session.send("당신이 선택한 언어 : %s  당신의 이름 : %s  당신의 연령대 : %s", session.userData.language, session.userData.name ,session.userData.age);
             session.send("OK.. 그랜다이저를 시작해볼까요..!! %s 님", session.userData.name);
-            session.beginDialog('/selectKorMenu');
+            console.log('hhhhhhhhhhhhhh');
+            session.beginDialog('selectKorMenu');
             
 
         }
@@ -123,7 +124,7 @@ bot.dialog('/askAgeEng', [
     function (session, results) {
         session.send('Your AgeGroup :  %s!', results.response.entity);
         session.userData.age = results.response.entity;
-        session.endDialog(results);
+        //session.endDialog(results);
     }
 ]);
 
@@ -135,7 +136,7 @@ bot.dialog('/askAgeKor', [
     function (session, results) {
         session.send('당신의 연령대는 : %s!', results.response.entity);
         session.userData.age = results.response.entity;
-        session.endDialog(results);
+        //session.endDialog(results);
     }
 ]);
 
@@ -145,6 +146,7 @@ bot.dialog('/askAgeKor', [
 
 bot.dialog('selectKorMenu', [
     function (session) {
+        console.log('selectKorMenu');
         builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요?', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
     },
     function (session, results) {
@@ -168,8 +170,8 @@ bot.dialog('selectEngMenu', [
 
 
 
-luisEngServer.create(bot);
-luisKorServer.create(bot);
+//luisEngServer.create(bot);
+//luisKorServer.create(bot);
 
 
 
