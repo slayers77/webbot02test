@@ -100,10 +100,12 @@ exports.create = function (bot) {
 
             } else if (session.userData.language == 'Korean') {
 
-                //session.send('당신의 선택 메뉴 : %s!', results.response.entity);
+                
                 if (results.response.entity == '시승') {
+                    session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                     //korTestDrive.beginDialog(session, bot);
                     korTestDrive.create(bot);
+                    session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
                 }
                 else if (results.response.entity == '디자인') {
                     korDesign.beginDialog(session);
@@ -117,6 +119,7 @@ exports.create = function (bot) {
                     korPrice.beginDialog(session);
                     korPrice.create(bot);
                 }
+                
             }
         }
     ]);
