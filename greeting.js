@@ -81,10 +81,12 @@ exports.create = function (bot) {
 
             }
         }
-    ]);
-
+    ]).triggerAction({
+        matches: 'greeting'
+        });
 
     bot.dialog('/시승', [
+
         function (session, results) {
 
             if (session.userData.language == 'English') {
@@ -113,8 +115,8 @@ exports.create = function (bot) {
                 if (results.response.entity == '시승') {
                     session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                     //korTestDrive.beginDialog(session, bot);
-                    //korTestDrive.create(bot);
-                    //session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
+                    korTestDrive.create(bot);
+                    session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
                 }
                 else if (results.response.entity == '디자인') {
                     korDesign.beginDialog(session);
@@ -131,7 +133,6 @@ exports.create = function (bot) {
 
             }
         }
-
-    ]);
+    ])
 }
 
