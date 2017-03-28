@@ -71,11 +71,15 @@ exports.create = function (bot) {
         if (session.userData.language == 'English') {
 
             session.send('Your Select menu :  %s!', results.response.entity);
+            
 
         } else if (session.userData.language == 'Korean') {
 
             session.send('당신의 선택 메뉴 : %s!', results.response.entity);
-
+            if (results.response.entity == '시승') { }
+            else if (results.response.entity == '디자인') { }
+            else if (results.response.entity == '편의사항') { }
+            else if (results.response.entity == '가격') { }
         }
     }
 ]);
