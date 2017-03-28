@@ -12,7 +12,7 @@ var engPrice = require('./priceEng');
 
 exports.create = function (bot) {
 
-    bot.dialog('/', [
+    bot.dialog('greeting', [
 
         function (session) {
 
@@ -100,7 +100,7 @@ exports.create = function (bot) {
 
             } else if (session.userData.language == 'Korean') {
 
-                
+
                 if (results.response.entity == '시승') {
                     session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                     //korTestDrive.beginDialog(session, bot);
@@ -119,9 +119,12 @@ exports.create = function (bot) {
                     korPrice.beginDialog(session);
                     korPrice.create(bot);
                 }
-                
+
             }
         }
-    ]);
+    ]).triggerAction({
+        matches: 'greeting',
+        confirmPrompt: "This will cancel the current alarm. Are you sure?"
+    });
 }
 
