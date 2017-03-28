@@ -85,54 +85,54 @@ exports.create = function (bot) {
         matches: 'greeting'
         });
 
-    bot.dialog('/시승', [
+    //bot.dialog('/시승', [
 
-        function (session, results) {
+    //    function (session, results) {
 
-            if (session.userData.language == 'English') {
+    //        if (session.userData.language == 'English') {
 
-                //session.send('Your Select menu :  %s!', results.response.entity);
-                if (results.response.entity == 'testDrive') {
-                    engTestDrive.beginDialog(session);
-                    engTestDrive.create(bot);
-                }
-                else if (results.response.entity == 'Design') {
-                    engDesign.beginDialog(session);
-                    engDesign.create(bot);
-                }
-                else if (results.response.entity == 'Convenience') {
-                    engConvenience.beginDialog(session);
-                    engConvenience.create(bot);
-                }
-                else if (results.response.entity == 'Price') {
-                    engPrice.beginDialog(session);
-                    engPrice.create(bot);
-                }
+    //            //session.send('Your Select menu :  %s!', results.response.entity);
+    //            if (results.response.entity == 'testDrive') {
+    //                engTestDrive.beginDialog(session);
+    //                engTestDrive.create(bot);
+    //            }
+    //            else if (results.response.entity == 'Design') {
+    //                engDesign.beginDialog(session);
+    //                engDesign.create(bot);
+    //            }
+    //            else if (results.response.entity == 'Convenience') {
+    //                engConvenience.beginDialog(session);
+    //                engConvenience.create(bot);
+    //            }
+    //            else if (results.response.entity == 'Price') {
+    //                engPrice.beginDialog(session);
+    //                engPrice.create(bot);
+    //            }
 
-            } else if (session.userData.language == 'Korean') {
+    //        } else if (session.userData.language == 'Korean') {
 
 
-                if (results.response.entity == '시승') {
-                    session.send('당신의 선택 메뉴 : %s!', results.response.entity);
-                    //korTestDrive.beginDialog(session, bot);
-                    korTestDrive.create(bot);
-                    session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
-                }
-                else if (results.response.entity == '디자인') {
-                    korDesign.beginDialog(session);
-                    korDesign.create(bot);
-                }
-                else if (results.response.entity == '편의사항') {
-                    korConvenience.beginDialog(session);
-                    korConvenience.create(bot);
-                }
-                else if (results.response.entity == '가격') {
-                    korPrice.beginDialog(session);
-                    korPrice.create(bot);
-                }
+    //            if (results.response.entity == '시승') {
+    //                session.send('당신의 선택 메뉴 : %s!', results.response.entity);
+    //                //korTestDrive.beginDialog(session, bot);
+    //                korTestDrive.create(bot);
+    //                session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
+    //            }
+    //            else if (results.response.entity == '디자인') {
+    //                korDesign.beginDialog(session);
+    //                korDesign.create(bot);
+    //            }
+    //            else if (results.response.entity == '편의사항') {
+    //                korConvenience.beginDialog(session);
+    //                korConvenience.create(bot);
+    //            }
+    //            else if (results.response.entity == '가격') {
+    //                korPrice.beginDialog(session);
+    //                korPrice.create(bot);
+    //            }
 
-            }
-        }
-    ])
+    //        }
+    //    }
+    //])
 }
 
