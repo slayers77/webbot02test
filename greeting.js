@@ -12,12 +12,12 @@ var engPrice = require('./priceEng');
 
 exports.create = function (bot) {
 
-    bot.dialog('/', [
+    bot.dialog('greeding', [
 
         function (session) {
 
             //session.send("HI..");
-            builder.Prompts.choice(session, "Hi.. Choose or Typing Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "Hi...... Choose or Typing Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
 
         },
 
@@ -102,7 +102,7 @@ exports.create = function (bot) {
 
                 //session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                 if (results.response.entity == '시승') {
-                    //korTestDrive.beginDialog(session);
+                    korTestDrive.beginDialog(session, bot);
                     korTestDrive.create(bot, session);
                 }
                 else if (results.response.entity == '디자인') {
