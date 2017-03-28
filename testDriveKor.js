@@ -21,7 +21,7 @@ var builder = require('botbuilder');
 
 exports.create = function (bot, session) {
 
-    bot.dialog('korTestDrive', [
+    bot.dialog('/', [
 
         function (session) {
 
