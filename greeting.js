@@ -14,14 +14,13 @@ exports.create = function (bot) {
 
     //var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11';
     //var recognizer = new builder.LuisRecognizer(model);
-    ////var luisDialog = new builder.IntentDialog({ recognizers: [recognizer] }); 
+    ////var luisDialog = new builder.IntentDialog({ recognizers: [recognizer] });
     //bot.recognizer(recognizer);
 
     bot.dialog('/', [
 
         function (session) {
 
-            //session.send("HI..");
             builder.Prompts.choice(session, "Hi...... Choose or Typing Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
 
         },
@@ -84,7 +83,7 @@ exports.create = function (bot) {
 
             if (session.userData.language == 'English') {
 
-                //session.send('Your Select menu :  %s!', results.response.entity);
+                session.send('Your Select menu :  %s!', results.response.entity);
                 if (results.response.entity == 'testDrive') {
                     engTestDrive.beginDialog(session);
                     engTestDrive.create(bot);
@@ -104,7 +103,7 @@ exports.create = function (bot) {
 
             } else if (session.userData.language == 'Korean') {
 
-
+                session.send('당신의 선택 메뉴 : %s!', results.response);
                 if (results.response.entity == '시승') {
                     session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                     //korTestDrive.beginDialog(session, bot);

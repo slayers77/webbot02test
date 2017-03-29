@@ -21,12 +21,13 @@ var builder = require('botbuilder');
 
 exports.create = function (bot) {
 
-    bot.dialog('/', [
+    //bot.dialog('/', [
 
-        function (session) {
+    //    function (session) {
 
-            session.send('Your Select menu :  %s!', results.response.entity);
-        }
-    ]);
+    //        session.send('Your Select menu :  %s!', results.response.entity);
+    //    }
+    //]);
+    
 
 }
