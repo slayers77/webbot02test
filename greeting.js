@@ -64,16 +64,16 @@ exports.create = function (bot) {
             if (session.userData.language == 'English') {
 
                 session.send('Your AgeGroup :  %s!', results.response.entity);
-                //session.userData.age = results.response.entity;
-                //ession.send("Your Choice Language : " + session.userData.language + " Your Name : " + session.userData.name + " Your Age : " + results.response.entity);
+                session.userData.age = results.response.entity;
+                ession.send("Your Choice Language : " + session.userData.language + " Your Name : " + session.userData.name + " Your Age : " + results.response.entity);
                 session.send("OK.. Let`s Go Grandizer..!!" + session.userData.name);
                 builder.Prompts.choice(session, 'What do you want menu? choice or typing!!', 'testDrive|Design|Convenience|Price', { listStyle: builder.ListStyle.button });
 
             } else if (session.userData.language == 'Korean') {
 
                 session.send('당신의 연령대는 : %s!', results.response.entity);
-                //session.userData.menu = results.response.entity;
-                session.send("당신이 선택한 언어 : %s  당신의 이름 : %s  당신의 연령대 : %s", session.userData.language, session.userData.name, session.userData.age);
+                session.userData.menu = results.response.entity;
+                //session.send("당신이 선택한 언어 : %s  당신의 이름 : %s  당신의 연령대 : %s", session.userData.language, session.userData.name, session.userData.age);
                 session.send("당신이 선택한 언어 : " + session.userData.language + "  당신의 이름 : " + session.userData.name + "  당신의 연령대 : " + results.response.entity);
                 session.send("OK.. 그랜다이저를 시작해볼까요..!! %s 님", session.userData.name);
                 builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
