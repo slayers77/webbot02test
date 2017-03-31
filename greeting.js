@@ -65,7 +65,7 @@ function create (bot) {
         function (session, args, next) {
 
             session.send("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!");
-            builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? \n\n 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? \n\n 선택하시거나 질문해주세요!!', '시승|디자인|\n\n편의사항|가격', { listStyle: builder.ListStyle.button });
 
         }
 
