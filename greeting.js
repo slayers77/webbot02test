@@ -1,34 +1,16 @@
 ﻿var builder = require('botbuilder');
 var language = "";
-var korTestDrive = require('./testDriveKor');
 var luis = require('./luis');
-//var korConvenience = require('./convenienceKor');
-//var korDesign = require('./designKor');
-//var korPrice = require('./priceKor');
 
-//var engTestDrive = require('./testDriveEng');
-//var engConvenience = require('./convenienceEng');
-//var engDesign = require('./designEng');
-//var engPrice = require('./priceEng');
-
-//exports.create = function (bot) {
 function create (bot) {
-    //exports.create = function (con) {
-
-    //var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=7489b95cf3fb4797939ea70ce94a4b11');
-    //bot.recognizer(recognizer);
-    //var intents = new builder.IntentDialog({ recognizers: [recognizer] });
-    ///*global.intents = new builder.IntentDialog({ recognizers: [recognizer] })*/;
 
     if (!bot) throw new error('bot instance was not provided!!');
 
     var intents = new builder.IntentDialog();
     bot.dialog('/', intents);
 
-
     intents.onDefault(session => {
 
-        //session.send('greeting ');
         session.beginDialog('/greeting');
 
     })
@@ -37,20 +19,16 @@ function create (bot) {
 
         function (session) {
 
-            //console.log('session response : ' + session.message.text);
-
             return luis.query(session.message.text)
                 .then(luisResult => {
-                    const intent = luisResult.topScoringIntent.intent;
-                    //const entity = luisResult.entities.;
-                    const entity = Object.keys(luisResult.entities).length;
+                    var intent = luisResult.topScoringIntent.intent;
+                    var entityLen = Object.keys(luisResult.entities).length;
                     console.log(`processing resolved intent: ${intent}`);
                     console.log(`greeting : ` + luisResult.entities[0].type);
 
                     // collect missing fields 
-                    return session.beginDialog('/korMenu');
-
-                    
+                    if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
+                    else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
 
                 })
                 .catch(err => {
@@ -59,35 +37,6 @@ function create (bot) {
                     return session.cancelDialog(0, '/');
 
                 });
-
-
-            //builder.Prompts.text(session, '');
-            //builder.Prompts.choice(session, "Hi...... Choose or Typing Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
-
-        }
-        ,function (session, results) {
-
-            console.log('111 : ' + results.response.entity);
-
-            return luis.query('하이')
-            .then(luisResult => {
-                const intent = luisResult.topScoringIntent.intent;
-                //const entity = luisResult.entities.;
-                const entity = Object.keys(luisResult.entities).length;
-                console.log(`processing resolved intent: ${intent}`);
-                console.log(`greeting : ` + luisResult.entities[0].type);
-
-                // collect missing fields 
-                if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
-                else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
-                
-            })
-            .catch(err => {
-                console.error(`error processing intent: ${err.message}`);
-                session.send(`there was an error processing your request, please try again later...`);
-                //return session.cancelDialog(0, '/');
-                
-            });
         }
     ]);
 
@@ -104,17 +53,125 @@ function create (bot) {
 
         ,function (session, results) {
 
-            //console.log('시승 선택 : ' + session.message.text);
-            //console.log('시승 선택 : ' + results.response.entity);
+            var str = "";
+            console.log('select menu : ' + session.message.text);
+            if (session.message.text == results.response.entity) {
+                console.log('선택 문구 : ' + results.response.entity);
+                str = results.response.entity;
 
-            if()
+                if (str == '시승') {
+                    session.beginDialog('/korTestDrive');
+                }else if (str == '디자인') {
+                    session.beginDialog('/korDesign');
+                } else if (str == '편의사항') {
+                    session.beginDialog('/korConvenience');
+                } else if (str == '가격') {
+                    session.beginDialog('/korPrice');
+                }
 
 
+            }else if (session.message.text != results.response.entity) {
 
+                console.log('입력 문구 : ' + session.message.text);
+                str = session.message.text;
+                return luis.query(str)
+                    .then(luisResult => {
+                        var intent = luisResult.topScoringIntent.intent;
+                        var entityLen = Object.keys(luisResult.entities).length;
+                        console.log(`processing resolved intent: ${intent}`);
+
+
+                        for (var i = 0; i < entityLen; i++) {
+
+                            console.log("[" + i + "] : " + luisResult.entities[i].type);
+
+                            if (luisResult.entities[i].type.match(/시승/g))
+                            {
+                                session.beginDialog('/korTestDrive');
+                            }
+
+                        };
+                        
+
+                        //// collect missing fields 
+                        //if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
+                        //else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
+
+                    })
+                    .catch(err => {
+                        console.error(`error processing intent: ${err.message}`);
+                        session.send(`there was an error processing your request, please try again later...`);
+                        return session.cancelDialog(0, '/');
+
+                    });
+
+            }
         }
 
     ]);
 
+    
+    //bot.dialog('/korTestDrive', [
+
+    //    function (session, args, next) {
+
+    //        session.send("맞아요, 한번 타 보셔야 저를 좀 더 잘 알 수 있겠죠!!");
+
+    //        builder.Prompts.choice(session, '시승 신청을 하시기 위해서는 온라인에서 예약을 하시거나 지점에 직접 연락을 해 주셔야 해요. 제가 도와 드릴께요, 어떤 방법이 편하시겠어요?',
+    //            '온라인 예약|시승센터 전화예약', { listStyle: builder.ListStyle.button });
+
+    //    }
+    //    , function (session, results, next) {
+
+    //        var str = "";
+
+    //        if (session.message.text == '온라인 예약') {
+    //            session.send("온라인 예약 방법을 알려 드릴께요!!");
+
+    //            var onlineReserveCard = new builder.HeroCard(session)
+    //                .title('현대자동차 시승센터')
+    //                .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요')
+    //                .images([
+    //                    new builder.CardImage(session)
+    //                        .url('http://www.hyundai.com/kr/images/counsel/img_subvisual03_2015.jpg')
+    //                        .alt('contoso_flowers')
+    //                ])
+    //                .buttons([
+    //                    builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "여기에서 예약할수 있어요^^*"),
+    //                ]);
+    //            session.send(new builder.Message(session).addAttachment(onlineReserveCard));
+    //            session.send("멋진 시승 하세요^^");
+    //        }
+    //        else if (session.message.text == '시승센터 전화예약') {
+
+    //            builder.Prompts.text(session, '시승센터를 찾기위하여 원하시는 위치의 동명을 입력해 주세요.(예: 서울) ');
+                
+    //        }
+    //    }, function (session, results) {
+
+    //        //console.log('원하는 지역 : ' + session.message.text);
+    //        session.beginDialog('/findTestDriveOffline');
+
+    //    }
+    //]);
+
+    bot.dialog('/korDesign',[
+
+
+
+    ]);
+
+    bot.dialog('/korConvenience',[
+
+
+
+    ]);
+
+    bot.dialog('/korPrice',[
+
+
+
+    ]);
 
 
     bot.dialog('/EngMenu', [
@@ -127,274 +184,99 @@ function create (bot) {
         }
 
 
-    ])
-
-    //intents.onBegin(function (session, args, next) {
-    //    session.dialogData.name = args.name;
-    //    session.send("Hi %s...", args.name);
-    //    next();
-    //});
-
-    //bot.dialog('/korMainMenu', [
-
-    //    function (session, args, next) {
-
-    //        if (language == "kor") {
-
-    //            session.send("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!");
-    //            builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
-    //        }
-    //        else if (language == "eng") {
-
-    //        }
-    //    }
-    //    ,
-    //    function (session, results) {
-
-    //        if (results.response.entity == "시승") {
-    //            session.send('select menu : ' + results.response.entity);
-    //            //korTestDrive.create(session, intents);
-
-    //        }
-    //    }
-    //]);
-
-    //intents.matches('None', [
-
-    //    function (session, args, next) {
-
-    //        session.endDialog("sorry - i did not understand. Try to say 'hello' or '하이'");
-    //    }
-    //]);
-
-    //intents.matches('greeting', [
-    //    function (session, args, next) {
-
-    //        var korean = builder.EntityRecognizer.findEntity(args.entities, '한국어인사');
-    //        var english = builder.EntityRecognizer.findEntity(args.entities, '영어인사');
-
-    //        if (korean) {
-    //            language = 'kor';
-    //            //session.send('/korMainMenu'+args);
-    //        }
-    //        else if (english) {
-    //            language = 'eng';
-    //        }
-    //        else if (!korean || !english) { language = 'non' }
-
-    //        return next({ response: language });
-
-    //    },
-    //    function (session, results) {
-
-    //        if (results.response == 'eng') {
-
-    //        } else if (results.response == 'kor') {
-
-    //            //bot.beginDialog(session.message.address, '/korMainMenu');
-    //            session.send("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!");
-    //            builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
-
-    //        }
-    //    },
-    //    function (session, results) {
-
-    //        session.send('your choice :'+ results.response.entity);
-    //    }
-    //]);
-
-    //intents.matches('시승',
-
-    //    function (session, args, next) {
-
-    //        var testDrive = builder.EntityRecognizer.findEntity(args.entities, '메인주제::시승');
-    //        var online = builder.EntityRecognizer.findEntity(args.entities, '시승주제::온라인');
-    //        var offline = builder.EntityRecognizer.findEntity(args.entities, '시승주제::시승센터');
-
-
-    //        if (online) {
-
-    //            session.send('온라인 예약을 위한 링크를 알려드릴께요!!');
-
-
-    //        }
-    //        else if (offline) {
-
-    //            session.send('시승센타 예약을 위한 방법을 알려드릴께요!!');
-    //        }
-    //        else if (testDrive) {
-
-    //            session.send('맞아요 한번 타 보셔야 그랜저를 더 잘아시게 될꺼에요!!!');
-    //            session.send('시승 신청을 하시기 위해서는 온라인 예약을 하시거나 시승센터에 직접 연락을 해주셔야 합니다.');
-    //            builder.Prompts.choice(session, '제가 도와드릴께요.. 어떤 방법이 편하시겠어요?', '온라인|시승센터', { listStyle: builder.ListStyle.button });
-
-    //        }
-
-    //        //session.send('맞아요 한번 타 보셔야 그랜저를 더 잘아시게 될꺼에요!!!');
-    //        //session.send('시승 신청을 하시기 위해서는 온라인 예약을 하시거나 시승센터에 직접 연락을 해주셔야 합니다.');
-    //        //builder.Prompts.choice(session, '제가 도와드릴께요.. 어떤 방법이 편하시겠어요?', '온라인|시승센터', { listStyle: builder.ListStyle.button });
-
-    //        //builder.Prompts.text(session, 'Your Ment  : ' + session.message.text);
-
-    //        //var testDrive = builder.EntityRecognizer.findEntity(args.entities, '메인주제::시승');
-
-
-    //        ////var english = builder.EntityRecognizer.findEntity(args.entities, '영어인사');
-    //        ////var aa = builder.EntityRecognizer.findAllEntities(args.entities.type, '인사::한국어'); 
-    //        ////var aa = builder.EntityRecognizer.
-
-    //        //if (testDrive) { language = 'kor'; }
-    //        //else if (english) { language = 'eng'; }
-    //        ////else if (!korean || !english) { language = 'non'}
-
-    //        ////builder.Prompts.text(session, language);
-    //        //return next({ response: language });
-
-    //    }
-
-    //);
+    ]);
 
 
 
-    //bot.dialog('/', [
+
+    //bot.dialog('/findTestDriveOffline', [
 
     //    function (session) {
 
-    //        builder.Prompts.choice(session, "Hi...... Choose or Typing Your Language : ", 'English|Korean', { listStyle: builder.ListStyle.button });
+    //        console.log('원하는 지역 : ' + session.message.text);
+    //        session.send("[ " + session.message.text+" ] 의 시승센터 관련 정보입니다.");
 
+    //        // Ask the user to select an item from a carousel.
+    //        var msg = new builder.Message(session)
+    //            .attachmentLayout(builder.AttachmentLayout.carousel)
+    //            .attachments([
+    //                new builder.HeroCard(session)
+    //                    .title("성내 시승센터")
+    //                    .subtitle("전화번호 : 02-473-7365(FAX : 02-2225-4736) 지점주소 : (05381) 서울 강동구 천호대로 1096 현대자동차 성내지점 3층 성내시승센터")
+    //                    .images([
+    //                        builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +"\\seongnae.png")
+    //                            .tap(builder.CardAction.showImage(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +"\\seongnae.png")),
+    //                    ])
+    //                    .buttons([
+    //                        builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
+    //                        ,builder.CardAction.imBack(session, "select:1", "Select")
+    //                    ]),
+    //                new builder.HeroCard(session)
+    //                    .title("잠실 시승센터")
+    //                    .subtitle("전화번호 : 02-421-7365(FAX : 02-421-4737) 지점주소 : (05502) 서울 송파구 올림픽로 145 리센츠빌딩 2층 C10호 잠실시승센터")
+    //                    .images([
+    //                        builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +"\\jamsil.png")
+    //                            .tap(builder.CardAction.showImage(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +"\\jamsil.png")),
+    //                    ])
+    //                    .buttons([
+    //                        builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
+    //                        ,builder.CardAction.imBack(session, "select:2", "Select")
+    //                    ]),
+    //                new builder.HeroCard(session)
+    //                    .title("공릉 시승센터")
+    //                    .subtitle("전화번호 : 02-973-7365(FAX : 02-3296-6218) 지점주소 : (01861) 서울 노원구 화랑로 429 현대자동차 공릉지점옆 공릉시승센터")
+    //                    .images([
+    //                        builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +"\\gongnung.png")
+    //                            .tap(builder.CardAction.showImage(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +"\\gongnung.png"))
+    //                    ])
+    //                    .buttons([
+    //                        builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
+    //                        ,builder.CardAction.imBack(session, "select:3", "Select")
+    //                    ]),
+    //                new builder.HeroCard(session)
+    //                    .title("목동 시승센터")
+    //                    .subtitle("전화번호 : 02-2644-7365(FAX : 02-2644-7359) 지점주소 : (07995) 서울 양천구 목동서로 225 한국예술인협회 2층 목동시승센터")
+    //                    .images([
+    //                        builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text + "\\mokdong.png")
+    //                            .tap(builder.CardAction.showImage(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text + "\\mokdong.png"))
+    //                    ])
+    //                    .buttons([
+    //                        builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
+    //                        ,builder.CardAction.imBack(session, "select:4", "Select")
+    //                    ])
+    //            ]);
+    //        builder.Prompts.choice(session, msg, "select:1|select:2|select:3");
     //    },
-
     //    function (session, results) {
-    //        session.preferredLocale(results.response.entity, function (err) {
-    //            if (!err) {
-    //                //session.send("Your Choice Language %s.", results.response.entity);
-    //                session.userData.language = results.response.entity;
-    //                if (results.response.entity == "English") {
-    //                    session.send("Hi!! I`m Hyundai Motors ChatBot  Grandizer!!");
-    //                    builder.Prompts.text(session, 'What is your name?');
-    //                }
-    //                else if (results.response.entity == "Korean") {
-    //                    session.send("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!");
-    //                    builder.Prompts.text(session, '당신의 이름은?');
-    //                }
-    //            } else {
-    //                session.error(err);
-    //            }
-    //        });
-    //    },
-    //    function (session, results) {
-
-    //        if (session.userData.language == 'English') {
-
-    //            session.send('Hello %s!', results.response);
-    //            session.userData.name = results.response;
-    //            builder.Prompts.choice(session, 'What is your Age Group?', '10~20 AgeGroup|30 AgeGroup|40 AgeGroup|50 AgeGroup| 60 Over AgeGroup', { listStyle: builder.ListStyle.button });
-
-    //        } else if (session.userData.language == 'Korean') {
-
-    //            session.send('안녕 %s!', results.response);
-    //            session.userData.name = results.response;
-    //            builder.Prompts.choice(session, '당신의 연령대는?', '10~20대|30대|40대|50대|60대이상', { listStyle: builder.ListStyle.button });
-
+    //        var action, item;
+    //        var kvPair = results.response.entity.split(':');
+    //        switch (kvPair[0]) {
+    //            case 'select':
+    //                action = 'selected';
+    //                break;
     //        }
-    //    },
-    //    function (session, results) {
-
-    //        if (session.userData.language == 'English') {
-
-    //            session.send('Your AgeGroup :  %s!', results.response.entity);
-    //            //session.userData.age = results.response.entity;
-    //            ession.send("Your Choice Language : " + session.userData.language + " Your Name : " + session.userData.name + " Your Age : " + results.response.entity);
-    //            session.send("OK.. Let`s Go Grandizer..!!" + session.userData.name);
-    //            builder.Prompts.choice(session, 'What do you want menu? choice or typing!!', 'testDrive|Design|Convenience|Price', { listStyle: builder.ListStyle.button });
-
-    //        } else if (session.userData.language == 'Korean') {
-
-    //            session.send('당신의 연령대는 : %s!', results.response.entity);
-    //            //session.userData.menu = results.response.entity;
-    //            //session.send("당신이 선택한 언어 : %s  당신의 이름 : %s  당신의 연령대 : %s", session.userData.language, session.userData.name, session.userData.age);
-    //            session.send("당신이 선택한 언어 : " + session.userData.language + "  당신의 이름 : " + session.userData.name + "  당신의 연령대 : " + results.response.entity);
-    //            session.send("OK.. 그랜다이저를 시작해볼까요..!! %s 님", session.userData.name);
-    //            builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
-
+    //        switch (kvPair[1]) {
+    //            case '1':
+    //                item = "성내 시승센터";
+    //                break;
+    //            case '2':
+    //                item = "잠실 시승센터";
+    //                break;
+    //            case '3':
+    //                item = "공릉 시승센터";
+    //                break;
+    //            case '4':
+    //                item = "목동 시승센터";
+    //                break;
     //        }
-    //    }, function (session, results) {
+    //        session.endDialog('You %s "%s"', action, item);
 
-    //        if (session.userData.language == 'English') {
-
-    //            session.send('Your Select menu :  %s!', results.response.entity);
-    //            if (results.response.entity == 'testDrive') {
-    //                engTestDrive.beginDialog(session);
-    //                engTestDrive.create(bot);
-    //            }
-    //            else if (results.response.entity == 'Design') {
-    //                engDesign.beginDialog(session);
-    //                engDesign.create(bot);
-    //            }
-    //            else if (results.response.entity == 'Convenience') {
-    //                engConvenience.beginDialog(session);
-    //                engConvenience.create(bot);
-    //            }
-    //            else if (results.response.entity == 'Price') {
-    //                engPrice.beginDialog(session);
-    //                engPrice.create(bot);
-    //            }
-
-    //        } else if (session.userData.language == 'Korean') {
-
-    //            session.send('당신의 선택 메뉴 : %s!', results.response);
-    //            if (results.response.entity == '시승') {
-    //                session.send('당신의 선택 메뉴 : %s!', results.response.entity);
-    //                //korTestDrive.beginDialog(session, bot);
-    //                //korTestDrive.create(bot);
-    //                //bot.libraby
-    //                session.send('당신의 선택 메뉴!!! : %s!', results.response.entity);
-    //            }
-    //            else if (results.response.entity == '디자인') {
-    //                korDesign.beginDialog(session);
-    //                korDesign.create(bot);
-    //            }
-    //            else if (results.response.entity == '편의사항') {
-    //                korConvenience.beginDialog(session);
-    //                korConvenience.create(bot);
-    //            }
-    //            else if (results.response.entity == '가격') {
-    //                korPrice.beginDialog(session);
-    //                korPrice.create(bot);
-    //            }
-
-    //        }
     //    }
-    //])
 
-    function testDriveFnc(builder, args, session) {
+    //]);
 
-        var intent = args.intent;
-
-    }
-
-
+    bot.dialog('/korTestDrive', require('./testDriveKor'));
 }
-
-//function prepareForm(intent) {
-//    const form = [];
-//    const fields = intentForms.intents[intent];
-//    if (!fields) return form;
-    
-//    fields.forEach(field => {
-//        var instance = {};
-//        extend(instance, intentForms.fields[field], true);
-//        instance.name = field;
-//        form.push(instance);
-        
-//    });
-    
-
-//    return form;
-    
-//} 
-
-
 
 module.exports = {
     create

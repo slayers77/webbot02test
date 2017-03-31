@@ -9,11 +9,11 @@ var luisUrlTemplate = `${luisEndpoint}&q=%s`;
 function query(text) {
  	return new Promise((resolve, reject) => {
  		var queryUrl = util.format(luisUrlTemplate, encodeURIComponent(text));
- 		console.log(`invoking LUIS query: ${queryUrl}`);
+ 		//console.log(`invoking LUIS query: ${queryUrl}`);
  		return request(queryUrl)
 .then((body) => {
  				var result = JSON.parse(body);
- 				console.log(`got LUIS response: ${JSON.stringify(body, true, 2)}`);
+ 				//console.log(`got LUIS response: ${JSON.stringify(body, true, 2)}`);
  				return resolve(result);
 
         })
