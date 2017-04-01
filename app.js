@@ -24,58 +24,13 @@ var connector = new builder.ChatConnector({
     appPassword: "aKLgB9zVeiCPRBPObwAvwEr"
 });
 
-var bot = new builder.UniversalBot(connector);
-//global.bot = new builder.BotConnectorBot({
-//    appId: "98ee3e87-b025-4e50-a7b3-1df9e902dacc",
-//    appPassword: "aKLgB9zVeiCPRBPObwAvwEr"
-//});
-//var bot = new builder.UniversalBot(connector, function (session) {
-
-//    session.send("Welcome !!!");
-//});
-greeting.create(bot);
-server.post('/api/messages', connector.listen());
-
-
-
-
-//bot.recognizer(recognizer);
-
 //=========================================================
 // Bots Dialogs
 //=========================================================
 
-//intents.matches('greeting', [
-
-//    function (session, args, next) {
-
-//        var match;
-
-
-
-//    }
-
-//])
-
-
-//bot.dialog('/greeting', [
-
-//    function (session, args, next) {
-
-
-//        var intent = args.intent;
-
-//        builder.Prompts.text(session, 'your intent  %s ', intent);
-//    }
-
-//]).triggerAction({
-//    matches: '인사::한국어', 
-//    confirmPrompt: "This will cancel the current alarm. Are you sure?" 
-//})
-
-
-
-//greeting.create(connector);
+var bot = new builder.UniversalBot(connector);
+greeting.create(bot);
+server.post('/api/messages', connector.listen());
 
 var app = express();
 var fs = require('fs');

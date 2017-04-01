@@ -13,7 +13,7 @@ function query(text) {
  		return request(queryUrl)
 .then((body) => {
  				var result = JSON.parse(body);
- 				//console.log(`got LUIS response: ${JSON.stringify(body, true, 2)}`);
+ 				console.log(`got LUIS response: ${JSON.stringify(body, true, 2)}`);
  				return resolve(result);
 
         })

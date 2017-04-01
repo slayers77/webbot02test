@@ -1,5 +1,6 @@
 ﻿
 var builder = require('botbuilder');
+var path = require('fs');
 
 module.exports = [
 
@@ -40,11 +41,10 @@ module.exports = [
         }
     }, function (session, results) {
 
-        //console.log('원하는 지역 : ' + session.message.text);
-        
-
-            console.log('원하는 지역 : ' + session.message.text);
+        console.log(real + ' 원하는 지역 : ' + session.message.text);
             session.send("[ " + session.message.text + " ] 의 시승센터 관련 정보입니다.");
+
+            
 
             // Ask the user to select an item from a carousel.
             var msg = new builder.Message(session)
@@ -54,7 +54,8 @@ module.exports = [
                         .title("성내 시승센터")
                         .subtitle("전화번호 : 02-473-7365(FAX : 02-2225-4736) 지점주소 : (05381) 서울 강동구 천호대로 1096 현대자동차 성내지점 3층 성내시승센터")
                         .images([
-                            builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text + "\\seongnae.png")
+                            //builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text + "\\seongnae.png")
+                            builder.CardImage.create(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text +  "\\seongnae.png")
                                 .tap(builder.CardAction.showImage(session, "C:\\Users\\TAIHO\\Source\\Repos\\webbot02\\images\\" + session.message.text + "\\seongnae.png")),
                         ])
                         .buttons([
