@@ -236,7 +236,8 @@ function create(bot) {                                                  // funct
                         .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요합니다.')
                         .images([
                             new builder.CardImage(session)
-                                .url('http://www.hyundai.com/kr/images/counsel/img_subvisual03_2015.jpg')
+                                .url(img_path + "/images/testDrive/testDriveReservation.jpg")
+                                
                                 .alt('contoso_flowers')
                         ])
                         .buttons([
@@ -249,8 +250,8 @@ function create(bot) {                                                  // funct
 
                     //session.beginDialog('/testDriveReturn');
 
-                    //builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
-                    //    '처음으로|이전으로', { listStyle: builder.ListStyle.button });
+                    builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
+                        '처음으로|이전으로', { listStyle: builder.ListStyle.button });
 
                 }
                 else if (str == '시승센터 전화예약'){
@@ -288,7 +289,7 @@ function create(bot) {                                                  // funct
                                     .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요합니다.')
                                     .images([
                                         new builder.CardImage(session)
-                                            .url('http://www.hyundai.com/kr/images/counsel/img_subvisual03_2015.jpg')
+                                            .url(img_path + "/images/testDrive/testDriveReservation.jpg")
                                             .alt('contoso_flowers')
                                     ])
                                     .buttons([
