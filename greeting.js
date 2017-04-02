@@ -1759,23 +1759,22 @@ function create(bot) {                                                  // funct
     1. 편의사항 되돌아가기
     ************************************************************************************/
 
-
     bot.dialog('/return', [
         function (session) {
             builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 다른 편의사항을 보고 싶으면 선택해주세요!!",
                 '스마트센스|인포테인먼트|안전|편의사항', { listStyle: builder.ListStyle.button });
         }, function (session, results) {
 
-            if (results.response == '스마트센스') {
-                session.beginDialog('/convenience');
-            } else if (results.response == '인포테인먼트') {
+            if (results.response.entity == '스마트센스') {
+                session.beginDialog('/smartsense');
+            } else if (results.response.entity == '인포테인먼트') {
                 session.beginDialog('/infotainment');
-            } else if (results.response == '안전') {
+            } else if (results.response.entity == '안전') {
                 session.beginDialog('/safe');
-            } else if (results.response == '편의사항') {
-                session.beginDialog('/convenience');
-            } else if (results.response == '그랜다이저') {
-                session.beginDialog('/');
+            } else if (results.response.entity == '편의사항') {
+                session.beginDialog('/korConvenience');
+            } else if (results.response.entity == '그랜다이저') {
+                session.beginDialog('/korMenu');
             }
 
         }
