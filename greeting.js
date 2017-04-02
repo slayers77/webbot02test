@@ -270,7 +270,7 @@ function create(bot) {                                                  // funct
 
                                 var onlineReserveCard = new builder.HeroCard(session)
                                     .title('현대자동차 시승센터')
-                                    .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요')
+                                    .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요합니다.')
                                     .images([
                                         new builder.CardImage(session)
                                             .url('http://www.hyundai.com/kr/images/counsel/img_subvisual03_2015.jpg')
