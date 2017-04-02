@@ -103,7 +103,7 @@ function create(bot) {                                                  // funct
                     //builder.CardImage.create(session, __dirname+"/images/Grandeur_main.png")
                     
                     //builder.CardImage.create(session, "D:\home\site\wwwroot\images\Grandeur_main.png")
-                    builder.CardImage.create(session, "/images/Grandeur_main.png")
+                    builder.CardImage.create(session, "\images\Grandeur_main.png")
                     
                 ]);
             var msg = new builder.Message(session).attachments([card]);
