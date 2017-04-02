@@ -27,9 +27,7 @@ function create(bot) {                                                  // funct
 
         function (session) {
 
-            console.log('session id : ' + session.uid);
-
-
+            
             //var kor = /[ㄱ-힣]/g;
             //var eng = /^[A-Z|a-z]/g;
             //var ment = session.message.text;
@@ -53,13 +51,22 @@ function create(bot) {                                                  // funct
 
                     } else if (intent == '시승') {
 
-                        //if (luisResult.entities.matches('/^온라인 예약/')) {
+                        //if (luisResult.entities.matches('/온라인 예약/')) {
+
+                        //    return session.beginDialog('/korTestDrive');
+
+                        //} else if (luisResult.entities.matches('/시승센터 전화예약/')) {
+
+                        //    return session.beginDialog('/findTestDriveOffline');
 
                         //}
-
                         return session.beginDialog('/korTestDrive');
+                        
 
-                    } else if (intent == 'None') {
+                    } else if (intent == '디자인') { return session.beginDialog('/korDesign'); }
+                    else if (intent == '편의사항') { return session.beginDialog('/korConvenience'); }
+                    else if (intent == '가격') { return session.beginDialog('/korPrice'); }
+                    else if (intent == 'None') {
 
                         session.send("I Do Not Understanding Your Comment . Please Typing 'hi' or '하이'");
 
@@ -70,7 +77,7 @@ function create(bot) {                                                  // funct
                 .catch(err => {
                     console.error(`error processing intent: ${err.message}`);
                     session.send(`there was an error processing your request, please try again later...`);
-                    return session.cancelDialog(0, '/greeting');
+                    return session.cancelDialog(0, '/');
 
                 });
         }
@@ -95,7 +102,7 @@ function create(bot) {                                                  // funct
                     //builder.CardImage.create(session, "http://www.hyundai.com/kr/images/showroom/grandeur_ig/img_visual_car3.png")
                     //builder.CardImage.create(session, __dirname+"/images/Grandeur_main.png")
                     
-                    builder.CardImage.create(session, __dirname+"/images/Grandeur_main.png")
+                    builder.CardImage.create(session, "images/Grandeur_main.png")
                     
                 ]);
             var msg = new builder.Message(session).attachments([card]);
@@ -144,8 +151,13 @@ function create(bot) {                                                  // funct
                             if (luisResult.entities[i].type.match(/시승/g)) {
                                 session.beginDialog('/korTestDrive');
                             } else if (luisResult.entities[i].type.match(/가격/g)) {
-                                session.beginDialog('/korTestDrive');
+                                session.beginDialog('/korPrice');
+                            } else if (luisResult.entities[i].type.match(/편의사항/g)) {
+                                session.beginDialog('/korConvenience');
+                            } else if (luisResult.entities[i].type.match(/디자인/g)) {
+                                session.beginDialog('/korDesign');
                             }
+
                         };
                     })
                     .catch(err => {
@@ -208,7 +220,7 @@ function create(bot) {                                                  // funct
             var str = "";
 
             if (session.message.text == results.response.entity) {
-
+                session.userData.testDriveMenu = results.response.entity;
                 console.log('선택 문구 : ' + results.response.entity);
                 str = results.response.entity;
 
@@ -218,7 +230,7 @@ function create(bot) {                                                  // funct
 
                     var onlineReserveCard = new builder.HeroCard(session)
                         .title('현대자동차 시승센터')
-                        .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요')
+                        .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요합니다.')
                         .images([
                             new builder.CardImage(session)
                                 .url('http://www.hyundai.com/kr/images/counsel/img_subvisual03_2015.jpg')
@@ -286,8 +298,8 @@ function create(bot) {                                                  // funct
                                 //session.beginDialog('/testDriveReturn');
 
 
-                                //builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
-                                //    '처음으로|이전으로', { listStyle: builder.ListStyle.button });
+                                builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
+                                    '처음으로|이전으로', { listStyle: builder.ListStyle.button });
                             }
                         };
                     })
@@ -303,23 +315,23 @@ function create(bot) {                                                  // funct
 
             //console.log('session.message.tex : ' + results.response.entity);
 
-            //if (results.response.entity == "처음으로") {
+            if (results.response.entity == "처음으로") {
 
-            //    session.beginDialog('/korMenu');
+                session.beginDialog('/korMenu');
 
-            //}
-            //else if (results.response.entity == "이전으로") {
+            }
+            else if (results.response.entity == "이전으로") {
 
-            //    session.beginDialog('/korTestDrive');
+                session.beginDialog('/korTestDrive');
 
-            //}
-            //else {
+            }
+            else {
 
                 session.beginDialog('/findTestDriveOffline');
 
-            //}
+            }
         }
-    ]).reloadAction('reloadTestDriveMenu', null, { matches: /^시승메뉴/i });     //bot.dialog('/korTestDrive end
+    ])//.reloadAction('reloadTestDriveMenu', null, { matches: /^시승메뉴/i });     //bot.dialog('/korTestDrive end
 
 
 
@@ -389,54 +401,33 @@ function create(bot) {                                                  // funct
                             //,builder.CardAction.imBack(session, "select:4", "Select")
                         ])
                 ]);
-            //builder.Prompts.choice(session, msg, "select:1|select:2|select:3|select:4");
 
+            session.send(msg);
 
-            builder.Prompts.text(session, msg);
-            //session.send("시승 메뉴로 돌아가고 싶으시면 '시승메뉴', 첫 메뉴로 돌아가고 싶으시면 '그랜다이저'를 입력해주세요!! ");
-            //builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
-            //    '처음으로|이전으로', { listStyle: builder.ListStyle.button });
-
-            //session.beginDialog('/testDriveReturn');
+            builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
+                '처음으로|이전으로', { listStyle: builder.ListStyle.button });
             
         }
-        //,
-        //function (session, results) {
+        
+        ,function (session, results) {
 
-        //    builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!",
-        //        '처음으로|이전으로', { listStyle: builder.ListStyle.button });
-            
-        //},
-        //,function (session, results) {
+            //session.beginDialog('/testDriveReturn');
 
+            //console.log('results.response.entity : ' + results.response.entity);
 
-        //    session.beginDialog('/testDriveReturn');
+            if (results.response.entity == "처음으로") {
 
-        //    //if (results.response.entity == "처음으로") {
+                session.beginDialog('/korMenu');
 
-        //    //    session.beginDialog('/korMenu');
+            }
+            else if (results.response.entity == "이전으로") {
 
-        //    //}
-        //    //else if (results.response.entity == "이전으로") {
-                
-        //    //    session.beginDialog('/korTestDrive');
+                session.beginDialog('/korTestDrive');
 
-        //    //}
+            }
 
-        //}
+        }
     ]);
-    //bot.dialog('/testDriveReturn', [
-    //    function (session) {
-    //        builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 이전 메뉴로 돌아가고 싶으시면 '이전으로' 를 선택해주세요!!", '처음으로|이전으로', { listStyle: builder.ListStyle.button });
-    //    }, function (session, results) {
-    //        if (results.response.entity == '처음으로') {
-    //            session.beginDialog('/korMenu');
-    //            } else if (results.response.entity == '이전으로') {
-    //                session.beginDialog('/korTestDrive');
-    //            } 
-    //    }
-    //]);
-
 
     /***********************************************************************************
 
@@ -484,6 +475,7 @@ function create(bot) {                                                  // funct
 
 
     //20170401 윤인식 수정 START
+    //색상 선택
     bot.dialog('/designColor', [
 
         function (session) {
@@ -496,7 +488,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("화이트 크림")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/WC9/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/WC9/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "화이트 크림", "선택")
@@ -504,7 +496,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("이온 실버")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/N9V/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/N9V/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "이온 실버", "선택")
@@ -512,7 +504,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("루나 그레이")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/U9G/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/U9G/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "루나 그레이", "선택")
@@ -520,7 +512,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("판테라 그레이")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "판테라 그레이", "선택")
@@ -529,7 +521,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("미드나잇 블랙")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/NB9/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/NB9/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "미드나잇 블랙", "선택")
@@ -537,7 +529,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("발렌타인 레드")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/V9R/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/V9R/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "발렌타인 레드", "선택")
@@ -545,7 +537,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("그랑 블루")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/NU9/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/NU9/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "그랑 블루", "선택")
@@ -553,7 +545,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("쉐이드 브론즈")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/S9C/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/S9C/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "쉐이드 브론즈", "선택")
@@ -561,7 +553,7 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("카키 메탈")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/TK9/00060.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/TK9/00060.jpg")
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "카키 메탈", "선택")
@@ -599,60 +591,66 @@ function create(bot) {                                                  // funct
             });
         }
     ]);
-    //20170401 윤인식 수정 END
-    //20170401 윤인식 수정 START
+
     // 차 외관 선택
+
     bot.dialog('/designOutside', [
 
         function (session) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
+
+
                 .attachments([
                     new builder.HeroCard(session)
+                        //   .title("단단해진 차체와 새로운 플랫폼 적용으로 균형 잡힌 주행 안정성과 민첩하고 다이나믹한 가속 응답성, 부드러운 승차감까지 갖추었습니다.")
+                        //   .text("미래 자율 주행에 한발 더 다가선 지능형 안전기술 Hyundai SmartSense로 더운 편안한 주행 환경을 제공하고 다른 차량 운전자와 보행자까지 모두의 안전을 스마트하게 케어 합니다.")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20170216114754406359.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/car_outside_title.jpg")
                         ])
 
                 ]);
             session.send(msg);
-            session.send("그랜저의 차 외관입니다.");
+
+            session.send("그랜저 외관입니다.");
 
 
             var msg1 = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
+                //.title("그랜저의 외관입니다.")
                 .attachments([
                     new builder.HeroCard(session)
                         .title("Full LED 헤드램프 / 캐스캐이딩 그릴")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122093146198083.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/20161122093146198083.jpg")
                         ]),
                     new builder.HeroCard(session)
                         .title("19인치 알로이 휠 & 타이어")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122093251750084.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/20161122093251750084.jpg")
                         ]),
                     new builder.HeroCard(session)
                         .title("LED 방향지시등 적용 아웃사이드 미러 & 샤틴 크롬 몰딩")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122093309923085.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/20161122093309923085.jpg")
                         ]),
                     new builder.HeroCard(session)
                         .title("LED 리어 콤비램프")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122093331472086.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/20161122093331472086.jpg")
                         ])
                 ]);
 
             session.send(msg1);
-            builder.Prompts.choice(session, "그랜저의 디자인에 대해 메뉴를 보시겠습니까? : ", '디자인|색상|내관|외관|홈', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 디자인에 대해 메뉴를 보시겠습니까?", '디자인|색상|내관|외관|홈', { listStyle: builder.ListStyle.button });
         },
 
         function (session, results) {
 
             session.userData.menuChoice = results.response.entity;
             if (results.response.entity == '디자인') {
-                session.beginDialog('/');
+                session.beginDialog('/korDesign');
             } else if (results.response.entity == '색상') {
                 session.beginDialog('/designColor');
             } else if (results.response.entity == '내관') {
@@ -660,10 +658,13 @@ function create(bot) {                                                  // funct
             } else if (results.response.entity == '외관') {
                 session.beginDialog('/designOutside');
             } else if (results.response.entity == '홈') {
-                session.beginDialog('/');
+                session.beginDialog('/korMenu');
+            } else {
+                session.endDialog();
             }
         }
     ]);
+
 
     // 차 내관 선택
     bot.dialog('/designInside', [
@@ -671,16 +672,18 @@ function create(bot) {                                                  // funct
         function (session) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
+
                 .attachments([
                     new builder.HeroCard(session)
+                        // .title("크래쉬패드의 높이를 낮추고 수펴적인 아키텍처를 적용한 인테리어는\n\n 탁 트인 개방감과 넓고 안정적인 공간감을 연출합니다.")
+                        // .text("엄선된 고급 소재와 깊이 있는 컬러, 새로운 플로팅 타입 디스플레이와 스마트 멀리미디어 시스템까지\n\n 정교하게 다듬어진 디테일들이 품격있고 섬세한 취향을 만족시켜 드릴 것입니다.")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20170302091141024445.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/car_inside_title.jpg")
                         ])
 
                 ]);
             session.send(msg);
-
-            session.send("그랜저의 차 내관입니다.");
+            session.send("그랜저 내관입니다.");
 
             var msg1 = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -688,33 +691,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
+                        .title("운전적 내부 전경")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20170302091322611447.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/car_inside_detail_front.jpg")
 
                         ]),
                     new builder.HeroCard(session)
+                        .title("뒷자석 내부 전경")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122094750687112.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/car_inside_detail_back.jpg")
                         ]),
-                    new builder.HeroCard(session)
-                        .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122094926367113.jpg")
-                        ]),
-                    new builder.HeroCard(session)
-                        .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/20161122094955088114.jpg")
-                        ])
+
                 ]);
 
             session.send(msg1);
-            builder.Prompts.choice(session, "그랜저의 디자인에 대해 메뉴를 보시겠습니까? : ", '디자인|색상|내관|외관|홈', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 디자인에 대해 메뉴를 보시겠습니까?", '디자인|색상|내관|외관|홈', { listStyle: builder.ListStyle.button });
         },
 
         function (session, results) {
 
             session.userData.menuChoice = results.response.entity;
             if (results.response.entity == '디자인') {
-                session.beginDialog('/');
+                session.beginDialog('/korDesign');
             } else if (results.response.entity == '색상') {
                 session.beginDialog('/designColor');
             } else if (results.response.entity == '내관') {
@@ -722,13 +720,12 @@ function create(bot) {                                                  // funct
             } else if (results.response.entity == '외관') {
                 session.beginDialog('/designOutside');
             } else if (results.response.entity == '홈') {
-                session.beginDialog('/');
+                session.beginDialog('/korMenu');
+            } else {
+                session.endDialog();
             }
         }
     ]);
-
-
-
 
 
     /***********************************************************************************
@@ -737,7 +734,7 @@ function create(bot) {                                                  // funct
 
     ************************************************************************************/
 
-    
+
 
     /***********************************************************************************
 
@@ -752,26 +749,32 @@ function create(bot) {                                                  // funct
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
+                //.title("화이트크림")
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("화이트크림")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/WC9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/WC9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("화이트크림")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/WC9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/WC9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("화이트크림")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/WC9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/WC9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/WC9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -779,7 +782,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까?", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -794,6 +797,8 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
             }
@@ -810,23 +815,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("이온 실버")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/N9V/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/N9V/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("이온 실버")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/N9V/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/N9V/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("이온 실버")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/N9V/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/N9V/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/N9V/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? ", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -834,7 +844,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -849,6 +859,8 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
             }
@@ -865,23 +877,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("루나 그레이")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/U9G/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/U9G/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("루나 그레이")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/U9G/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/U9G/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("루나 그레이")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/U9G/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/U9G/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/U9G/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? ", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -889,7 +906,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -904,6 +921,8 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
             }
@@ -920,23 +939,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("판테라 그레이")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("판테라 그레이")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("판테라 그레이")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? ", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -944,7 +968,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -959,6 +983,8 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
             }
@@ -975,23 +1001,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("미드나잇 블랙")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("미드나잇 블랙")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("미드나잇 블랙")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -999,7 +1030,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까?", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -1014,6 +1045,8 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
             }
@@ -1030,23 +1063,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("발렌타인 레드")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("발렌타인 레드")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("발렌타인 레드")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -1054,7 +1092,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까?", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -1069,8 +1107,11 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
+
             }
 
         }
@@ -1084,23 +1125,28 @@ function create(bot) {                                                  // funct
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                     new builder.HeroCard(session)
-                        .title("그랑 블루")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("그랑 블루")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("그랑 블루")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -1108,7 +1154,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까?", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -1123,8 +1169,11 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
+
             }
 
         }
@@ -1139,23 +1188,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("쉐이드 브론즈")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("쉐이드 브론즈")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("쉐이드 브론즈")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -1163,7 +1217,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까?", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -1178,8 +1232,11 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
+
             }
 
         }
@@ -1194,23 +1251,28 @@ function create(bot) {                                                  // funct
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("카키 메탈")
+                        .title("정면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00055.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00055.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("카키 메탈")
+                        .title("우측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00046.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00046.jpg")
                         ]),
                     new builder.HeroCard(session)
-                        .title("카키 메탈")
+                        .title("좌측면")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/carDesign/PG9/00021.jpg")
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00014.jpg")
+                        ]),
+                    new builder.HeroCard(session)
+                        .title("후면")
+                        .images([
+                            builder.CardImage.create(session, __dirname + "/images/carDesign/PG9/00021.jpg")
                         ])
                 ]);
             session.send(msg);
-            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까? : ", '예|아니오', { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         },
         function (session, results) {
 
@@ -1218,7 +1280,7 @@ function create(bot) {                                                  // funct
             if (session.userData.menuChoice == '예') {
                 session.beginDialog('/designColor');
             } else {
-                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까? : ", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "그랜저의 다른 메뉴를 보시겠습니까?", '시승|디자인|편의사항|가격|홈', { listStyle: builder.ListStyle.button });
             }
 
         },
@@ -1233,6 +1295,8 @@ function create(bot) {                                                  // funct
                 session.beginDialog('/korConvenience');
             } else if (results.response.entity == '가격') {
                 session.beginDialog('/korPrice');
+            } else if (results.response.entity == '홈') {
+                session.beginDialog('/korMenu');
             } else {
                 session.endDialog();
             }
