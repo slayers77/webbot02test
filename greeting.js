@@ -102,8 +102,8 @@ function create(bot) {                                                  // funct
                     //builder.CardImage.create(session, "http://www.hyundai.com/kr/images/showroom/grandeur_ig/img_visual_car3.png")
                     //builder.CardImage.create(session, __dirname+"/images/Grandeur_main.png")
                     
-                    //builder.CardImage.create(session, "D:\home\site\wwwroot\images\Grandeur_main.png")
-                    builder.CardImage.create(session, "/d/home/site/wwwroot/images/Grandeur_main.jpg")
+                    builder.CardImage.create(session, "D:\home\site\wwwroot\images\Grandeur_main.png")
+                    //builder.CardImage.create(session, "/d/home/site/wwwroot/images/Grandeur_main.jpg")
                     
                 ]);
             var msg = new builder.Message(session).attachments([card]);
