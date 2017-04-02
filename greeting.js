@@ -361,9 +361,13 @@ function create(bot) {                                                  // funct
                         .title("성내 시승센터")
                         .subtitle("전화번호 : 02-473-7365(FAX : 02-2225-4736) 지점주소 : (05381) 서울 강동구 천호대로 1096 현대자동차 성내지점 3층 성내시승센터")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/testDrive/" + session.message.text + "/seongnae.png")
-                                .tap(builder.CardAction.showImage(session, __dirname+"/images/testDrive/" + session.message.text + "/seongnae.png")),
+                            builder.CardImage.create(session, __dirname +"/images/testDrive/seoul/seongnae.png")
+                                .tap(builder.CardAction.showImage(session, __dirname+"/images/testDrive/seoul/seongnae.png")),
                         ])
+                        //.images([
+                        //    builder.CardImage.create(session, __dirname + "/images/testDrive/" + session.message.text + "/seongnae.png")
+                        //        .tap(builder.CardAction.showImage(session, __dirname + "/images/testDrive/" + session.message.text + "/seongnae.png")),
+                        //])
                         .buttons([
                             builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
                             //,builder.CardAction.imBack(session, "select:1", "Select")
@@ -372,8 +376,8 @@ function create(bot) {                                                  // funct
                         .title("잠실 시승센터")
                         .subtitle("전화번호 : 02-421-7365(FAX : 02-421-4737) 지점주소 : (05502) 서울 송파구 올림픽로 145 리센츠빌딩 2층 C10호 잠실시승센터")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/testDrive/" + session.message.text + "/jamsil.png")
-                                .tap(builder.CardAction.showImage(session, __dirname+"/images/testDrive/" + session.message.text + "/jamsil.png")),
+                            builder.CardImage.create(session, __dirname +"/images/testDrive/seoul/jamsil.png")
+                                .tap(builder.CardAction.showImage(session, __dirname +"/images/testDrive/seoul/jamsil.png")),
                         ])
                         .buttons([
                             builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
@@ -383,8 +387,8 @@ function create(bot) {                                                  // funct
                         .title("공릉 시승센터")
                         .subtitle("전화번호 : 02-973-7365(FAX : 02-3296-6218) 지점주소 : (01861) 서울 노원구 화랑로 429 현대자동차 공릉지점옆 공릉시승센터")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/testDrive/" + session.message.text + "/gongnung.png")
-                                .tap(builder.CardAction.showImage(session, __dirname+"/images/testDrive/" + session.message.text + "/gongnung.png"))
+                            builder.CardImage.create(session, __dirname +"/images/testDrive/seoul/gongnung.png")
+                                .tap(builder.CardAction.showImage(session, __dirname +"/images/testDrive/seoul/gongnung.png"))
                         ])
                         .buttons([
                             builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
@@ -394,8 +398,8 @@ function create(bot) {                                                  // funct
                         .title("목동 시승센터")
                         .subtitle("전화번호 : 02-2644-7365(FAX : 02-2644-7359) 지점주소 : (07995) 서울 양천구 목동서로 225 한국예술인협회 2층 목동시승센터")
                         .images([
-                            builder.CardImage.create(session, __dirname+"/images/testDrive/" + session.message.text + "/mokdong.png")
-                                .tap(builder.CardAction.showImage(session, __dirname+"/images/testDrive/" + session.message.text + "/mokdong.png"))
+                            builder.CardImage.create(session, __dirname +"/images/testDrive/seoul/mokdong.png")
+                                .tap(builder.CardAction.showImage(session, __dirname +"/images/testDrive/seoul/mokdong.png"))
                         ])
                         .buttons([
                             builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "시승센터 홈페이지")
