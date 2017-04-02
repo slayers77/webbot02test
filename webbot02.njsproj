@@ -31,7 +31,7 @@
     <Content Include="images\price\Grander_33spec.PNG" />
     <Content Include="images\price\Grander_celebrity.PNG" />
     <Content Include="images\price\Grander_exclusive.PNG" />
-    <Content Include="images\price\Grander_mordern.PNG" />
+    <Content Include="images\price\Grander_modern.PNG" />
     <Content Include="images\price\Grander_premiumSpecial.PNG" />
     <Content Include="index.html" />
     <Content Include="package.json" />
