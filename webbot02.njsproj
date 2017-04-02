@@ -16,11 +16,16 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Compile Include="greeting - Copy.js" />
     <Compile Include="greeting.js" />
     <Compile Include="insertMent.js" />
     <Compile Include="luis.js" />
-    <Compile Include="testDriveKor.js" />
+    <Content Include="bin\images\price\Grander_24spec.PNG" />
+    <Content Include="bin\images\price\Grander_30spec.PNG" />
+    <Content Include="bin\images\price\Grander_33spec.PNG" />
+    <Content Include="bin\images\price\Grander_celebrity.PNG" />
+    <Content Include="bin\images\price\Grander_exclusive.PNG" />
+    <Content Include="bin\images\price\Grander_mordern.PNG" />
+    <Content Include="bin\images\price\Grander_premiumSpecial.PNG" />
     <Content Include="images\price\Grander_24spec.PNG" />
     <Content Include="images\price\Grander_30spec.PNG" />
     <Content Include="images\price\Grander_33spec.PNG" />
@@ -31,7 +36,6 @@
     <Content Include="index.html" />
     <Content Include="package.json" />
     <Compile Include="app.js" />
-    <Content Include="price\Grander_24spec.PNG" />
     <Content Include="price\Grander_30spec.PNG" />
     <Content Include="price\Grander_33spec.PNG" />
     <Content Include="price\Grander_celebrity.PNG" />
@@ -40,11 +44,14 @@
     <Content Include="price\Grander_premiumSpecial.PNG" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\images\" />
+    <Folder Include="bin\images\price\" />
+    <Folder Include="bin\images\testDrive\" />
+    <Folder Include="bin\images\testDrive\seoul\" />
     <Folder Include="images\" />
     <Folder Include="images\testDrive\" />
     <Folder Include="images\price\" />
     <Folder Include="images\testDrive\서울\" />
-    <Folder Include="price\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
