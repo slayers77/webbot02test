@@ -99,10 +99,10 @@ function create(bot) {                                                  // funct
                 .title("그랜다이저")
                 .text("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!")
                 .images([
-                    //builder.CardImage.create(session, "http://www.hyundai.com/kr/images/showroom/grandeur_ig/img_visual_car3.png")
+                    builder.CardImage.create(session, "http://www.hyundai.com/kr/images/showroom/grandeur_ig/img_visual_car3.png")
                     //builder.CardImage.create(session, __dirname+"/images/Grandeur_main.png")
                     
-                    builder.CardImage.create(session, "D:\home\site\wwwroot\bin\images\Grandeur_main.png")
+                    //builder.CardImage.create(session, "D:\home\site\wwwroot\bin\images\Grandeur_main.png")
                     //builder.CardImage.create(session, "/d/home/site/wwwroot/images/Grandeur_main.jpg")
                     
                 ]);
