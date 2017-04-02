@@ -1521,8 +1521,7 @@ function create(bot) {                                                  // funct
         function (session) {
             builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!!', '스마트 센스 소개|스마트 센스 세부목록|스마트 센스 세부목록 링크', { listStyle: builder.ListStyle.button });
         }, function (session, results) {
-
-            session.send('당신의 선택 메뉴 : %s!', results.response.entity);
+        
             if (results.response.entity == '스마트 센스 소개') {
                 var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -1540,7 +1539,6 @@ function create(bot) {                                                  // funct
                     ]);
             }
             else if (results.response.entity == '스마트 센스 세부목록') {
-                session.send('당신의 선택 메뉴 : %s!', results.response.entity);
                 if (results.response.entity == '스마트 센스 세부목록') {
                     var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -1797,26 +1795,26 @@ function create(bot) {                                                  // funct
                         .title("가솔린 2.4")
                         //.text("엔진형식 : 세타2 개선 2.4GDI\t\t배기량(cc) : 2,359\n\n최고출력(PS/rpm) : 100/6,000\n\n최대토크(kg.m/rpm) : 24.6/4,000")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_24spec.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_24spec.PNG"))
-                        ])
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_24spec.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_24spec.PNG"))
+                        ])                                                                           
                         .buttons([
                             builder.CardAction.imBack(session, "1 : 가솔린 2.4", "가솔린 2.4 선택")
                         ]),
                     new builder.HeroCard(session)
                         .title("가솔린 3.0")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_30spec.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_30spec.PNG"))
-                        ])
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_30spec.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_30spec.PNG"))
+                            ])                                                                       
                         .buttons([
                             builder.CardAction.imBack(session, "2 : 가솔린 3.0", "가솔린 3.0 선택")
                         ]),
                     new builder.HeroCard(session)
                         .title("가솔린 3.3")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_33spec.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_33spec.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_33spec.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_33spec.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "3 : 가솔린 3.3", "가솔린 3.3 선택")
@@ -1824,8 +1822,8 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("디젤 2.2")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_22spec.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_22spec.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_22spec.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_22spec.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "4 : 디젤 2.2", "디젤 2.2 선택")
@@ -1874,8 +1872,8 @@ function create(bot) {                                                  // funct
                         .title("모던(Modern)")
                         .text("가격 : 30,550,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_modern.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_modern.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_modern.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_modern.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "1 : 모던", "모던 품목")
@@ -1884,8 +1882,8 @@ function create(bot) {                                                  // funct
                         .title("프리미엄(Premium)")
                         .text("가격 : 31,750,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_modern.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_modern.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_modern.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_modern.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "2 : 프리미엄", "프리미엄 품목")
@@ -1894,8 +1892,8 @@ function create(bot) {                                                  // funct
                         .title("프리미엄 스페셜(Premium Special)")
                         .text("가격 : 33,750,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_premiumSpecial.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_premiumSpecial.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_premiumSpecial.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_premiumSpecial.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "3 : 프리미엄 스페셜", "프리미엄 스페셜 품목")
@@ -1937,8 +1935,8 @@ function create(bot) {                                                  // funct
                         .title("익스클루시브(Exclusive)")
                         .text("가격 : 35,550,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_exclusive.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_exclusive.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_exclusive.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_exclusive.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "1 : 익스클루시브", "익스클루시브 품목")
@@ -1947,8 +1945,8 @@ function create(bot) {                                                  // funct
                         .title("익스클루시브 스페셜(Exclusive Special)")
                         .text("가격 : 31,750,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_exclusive.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_exclusive.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_exclusive.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_exclusive.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "2 : 익스클루시브", "익스클루시브 스페셜 품목")
@@ -1988,8 +1986,8 @@ function create(bot) {                                                  // funct
                         .title("셀러브리티(Celebrity)")
                         .text("가격 : 41,600,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_celebrity.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_celebrity.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_celebrity.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_celebrity.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "1 : 셀러브리티", "셀러브리티 품목")
@@ -2027,8 +2025,8 @@ function create(bot) {                                                  // funct
                         .title("모던(Morden)")
                         .text("가격 : 33,550,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_modern.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_modern.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_modern.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_modern.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "1 : 모던", "모던 품목")
@@ -2037,8 +2035,8 @@ function create(bot) {                                                  // funct
                         .title("프리미엄(Premium)")
                         .text("가격 : 34,750,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_modern.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_modern.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_modern.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_modern.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "2 : 프리미엄", "프리미엄 품목")
@@ -2047,8 +2045,8 @@ function create(bot) {                                                  // funct
                         .title("프리미엄 스페셜(Premium Special)")
                         .text("가격 : 36,750,000 원")
                         .images([
-                            builder.CardImage.create(session, img_path + "\\images\\price\\Grander_premiumSpecial.png")
-                                .tap(builder.CardAction.showImage(session, img_path + "\\images\\price\\Grander_premiumSpecial.PNG"))
+                            builder.CardImage.create(session, img_path + "/images/price/Grander_premiumSpecial.PNG")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grander_premiumSpecial.PNG"))
                         ])
                         .buttons([
                             builder.CardAction.imBack(session, "3 : 프리미엄 스페셜", "프리미엄 스페셜 품목")
