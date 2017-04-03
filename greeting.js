@@ -37,7 +37,7 @@ function create(bot) {                                                  // funct
             //var eng = /^[A-Z|a-z]/g;
             //var ment = session.message.text;
             //console.log('kor : ' + ment.match(kor));
-            //console.log('eng : ' + ment.match(eng));
+            //console.log('eng : ' + ment.match(eng)); 
             session.beginDialog('/korMenu');
 
             //return luis.query(session.message.text)
