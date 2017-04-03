@@ -2,10 +2,31 @@
 var language = "";
 var luis = require('./luis');
 //var query = require('./config/query');
-//var sessions = {};
 
-//var img_path = "https://raw.githubusercontent.com/kimhyunsuk/webbot02/master";
 var img_path = "http://webbot02.azurewebsites.net/hyundai";
+
+
+//var Connection = require('tedious').Connection;
+//var tediousRequest = require('tedious').Request;
+//var TYPES = require('tedious').TYPES; 
+//var connection = "";
+
+//var config = {
+//    server: 'faxtimedb.database.windows.net',
+//    userName: 'faxtime',
+//    password: 'test2016!',
+//    options: {
+//        debug: {
+//            packet: false,
+//            data: false,
+//            patload: false,
+//            token: false,
+//            log: true
+//        },
+//        encrypt: true,
+//        database: 'taihoML'
+//    }
+//};
 
 
 function create(bot) {                                                  // function create(bot) START
@@ -31,60 +52,67 @@ function create(bot) {                                                  // funct
             
 
 
-            
+            console.log("SECOND ID : " + session.message.sourceEvent.clientActivityId);
 
             //var kor = /[ㄱ-힣]/g;
             //var eng = /^[A-Z|a-z]/g;
             //var ment = session.message.text;
             //console.log('kor : ' + ment.match(kor));
             //console.log('eng : ' + ment.match(eng)); 
-            session.beginDialog('/korMenu');
+            //session.beginDialog('/korMenu');
 
-            //return luis.query(session.message.text)
-            //    .then(luisResult => {
-            //        var intent = luisResult.topScoringIntent.intent;
-            //        var entityLen = Object.keys(luisResult.entities).length;
-            //        console.log(`processing resolved intent: ${intent}`);
-            //        //console.log(`greeting : ` + luisResult.entities[0].type);
+            return luis.query(session.message.text)
+                .then(luisResult => {
+                    var intent = luisResult.topScoringIntent.intent;
+                    var entityLen = Object.keys(luisResult.entities).length;
+                    console.log(`processing resolved intent: ${intent}`);
+                    //console.log(`greeting : ` + luisResult.entities[0].type);
 
-            //        // collect missing fields 
+                    // collect missing fields 
 
-            //        if (intent == 'greeting') {
+                    if (intent == 'greeting') {
 
-            //            if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
-            //            else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
+                        if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
+                        else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
 
-            //        } else if (intent == '시승') {
+                    } else if (intent == '시승') {
 
-            //            //if (luisResult.entities.matches('/온라인 예약/')) {
+                        console.log("luisResult.entities : " + luisResult.entities.length);
+                        for (var i = 0; i < luisResult.entities.length; i++)
+                        {
 
-            //            //    return session.beginDialog('/korTestDrive');
+                            if (luisResult.entities[i].type.match('온라인 예약')) {
 
-            //            //} else if (luisResult.entities.matches('/시승센터 전화예약/')) {
+                                return session.beginDialog('/korTestDrive');
 
-            //            //    return session.beginDialog('/findTestDriveOffline');
+                            } else if (luisResult.entities[i].type.match('시승센터 전화예약')) {
 
-            //            //}
-            //            return session.beginDialog('/korTestDrive');
+                                return session.beginDialog('/findTestDriveOffline');
 
+                            } else {
 
-            //        } else if (intent == '디자인') { return session.beginDialog('/korDesign'); }
-            //        else if (intent == '편의사항') { return session.beginDialog('/korConvenience'); }
-            //        else if (intent == '가격') { return session.beginDialog('/korPrice'); }
-            //        else if (intent == 'None') {
+                                return session.beginDialog('/korTestDrive');
 
-            //            session.send("I Do Not Understanding Your Comment . Please Typing 'hi' or '하이'");
+                            }
 
-            //            return session.beginDialog('/');
-            //        }
+                        }
+                    } else if (intent == '디자인') { return session.beginDialog('/korDesign'); }
+                    else if (intent == '편의사항') { return session.beginDialog('/korConvenience'); }
+                    else if (intent == '가격') { return session.beginDialog('/korPrice'); }
+                    else if (intent == 'None') {
 
-            //    })
-            //    .catch(err => {
-            //        console.error(`error processing intent: ${err.message}`);
-            //        session.send(`there was an error processing your request, please try again later...`);
-            //        return session.cancelDialog(0, '/');
+                        session.send("I Do Not Understanding Your Comment . Please Typing 'hi' or '하이'");
 
-            //    });
+                        return session.beginDialog('/');
+                    }
+
+                })
+                .catch(err => {
+                    console.error(`error processing intent: ${err.message}`);
+                    session.send(`there was an error processing your request, please try again later...`);
+                    return session.cancelDialog(0, '/');
+
+                });
         }
     ]);//bot.dialog('/greeting' end
 
@@ -100,7 +128,7 @@ function create(bot) {                                                  // funct
 
         function (session, args, next) {
 
-            //console.log(query.getQuery("select_catType"));
+            
             
             console.log('img_path  : ' + img_path);
             var card = new builder.HeroCard(session)
@@ -115,7 +143,13 @@ function create(bot) {                                                  // funct
             var msg = new builder.Message(session).attachments([card]);
             session.send(msg);
 
-            //session.send("안녕!! 난 현대자동차 챗봇 그랜다이저야 !!");
+            
+            //connection = new Connection(config);
+            //connection.on('connect', function (err) {
+            //    console.log('Connected');
+            //    console.log('@@@@@@@@@@@ : ' + query.getQuery("select_catType"));    
+            //    executeStatement(query.getQuery("select_catType"));
+            //});
 
             builder.Prompts.choice(session, '원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
 
@@ -212,9 +246,9 @@ function create(bot) {                                                  // funct
 
         function (session, args, next) {
 
-            session.send("맞아요, 한번 타 보셔야 저를 좀 더 잘 알 수 있겠죠!!");
+            session.send("맞아요!!\n\n 한번 타 보셔야 저를 좀 더 잘 알 수 있겠죠!!");
 
-            builder.Prompts.choice(session, '시승 신청을 하시기 위해서는 온라인에서 예약을 하시거나 지점에 직접 연락을 해 주셔야 해요. 제가 도와 드릴께요, 어떤 방법이 편하시겠어요?',
+            builder.Prompts.choice(session, '시승 신청을 하시기 위해서는 온라인에서 예약을 하시거나 \n\n지점에 직접 연락을 해 주셔야 해요. \n\n제가 도와 드릴께요, 어떤 방법이 편하시겠어요?',
                 '온라인 예약|시승센터 전화예약', { listStyle: builder.ListStyle.button });
 
         }
@@ -2575,7 +2609,51 @@ function create(bot) {                                                  // funct
         }
     ]);
 
-    
+
+
+    //function executeStatement(queryStr) {
+    //    var result = "";
+    //    var jsonArray = [];
+    //    var requests = new tediousRequest(queryStr, function (err) {
+    //        if (err) {
+    //            console.log('ERROR : ' + err);
+    //        }
+    //    });
+
+    //    requests.addParameter('sid', TYPES.NVarChar, '1');
+        
+
+    //    requests.on('row', function (columns) {
+    //        var obj = {};
+    //        columns.forEach(function (column) {
+    //            if (column.value === null) {
+    //                console.log('NULL');
+    //            } else {
+    //                console.log("column.metadata.colName : " + column.metadata.colName);
+    //                console.log("column.value : " + column.value);
+    //                obj[column.metadata.colName] = column.value;
+    //            }
+    //        });
+    //        jsonArray.push(obj);
+    //    });
+
+    //    requests.on('doneProc', function (rowCount, more) {
+    //        console.log('LAST : ' + jsonArray);
+    //        //param = "";
+    //        matchCnt = 0;
+    //        //res(null, jsonArray);
+            
+    //        for (var i = 0; i < jsonArray.length; i++)
+    //        {
+
+    //            console.log("CAR_TYPE : "+jsonArray[i].CAR_TYPE);
+
+    //        }
+    //    });
+    //    connection.execSql(requests);
+    //};
+
+
 
 }   // function create(bot) END
 
