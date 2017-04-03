@@ -1,10 +1,12 @@
 ﻿var builder = require('botbuilder');
 var language = "";
 var luis = require('./luis');
-//var insetMent = require('./insertMent');
-var sessions = {};
+//var query = require('./config/query');
+//var sessions = {};
 
-var img_path = "https://raw.githubusercontent.com/kimhyunsuk/webbot02/master";
+//var img_path = "https://raw.githubusercontent.com/kimhyunsuk/webbot02/master";
+var img_path = "http://webbot02.azurewebsites.net/hyundai";
+
 
 function create(bot) {                                                  // function create(bot) START
 
@@ -26,60 +28,63 @@ function create(bot) {                                                  // funct
     bot.dialog('/greeting', [                   //bot.dialog('/greeting' start
 
         function (session) {
+            
 
+
+            
 
             //var kor = /[ㄱ-힣]/g;
             //var eng = /^[A-Z|a-z]/g;
             //var ment = session.message.text;
             //console.log('kor : ' + ment.match(kor));
             //console.log('eng : ' + ment.match(eng));
+            session.beginDialog('/korMenu');
+
+            //return luis.query(session.message.text)
+            //    .then(luisResult => {
+            //        var intent = luisResult.topScoringIntent.intent;
+            //        var entityLen = Object.keys(luisResult.entities).length;
+            //        console.log(`processing resolved intent: ${intent}`);
+            //        //console.log(`greeting : ` + luisResult.entities[0].type);
+
+            //        // collect missing fields 
+
+            //        if (intent == 'greeting') {
+
+            //            if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
+            //            else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
+
+            //        } else if (intent == '시승') {
+
+            //            //if (luisResult.entities.matches('/온라인 예약/')) {
+
+            //            //    return session.beginDialog('/korTestDrive');
+
+            //            //} else if (luisResult.entities.matches('/시승센터 전화예약/')) {
+
+            //            //    return session.beginDialog('/findTestDriveOffline');
+
+            //            //}
+            //            return session.beginDialog('/korTestDrive');
 
 
-            return luis.query(session.message.text)
-                .then(luisResult => {
-                    var intent = luisResult.topScoringIntent.intent;
-                    var entityLen = Object.keys(luisResult.entities).length;
-                    console.log(`processing resolved intent: ${intent}`);
-                    //console.log(`greeting : ` + luisResult.entities[0].type);
+            //        } else if (intent == '디자인') { return session.beginDialog('/korDesign'); }
+            //        else if (intent == '편의사항') { return session.beginDialog('/korConvenience'); }
+            //        else if (intent == '가격') { return session.beginDialog('/korPrice'); }
+            //        else if (intent == 'None') {
 
-                    // collect missing fields 
+            //            session.send("I Do Not Understanding Your Comment . Please Typing 'hi' or '하이'");
 
-                    if (intent == 'greeting') {
+            //            return session.beginDialog('/');
+            //        }
 
-                        if (luisResult.entities[0].type == '한국어인사') { return session.beginDialog('/korMenu'); }
-                        else if (luisResult.entities[0].type == '영어인사') { return session.beginDialog('/EngMenu'); }
+            //    })
+            //    .catch(err => {
+            //        console.error(`error processing intent: ${err.message}`);
+            //        session.send(`there was an error processing your request, please try again later...`);
+            //        return session.cancelDialog(0, '/');
 
-                    } else if (intent == '시승') {
-
-                        //if (luisResult.entities.matches('/온라인 예약/')) {
-
-                        //    return session.beginDialog('/korTestDrive');
-
-                        //} else if (luisResult.entities.matches('/시승센터 전화예약/')) {
-
-                        //    return session.beginDialog('/findTestDriveOffline');
-
-                        //}
-                        return session.beginDialog('/korTestDrive');
-
-
-                    } else if (intent == '디자인') { return session.beginDialog('/korDesign'); }
-                    else if (intent == '편의사항') { return session.beginDialog('/korConvenience'); }
-                    else if (intent == '가격') { return session.beginDialog('/korPrice'); }
-                    else if (intent == 'None') {
-
-                        session.send("I Do Not Understanding Your Comment . Please Typing 'hi' or '하이'");
-
-                        return session.beginDialog('/');
-                    }
-
-                })
-                .catch(err => {
-                    console.error(`error processing intent: ${err.message}`);
-                    session.send(`there was an error processing your request, please try again later...`);
-                    return session.cancelDialog(0, '/');
-
-                });
+            //    });
         }
     ]);//bot.dialog('/greeting' end
 
@@ -91,17 +96,20 @@ function create(bot) {                                                  // funct
 
     bot.dialog('/korMenu', [                                        //bot.dialog('/korMenu' start
 
+        
+
         function (session, args, next) {
+
+            //console.log(query.getQuery("select_catType"));
+            
             console.log('img_path  : ' + img_path);
             var card = new builder.HeroCard(session)
                 .title("그랜다이저")
-                .text("안녕하세요!! 전 현대자동차 챗봇 그랜다이저입니다.")
+                .text("안녕하세요!! 전 현대자동차 챗봇 그랜다이저입니다." )
                 .images([
+
                     //builder.CardImage.create(session, "https://raw.githubusercontent.com/kimhyunsuk/webbot02/master/images/Grandeur_main.png")
                     builder.CardImage.create(session, img_path + "/images/Grandeur_main.png")
-
-                    //builder.CardImage.create(session, "images\Grandeur_main.png")
-                    //builder.CardImage.create(session, "/d/home/site/wwwroot/images/Grandeur_main.jpg")
 
                 ]);
             var msg = new builder.Message(session).attachments([card]);
@@ -2566,6 +2574,8 @@ function create(bot) {                                                  // funct
             }
         }
     ]);
+
+    
 
 }   // function create(bot) END
 
