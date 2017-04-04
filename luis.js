@@ -3,8 +3,8 @@ var util = require('util');
 
 
 // replace LUIS endpoint with your own 
-//var luisEndpoint = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true';
-var luisEndpoint = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=db22f870d1664b19b482faa6d8e53c08&verbose=true';
+var luisEndpoint = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true';
+//var luisEndpoint = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6393ebda-613e-477e-bade-92330e2e496d?subscription-key=db22f870d1664b19b482faa6d8e53c08&verbose=true';
 var luisUrlTemplate = `${luisEndpoint}&q=%s`;
 
 function query(text) {
