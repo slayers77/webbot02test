@@ -852,9 +852,9 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("후면")
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00025.jpg")
+                            builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00021.jpg")
                                 .alt("화이트 크림")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00025.jpg"))
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00021.jpg"))
                         ])
                 ]);
             session.send(msg);
@@ -926,8 +926,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00021.jpg"))
                                 .alt("이온 실버")
                         ])
                 ]);
@@ -1000,8 +1000,8 @@ function create(bot) {                                                  // funct
                     new builder.HeroCard(session)
                         .title("후면")
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00021.jpg"))
                                 .alt("루나 그레이")
                         ])
                 ]);
@@ -1075,8 +1075,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00021.jpg"))
                                 .alt("판테라 그레이")
                         ])
                 ]);
@@ -1150,8 +1150,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00021.jpg"))
                                 .alt("미드나잇 블랙")
                         ])
                 ]);
@@ -1225,8 +1225,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00021.jpg"))
                                 .alt("발렌타인 레드")
                         ])
                 ]);
@@ -1298,8 +1298,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00021.jpg"))
                                 .alt("그랑 블루")
                         ])
                 ]);
@@ -1373,8 +1373,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00021.jpg"))
                                 .alt("쉐이드 브론즈")
                         ])
                 ]);
@@ -1448,8 +1448,8 @@ function create(bot) {                                                  // funct
                         .title("후면")
 
                         .images([
-                            builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00025.jpg")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00025.jpg"))
+                            builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00021.jpg")
+                                .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00021.jpg"))
                                 .alt("카키 메탈")
                         ])
                 ]);
