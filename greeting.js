@@ -33,22 +33,22 @@ function create(bot) {                                                  // funct
 
 
 
-    //intents.matches('korConvenienceMain', builder.DialogAction.beginDialog('/'));
+    intents.matches('korConvenienceMain', builder.DialogAction.beginDialog('/korConvenienceMain'));
 
     //intents.matches('korConvenienceInfotainmentIntro', builder.DialogAction.beginDialog('/'));
     //intents.matches('korConvenienceInfotainmentLink', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceInfotainmentList', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceInfotainmentSimple', builder.DialogAction.beginDialog('/'));
+    intents.matches('korConvenienceInfotainmentList', builder.DialogAction.beginDialog('/korConvenienceInfotainmentList'));
+    intents.matches('korConvenienceInfotainmentSimple', builder.DialogAction.beginDialog('/korConvenienceInfotainmentSimple'));
 
     //intents.matches('korConvenienceSafetyIntro', builder.DialogAction.beginDialog('/'));
     //intents.matches('korConvenienceSafetyLink', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceSafetyList', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceSafetySimple', builder.DialogAction.beginDialog('/'));
+    intents.matches('korConvenienceSafetyList', builder.DialogAction.beginDialog('/korConvenienceSafetyList'));
+    intents.matches('korConvenienceSafetySimple', builder.DialogAction.beginDialog('/korConvenienceSafetySimple'));
 
     //intents.matches('korConvenienceSmartsenseIntro', builder.DialogAction.beginDialog('/'));
     //intents.matches('korConvenienceSmartsenseLink', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceSmartsenseList', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceSmartSenseSimple', builder.DialogAction.beginDialog('/'));
+    intents.matches('korConvenienceSmartsenseList', builder.DialogAction.beginDialog('/korConvenienceSmartsenseList'));
+    intents.matches('korConvenienceSmartSenseSimple', builder.DialogAction.beginDialog('/korConvenienceSmartSenseSimple'));
 
 
     intents.matches('korDesignMain', builder.DialogAction.beginDialog('/korDesignMain'));
