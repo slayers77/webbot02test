@@ -2,25 +2,24 @@
 
 function create(bot) {
     /***********************************************************************************
-    1. 한국어 가격 초기 메뉴(모델 카드)
-    ************************************************************************************/
+1. 한국어 가격 초기 메뉴(모델 카드)
+************************************************************************************/
 
-    bot.dialog('/korPrice', [
+    bot.dialog('/korPriceModel', [
 
         function (session) {
-            session.send("그랜저는 4가지 모델을 제공합니다.");
+            session.userData.model = "";
             var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                     new builder.HeroCard(session)
                         .title("가솔린 2.4")
-                        //.text("엔진형식 : 세타2 개선 2.4GDI\t\t배기량(cc) : 2,359\n\n최고출력(PS/rpm) : 100/6,000\n\n최대토크(kg.m/rpm) : 24.6/4,000")
                         .images([
                             builder.CardImage.create(session, img_path + "/images/price/Grandeur_24spec.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_24spec.PNG"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "1 : 가솔린 2.4", "가솔린 2.4 선택")
+                            builder.CardAction.imBack(session, "가격에 가솔린 2.4 모델을 선택", "가솔린 2.4 선택")
                         ]),
                     new builder.HeroCard(session)
                         .title("가솔린 3.0")
@@ -29,7 +28,7 @@ function create(bot) {
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_30spec.PNG"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "2 : 가솔린 3.0", "가솔린 3.0 선택")
+                            builder.CardAction.imBack(session, "가격에 가솔린 3.0 모델을 선택", "가솔린 3.0 선택")
                         ]),
                     new builder.HeroCard(session)
                         .title("가솔린 3.3")
@@ -38,7 +37,7 @@ function create(bot) {
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_33spec.PNG"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "3 : 가솔린 3.3", "가솔린 3.3 선택")
+                            builder.CardAction.imBack(session, "가격에 가솔린 3.3 모델을 선택", "가솔린 3.3 선택")
                         ]),
                     new builder.HeroCard(session)
                         .title("디젤 2.2")
@@ -47,7 +46,7 @@ function create(bot) {
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_22spec.PNG"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "4 : 디젤 2.2", "디젤 2.2 선택")
+                            builder.CardAction.imBack(session, "가격에 디젤 2.2 모델을 선택", "디젤 2.2 선택")
                         ])
                 ]);
             builder.Prompts.choice(session, msg, "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2");
@@ -56,14 +55,15 @@ function create(bot) {
             if (results.response && results.response.entity != '(quit)') {
                 // Select Model Menu
                 if (results.response.entity == "가솔린 2.4" || results.response.entity == 1) {
-                    session.beginDialog('/model24');
+                    session.userData.model = "가솔린 2.4";
                 } else if (results.response.entity == "가솔린 3.0" || results.response.entity == 2) {
-                    session.beginDialog('/model30');
+                    session.userData.model = "가솔린 3.0";
                 } else if (results.response.entity == "가솔린 3.3" || results.response.entity == 3) {
-                    session.beginDialog('/model33');
+                    session.userData.model = "가솔린 3.3";
                 } else if (results.response.entity == "디젤 2.2" || results.response.entity == 4) {
-                    session.beginDialog('/model22');
+                    session.userData.model = "디젤 2.2";
                 }
+                session.beginDialog('/korPriceTrim', session.userData.model);
             } else {
                 // Exit the menu
                 session.endDialog();
@@ -72,271 +72,229 @@ function create(bot) {
 
     ]);
 
-
-
-
-
-
     /***********************************************************************************
-    1. 한국어 가격 가솔린 2.4 메뉴(트림 카드)
+    2. 한국어 가격 메뉴 (트림 카드)
     ************************************************************************************/
 
-    bot.dialog('/model24', [
+    bot.dialog('/korPriceTrim', [
 
-        function (session) {
+        function (session, model) {
+            var trim1 = "";
+            var trim2 = "";
+            var trim3 = "";
+            var msg;
+            if (model == "가솔린 2.4") {
+                trim1 = "모던(Modern)";
+                trim2 = "프리미엄(Premium)";
+                trim3 = "프리미엄 스페셜(Premium Special)";
+                msg = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim1)
+                            .text("가격 : 30,550,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim1 + " 옵션 보기", "옵션 보기")
+                            ]),
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim2)
+                            .text("가격 : 31,750,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim2 + " 옵션 보기", "옵션 보기")
+                            ]),
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim3)
+                            .text("가격 : 33,750,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim3 + " 옵션 보기", "옵션 보기")
+                            ])
+                    ]);
+            } else if (model == "가솔린 3.0") {
+                trim1 = "익스클루시브(Exclusive)";
+                trim2 = "익스클루시브 스페셜(Exclusive Special)";
+                msg = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim1)
+                            .text("가격 : 35,550,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim1 + " 옵션 보기", "옵션 보기")
+                            ]),
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim2)
+                            .text("가격 : 38,700,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim2 + " 옵션 보기", "옵션 보기")
+                            ])
+                    ]);
+            } else if (model == "가솔린 3.3") {
+                trim1 = "셀러브리티(Celebrity)";
+                msg = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim1)
+                            .text("가격 : 41,600,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_celebrity.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_celebrity.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim1 + " 옵션 보기", "옵션 보기")
+                            ])
+                    ]);
+            } else if (model == "디젤 2.2") {
+                trim1 = "모던(Modern)";
+                trim2 = "프리미엄(Premium)";
+                trim3 = "프리미엄 스페셜(Premium Special)";
+                msg = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim1)
+                            .text("가격 : 35,550,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim1 + " 옵션 보기", "옵션 보기")
+                            ]),
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim2)
+                            .text("가격 : 34,750,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim2 + " 옵션 보기", "옵션 보기")
+                            ]),
+                        new builder.HeroCard(session)
+                            .title(model + " " + trim3)
+                            .text("가격 : 36,750,000 원")
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+                                    .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격의 " + model + " " + trim3 + " 옵션 보기", "옵션 보기")
+                            ])
+                    ]);
+            }
+
+            builder.Prompts.choice(session, msg, trim1 + "|" + trim2 + "|" + trim3);
+        },
+        function (session, results) {
+            session.userData.trim = "";
+            session.userData.trim = results.response.entity;
+            session.userData.modelTrim = session.userData.model + " " + session.userData.trim;
+            if (results.response && results.response.entity != '(quit)') {
+                session.beginDialog('/korPriceOption', session.userData.modelTrim);
+            } else {
+                // Exit the menu
+                session.endDialog();
+            }
+        }
+    ]);
+
+    /***********************************************************************************
+    3. 한국어 가격 메뉴 (옵션)
+    ************************************************************************************/
+    bot.dialog('/korPriceOption', [
+        function (session, modelTrim) {
             var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                     new builder.HeroCard(session)
-                        .title("모던(Modern)")
-                        .text("가격 : 30,550,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
-                        ])
+                        .title(modelTrim + " 기본품목")
                         .buttons([
-                            builder.CardAction.imBack(session, "1 : 모던", "모던 품목")
+                            builder.CardAction.imBack(session, "1 : 파워트레인", modelTrim + " 파워트레인"),
+                            builder.CardAction.imBack(session, "2 : 성능", modelTrim + " 성능"),
+                            builder.CardAction.imBack(session, "3 : 안전", modelTrim + " 안전"),
+                            builder.CardAction.imBack(session, "4 : 외관", modelTrim + " 외관"),
+                            builder.CardAction.imBack(session, "5 : 내장", modelTrim + " 내장"),
+                            builder.CardAction.imBack(session, "6 : 시트", modelTrim + " 시트"),
+                            builder.CardAction.imBack(session, "7 : 편의", modelTrim + " 편의"),
+                            builder.CardAction.imBack(session, "8 : 멀티미디어", modelTrim + " 멀티미디어")
                         ]),
                     new builder.HeroCard(session)
-                        .title("프리미엄(Premium)")
-                        .text("가격 : 31,750,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
-                        ])
+                        .title(modelTrim + " 선택품목")
                         .buttons([
-                            builder.CardAction.imBack(session, "2 : 프리미엄", "프리미엄 품목")
-                        ]),
-                    new builder.HeroCard(session)
-                        .title("프리미엄 스페셜(Premium Special)")
-                        .text("가격 : 33,750,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_premiumSpecial.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_premiumSpecial.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "3 : 프리미엄 스페셜", "프리미엄 스페셜 품목")
+                            builder.CardAction.imBack(session, "1 : 파노라마 썬루프", "파노라마 썬루프"),
+                            builder.CardAction.imBack(session, "2 : TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
+                            builder.CardAction.imBack(session, "3 : 앞좌석 통풍+하이패스 시스템", "앞좌석 통풍+하이패스 시스템"),
+                            builder.CardAction.imBack(session, "4 : 현대 스마트 센스 패키지 IV", "현대 스마트 센스 패키지 IV")
                         ])
                 ]);
-            builder.Prompts.choice(session, msg, "모던|프리미엄|프리미엄 스페셜");
+            builder.Prompts.choice(session, msg, "파워트레인|성능|안전|외관|내장|시트|편의|멀티미디어|파노라마 썬루프|TUIX 컴포트 패키지|앞좌석 통풍+하이패스 시스템|현대 스마트 센스 패키지IV");
         },
         function (session, results) {
+            var msg;
             if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "모던" || results.response.entity == 1) {
-                    session.beginDialog('/model24_modern_trim');
-                } else if (results.response.entity == "프리미엄" || results.response.entity == 2) {
-                    session.beginDialog('/model24_premium_trim');
-                } else if (results.response.entity == "프리미엄 스페셜" || results.response.entity == 3) {
-                    session.beginDialog('/model24_premiumSpecial_trim');
+                // Select item Menu
+                if (results.response.entity == "파워트레인" || results.response.entity == 1) {
+                    msg = "[파워트레인 / 성능]\n\n - 가솔린 2.4엔진";
+                } else if (results.response.entity == "성능" || results.response.entity == 2) {
+                    msg = "[성능]\n\n -  6단 자동변속기 \n\n - 전동식 파워 스티어링(속도감응형)";
+                } else if (results.response.entity == "안전" || results.response.entity == 3) {
+                    msg = "[안전]\n\n - 9 에어백 시스템(앞좌석 어드밴스드, 운전석 무릎, 앞/뒷좌석 사이드, 전복 대응 커튼)\n\n - 앞좌석 후방충격 저감 시스템\n\n - 앞좌석 하체 상해 저감 시트벨트(EFD 시스템)\n\n - 뒷좌석 센터 3점식 시트벨트\n\n - 유아용 시트 고정장치(뒷좌석)\n\n - 차체 자세 제어 장치(ESC)\n\n - 샤시 통합 제어 시스템(VSM)\n\n - 경사로 밀림 방지 장치(HAC)\n\n - 급제동 경보 장치(ESS)\n\n - 개별 타이어 공기압 경보 장치(TPMS)\n\n - 세이프티 언락\n\n - 타이어 응급처치 키트";
+                } else if (results.response.entity == "외관" || results.response.entity == 4) {
+                    msg = "[외관]\n\n - 듀얼 프로젝션 헤드램프\n\n - LED 주간주행등(DRL, 포지셔닝 기능 포함)\n\n - LED 리어 콤비램프(제동등, 후미등 적용)\n\n - LED 보조제동등\n\n - 17인치 알로이 휠 & 타이어\n\n - 이중접합 차음 유리(앞면, 앞도어)\n\n - 아웃사이드 미러(열선, 전동 조절, 전동 접이, LED 방향지시등)\n\n - 도어 포켓라이팅(앞)\n\n - 듀얼 머플러";
+                } else if (results.response.entity == "내장" || results.response.entity == 5) {
+                    msg = "[내장]\n\n - 슈퍼비전 클러스터(3.5인치 단색 LCD)\n\n - 가죽 스티어링 휠(열선, 수동식 틸트 & 텔레스코픽, 리모컨)\n\n - 가죽 변속기 노브\n\n - 크래쉬패드 인조가죽 감싸기\n\n - 도어트림 우드그레인 가니쉬\n\n - 트리코트 내장재\n\n - 메탈 도어스커프\n\n - 룸램프(LED)\n\n - ECM 룸미러\n\n - 아날로그 시계";
+                } else if (results.response.entity == "시트" || results.response.entity == 6) {
+                    msg = "[시트]\n\n - 천연가죽 시트\n\n - 운전석 전동 조절(8way) & 전동식 2way 럼버서포트\n\n - 동승석 전동 조절(4way)\n\n - 앞좌석 열선\n\n - 뒷좌석 열선\n\n - 뒷좌석 암레스트(스키쓰루)";
+                } else if (results.response.entity == "편의" || results.response.entity == 7) {
+                    msg = "[편의]\n\n - 버튼 시동 & 스마트키 시스템\n\n - 듀얼 풀오토 에어컨\n\n - 오토 디포그\n\n - 고성능 에어컨 필터\n\n - 통합주행모드\n\n - 오토 크루즈 컨트롤, 풋파킹 브레이크\n\n - 전/후방 주차보조 시스템\n\n - 후방카메라(조향 연동)\n\n - 스마트 트렁크(풀오픈 타입)\n\n - 세이프티 파워윈도우(앞좌석)\n\n - USB 충전기\n\n - 파워 아웃렛(센터페시아, 센터콘솔 암레스트)";
+                } else if (results.response.entity == "멀티미디어" || results.response.entity == 8) {
+                    msg = "[멀티미디어]\n\n - 8인치 내비게이션\n\n - 일반 사운드 시스템(8스피커)\n\n - AUX & USB 단자\n\n - 블루투스 핸즈프리";
+                } else if (results.response.entity == "파노라마 썬루프" || results.response.entity == 1) {
+                    msg = "[파노라마 썬루프]\n\n - 파노라마 썬루프";
+                } else if (results.response.entity == "TUIX 컴포트 패키지" || results.response.entity == 2) {
+                    msg = "[TUIX 컴포트 패키지]\n\n -  냉온장 컵홀더(컵홀더 커버 미적용) \n\n - LED라이팅(도어 사팟 램프/번호판 램프/풋무드 램프) \n\n - 메탈 페달";
+                } else if (results.response.entity == "앞좌석 통풍+하이패스 시스템" || results.response.entity == 3) {
+                    msg = "[앞좌석 통풍+하이패스 시스템]\n\n - 앞좌석 통풍 시트 \n\n - 하이패스 시스템";
+                } else if (results.response.entity == "현대 스마트 센스 패키지IV" || results.response.entity == 4) {
+                    msg = "[현대 스마트 센스 패키지IV]\n\n - 자동 긴급제동 시스템(AEB,보행자 인지 기능 포함) \n\n - 어드밴스드 스마트 크루즈 컨트롤(ASCC) \n\n - 주행 조향보조 시스템(LKAS) \n\n - 부주의 운전 경보 시스템(DAA)\n\n - 전동식 파킹 브레이크(EPB)";
                 }
+                builder.Prompts.choice(session, msg, '이전|다른모델|다른트림|홈', { listStyle: builder.ListStyle.button });
             } else {
                 // Exit the menu
                 session.endDialog();
             }
-        }
-
-    ]);
-
-    /***********************************************************************************
-    2. 한국어 가격 가솔린 3.0 메뉴(트림 카드)
-    ************************************************************************************/
-
-    bot.dialog('/model30', [
-
-        function (session) {
-            var msg = new builder.Message(session)
-                .attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments([
-                    new builder.HeroCard(session)
-                        .title("익스클루시브(Exclusive)")
-                        .text("가격 : 35,550,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 익스클루시브", "익스클루시브 품목")
-                        ]),
-                    new builder.HeroCard(session)
-                        .title("익스클루시브 스페셜(Exclusive Special)")
-                        .text("가격 : 31,750,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "2 : 익스클루시브", "익스클루시브 스페셜 품목")
-                        ])
-                ]);
-            builder.Prompts.choice(session, msg, "익스클루시브|익스클루시브 스페셜");
         },
         function (session, results) {
             if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "익스클루시브" || results.response.entity == 1) {
-                    session.beginDialog('/model30_exclusive_trim');
-                } else if (results.response.entity == "익스클루시브 스페셜" || results.response.entity == 2) {
-                    session.beginDialog('/model30_exclusiveSpecial_trim');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-
-    ]);
-
-    /***********************************************************************************
-    3. 한국어 가격 가솔린 3.3 메뉴(트림 카드)
-    ************************************************************************************/
-
-    bot.dialog('/model33', [
-
-        function (session) {
-            var msg = new builder.Message(session)
-                .attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments([
-                    new builder.HeroCard(session)
-                        .title("셀러브리티(Celebrity)")
-                        .text("가격 : 41,600,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_celebrity.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_celebrity.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 셀러브리티", "셀러브리티 품목")
-                        ])
-                ]);
-            builder.Prompts.choice(session, msg, "셀러브리티");
-        },
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "셀러브리티" || results.response.entity == 1) {
-                    session.beginDialog('/model33_celebrity_trim');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-
-    ]);
-
-    /***********************************************************************************
-    4. 한국어 가격 디젤 2.2 메뉴(트림 카드)
-    ************************************************************************************/
-
-    bot.dialog('/model22', [
-
-        function (session) {
-            var msg = new builder.Message(session)
-                .attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments([
-                    new builder.HeroCard(session)
-                        .title("모던(Morden)")
-                        .text("가격 : 33,550,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 모던", "모던 품목")
-                        ]),
-                    new builder.HeroCard(session)
-                        .title("프리미엄(Premium)")
-                        .text("가격 : 34,750,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "2 : 프리미엄", "프리미엄 품목")
-                        ]),
-                    new builder.HeroCard(session)
-                        .title("프리미엄 스페셜(Premium Special)")
-                        .text("가격 : 36,750,000 원")
-                        .images([
-                            builder.CardImage.create(session, img_path + "/images/price/Grandeur_premiumSpecial.PNG")
-                                .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_premiumSpecial.PNG"))
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "3 : 프리미엄 스페셜", "프리미엄 스페셜 품목")
-                        ])
-                ]);
-            builder.Prompts.choice(session, msg, "모던|프리미엄|프리미엄 스페셜");
-        },
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "모던" || results.response.entity == 1) {
-                    session.beginDialog('/model22_modern_trim');
-                } else if (results.response.entity == "프리미엄" || results.response.entity == 2) {
-                    session.beginDialog('/model22_premium_trim');
-                } else if (results.response.entity == "프리미엄 스페셜" || results.response.entity == 3) {
-                    session.beginDialog('/model22_premiumSpecial_trim');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-
-    ]);
-
-    /***********************************************************************************
-    1-1. 한국어 가격 - 가솔린 24 - 가솔린 24 모던 품목
-    ************************************************************************************/
-
-    bot.dialog('/model24_modern_trim', [
-        function (session) {
-            session.send("가솔린 2.4의 모던 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Modern(모던) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "생략", "파워트레인/성능"),
-                            builder.ReceiptItem.create(session, "생략", "안전"),
-                            builder.ReceiptItem.create(session, "생략", "외관"),
-                            builder.ReceiptItem.create(session, "생략", "내장"),
-                            builder.ReceiptItem.create(session, "생략", "시트"),
-                            builder.ReceiptItem.create(session, "생략", "편의"),
-                            builder.ReceiptItem.create(session, "생략", "멀티미디어"),
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "30,550,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Modern(모던) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,100,000", "파노라마 썬루프"),
-                            builder.ReceiptItem.create(session, "780,000", "TUIX 컴포트 패키지"),
-                            builder.ReceiptItem.create(session, "600,000", "앞좌석 통풍+하이패스 시스템"),
-                            builder.ReceiptItem.create(session, "1,800,000", "현대 스마트 센스 패키지IV")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                    /*.facts([
-                        builder.Fact.create(session, "31,750,000", "주요사항")
-                    ])*/
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model24');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
+                // Select Menu
+                if (results.response.entity == "이전" || results.response.entity == 1) {
+                    session.beginDialog('/korPriceOption', session.userData.modelTrim);
+                } else if (results.response.entity == "다른모델" || results.response.entity == 2) {
+                    session.beginDialog('/korPriceModel');
+                } else if (results.response.entity == "다른트림" || results.response.entity == 3) {
+                    session.beginDialog('/korPriceTrim', session.userData.model);
+                } else if (results.response.entity == "홈" || results.response.entity == 4) {
                     session.beginDialog('/korMenu');
                 }
             } else {
@@ -345,492 +303,6 @@ function create(bot) {
             }
         }
     ]);
-
-    /***********************************************************************************
-    1-2. 한국어 가격 - 가솔린 24 - 가솔린 24 프리미엄 품목
-    ************************************************************************************/
-
-    bot.dialog('/model24_premium_trim', [
-        function (session) {
-            session.send("가솔린 2.4의 프리미엄 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Premium(프리미엄) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "가솔린 2.4 모던 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "안전"),
-                            builder.ReceiptItem.create(session, "생략", "시트")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "32,750,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Premium(프리미엄) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,000,000", "헤드업 디스플레이(HUD)"),
-                            builder.ReceiptItem.create(session, "1,500,000", "현대 스마트 센스 패키지I"),
-                            builder.ReceiptItem.create(session, "1,500,000", "익스테리어 패키지I")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model24');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    1-3. 한국어 가격 - 가솔린 24 - 가솔린 24 프리미엄 스페셜 품목
-    ************************************************************************************/
-
-    bot.dialog('/model24_premiumSpecial_trim', [
-        function (session) {
-            session.send("가솔린 2.4의 프리미엄 스페셜 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Premium Special(프리미엄 스페셜) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "가솔린 2.4 프리미엄 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "외관"),
-                            builder.ReceiptItem.create(session, "생략", "내장"),
-                            builder.ReceiptItem.create(session, "생략", "시트"),
-                            builder.ReceiptItem.create(session, "생략", "편의")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "33,750,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Premium Special(프리미엄 스페셜) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,000,000", "헤드업 디스플레이(HUD)"),
-                            builder.ReceiptItem.create(session, "1,600,000", "현대 스마트 센스 패키지II"),
-                            builder.ReceiptItem.create(session, "1,000,000", "익스테리어 패키지II"),
-                            builder.ReceiptItem.create(session, "1,150,000", "JBL 사운드 패키지"),
-                            builder.ReceiptItem.create(session, "1,200,000", "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크"),
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model24');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    2-1. 한국어 가격 - 가솔린 30 - 가솔린 30 익스클루시브 품목
-    ************************************************************************************/
-
-    bot.dialog('/model30_exclusive_trim', [
-        function (session) {
-            session.send("가솔린 3.0의 익스클루시브 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Exclusive(익스클루시브) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "가솔린 2.4 프리미엄 스페셜 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "파워트레인"),
-                            builder.ReceiptItem.create(session, "생략", "편의")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "35,500,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Exclusive (익스클루시브) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,100,000", "파노라마 썬루프"),
-                            builder.ReceiptItem.create(session, "1,000,000", "헤드업 디스플레이(HUD)"),
-                            builder.ReceiptItem.create(session, "1,600,000", "현대 스마트 센스 패키지II"),
-                            builder.ReceiptItem.create(session, "780,000", "TUIX 컴포트 패키지"),
-                            builder.ReceiptItem.create(session, "1,000,000", "익스테리어 패키지II"),
-                            builder.ReceiptItem.create(session, "1,200,000", "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model30');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    2-2. 한국어 가격 - 가솔린 30 - 가솔린 30 익스클루시브 스페셜 품목
-    ************************************************************************************/
-
-    bot.dialog('/model30_exclusiveSpecial_trim', [
-        function (session) {
-            session.send("가솔린 3.0의 익스클루시브 스페셜 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Exclusive Special(익스클루시브 스페셜) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "가솔린 3.0 익스클루시브 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "외관"),
-                            builder.ReceiptItem.create(session, "생략", "내장/편의")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "38,700,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Exclusive Special(익스클루시브 스페셜) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,150,000", "JBL 사운드 패키지"),
-                            builder.ReceiptItem.create(session, "1,500,000", "프리미어 인테리어 셀렉션")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model30');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    3-1. 한국어 가격 - 가솔린 33 - 가솔린 33 셀러브리티 품목
-    ************************************************************************************/
-
-    bot.dialog('/model33_celebrity_trim', [
-        function (session) {
-            session.send("가솔린 3.3의 셀레브리티 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Celebrity(셀레브리티) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "가솔린 3.0 익스클루시브 스페셜 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "파워트레인"),
-                            builder.ReceiptItem.create(session, "생략", "외관"),
-                            builder.ReceiptItem.create(session, "생략", "내장"),
-                            builder.ReceiptItem.create(session, "생략", "시트"),
-                            builder.ReceiptItem.create(session, "생략", "편의"),
-                            builder.ReceiptItem.create(session, "생략", "멀티미디어")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "41,600,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Celebrity(셀레브리티) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,100,000", "파노라마 썬루프"),
-                            builder.ReceiptItem.create(session, "1,000,000", "헤드업 디스플레이(HUD)"),
-                            builder.ReceiptItem.create(session, "1,600,000", "현대 스마트 센스 패키지II"),
-                            builder.ReceiptItem.create(session, "780,000", "TUIX 컴포트 패키지")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model33');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    4-1. 한국어 가격 - 디젤 22 - 디젤 22 모던 품목
-    ************************************************************************************/
-
-    bot.dialog('/model22_modern_trim', [
-        function (session) {
-            session.send("디젤 2.2의 모던 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Modern(모던) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "가솔린 2.4 모던 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "파워트레인")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "33,550,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Modern(모던) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,100,000", "파노라마 썬루프"),
-                            builder.ReceiptItem.create(session, "780,000", "TUIX 컴포트 패키지"),
-                            builder.ReceiptItem.create(session, "600,000", "앞좌석 통풍+하이패스 시스템"),
-                            builder.ReceiptItem.create(session, "1,800,000", "현대 스마트 센스 패키지IV")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                    /*.facts([
-                        builder.Fact.create(session, "31,750,000", "주요사항")
-                    ])*/
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model22');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    4-2. 한국어 가격 - 디젤 22 - 디젤 22 프리미엄 품목
-    ************************************************************************************/
-
-    bot.dialog('/model22_premium_trim', [
-        function (session) {
-            session.send("디젤 2.2의 프리미엄 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Premium(프리미엄) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "디젤 2.2 모던 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "안전"),
-                            builder.ReceiptItem.create(session, "생략", "시트/편의")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "34,750,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Premium(프리미엄) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,000,000", "헤드업 디스플레이(HUD)"),
-                            builder.ReceiptItem.create(session, "1,500,000", "현대 스마트 센스 패키지I"),
-                            builder.ReceiptItem.create(session, "1,500,000", "익스테리어 패키지I")
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model22');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-    /***********************************************************************************
-    4-3. 한국어 가격 - 디젤 22 - 디젤 22 프리미엄 스페셜 품목
-    ************************************************************************************/
-
-    bot.dialog('/model22_premiumSpecial_trim', [
-        function (session) {
-            session.send("디젤 2.2의 프리미엄 스페셜 트림 품목 입니다.");
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Premium Special(프리미엄 스페셜) 기본품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "", "디젤 2.2 프리미엄 기본 사양 및"),
-                            builder.ReceiptItem.create(session, "생략", "외관"),
-                            builder.ReceiptItem.create(session, "생략", "내장"),
-                            builder.ReceiptItem.create(session, "생략", "시트"),
-                            builder.ReceiptItem.create(session, "생략", "편의")
-                        ])
-                        .facts([
-                            builder.Fact.create(session, "36,750,000", "주요사항")
-                        ]),
-                    new builder.ReceiptCard(session)
-                        .title("Premium Special(프리미엄 스페셜) 선택품목")
-                        .items([
-                            builder.ReceiptItem.create(session, "1,000,000", "헤드업 디스플레이(HUD)"),
-                            builder.ReceiptItem.create(session, "1,600,000", "현대 스마트 센스 패키지II"),
-                            builder.ReceiptItem.create(session, "1,000,000", "익스테리어 패키지II"),
-                            builder.ReceiptItem.create(session, "1,150,000", "JBL 사운드 패키지"),
-                            builder.ReceiptItem.create(session, "1,200,000", "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크"),
-                        ])
-                        .buttons([
-                            builder.CardAction.imBack(session, "1 : 다른모델", "다른모델"),
-                            builder.CardAction.imBack(session, "2 : 다른트림", "다른트림"),
-                            builder.CardAction.imBack(session, "3 : 홈", "홈으로")
-                        ])
-                ]);
-
-            builder.Prompts.choice(session, msg, "다른모델|다른트림|홈");
-        },
-
-        function (session, results) {
-            if (results.response && results.response.entity != '(quit)') {
-                // Select Model Menu
-                if (results.response.entity == "다른모델" || results.response.entity == 1) {
-                    session.beginDialog('/korPrice');
-                } else if (results.response.entity == "다른트림" || results.response.entity == 2) {
-                    session.beginDialog('/model22');
-                } else if (results.response.entity == "홈" || results.response.entity == 3) {
-                    session.beginDialog('/korMenu');
-                }
-            } else {
-                // Exit the menu
-                session.endDialog();
-            }
-        }
-    ]);
-
-
-
-    //function executeStatement(queryStr) {
-    //    var result = "";
-    //    var jsonArray = [];
-    //    var requests = new tediousRequest(queryStr, function (err) {
-    //        if (err) {
-    //            console.log('ERROR : ' + err);
-    //        }
-    //    });
-
-    //    requests.addParameter('sid', TYPES.NVarChar, '1');
-
-
-    //    requests.on('row', function (columns) {
-    //        var obj = {};
-    //        columns.forEach(function (column) {
-    //            if (column.value === null) {
-    //                console.log('NULL');
-    //            } else {
-    //                console.log("column.metadata.colName : " + column.metadata.colName);
-    //                console.log("column.value : " + column.value);
-    //                obj[column.metadata.colName] = column.value;
-    //            }
-    //        });
-    //        jsonArray.push(obj);
-    //    });
-
-    //    requests.on('doneProc', function (rowCount, more) {
-    //        console.log('LAST : ' + jsonArray);
-    //        //param = "";
-    //        matchCnt = 0;
-    //        //res(null, jsonArray);
-
-    //        for (var i = 0; i < jsonArray.length; i++)
-    //        {
-
-    //            console.log("CAR_TYPE : "+jsonArray[i].CAR_TYPE);
-
-    //        }
-    //    });
-    //    connection.execSql(requests);
-    //};
 }
 
 module.exports = {
