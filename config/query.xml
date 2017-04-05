@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<query>
+
+  <select_catType>
+
+    SELECT CAR_TYPE
+      FROM TBL_CAR_TYPE
+    WHERE SID = @sid
+  </select_catType>
+
+</query>
+
+
