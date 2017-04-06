@@ -62,7 +62,7 @@ function create(bot) {
                     session.userData.model = "가솔린 3.3";
                 } else if (results.response.entity == "디젤 2.2" || results.response.entity == 4) {
                     session.userData.model = "디젤 2.2";
-                }
+                } else { session.endDialog()}
                 session.beginDialog('/korPriceTrim', session.userData.model);
             } else {
                 // Exit the menu

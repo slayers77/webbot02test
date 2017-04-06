@@ -19,8 +19,6 @@ function create(bot) {                                                  // funct
     var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
-
-
     
     intents.matches('korReturnMainMenu', builder.DialogAction.beginDialog('/korMenu'));
 
@@ -71,7 +69,7 @@ function create(bot) {                                                  // funct
     intents.matches('korDesignInteriorDetail', builder.DialogAction.beginDialog('/korDesignInteriorDetail'));
 
 
-    //intents.matches('korPriceMain', builder.DialogAction.beginDialog('/'));
+    intents.matches('korPriceMain', builder.DialogAction.beginDialog('/korPriceModel'));
     //intents.matches('korPriceDiesel2.2', builder.DialogAction.beginDialog('/'));
     //intents.matches('korPriceGas2.4', builder.DialogAction.beginDialog('/'));
     //intents.matches('korPriceGas3.0', builder.DialogAction.beginDialog('/'));
@@ -130,6 +128,31 @@ function create(bot) {                                                  // funct
 
 
     ]);
+
+
+    bot.dialog('/korReMainMenu', [
+
+        function (session, args, next) {
+
+            var msg = new builder.Message(session)
+                .attachments([
+                    new builder.HeroCard(session)
+                        .title("메뉴")
+                        .text("원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!")
+                        //.text(str)
+                        .buttons([
+                            builder.CardAction.imBack(session, "시승 방법 보여줘", "시승"),
+                            builder.CardAction.imBack(session, "디자인 보여줘", "디자인"),
+                            builder.CardAction.imBack(session, "편의사항 보여줘", "편의사항"),
+                            builder.CardAction.imBack(session, "가격 보여줘", "가격")
+                        ])
+                ]);
+            builder.Prompts.choice(session, msg, "시승|디자인|편의사항|가격 ");
+            session.endDialog();
+        }
+
+    ]);
+
 
 }   // function create(bot) END
 
