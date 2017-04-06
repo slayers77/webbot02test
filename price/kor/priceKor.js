@@ -244,14 +244,14 @@ function create(bot) {
                     new builder.HeroCard(session)
                         .title(modelTrim + " 기본품목")
                         .buttons([
-                            builder.CardAction.imBack(session, "1 : 파워트레인", modelTrim + " 파워트레인"),
-                            builder.CardAction.imBack(session, "2 : 성능", modelTrim + " 성능"),
-                            builder.CardAction.imBack(session, "3 : 안전", modelTrim + " 안전"),
-                            builder.CardAction.imBack(session, "4 : 외관", modelTrim + " 외관"),
-                            builder.CardAction.imBack(session, "5 : 내장", modelTrim + " 내장"),
-                            builder.CardAction.imBack(session, "6 : 시트", modelTrim + " 시트"),
-                            builder.CardAction.imBack(session, "7 : 편의", modelTrim + " 편의"),
-                            builder.CardAction.imBack(session, "8 : 멀티미디어", modelTrim + " 멀티미디어")
+                            builder.CardAction.imBack(session, modelTrim + " 파워트레인 옵션 품목 보기", modelTrim + " 파워트레인"),
+                            builder.CardAction.imBack(session, modelTrim + " 성능 옵션 품목 보기", modelTrim + " 성능"),
+                            builder.CardAction.imBack(session, modelTrim + " 안전 옵션 품목 보기", modelTrim + " 안전"),
+                            builder.CardAction.imBack(session, modelTrim + " 외관 옵션 품목 보기", modelTrim + " 외관"),
+                            builder.CardAction.imBack(session, modelTrim + " 내장 옵션 품목 보기", modelTrim + " 내장"),
+                            builder.CardAction.imBack(session, modelTrim + " 시트 옵션 품목 보기", modelTrim + " 시트"),
+                            builder.CardAction.imBack(session, modelTrim + " 편의 옵션 품목 보기", modelTrim + " 편의"),
+                            builder.CardAction.imBack(session, modelTrim + " 멀티미디어 옵션 품목 보기", modelTrim + " 멀티미디어")
                         ]),
                     new builder.HeroCard(session)
                         .title(modelTrim + " 선택품목")
