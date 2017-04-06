@@ -1,13 +1,18 @@
 ﻿var builder = require('botbuilder');
+var query = require('../../config/query');
+var date = require('date-utils');
+date = new Date();
 
 function create(bot) {
     /***********************************************************************************
 1. 한국어 가격 초기 메뉴(모델 카드)
 ************************************************************************************/
 
+    var responseTime;
+
     bot.dialog('/korPriceModel', [
 
-        function (session) {
+        function (session, args) {
             session.userData.model = "";
             var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -50,6 +55,15 @@ function create(bot) {
                         ])
                 ]);
             builder.Prompts.choice(session, msg, "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2");
+
+            
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         },
         function (session, results) {
             if (results.response && results.response.entity != '(quit)') {

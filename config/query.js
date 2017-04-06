@@ -47,17 +47,25 @@ function getData(data, callback) {
     var resultData = [];
 
     connection.on('connect', function (err) {
-        console.log("data : " + data);
+        //console.log("data : " + data.key);
+        //console.log("data : " + data.sendMsg);
+        //console.log("data : " + data.beginTime);
         var query = getQuery(data);
         
         query = query + " ;";
         console.log("query : " + query);
-        var request = new tediousRequest(query, function (err) {
+        var request = new tediousRequest(query, function (err, rowCount) {
             
             if (err) {
-
-                console.log(err); 
-
+                console.log(err);
+            } else { 
+            
+                if (rowCount < 1) {
+                    callback(err);
+                } else { 
+                
+                    callback(null, resultData);
+                }
             }
         });
         request.addParameter('sid', TYPES.Int, 1);  
@@ -85,10 +93,49 @@ function getData(data, callback) {
         connection.execSql(request);
         
     });
-    return resultData;
+    //return resultData;
+    
 
 }
 
+
+function insertHistoryQuery(data, resTime, callback) {
+    
+    var connection = new Connection(config);
+    
+    connection.on('connect', function (err) {
+        console.log("data : " + data.key);
+        console.log("data : " + data.sendMsg);
+        console.log("data : " + data.intent);
+        console.log("data : " + resTime);
+        var query = getQuery(data.tableNm);
+        
+        query = query + " ;";
+        console.log("query : " + query);
+        var request = new tediousRequest(query, function (err) {
+            
+            if (err) {
+                console.log(err);
+            }
+        });
+        
+        request.addParameter('userNumber', TYPES.NVarChar , data.key);
+        request.addParameter('customerComment', TYPES.NVarChar , data.sendMsg);
+        request.addParameter('chatbotCommentCode', TYPES.NVarChar , data.intent);
+        request.addParameter('responseTime', TYPES.Int, resTime);
+
+        request.on('row', function (columns) {
+            console.log("value : "+ columns[0].value);
+        });
+        connection.execSql(request);
+    });
+
+
+
+}
+
+
+
 module.exports = {
-    getData
+    getData, insertHistoryQuery
 }

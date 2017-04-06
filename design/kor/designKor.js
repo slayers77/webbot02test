@@ -1,12 +1,18 @@
 ﻿var builder = require('botbuilder');
+var query = require('../../config/query');
+var date = require('date-utils');
+date = new Date();
 
 function create(bot) {
+    
+    var responseTime;
+
     /***********************************************************************************
     1. 한국어 디자인 초기 메뉴
     ************************************************************************************/
     bot.dialog('/korDesignMain', [
 
-        function (session) {
+        function (session, args) {
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -27,6 +33,14 @@ function create(bot) {
                 ]);
             builder.Prompts.choice(session, msg, "색상|내관|외관");
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
 
@@ -34,7 +48,7 @@ function create(bot) {
     //색상 선택
     bot.dialog('/korDesignColorList', [
 
-        function (session) {
+        function (session, args) {
             session.send("원하시는 색상을 선택하시면 그랜저 색상이 바뀝니다");
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -137,13 +151,21 @@ function create(bot) {
 
             builder.Prompts.choice(session, msg, "화이트 크림|이온 실버|루나 그레이|판테라 그레이|미드나잇 블랙|발렌타인 레드|그랑 블루|쉐이드 브론즈|카키 메탈");
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
 
     // 차 외관 선택
     bot.dialog('/korDesignExteriorSimple', [
 
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
 
@@ -164,6 +186,13 @@ function create(bot) {
            
             builder.Prompts.choice(session, msg, "외관상세");
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
            
         }
     ]);
@@ -171,7 +200,7 @@ function create(bot) {
     
     bot.dialog('/korDesignExteriorDetail', [
     
-        function (session, results) {
+        function (session, args, results) {
             //if (results.response.entity == "외관상세") {
                 var msg1 = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -204,8 +233,16 @@ function create(bot) {
                     ])
                 ]);
                 
-                session.send(msg1);
-                session.endDialog();
+            session.send(msg1);
+            session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //}
         }
     ]);
@@ -215,7 +252,7 @@ function create(bot) {
     // 차 내관 선택
     bot.dialog('/korDesignInteriorSimple', [
 
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
 
@@ -234,13 +271,20 @@ function create(bot) {
             
             builder.Prompts.choice(session, msg, "내관상세");
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
         
         
     bot.dialog('/korDesignInteriorDetail', [
     
-        function (session, results) {
+        function (session, args, results) {
             //if (results.response.entity == "내관상세") {
                 var msg1 = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -261,8 +305,16 @@ function create(bot) {
                     ]),
                 ]);
                 
-                session.send(msg1);
-                session.endDialog();
+            session.send(msg1);
+            session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
                 //builder.Prompts.choice(session, "그랜저의 디자인에 대해 메뉴를 보시겠습니까?", '디자인|색상|내관|외관|홈', { listStyle: builder.ListStyle.button });
             }
         //}
@@ -277,7 +329,7 @@ function create(bot) {
 
     //화이트 크림 색상
     bot.dialog('/korDesignSelectWhiteCream', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -315,7 +367,15 @@ function create(bot) {
                 ])
             ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
@@ -323,7 +383,7 @@ function create(bot) {
 
     //이온 실버 색상
     bot.dialog('/korDesignSelectIonSilver', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -362,14 +422,22 @@ function create(bot) {
                 ])
             ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
 
     //루나 그레이 색상
     bot.dialog('/korDesignSelectLunaGray', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -408,14 +476,22 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
 
     //판테라 그레이 색상
     bot.dialog('/korDesignSelectPanteraGray', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -455,7 +531,15 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
@@ -463,7 +547,7 @@ function create(bot) {
 
     //미드나잇 블랙 색상
     bot.dialog('/korDesignSelectMidnightBlack', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -503,14 +587,22 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
 
     //발렌타인 레드 색상
     bot.dialog('/korDesignSelectValentineRed', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -550,14 +642,22 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
 
     //그랑 블루 색상
     bot.dialog('/korDesignSelectGrandBlue', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -595,14 +695,22 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
 
     //쉐이드 브론즈 차
     bot.dialog('/korDesignSelectShadeBronze', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -642,14 +750,22 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);
 
     //카키 메탈 차
     bot.dialog('/korDesignSelectKakiMetal', [
-        function (session) {
+        function (session, args) {
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -689,7 +805,15 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
+            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
         }
     ]);

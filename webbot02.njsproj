@@ -18,7 +18,6 @@
   <ItemGroup>
     <Compile Include="greeting.js" />
     <Compile Include="insertMent.js" />
-    <Compile Include="luis.js" />
     <Content Include="bin\images\price\Grander_24spec.PNG" />
     <Content Include="bin\images\price\Grander_30spec.PNG" />
     <Content Include="bin\images\price\Grander_33spec.PNG" />

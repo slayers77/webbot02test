@@ -1,23 +1,34 @@
 ﻿var builder = require('botbuilder');
 var stringBuilder = require('stringbuilder');
 var query = require('../../config/query');
+var date = require('date-utils');
+date = new Date();
+var data = "";
 
 function create(bot) {
+    
+    var responseTime;
+    
+    
+    
 
-     bot.dialog('/korTestDrive', [                                           //bot.dialog('/korTestDrive start
+     bot.dialog('/korTestDriveMain', [                                      //bot.dialog('/korTestDrive start
+
+
+        
 
         function (session, args, next) {
             
-            //session.send("korTestDrive session key : "+ session.message.sourceEvent.clientActivityId);
+            var aa = query.getData("select_catType", function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
+            console.log("AA : " + aa);
             
-            query.getData("select_catType");
+            
 
-            var str = new stringBuilder();
-            str.appendLine("맞아요!! 한번 타 보셔야 저를 좀 더 잘 알 수 있겠죠!!");
-            str.appendLine("시승 신청을 하시기 위해서는 온라인에서 예약을 하시거나");
-            str.appendLine("지점에 직접 연락을 해 주셔야 해요");
-            str.appendLine("제가 도와 드릴께요, 어떤 방법이 편하시겠어요?");
-
+            //console.log("sid : " + args.key + " || message : " + args.sendMsg + "|| begin date : " + args.beginTime + " || intent : " + args.intent+ " || "+args.tableNm);
             var msg = new builder.Message(session)
             .attachments([
             
@@ -32,7 +43,15 @@ function create(bot) {
                 ])
             ]);
             builder.Prompts.choice(session, msg, "온라인 예약|시승센터 전화예약 ");
+            
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
     
@@ -40,8 +59,9 @@ function create(bot) {
     bot.dialog('/korOnlineTestDrive' , [
     
         function (session, args, next) { 
-        
+            console.log("sid : " + args.key +" || message : "+ args.sendMsg +"|| begin date : " + args.beginTime + " || intent : "+args.intent);
             //session.send("korOnlineTestDrive session key : " + session.message.sourceEvent.clientActivityId);
+            //query.getData(args);
             session.send("온라인 예약 방법을 알려 드릴께요!!");
             
                                 var onlineReserveCard = new builder.HeroCard(session)
@@ -58,23 +78,17 @@ function create(bot) {
                                 session.send(new builder.Message(session).addAttachment(onlineReserveCard));
                                 session.send("멋진 시승 하세요^^");
             
-            session.beginDialog('/korReMainMenu');
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
 
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
-    
-    
-    //bot.dialog('/korReMainMenu' , [
-        
-    //    function (session, results) { 
-        
-    //        builder.Prompts.choice(session, '원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!', '시승|디자인|편의사항|가격', { listStyle: builder.ListStyle.button });
-    //        session.endDialog();
-        
-    //    }
-    //]);
-
 
     /***********************************************************************************
         한국어 시승 - 시승센터 전화 예약 메뉴
@@ -82,23 +96,29 @@ function create(bot) {
 
     bot.dialog('/korNoAreaOfflineTestDrive', [
 
-        function (session) {
-            
+        function (session, args, next) {
+            console.log("sid : " + args.key + " || message : " + args.sendMsg + "|| begin date : " + args.beginTime + " || intent : " + args.intent);
             session.send(session.message.text);
             builder.Prompts.text(session, '시승센터를 찾기위하여 원하시는 위치의 동명을 입력해 주세요.(예: 서울) ');
             session.endDialog();
+
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
     
     bot.dialog('/korAreaOfflineTestDrive', [
     
-        function (session) {
+        function (session ,args, next) {
             
-            //session.send("korOnlineTestDrive session key : " + session.message.sourceEvent.clientActivityId);
-            session.send("korOnlineTestDrive session key : " + session.message.sourceEvent.clientActivityId.split(".")[0]+"."+ session.message.sourceEvent.clientActivityId.split(".")[1]);
-
-            if (session.message.text.match(/서울/g)) { 
-                session.send("[ " + session.message.text + " ] 의 시승센터 관련 정보입니다.");
+            console.log("sid : " + args.key + " || message : " + args.sendMsg + "|| begin date : " + args.beginTime + " || intent : " + args.intent);
+            
+            //if (session.message.text.match(/서울/g)) { 
+            //    session.send("[ " + session.message.text + " ] 의 시승센터 관련 정보입니다.");
                 var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
@@ -148,12 +168,20 @@ function create(bot) {
                     ])
                 ]);
 
-            }
+            //}
 
             
             
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         
         }
     ]);

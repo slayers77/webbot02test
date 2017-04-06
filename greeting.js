@@ -1,4 +1,6 @@
 ﻿var builder = require('botbuilder');
+var date = require('date-utils');
+date = new Date();
 var language = "";
 //var luis = require('./luis');
 //var insetMent = require('./insertMent');
@@ -13,63 +15,225 @@ function create(bot) {                                                  // funct
 
     if (!bot) throw new error('bot instance was not provided!!');
 
-    //var recognizer= new b
+    console.log("session.message.text : " + bot.send.Message);
+
     console.log("cnt : " + cnt);
-    //var intents = new builder.IntentDialog();
+
+
+
+    //bot.on('conversationUpdate', function (message) {
+
+    //    if (message.membersAdded && message.membersAdded.length > 0) {
+
+    //        var membersAdded = message.membersAdded
+    //            .map(function (m) {
+    //                var isSelf = m.id === message.address.bot.id;
+    //                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+    //            })
+    //            .join(', ');
+
+    //        bot.send(new builder.Message()
+    //            .address(message.address)
+    //            .text('Welcome ' + membersAdded));
+    //    }
+
+    //    if (message.membersRemoved && message.membersRemoved.length > 0) {
+    //        var membersRemoved = message.membersRemoved
+    //            .map(function (m) {
+    //                var isSelf = m.id === message.address.bot.id;
+    //                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+    //            })
+    //            .join(', ');
+
+    //        bot.send(new builder.Message()
+    //            .address(message.address)
+    //            .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
+    //    }
+    //});
+
+
+
+
     var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
+
     
-    intents.matches('korReturnMainMenu', builder.DialogAction.beginDialog('/korMenu'));
+    intents.matches('korReturnMainMenu', [
+        function (session, args, next) {
+            session.beginDialog('/korReturnMainMenu', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history"});
+        }
+    ]);
+    
+    intents.matches('greeting', [   
+        function (session, args, next) {
+            session.beginDialog('/korMenu', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korMenu", tableNm: "insert_history"});
+        }
+    ]);
 
-    intents.matches('greeting', builder.DialogAction.beginDialog('/korMenu'));
+     /*
+        시승 INTENT MATCH
+    */
+    
+    intents.matches('korTestDriveMain', [
+        function (session, args, next) {
+            session.beginDialog('/korTestDriveMain', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korTestDriveMain", tableNm: "insert_history"});
+        }
+    ]);
 
-    intents.matches('korTestDriveMain', builder.DialogAction.beginDialog('/korTestDrive'));
-    intents.matches('korOnlineTestDrive', builder.DialogAction.beginDialog('/korOnlineTestDrive'));
-    intents.matches('korNoAreaOfflineTestDrive', builder.DialogAction.beginDialog('/korNoAreaOfflineTestDrive'));
-    intents.matches('korAreaOfflineTestDrive', builder.DialogAction.beginDialog('/korAreaOfflineTestDrive'));
+    intents.matches('korOnlineTestDrive', [
+        function (session, args, next) {
+            session.beginDialog('/korOnlineTestDrive', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korOnlineTestDrive", tableNm: "insert_history"});
+        }
+    ]);
+
+    intents.matches('korNoAreaOfflineTestDrive', [
+        function (session, args, next) {
+            session.beginDialog('/korNoAreaOfflineTestDrive', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korNoAreaOfflineTestDrive", tableNm: "insert_history" });
+        }
+    ]);
+
+    intents.matches('korAreaOfflineTestDrive', [
+        function (session, args, next) {
+            session.beginDialog('/korAreaOfflineTestDrive', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korAreaOfflineTestDrive", tableNm: "insert_history" });
+        }
+    ]);
+
+    /*
+        편의사항 INTENT MATCH
+    */
+
+    intents.matches('korConvenienceMain', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceMain', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceMain", tableNm: "insert_history" });
+        }
+    ]);
+    
+    intents.matches('korConvenienceInfotainmentList', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceInfotainmentList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceInfotainmentList", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korConvenienceInfotainmentSimple', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceInfotainmentSimple', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceInfotainmentSimple", tableNm: "insert_history" });
+        }
+    ]);
+
+    intents.matches('korConvenienceSafetyList', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceSafetyList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceSafetyList", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korConvenienceSafetySimple', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceSafetySimple', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceSafetySimple", tableNm: "insert_history" });
+        }
+    ]);
+
+    intents.matches('korConvenienceSmartsenseList', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceSmartsenseList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceSmartsenseList", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korConvenienceSmartSenseSimple', [
+        function (session, args, next) {
+            session.beginDialog('/korConvenienceSmartSenseSimple', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korConvenienceSmartSenseSimple", tableNm: "insert_history" });
+        }
+    ]);
+
+    /*
+        디자인 INTENT MATCH
+    */
+
+    intents.matches('korDesignMain', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignMain', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignMain", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignColorList',[
+        function (session, args, next) {
+            session.beginDialog('/korDesignColorList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignColorList", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectGrandBlue',[
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectGrandBlue', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectGrandBlue", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectIonSilver', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectIonSilver', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectIonSilver", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectKakiMetal', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectKakiMetal', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectKakiMetal", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectLunaGray', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectLunaGray', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectLunaGray", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectMidnightBlack', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectMidnightBlack', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectMidnightBlack", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectPanteraGray', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectPanteraGray', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectPanteraGray", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectShadeBronze', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectShadeBronze', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectShadeBronze", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectValentineRed', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectValentineRed', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectValentineRed", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignSelectWhiteCream', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignSelectWhiteCream', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignSelectWhiteCream", tableNm: "insert_history" });
+        }
+    ]);
+
+    intents.matches('korDesignExteriorSimple', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignExteriorSimple', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignExteriorSimple", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignExteriorDetail', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignExteriorDetail', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignExteriorDetail", tableNm: "insert_history" });
+        }
+    ]);
 
 
+    intents.matches('korDesignInteriorSimple', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignInteriorSimple', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorSimple", tableNm: "insert_history" });
+        }
+    ]);
+    intents.matches('korDesignInteriorDetail', [
+        function (session, args, next) {
+            session.beginDialog('/korDesignInteriorDetail', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" });
+        }
+    ]);
 
-    intents.matches('korConvenienceMain', builder.DialogAction.beginDialog('/korConvenienceMain'));
+    /*
+        가격 INTENT MATCH
+    */
 
-    //intents.matches('korConvenienceInfotainmentIntro', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceInfotainmentLink', builder.DialogAction.beginDialog('/'));
-    intents.matches('korConvenienceInfotainmentList', builder.DialogAction.beginDialog('/korConvenienceInfotainmentList'));
-    intents.matches('korConvenienceInfotainmentSimple', builder.DialogAction.beginDialog('/korConvenienceInfotainmentSimple'));
-
-    //intents.matches('korConvenienceSafetyIntro', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceSafetyLink', builder.DialogAction.beginDialog('/'));
-    intents.matches('korConvenienceSafetyList', builder.DialogAction.beginDialog('/korConvenienceSafetyList'));
-    intents.matches('korConvenienceSafetySimple', builder.DialogAction.beginDialog('/korConvenienceSafetySimple'));
-
-    //intents.matches('korConvenienceSmartsenseIntro', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korConvenienceSmartsenseLink', builder.DialogAction.beginDialog('/'));
-    intents.matches('korConvenienceSmartsenseList', builder.DialogAction.beginDialog('/korConvenienceSmartsenseList'));
-    intents.matches('korConvenienceSmartSenseSimple', builder.DialogAction.beginDialog('/korConvenienceSmartSenseSimple'));
-
-
-    intents.matches('korDesignMain', builder.DialogAction.beginDialog('/korDesignMain'));
-    intents.matches('korDesignColorList', builder.DialogAction.beginDialog('/korDesignColorList'));
-    intents.matches('korDesignSelectGrandBlue', builder.DialogAction.beginDialog('/korDesignSelectGrandBlue'));
-    intents.matches('korDesignSelectIonSilver', builder.DialogAction.beginDialog('/korDesignSelectIonSilver'));
-    intents.matches('korDesignSelectKakiMetal', builder.DialogAction.beginDialog('/korDesignSelectKakiMetal'));
-    intents.matches('korDesignSelectLunaGray', builder.DialogAction.beginDialog('/korDesignSelectLunaGray'));
-    intents.matches('korDesignSelectMidnightBlack', builder.DialogAction.beginDialog('/korDesignSelectMidnightBlack'));
-    intents.matches('korDesignSelectPanteraGray', builder.DialogAction.beginDialog('/korDesignSelectPanteraGray'));
-    intents.matches('korDesignSelectShadeBronze', builder.DialogAction.beginDialog('/korDesignSelectShadeBronze'));
-    intents.matches('korDesignSelectValentineRed', builder.DialogAction.beginDialog('/korDesignSelectValentineRed'));
-    intents.matches('korDesignSelectWhiteCream', builder.DialogAction.beginDialog('/korDesignSelectWhiteCream'));
-
-    intents.matches('korDesignExteriorSimple', builder.DialogAction.beginDialog('/korDesignExteriorSimple'));
-    intents.matches('korDesignExteriorDetail', builder.DialogAction.beginDialog('/korDesignExteriorDetail'));
-
-
-    intents.matches('korDesignInteriorSimple', builder.DialogAction.beginDialog('/korDesignInteriorSimple'));
-    intents.matches('korDesignInteriorDetail', builder.DialogAction.beginDialog('/korDesignInteriorDetail'));
-
-
-    intents.matches('korPriceMain', builder.DialogAction.beginDialog('/korPriceModel'));
+    intents.matches('korPriceMain', [
+        function (session, args, next) {
+            session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceMain", tableNm: "insert_history" });
+        }
+    ]);
     //intents.matches('korPriceDiesel2.2', builder.DialogAction.beginDialog('/'));
     //intents.matches('korPriceGas2.4', builder.DialogAction.beginDialog('/'));
     //intents.matches('korPriceGas3.0', builder.DialogAction.beginDialog('/'));
@@ -83,6 +247,7 @@ function create(bot) {                                                  // funct
     bot.dialog('/korMenu', [                                        
 
         function (session, args, next) {
+            console.log("message : " + args.sendMsg + "|| begin date : " + date.getTime());
             console.log('img_path  : ' + img_path);
             var msg = new builder.Message(session)
                 .attachments([
@@ -106,7 +271,7 @@ function create(bot) {                                                  // funct
                 
                 builder.Prompts.choice(session, msg, '시승|디자인|편의사항|가격');
                 session.endDialog();
-
+                console.log("end date : " + date.getTime());
         }
 
     ]).reloadAction('reloadMenu', null, { matches: /^그랜다이저/i });
@@ -138,7 +303,7 @@ function create(bot) {                                                  // funct
                 .attachments([
                     new builder.HeroCard(session)
                         .title("메뉴")
-                        .text("원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!")
+                        .text("다른 메뉴를 원하시면 선택하시거나 질문해주세요!!")
                         //.text(str)
                         .buttons([
                             builder.CardAction.imBack(session, "시승 방법 보여줘", "시승"),

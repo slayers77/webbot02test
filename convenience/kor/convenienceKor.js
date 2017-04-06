@@ -1,6 +1,11 @@
 ﻿var builder = require('botbuilder');
+var query = require('../../config/query');
+var date = require('date-utils');
+date = new Date();
 
 function create(bot) {
+    
+    var responseTime;
 
     /***********************************************************************************
     1. 한국어 편의사항 초기 메뉴
@@ -8,7 +13,7 @@ function create(bot) {
 
     bot.dialog('/korConvenienceMain', [
 
-        function (session) {
+        function (session, args) {
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -30,7 +35,16 @@ function create(bot) {
 
                 ]);
             builder.Prompts.choice(session, msg, "스마트센스|인포테인먼트|안전");
+            
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
         //, function (session, results) {
         //    //session.send('당신의 선택 메뉴 : %s!', results.response.entity);
@@ -59,7 +73,7 @@ function create(bot) {
 
     bot.dialog('/korConvenienceSmartSenseSimple', [
     
-        function (session, results) {
+        function (session,args, results) {
             
             //if (results.response.entity == '스마트 센스 소개') {
                 var msg = new builder.Message(session)
@@ -80,6 +94,14 @@ function create(bot) {
             ]);
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
             }
     
     ]);
@@ -87,7 +109,7 @@ function create(bot) {
     
     bot.dialog('/korConvenienceSmartsenseList', [
     
-        function (session, results) { 
+        function (session, args, results) { 
         
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -140,6 +162,14 @@ function create(bot) {
             
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     
     ]);
@@ -154,7 +184,7 @@ function create(bot) {
 
     bot.dialog('/korConvenienceInfotainmentSimple', [
     
-        function (session, results) { 
+        function (session, args, results) { 
         
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -173,6 +203,14 @@ function create(bot) {
             ]);
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     
     
@@ -181,7 +219,7 @@ function create(bot) {
     
     bot.dialog('/korConvenienceInfotainmentList', [
     
-        function (session, results) { 
+        function (session, args, results) { 
         
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -211,12 +249,20 @@ function create(bot) {
             ]);
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
 
 
     //bot.dialog('/infotainment', [
-    //    function (session) {
+    //    function (session, args) {
     //        builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!!', '인포테인먼트 소개|인포테인먼트 세부목록|인포테인먼트 세부목록 링크', { listStyle: builder.ListStyle.button });
     //    }, function (session, results) {
 
@@ -287,7 +333,7 @@ function create(bot) {
 
     bot.dialog('/korConvenienceSafetySimple', [
     
-        function (session, results) { 
+        function (session, args, results) { 
             
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -309,6 +355,14 @@ function create(bot) {
 
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
 
         }
     ]);
@@ -316,7 +370,7 @@ function create(bot) {
     
     bot.dialog('/korConvenienceSafetyList', [
     
-        function (session, results) { 
+        function (session, args, results) { 
         
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -351,13 +405,21 @@ function create(bot) {
         
             session.send(msg);
             session.endDialog();
+            session.beginDialog('/korReMainMenu');
+            
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
 
         }
     ]);
     
 
     //bot.dialog('/safe', [
-    //    function (session) {
+    //    function (session, args) {
 
     //        builder.Prompts.choice(session, '원하시는 메뉴를 선택하세요? 선택하시거나 질문해주세요!!!', '안전 소개|안전 세부목록|안전 세부목록 링크', { listStyle: builder.ListStyle.button });
     //    }, function (session, results) {
@@ -443,7 +505,7 @@ function create(bot) {
     ************************************************************************************/
 
     bot.dialog('/return', [
-        function (session) {
+        function (session, args) {
             builder.Prompts.choice(session, "메인메뉴로 돌아가고 싶으시면 '처음으로' 또는 '그랜다이저'를 입력해주시고, 다른 편의사항을 보고 싶으면 선택해주세요!!",
                 '스마트센스|인포테인먼트|안전|편의사항', { listStyle: builder.ListStyle.button });
         }, function (session, results) {
