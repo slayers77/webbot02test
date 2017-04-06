@@ -13,6 +13,8 @@ global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
 
 function create(bot) {                                                  // function create(bot) START
 
+    var responseTime;
+
     if (!bot) throw new error('bot instance was not provided!!');
 
     console.log("session.message.text : " + bot.send.Message);
@@ -34,7 +36,10 @@ function create(bot) {                                                  // funct
 
     //        bot.send(new builder.Message()
     //            .address(message.address)
-    //            .text('Welcome ' + membersAdded));
+    //            .text("안녕하세요!! 전 현대자동차 챗봇 그랜다이저입니다. 원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!"));
+
+
+           
     //    }
 
     //    if (message.membersRemoved && message.membersRemoved.length > 0) {
@@ -247,7 +252,7 @@ function create(bot) {                                                  // funct
     bot.dialog('/korMenu', [                                        
 
         function (session, args, next) {
-            console.log("message : " + args.sendMsg + "|| begin date : " + date.getTime());
+            //console.log("message : " + args.sendMsg + "|| begin date : " + date.getTime());
             console.log('img_path  : ' + img_path);
             var msg = new builder.Message(session)
                 .attachments([
@@ -271,7 +276,13 @@ function create(bot) {                                                  // funct
                 
                 builder.Prompts.choice(session, msg, '시승|디자인|편의사항|가격');
                 session.endDialog();
-                console.log("end date : " + date.getTime());
+                
+                responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+                query.insertHistoryQuery(args, responseTime, function (err, result) {
+                    if (!err) {
+                        console.log("query.getData : " + result);
+                    }
+                });
         }
 
     ]).reloadAction('reloadMenu', null, { matches: /^그랜다이저/i });
@@ -314,6 +325,13 @@ function create(bot) {                                                  // funct
                 ]);
             builder.Prompts.choice(session, msg, "시승|디자인|편의사항|가격 ");
             session.endDialog();
+            //session.beginDialog('/korReMainMenu');
+            //responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            //query.insertHistoryQuery(args, responseTime, function (err, result) {
+            //    if (!err) {
+            //        console.log("query.getData : " + result);
+            //    }
+            //});
         }
 
     ]);
