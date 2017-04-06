@@ -100,7 +100,7 @@ function create(bot) {                                                  // funct
                             builder.CardAction.imBack(session, "시승 보여줘", "시승"),
                             builder.CardAction.imBack(session, "디자인 보여줘", "디자인"),
                             builder.CardAction.imBack(session, "편의사항 보여줘", "편의사항"),
-                            builder.CardAction.imBack(session, "편의사항 보여줘", "가격")
+                            builder.CardAction.imBack(session, "가격 보여줘", "가격")
                         ])
                 ]);
                 
