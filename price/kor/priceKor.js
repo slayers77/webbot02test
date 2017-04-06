@@ -54,7 +54,7 @@ function create(bot) {
                             builder.CardAction.imBack(session, "가격에 디젤 2.2 모델을 선택", "디젤 2.2 선택")
                         ])
                 ]);
-            builder.Prompts.choice(session, msg, "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2");
+            builder.Prompts.choice(session, msg, "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2|그랜다이저");
 
             
             
@@ -70,14 +70,18 @@ function create(bot) {
                 // Select Model Menu
                 if (results.response.entity == "가솔린 2.4" || results.response.entity == 1) {
                     session.userData.model = "가솔린 2.4";
+                    session.beginDialog('/korPriceTrim', session.userData.model);
                 } else if (results.response.entity == "가솔린 3.0" || results.response.entity == 2) {
                     session.userData.model = "가솔린 3.0";
+                    session.beginDialog('/korPriceTrim', session.userData.model);
                 } else if (results.response.entity == "가솔린 3.3" || results.response.entity == 3) {
                     session.userData.model = "가솔린 3.3";
+                    session.beginDialog('/korPriceTrim', session.userData.model);
                 } else if (results.response.entity == "디젤 2.2" || results.response.entity == 4) {
                     session.userData.model = "디젤 2.2";
-                } else { session.endDialog()}
-                session.beginDialog('/korPriceTrim', session.userData.model);
+                    session.beginDialog('/korPriceTrim', session.userData.model);
+                } else if(results.response.entity == "그랜다이저" ) { session.beginDialog('/korReMainMenu');}
+                
             } else {
                 // Exit the menu
                 session.endDialog();
