@@ -309,7 +309,7 @@ function create(bot) {
                 } else if (results.response.entity == "다른트림" || results.response.entity == 3) {
                     session.beginDialog('/korPriceTrim', session.userData.model);
                 } else if (results.response.entity == "홈" || results.response.entity == 4) {
-                    session.beginDialog('/korMenu');
+                    session.beginDialog('/korReMainMenu');
                 }
             } else {
                 // Exit the menu
