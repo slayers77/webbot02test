@@ -1,14 +1,18 @@
 ﻿var builder = require('botbuilder');
+var request = require('request');
+
 var date = require('date-utils');
 date = new Date();
 var language = "";
-//var luis = require('./luis');
-//var insetMent = require('./insertMent');
+
 var query = require('./config/query');
+
 var sessions = {};
 global.cnt = 0;
 //이미지경로 전역 변수 선언
 global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
+
+var noneCont = 0;
 
 
 function create(bot) {                                                  // function create(bot) START
@@ -17,56 +21,54 @@ function create(bot) {                                                  // funct
 
     if (!bot) throw new error('bot instance was not provided!!');
 
-    console.log("session.message.text : " + bot.send.Message);
-
-    console.log("cnt : " + cnt);
-
-
-
-    //bot.on('conversationUpdate', function (message) {
-
-    //    if (message.membersAdded && message.membersAdded.length > 0) {
-
-    //        var membersAdded = message.membersAdded
-    //            .map(function (m) {
-    //                var isSelf = m.id === message.address.bot.id;
-    //                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-    //            })
-    //            .join(', ');
-
-    //        bot.send(new builder.Message()
-    //            .address(message.address)
-    //            .text("안녕하세요!! 전 현대자동차 챗봇 그랜다이저입니다. 원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!"));
-
-
-           
-    //    }
-
-    //    if (message.membersRemoved && message.membersRemoved.length > 0) {
-    //        var membersRemoved = message.membersRemoved
-    //            .map(function (m) {
-    //                var isSelf = m.id === message.address.bot.id;
-    //                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-    //            })
-    //            .join(', ');
-
-    //        bot.send(new builder.Message()
-    //            .address(message.address)
-    //            .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
-    //    }
-    //});
-
-
-
-
     var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
 
+
+    intents.matches('None', [
+
+        function (session, args, next) {
+
+            var qnaMsg = "";
+            var qnaScore = 0;
+
+            // 헤더 부분
+            var headers = {
+                'Ocp-Apim-Subscription-Key': '7d9d91d741684466bed2e706cfe5421a',
+                'Content-Type': 'application/json'
+            }
+
+            // 요청 세부 내용
+            var options = {
+                url: 'https://westus.api.cognitive.microsoft.com/qnamaker/v1.0/knowledgebases/b9c07815-a65e-410e-98e7-171ff06d5748/generateAnswer',
+                method: 'POST',
+                headers: headers,
+                form: { 'question': session.message.text }
+            }
+
+            // 요청 시작 받은값은 body
+            request(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    console.log(JSON.parse(body).answer);
+                    msg = JSON.parse(body).answer;
+                    score = JSON.parse(body).score;
+                }
+                console.log("qnaMsg : " + qnaMsg);
+                //session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score });
+                session.endDialog();
+                session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score , sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "None", tableNm: "insert_history" });
+            })
+            
+        }
+
+    ]);
+
     
     intents.matches('korReturnMainMenu', [
         function (session, args, next) {
-            session.beginDialog('/korReturnMainMenu', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history"});
+            session.beginDialog('/korReMainMenu', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history"});
         }
     ]);
     
@@ -236,6 +238,10 @@ function create(bot) {                                                  // funct
 
     intents.matches('korPriceMain', [
         function (session, args, next) {
+
+
+
+
             session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceMain", tableNm: "insert_history" });
         }
     ]);
@@ -333,6 +339,25 @@ function create(bot) {                                                  // funct
             //    }
             //});
         }
+
+    ]);
+
+
+    bot.dialog('/QnA', [
+
+        function (session, args, next) {
+            console.log("args : " + args);
+            if (args.qnaScore > 80) {
+                session.send(args.qnaResponse);
+            }
+            else {
+                session.send("Low Score");
+
+            }
+            
+
+        }
+
 
     ]);
 

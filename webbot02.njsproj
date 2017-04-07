@@ -32,6 +32,8 @@
     <Content Include="images\price\Grander_exclusive.PNG" />
     <Content Include="images\price\Grander_modern.PNG" />
     <Content Include="images\price\Grander_premiumSpecial.PNG" />
+    <Content Include="images\testDrive\busan\busandongbu.png" />
+    <Content Include="images\testDrive\busan\busanjuang.png" />
     <Content Include="index.html" />
     <Content Include="package.json" />
     <Compile Include="app.js" />
@@ -45,6 +47,7 @@
     <Folder Include="images\" />
     <Folder Include="images\testDrive\" />
     <Folder Include="images\price\" />
+    <Folder Include="images\testDrive\busan\" />
     <Folder Include="images\testDrive\seoul\" />
     <Folder Include="price\" />
   </ItemGroup>
