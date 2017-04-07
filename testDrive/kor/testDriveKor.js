@@ -98,7 +98,7 @@ function create(bot) {
 
         function (session, args, next) {
             console.log("sid : " + args.key + " || message : " + args.sendMsg + "|| begin date : " + args.beginTime + " || intent : " + args.intent);
-            session.send(session.message.text);
+            //session.send(session.message.text);
             builder.Prompts.text(session, '시승센터를 찾기위하여 원하시는 위치의 동명을 입력해 주세요.(예: 서울) ');
             session.endDialog();
 
