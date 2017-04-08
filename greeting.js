@@ -239,10 +239,215 @@ function create(bot) {                                                  // funct
     intents.matches('korPriceMain', [
         function (session, args, next) {
 
+            if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 2.4')) {
+
+                
+
+                if (builder.EntityRecognizer.findEntity(args.entities, '모던')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+                    else { 
+                        // 모던만 나오게 
+                    }
+                    
+
+                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 프리미엄만 나오게 
+                    }
+
+                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄 스페셜')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 프리미엄 스페셜만 나오게 
+                    }
+
+                } else {
+
+                   // 가솔린 2.4 다 나오게
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4" });
+
+                }
 
 
+            } else if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 3.0')) {
 
-            session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceMain", tableNm: "insert_history" });
+                if (builder.EntityRecognizer.findEntity(args.entities, '익스클루시브')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 익스클루시브만 나오게 
+                    }
+
+                } else if (builder.EntityRecognizer.findEntity(args.entities, '익스클루시브 스페셜')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+
+                    else {
+                        // 익스클루시브 스페셜만 나오게
+                    }
+
+                } else {
+
+                    // 가솔린 3.0 다 나오게
+
+                }
+
+            } else if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 3.3')) {
+
+                if (builder.EntityRecognizer.findEntity(args.entities, '셀러브리티')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 셀러브리티만 나오게
+                    }
+
+                } else {
+
+                    //가솔린 3.3만 나오게
+
+                }
+
+            } else if (builder.EntityRecognizer.findEntity(args.entities, '디젤 2.2')) {
+
+
+                if (builder.EntityRecognizer.findEntity(args.entities, '모던')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 디젤 2.2 모던만 나오게
+                    }
+                    
+
+                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 디젤 2.2 프리미엄만 나오게
+                    }
+
+                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄 스페셜')) {
+
+                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+
+                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                    else {
+                        // 디젤 2.2 프리미엄 스페셜만 나오게
+                    }
+
+                } else {
+
+                    // 디젤 2.2만 나오게
+
+                }
+
+            } else {
+
+                session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceMain", tableNm: "insert_history" });
+
+            }
+
+
+            
         }
     ]);
     //intents.matches('korPriceDiesel2.2', builder.DialogAction.beginDialog('/'));
