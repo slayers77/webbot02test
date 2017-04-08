@@ -3,15 +3,10 @@ var builder = require('botbuilder');
 var express = require('express');
 var request = require('request');
 
-//ÀÎ»ç
 var greeting = require('./greeting');
-//½Ã½Â
 var testDriveKor = require('./testDrive/kor/testDriveKor');
-//µðÀÚÀÎ
 var designKor = require('./design/kor/designKor');
-//ÆíÀÇ»çÇ×
 var convenienceKor = require('./convenience/kor/convenienceKor');
-//°¡°Ý
 var priceKor = require('./price/kor/priceKor');
 
 
@@ -41,18 +36,65 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector);
 
 
+bot.on('conversationUpdate', function (message) {
+	if (message.membersAdded && message.membersAdded.length > 0) {
+		var membersAdded = message.membersAdded
+                .map(function (m) {
+                    var isSelf = m.id === message.address.bot.id;
+                    return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+                })
+                .join(', ');
+		if (membersAdded != 'Bot') {
+			bot.beginDialog(message.address, '/init');
+		}
+	}
+});
+
+//ì´ˆê¸° ì¶œë ¥ í™”ë©´
+
+bot.dialog('/init', [
+    function (session) {
+        builder.Prompts.choice(session, "What's your preferred language?", 'í•œêµ­ì–´|English');
+    },
+    function (session, results) {
+		var locale;
+        switch (results.response.entity) {
+            case 'í•œêµ­ì–´':
+                locale = 'ko';
+				break;
+            case 'English':
+                locale = 'en';
+                break;
+        }
+		session.preferredLocale(locale, function (err) {
+            if (err) {
+                session.error(err);
+            }
+        });
+		var options = session.localizer.gettext(session.preferredLocale(), "name");
+		var msg = new builder.Message(session)
+		.attachments([
+			new builder.HeroCard(session)
+				.title(options)
+				.images([
+					builder.CardImage.create(session, "http://webbot02.azurewebsites.net/hyundai/images/Grandeur_main.png")
+				])
+		]);
+		session.send(msg);
+		session.endDialog();
+    }
+]);
 
 
 //=========================================================
 // Bots Dialogs
 //=========================================================
 
-//ºÐ±âÀÛ¾÷Å×½ºÆ® 
-greeting.create(bot);           // ÀÎ»ç
-testDriveKor.create(bot);       // ½Ã½Â
-designKor.create(bot);          // µðÀÚÀÎ
-convenienceKor.create(bot);     // ÆíÀÇ»çÇ×
-priceKor.create(bot);           // °¡°Ý
+greeting.create(bot);
+testDriveKor.create(bot);
+designKor.create(bot);
+convenienceKor.create(bot);
+priceKor.create(bot);
 
 
 var app = express();
