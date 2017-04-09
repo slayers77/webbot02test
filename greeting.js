@@ -118,7 +118,7 @@ function create(bot) {                                                  // funct
     var recognizer;
     if (languageValue == 'en') {
         console.log('en');
-        recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dc1e0bf6-7b94-4d8a-8f20-6c4bf1fe2298?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
+        recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6d1b3594-6506-4b62-b822-e88f8b9b8ed5?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     } else {
         console.log('ko');
         recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
