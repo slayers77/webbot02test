@@ -741,7 +741,6 @@ function create(bot) {                                                  // funct
 
                 var statusTask = [
                     function (callback) {
-                        var returnData;
                         tp.setConnectionConfig(config);
                         tp.sql("MERGE TBL_CUSTOMER_STATUS AS A "
                             + "USING (SELECT @userID USER_ID, @engineNm ENGINE_NAME, @modelNm MODEL_NAME) AS B "
@@ -778,12 +777,8 @@ function create(bot) {                                                  // funct
             if (modelNumberVar != 0) {
                 var customerSelectTask = [
                     function (callback) {
-                        var returnData;
                         tp.setConnectionConfig(config);
-                        tp.sql("INSERT INTO TBL_MODEL_CUSTOMER_SELECTED (USER_ID, MODEL_NUMBER) "
-                            + "VALUES (@userID, @modelNumber )  "
-                        )
-
+                        
                         tp.sql("MERGE TBL_MODEL_CUSTOMER_SELECTED AS A "
                             + "USING (SELECT @userID USER_ID, @modelNumber MODEL_NUMBER ) AS B "
                             + "ON (A.USER_ID = B.USER_ID AND A.MODEL_NUMBER = B.MODEL_NUMBER) "
