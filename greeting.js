@@ -137,13 +137,12 @@ function create(bot) {                                                  // funct
             function (callback) {
                 var returnData;
                 tp.setConnectionConfig(config);
-                tp.sql("SELECT CASE WHEN MAX(ENTITYSN) IS NOT NULL THEN MAX(ENTITYNAME) "
+                tp.sql("SELECT CASE WHEN MAX(ENTITYSN) IS NOT NULL THEN 'true' "
                     + "ELSE 'false' END AS price "
                     + "FROM TBL_PRICE_ENTITY "
                     + "WHERE replace(@PRICE,' ','') like '%' + ENTITYNAME + '%'"
                     + "AND NOT (replace(@PRICE,' ','') like '%가솔린%' OR replace(@PRICE,' ','') like '%디젤%')"
                 )
-
                     .parameter('PRICE', TYPES.NVarChar, session.message.text)
                     .execute()
                     .then(function (results) {
@@ -153,14 +152,11 @@ function create(bot) {                                                  // funct
                         console.log(err);
                     });
             },
-
             function (callback) {
-
                 tp.sql("SELECT ENGINE_NAME, MODEL_NAME " +
                     "FROM TBL_CUSTOMER_STATUS " +
                     "WHERE USER_ID = @user_id"
                 )
-
                     .parameter('user_id', TYPES.NVarChar, userId)
                     .execute()
                     .then(function (results) {
@@ -173,7 +169,6 @@ function create(bot) {                                                  // funct
         ];
 
         async.series(tasks, function (err, results) {
-
             var priceRes;
             var engineName = null;
             var modelName = null;
@@ -188,18 +183,20 @@ function create(bot) {                                                  // funct
 
                 console.log("engineName : " + results[1][0].ENGINE_NAME);
                 console.log("modelName : " + results[1][0].MODEL_NAME);
-
             }
 
-            if (priceRes != 'false') {
+            if (priceRes == 'true') {
                 if (engineName != null && modelName != null && engineName != '' & modelName != '') {
-                    priceMsg = engineName + " " + modelName + " " + priceRes;
+                    priceMsg = engineName + " " + modelName + " " + session.message.text;
                     session.message.text = priceMsg;
                 }
             }
+
             next();
         });
+
     });
+
 
 
 
@@ -423,14 +420,22 @@ function create(bot) {                                                  // funct
         function (session, args, next) {
             var priceMessage = "";
 
+            var engineNameVar = "";
+            var modelNameVar = "";
+            var modelNumberVar = 0;
+
             console.log("args.entities : " + session.message.text);
             //priceMessage = session.message.text.split(" ");
             priceMessage = session.message.text;
 
             if (priceMessage.match(/가솔린 2.4/g) || priceMessage.match(/가솔린2.4/g) || priceMessage.match(/2.4/g)) {
                 console.log("가솔린 2.4");
+                engineNameVar = "가솔린 2.4";
                 if (priceMessage.match(/모던/g) || priceMessage.match(/모 던/g)) {
                     console.log("모던");
+
+                    modelNameVar = "모던";
+                    modelNumberVar = 1;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
@@ -458,6 +463,9 @@ function create(bot) {                                                  // funct
 
 
                 } else if (priceMessage.match(/프리미엄 스페셜/g) || priceMessage.match(/프리미엄스페셜/g)) {
+
+                    modelNameVar = "프리미엄 스페셜";
+                    modelNumberVar = 3;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄 스페셜" });
@@ -487,6 +495,9 @@ function create(bot) {                                                  // funct
                         session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄 스페셜" });
                     }
                 } else if (priceMessage.match(/프리미엄/)) {
+
+                    modelNameVar = "프리미엄";
+                    modelNumberVar = 2;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄" });
@@ -518,7 +529,12 @@ function create(bot) {                                                  // funct
                 }
             } else if (priceMessage.match(/가솔린 3.0/) || priceMessage.match(/가솔린3.0/)) {
 
+                engineNameVar = "가솔린 3.0";
+
                 if (priceMessage.match(/익스클루시브 스페셜/) || priceMessage.match(/익스클루시브스페셜/)) {
+
+                    modelNameVar = "익스클루시브 스페셜";
+                    modelNumberVar = 5;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
@@ -545,6 +561,9 @@ function create(bot) {                                                  // funct
                         session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
                     }
                 }else if (priceMessage.match(/익스클루시브/)) {
+
+                    modelNameVar = "익스클루시브";
+                    modelNumberVar = 4;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브" });
@@ -580,7 +599,12 @@ function create(bot) {                                                  // funct
 
             } else if (priceMessage.match(/가솔린 3.3/) || priceMessage.match(/가솔린3.3/)) {
 
+                engineNameVar = "가솔린 3.3";
+
                 if (priceMessage.match(/셀러브리티/)) {
+
+                    modelNameVar = "셀러브리티";
+                    modelNumberVar = 7;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티" });
@@ -608,8 +632,12 @@ function create(bot) {                                                  // funct
                 }
             } else if (priceMessage.match(/디젤 2.2/) || priceMessage.match(/디젤2.2/)) {
 
+                engineNameVar = "디젤 2.2";
 
                 if (priceMessage.match(/모던/)) {
+
+                    modelNameVar = "모던";
+                    modelNumberVar = 8;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
@@ -634,6 +662,9 @@ function create(bot) {                                                  // funct
                         session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
                     }
                 } else if (priceMessage.match(/프리미엄 스페셜/g) || priceMessage.match(/프리미엄스페셜/g)) {
+
+                    modelNameVar = "프리미엄 스페셜";
+                    modelNumberVar = 10;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄 스페셜" });
@@ -661,6 +692,9 @@ function create(bot) {                                                  // funct
                         session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜" });
                     }
                 } else if (priceMessage.match(/프리미엄/)) {
+
+                    modelNameVar = "프리미엄";
+                    modelNumberVar = 9;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
                         session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄" });
@@ -693,13 +727,96 @@ function create(bot) {                                                  // funct
 
             }
             session.endDialog();
+
+            // TBL_CUSTOMER_STATUS merge
+            console.log("userID : " + session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1]);
+            console.log("engineNameVar : " + engineNameVar);
+            console.log("modelNameVar : " + modelNameVar);
+            console.log("modelNumberVar : " + modelNumberVar);
+
+
+            var statusTask = [
+                function (callback) {
+                    var returnData;
+                    tp.setConnectionConfig(config);
+                    tp.sql("MERGE TBL_CUSTOMER_STATUS AS A "
+                        + "USING (SELECT @userID USER_ID, @engineNm ENGINE_NAME, @modelNm MODEL_NAME) AS B "
+                        + "ON (A.USER_ID = B.USER_ID ) "
+                        + "WHEN MATCHED THEN "
+                        + "UPDATE SET MODEL_NAME = B.MODEL_NAME, A.USER_ID = B.USER_ID, A.ENGINE_NAME = B.ENGINE_NAME "
+                        + "WHEN NOT MATCHED THEN  "
+                        + "INSERT (USER_ID, ENGINE_NAME, MODEL_NAME, LAST_REG_DATE) "
+                        + "VALUES (B.USER_ID, B.ENGINE_NAME, B.MODEL_NAME,  CONVERT(VARCHAR, DATEADD(Hour, 9,GETDATE()), 101)+' '+CONVERT(VARCHAR, DATEADD(Hour, 9,GETDATE()), 24)); "
+                    )
+
+                        .parameter('userID', TYPES.NVarChar, session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1])
+                        .parameter('engineNm', TYPES.NVarChar, engineNameVar)
+                        .parameter('modelNm', TYPES.NVarChar, modelNameVar)
+                        .execute()
+                        .then(function (results) {
+                            console.log("TBL_CUSTOMER_STATUS Merge Success!!!!");
+                            callback(null, results);
+                        }).fail(function (err) {
+                            console.log(err);
+                        });
+                }
+            ];
+
+            async.series(statusTask, function (err, results) {
+
+                var statusMerge;
+                
+                console.log("Merge Result : " + results[0]);
+            });
+
+            if (modelNumberVar != 0)
+            {
+                var customerSelectTask = [
+                    function (callback) {
+                        var returnData;
+                        tp.setConnectionConfig(config);
+                        tp.sql("INSERT INTO TBL_MODEL_CUSTOMER_SELECTED (USER_ID, MODEL_NUMBER) "
+                            + "VALUES (@userID, @modelNumber )  "
+                        )
+
+                        tp.sql("MERGE TBL_MODEL_CUSTOMER_SELECTED AS A "
+                            + "USING (SELECT @userID USER_ID, @modelNumber MODEL_NUMBER ) AS B "
+                            + "ON (A.USER_ID = B.USER_ID AND A.MODEL_NUMBER = B.MODEL_NUMBER) "
+                            + "WHEN MATCHED THEN "
+                            + "UPDATE SET MODEL_NUMBER = B.MODEL_NUMBER, A.USER_ID = B.USER_ID "
+                            + "WHEN NOT MATCHED THEN  "
+                            + "INSERT (USER_ID, MODEL_NUMBER ) "
+                            + "VALUES (B.USER_ID, B.MODEL_NUMBER ); "
+                        )
+
+
+
+                            .parameter('userID', TYPES.NVarChar, session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1])
+                            .parameter('modelNumber', TYPES.Int, modelNumberVar)
+                            .execute()
+                            .then(function (results) {
+                                console.log("TBL_MODEL_CUSTOMER_SELECTED Insert Success!!!!");
+                                callback(null, results);
+                            }).fail(function (err) {
+                                console.log(err);
+                            });
+                    }
+                ];
+                async.series(customerSelectTask, function (err, results) {
+
+                    var statusMerge;
+
+                    console.log("Insert Result : " + results[0]);
+                });
+
+
+            }
+
+
+
+
         }
     ]);
-    //intents.matches('korPriceDiesel2.2', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korPriceGas2.4', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korPriceGas3.0', builder.DialogAction.beginDialog('/'));
-    //intents.matches('korPriceGas3.3', builder.DialogAction.beginDialog('/'));
-    
 
     /***********************************************************************************
         한국어 메뉴 초기화면
