@@ -242,190 +242,337 @@ function create(bot, languageValue) {                                           
             console.log("user insert : ");
         }
     ]);
-    /*
-        가격 INTENT MATCH
-    */
 
+
+
+/*
+가격 INTENT MATCH
+*/
     intents.matches('korPriceMain', [
         function (session, args, next) {
-            console.log("user insert : " + session.localizer.gettext(session.preferredLocale(), "name"));
-            if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 2.4')) {
+            var messageArray = [];
 
-                
+            console.log("args.entities : " + session.message.text);
+            messageArray = session.message.text.split(" ");
 
-                if (builder.EntityRecognizer.findEntity(args.entities, '모던')) {
+            if (messageArray[0] == "가솔린2.4") {
+                console.log("가솔린 2.4");
+                if (messageArray[1] == "모던") {
+                    console.log("모던");
 
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
-
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
-                    else { 
-                        // 모던만 나오게 
+                    if (messageArray[2] == "기본품목") {
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
+                    } else if (messageArray[2] == "파워트레인") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "파워트레인" });
+                    } else if (messageArray[2] == "성능") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "성능" });
+                    } else if (messageArray[2] == "안전") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "안전" });
+                    } else if (messageArray[2] == "외관") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "외관" });
+                    } else if (messageArray[2] == "내장") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "내장" });
+                    } else if (messageArray[2] == "시트") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "시트" });
+                    } else if (messageArray[2] == "편의") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "편의" });
+                    } else if (messageArray[2] == "멀티미디어") {
+                        session.beginDialog('/korPriceBasicOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", basicOption1: "멀티미디어" });
                     }
-                    
 
-                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄')) {
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "앞좌석통풍") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                    } else if (messageArray[2] == "하이패스시스템") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지IV") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "현대 스마트 센스 패키지IV", optionPrice1: 18000000 });
+                    }
 
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+                    else {
+                        // 모던만 나오게 
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
+                    }
 
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+
+                } else if (messageArray[1] == "프리미엄") {
+
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
+
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지I") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "현대 스마트 센스 패키지I", optionPrice1: 1500000 });
+                    } else if (messageArray[2] == "익스테리어패키지I") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "익스테리어 패키지I", optionPrice1: 1500000 });
+                    }
 
                     else {
                         // 프리미엄만 나오게 
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄" });
                     }
 
-                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄 스페셜')) {
+                } else if (messageArray[1] == "프리미엄스페셜") {
 
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
 
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                    } else if (messageArray[2] == "익스테리어패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "익스테리어 패키지II", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "JBL사운드패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
+                    } else if (messageArray[2] == "어라운드뷰모니터(AVM)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "어라운드 뷰 모니터(AVM)", optionPrice1: 1200000 });
+                    }
 
                     else {
                         // 프리미엄 스페셜만 나오게 
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄 스페셜" });
                     }
-
-                } else {
-
-                   // 가솔린 2.4 다 나오게
+                }
+                else {
+                    //가솔린 2.4만 나오게
                     session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4" });
+                }
+            } else if (messageArray[0] == "가솔린3.0") {
 
+                if (messageArray[1] == "익스클루시브") {
+
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
+
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                    } else if (messageArray[2] == "익스테리어패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "익스테리어 패키지II", optionPrice1: 1600000 });
+                    } else if (messageArray[2] == "어라운드뷰모니터(AVM)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크", optionPrice1: 1200000 });
+                    } else if (messageArray[2] == "스마트전동식트렁크") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크", optionPrice1: 1200000 });
+                    }
+                    else {
+                        // 익스클루시브 만 나오게 
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브" });
+                    }
+                } else if (messageArray[1] == "익스클루시브 스페셜") {
+
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
+
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                    } else if (messageArray[2] == "JBL사운드패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
+                    } else if (messageArray[2] == "프리미어인테리어셀렉션") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
+                    }
+                    else {
+                        // 익스클루시브 스페셜만 나오게 
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
+                    }
+                }
+                else {
+                    //가솔린 3.0만 나오게
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0" });
                 }
 
+            } else if (messageArray[0] == "가솔린3.3") {
 
-            } else if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 3.0')) {
+                if (messageArray[1] == "셀러브리티") {
 
-                if (builder.EntityRecognizer.findEntity(args.entities, '익스클루시브')) {
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
 
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
-
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
-
-                    else {
-                        // 익스클루시브만 나오게 
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)" || messageArray[2] == "헤드업디스플레이") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
                     }
-
-                } else if (builder.EntityRecognizer.findEntity(args.entities, '익스클루시브 스페셜')) {
-
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
-
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
-
-
-                    else {
-                        // 익스클루시브 스페셜만 나오게
-                    }
-
-                } else {
-
-                    // 가솔린 3.0 다 나오게
-
-                }
-
-            } else if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 3.3')) {
-
-                if (builder.EntityRecognizer.findEntity(args.entities, '셀러브리티')) {
-
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
-
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
-
                     else {
                         // 셀러브리티만 나오게
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티" });
                     }
-
                 } else {
-
                     //가솔린 3.3만 나오게
-
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.3" });
                 }
+            } else if (messageArray[0] == "디젤2.2") {
 
-            } else if (builder.EntityRecognizer.findEntity(args.entities, '디젤 2.2')) {
 
+                if (messageArray[1] == "모던") {
 
-                if (builder.EntityRecognizer.findEntity(args.entities, '모던')) {
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
 
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
-
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
-
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "앞좌석통풍") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                    } else if (messageArray[2] == "하이패스시스템") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지IV") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "현대 스마트 센스 패키지IV", optionPrice1: 18000000 });
+                    }
                     else {
                         // 디젤 2.2 모던만 나오게
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
                     }
-                    
+                } else if (messageArray[1] == "프리미엄") {
 
-                } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄')) {
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
 
-                    if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '파워트레인')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '성능')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '안전')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '외관')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '내장')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '시트')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '편의')) { }
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '멀티미디어')) { }
-
-                    else if (builder.EntityRecognizer.findEntity(args.entities, '선택품목')) { }
-
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지I") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "현대 스마트 센스 패키지I", optionPrice1: 1500000 });
+                    } else if (messageArray[2] == "익스테리어패키지I") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "익스테리어 패키지I", optionPrice1: 1500000 });
+                    }
                     else {
                         // 디젤 2.2 프리미엄만 나오게
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄" });
                     }
+                } else if (messageArray[1] == "프리미엄스페셜") {
 
+                    if (messageArray[2] == "기본품목") { console.log("기본품목"); }
+                    else if (messageArray[2] == "파워트레인") { }
+                    else if (messageArray[2] == "성능") { console.log("성능"); }
+                    else if (messageArray[2] == "안전") { }
+                    else if (messageArray[2] == "외관") { }
+                    else if (messageArray[2] == "내장") { }
+                    else if (messageArray[2] == "시트") { }
+                    else if (messageArray[2] == "편의") { }
+                    else if (messageArray[2] == "멀티미디어") { }
+
+                    else if (messageArray[2] == "선택품목") {
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜" });
+                    } else if (messageArray[2] == "파노라마썬루프") {
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                    } else if (messageArray[2] == "TUIX컴포트패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                    } else if (messageArray[2] == "헤드업디스플레이(HUD)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "현대스마트센스패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                    } else if (messageArray[2] == "익스테리어패키지II") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "익스테리어 패키지II", optionPrice1: 1000000 });
+                    } else if (messageArray[2] == "JBL사운드패키지") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
+                    } else if (messageArray[2] == "어라운드뷰모니터(AVM)") {
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "어라운드 뷰 모니터(AVM)", optionPrice1: 1200000 });
+                    }
                 } else if (builder.EntityRecognizer.findEntity(args.entities, '프리미엄 스페셜')) {
 
                     if (builder.EntityRecognizer.findEntity(args.entities, '기본품목')) { }
@@ -442,22 +589,17 @@ function create(bot, languageValue) {                                           
 
                     else {
                         // 디젤 2.2 프리미엄 스페셜만 나오게
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄 스페셜" });
                     }
-
                 } else {
-
                     // 디젤 2.2만 나오게
-
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "디젤 2.2" });
                 }
-
             } else {
-
                 session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceMain", tableNm: "insert_history" });
 
             }
-
-
-            
+            session.endDialog();
         }
     ]);
     //intents.matches('korPriceDiesel2.2', builder.DialogAction.beginDialog('/'));
