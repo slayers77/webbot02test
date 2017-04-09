@@ -37,3 +37,5 @@ jspm_packages
 .node_repl_history
 /app - Copy.js
 /config.zip
+/app.js.bak
+/greeting - Copy.js

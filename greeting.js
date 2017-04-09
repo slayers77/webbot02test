@@ -7,12 +7,35 @@ var language = "";
 
 var query = require('./config/query');
 
-var sessions = {};
-global.cnt = 0;
+
 //이미지경로 전역 변수 선언
 global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
 
-var noneCont = 0;
+//DB Config
+
+var async = require('async');
+var tp = require('tedious-promises');
+var TYPES = require('tedious').TYPES;
+
+var config = {
+    server: 'faxtimedb.database.windows.net',
+    userName: 'faxtime',
+    password: 'test2016!',
+    options: {
+        debug: {
+            packet: false,
+            data: false,
+            patload: false,
+            token: false,
+            log: true
+        },
+        encrypt: true,
+        database: 'taihoML'
+    }
+};
+
+
+
 
 
 function create(bot, languageValue) {                                                  // function create(bot) START
@@ -708,15 +731,16 @@ function create(bot, languageValue) {                                           
                 session.send(args.qnaResponse);
             }
             else {
-                session.send("Low Score");
-
+                session.send("그랜다이저는 너님이 뭐라고 하시는지 모르겠어용.. 좀 알아먹게 질문해주시면 안되나용??");
             }
-            
-
+            session.endDialog();            
         }
-
-
     ]);
+
+
+
+
+
 
 
 }   // function create(bot) END
