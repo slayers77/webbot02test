@@ -54,7 +54,7 @@ function create(bot) {                                                  // funct
                     })
                     .join(', ');
             console.log('56 : ' + membersAdded);
-            if (membersAdded != 'Bot' && membersAdded != 'quotationBot') {
+            if (membersAdded == 'Bot' || membersAdded == 'quotationBot') {
                 bot.beginDialog(message.address, '/init');
             }
         }
