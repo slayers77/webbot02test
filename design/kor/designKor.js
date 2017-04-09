@@ -20,18 +20,18 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("Design")
-                        .subtitle("멋지죠? 더 자세한 내용을 한번 보시겠어요?")
+                        .title(session.localizer.gettext(session.preferredLocale(), "designTitleName"))
+                        .subtitle(session.localizer.gettext(session.preferredLocale(), "designSubtitleMessage"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/20170302091059771443.jpg")
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "색상 보여줘", "색상"),
-                            builder.CardAction.imBack(session, "내관 보여줘", "내관"),
-                            builder.CardAction.imBack(session, "외관 보여줘", "외관")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
                         ])
                 ]);
-            builder.Prompts.choice(session, msg, "색상|내관|외관");
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "designMenuList")); 
             session.endDialog();
             session.beginDialog('/korReMainMenu');
 
@@ -49,107 +49,107 @@ function create(bot) {
     bot.dialog('/korDesignColorList', [
 
         function (session, args) {
-            session.send("원하시는 색상을 선택하시면 그랜저 색상이 바뀝니다");
+            session.send(session.localizer.gettext(session.preferredLocale(), "colorSelectWelcomeMessage")); 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("화이트 크림")
+                        .title(session.localizer.gettext(session.preferredLocale(), "whiteCream"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00060.jpg")
-                                .alt("화이트 크림")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "whiteCream"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "화이트 크림 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "whiteCreamCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("이온 실버")
+                        .title(session.localizer.gettext(session.preferredLocale(), "IonSilver"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00060.jpg")
-                                .alt("이온 실버")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "IonSilver"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "이온 실버 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "IonSilverCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("루나 그레이")
+                        .title(session.localizer.gettext(session.preferredLocale(), "LunaGray"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00060.jpg")
-                                .alt("루나 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "LunaGray"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "루나 그레이 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "LunaGrayCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("판테라 그레이")
+                        .title(session.localizer.gettext(session.preferredLocale(), "PanteraGray"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00060.jpg")
-                                .alt("판테라 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "PanteraGray"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "판테라 그레이 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "PanteraGrayCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
 
                         ]),
                     new builder.HeroCard(session)
-                        .title("미드나잇 블랙")
+                        .title(session.localizer.gettext(session.preferredLocale(), "MidnightBlack"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00060.jpg")
-                                .alt("미드나잇 블랙")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "MidnightBlack"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "미드나잇 블랙 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "MidnightBlackCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("발렌타인 레드")
+                        .title(session.localizer.gettext(session.preferredLocale(), "ValentineRed"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00060.jpg")
-                                .alt("발렌타인 레드")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ValentineRed"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "발렌타인 레드 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "ValentineRedCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("그랑 블루")
+                        .title(session.localizer.gettext(session.preferredLocale(), "GrandBlue"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00060.jpg")
-                                .alt("그랑 블루")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "GrandBlue"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "그랑 블루 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "GrandBlueCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("쉐이드 브론즈")
+                        .title(session.localizer.gettext(session.preferredLocale(), "ShadeBronze"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00060.jpg")
-                                .alt("쉐이드 브론즈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ShadeBronze"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "쉐이드 브론즈 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "ShadeBronzeCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("카키 메탈")
+                        .title(session.localizer.gettext(session.preferredLocale(), "KakiMetal")) 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00060.jpg")
-                                .alt("카키 메탈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "KakiMetal"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00060.jpg"))
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "카키 메탈 색상 보여줘", "선택")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "KakiMetalCilckMessage"), session.localizer.gettext(session.preferredLocale(), "colorSelect"))
                         ])
                 ]);
 
-            builder.Prompts.choice(session, msg, "화이트 크림|이온 실버|루나 그레이|판테라 그레이|미드나잇 블랙|발렌타인 레드|그랑 블루|쉐이드 브론즈|카키 메탈");
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "colorMenuList"));
             session.endDialog();
             session.beginDialog('/korReMainMenu');
             
@@ -172,19 +172,19 @@ function create(bot) {
 
                 .attachments([
                     new builder.HeroCard(session)
-                        .title("그랜저 외관")
-                        .subtitle("단단해진 차체와 새로운 플랫폼 적용으로 균형 잡힌 주행 안정성과 민첩하고 다이나믹한 가속 응답성, 부드러운 승차감까지 갖추었습니다.")
-                        .text("미래 자율 주행에 한발 더 다가선 지능형 안전기술 Hyundai SmartSense로 더운 편안한 주행 환경을 제공하고 다른 차량 운전자와 보행자까지 모두의 안전을 스마트하게 케어 합니다.")
+                        .title(session.localizer.gettext(session.preferredLocale(), "exteriorTitleName"))
+                        .subtitle(session.localizer.gettext(session.preferredLocale(), "exteriorSubtitleMessage"))
+                        .text(session.localizer.gettext(session.preferredLocale(), "exteriorTextMessage"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/car_outside_title.jpg")
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, "외관상세 보여줘", "외관상세")
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "exteriorDetail"))
                         ])
 
                 ]);
            
-            builder.Prompts.choice(session, msg, "외관상세");
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "exteriorMenuList"));
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -208,25 +208,25 @@ function create(bot) {
                     //.title("그랜저의 외관입니다.")
                     .attachments([
                     new builder.HeroCard(session)
-                            .title("Full LED 헤드램프 / 캐스캐이딩 그릴")
+                            .title(session.localizer.gettext(session.preferredLocale(), "exteriorDetailItem1"))
                             .images([
                         builder.CardImage.create(session, img_path + "/images/carDesign/20161122093146198083.jpg")
                                     .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/20161122093146198083.jpg"))
                     ]),
                     new builder.HeroCard(session)
-                            .title("19인치 알로이 휠 & 타이어")
+                            .title(session.localizer.gettext(session.preferredLocale(), "exteriorDetailItem2"))
                             .images([
                         builder.CardImage.create(session, img_path + "/images/carDesign/20161122093251750084.jpg")
                                     .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/20161122093251750084.jpg"))
                     ]),
                     new builder.HeroCard(session)
-                            .title("LED 방향지시등 적용 아웃사이드 미러 & 샤틴 크롬 몰딩")
+                            .title(session.localizer.gettext(session.preferredLocale(), "exteriorDetailItem3"))
                             .images([
                         builder.CardImage.create(session, img_path + "/images/carDesign/20161122093309923085.jpg")
                                     .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/20161122093309923085.jpg"))
                     ]),
                     new builder.HeroCard(session)
-                            .title("LED 리어 콤비램프")
+                            .title(session.localizer.gettext(session.preferredLocale(), "exteriorDetailItem4"))
                             .images([
                         builder.CardImage.create(session, img_path + "/images/carDesign/20161122093331472086.jpg")
                                     .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/20161122093331472086.jpg"))
@@ -258,18 +258,18 @@ function create(bot) {
 
                 .attachments([
                 new builder.HeroCard(session)
-                        .title("그랜저 내관")
-                        .subtitle("크래쉬패드의 높이를 낮추고 수펴적인 아키텍처를 적용한 인테리어는\n\n 탁 트인 개방감과 넓고 안정적인 공간감을 연출합니다.")
-                        .text("엄선된 고급 소재와 깊이 있는 컬러, 새로운 플로팅 타입 디스플레이와 스마트 멀리미디어 시스템까지\n\n 정교하게 다듬어진 디테일들이 품격있고 섬세한 취향을 만족시켜 드릴 것입니다.")
+                        .title(session.localizer.gettext(session.preferredLocale(), "interiorTitleName"))
+                        .subtitle(session.localizer.gettext(session.preferredLocale(), "interiorSubtitleMessage"))
+                        .text(session.localizer.gettext(session.preferredLocale(), "interiorTextMessage"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/car_inside_title.jpg")
                 ])
                         .buttons([
-                    builder.CardAction.imBack(session, "내관상세 보여줘", "내관상세")
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "interiorDetail"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg, "내관상세");
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "interiorMenuList"));
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -292,13 +292,13 @@ function create(bot) {
                     .attachments([
                         //AnimationCard
                     new builder.HeroCard(session)
-                            .title("운전석 내부 전경")
+                            .title(session.localizer.gettext(session.preferredLocale(), "interiorDetailItem1"))
                             .images([
                         builder.CardImage.create(session, img_path + "/images/carDesign/car_inside_detail_front.jpg")
                                     .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/car_inside_detail_front.jpg"))
                     ]),
                     new builder.HeroCard(session)
-                            .title("뒷자석 내부 전경")
+                            .title(session.localizer.gettext(session.preferredLocale(), "interiorDetailItem2"))
                             .images([
                         builder.CardImage.create(session, img_path + "/images/carDesign/car_inside_detail_back.jpg")
                                     .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/car_inside_detail_back.jpg"))
@@ -338,31 +338,31 @@ function create(bot) {
                     //AnimationCard
                 new builder.HeroCard(session)
 
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00055.jpg")
-                                .alt("화이트 크림")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "whiteCream"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00055.jpg"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00046.jpg")
-                                .alt("화이트 크림")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "whiteCream"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00046.jpg"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00014.jpg")
-                                .alt("화이트 크림")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "whiteCream"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00014.jpg"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/WC9/00021.jpg")
-                                .alt("화이트 크림")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "whiteCream"))
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/WC9/00021.jpg"))
                 ])
             ]);
@@ -390,35 +390,35 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                 new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00055.jpg"))
-                                .alt("이온 실버")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "IonSilver"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00046.jpg"))
-                                .alt("이온 실버")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "IonSilver"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00014.jpg"))
-                                .alt("이온 실버")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "IonSilver"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/N9V/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/N9V/00021.jpg"))
-                                .alt("이온 실버")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "IonSilver"))
                 ])
             ]);
             session.send(msg);
@@ -444,35 +444,35 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00055.jpg"))
-                                .alt("루나 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "LunaGray"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00046.jpg"))
-                                .alt("루나 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "LunaGray"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00014.jpg"))
-                                .alt("루나 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "LunaGray"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/U9G/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/U9G/00021.jpg"))
-                                .alt("루나 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "LunaGray"))
                         ])
                 ]);
             session.send(msg);
@@ -498,36 +498,36 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00055.jpg"))
-                                .alt("판테라 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "PanteraGray"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00046.jpg"))
-                                .alt("판테라 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "PanteraGray"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00014.jpg"))
-                                .alt("판테라 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "PanteraGray"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/PG9/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/PG9/00021.jpg"))
-                                .alt("판테라 그레이")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "PanteraGray"))
                         ])
                 ]);
             session.send(msg);
@@ -554,36 +554,36 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00055.jpg"))
-                                .alt("미드나잇 블랙")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "MidnightBlack"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00046.jpg"))
-                                .alt("미드나잇 블랙")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "MidnightBlack"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00014.jpg"))
-                                .alt("미드나잇 블랙")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "MidnightBlack"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NB9/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NB9/00021.jpg"))
-                                .alt("미드나잇 블랙")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "MidnightBlack"))
                         ])
                 ]);
             session.send(msg);
@@ -609,36 +609,36 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00055.jpg"))
-                                .alt("발렌타인 레드")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ValentineRed"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00046.jpg"))
-                                .alt("발렌타인 레드")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ValentineRed"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00014.jpg"))
-                                .alt("발렌타인 레드")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ValentineRed"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/V9R/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/V9R/00021.jpg"))
-                                .alt("발렌타인 레드")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ValentineRed"))
                         ])
                 ]);
             session.send(msg);
@@ -663,35 +663,35 @@ function create(bot) {
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00055.jpg"))
-                                .alt("그랑 블루")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "GrandBlue"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00046.jpg"))
-                                .alt("그랑 블루")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "GrandBlue"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00014.jpg"))
-                                .alt("그랑 블루")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "GrandBlue"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/NU9/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/NU9/00021.jpg"))
-                                .alt("그랑 블루")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "GrandBlue"))
                         ])
                 ]);
             session.send(msg);
@@ -717,36 +717,36 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00055.jpg"))
-                                .alt("쉐이드 브론즈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ShadeBronze"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00046.jpg"))
-                                .alt("쉐이드 브론즈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ShadeBronze"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00014.jpg"))
-                                .alt("쉐이드 브론즈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ShadeBronze"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/S9C/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/S9C/00021.jpg"))
-                                .alt("쉐이드 브론즈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "ShadeBronze"))
                         ])
                 ]);
             session.send(msg);
@@ -772,36 +772,36 @@ function create(bot) {
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title("정면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailFront"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00055.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00055.jpg"))
-                                .alt("카키 메탈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "KakiMetal"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("우측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRight"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00046.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00046.jpg"))
-                                .alt("카키 메탈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "KakiMetal"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("좌측면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailLeft"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00014.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00014.jpg"))
-                                .alt("카키 메탈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "KakiMetal"))
                         ]),
                     new builder.HeroCard(session)
-                        .title("후면")
+                        .title(session.localizer.gettext(session.preferredLocale(), "colorDetailRear"))
 
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/TK9/00021.jpg")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/carDesign/TK9/00021.jpg"))
-                                .alt("카키 메탈")
+                                .alt(session.localizer.gettext(session.preferredLocale(), "KakiMetal"))
                         ])
                 ]);
             session.send(msg);
