@@ -15,13 +15,19 @@ global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
 var noneCont = 0;
 
 
-function create(bot) {                                                  // function create(bot) START
+function create(bot, languageValue) {                                                  // function create(bot) START
 
     var responseTime;
 
     if (!bot) throw new error('bot instance was not provided!!');
 
-    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
+    if (languageValue == 'ko') {
+        console.log('ko');
+        var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
+    } else {
+        console.log('en');
+        var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dc1e0bf6-7b94-4d8a-8f20-6c4bf1fe2298?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true&timezoneOffset=0.0&q=');    
+    }
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
 
@@ -231,14 +237,18 @@ function create(bot) {                                                  // funct
             session.beginDialog('/korDesignInteriorDetail', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" });
         }
     ]);
-
+    intents.matches('korCompareModel', [
+        function (session, args, next) {
+            console.log("user insert : ");
+        }
+    ]);
     /*
         가격 INTENT MATCH
     */
 
     intents.matches('korPriceMain', [
         function (session, args, next) {
-
+            console.log("user insert : " + session.localizer.gettext(session.preferredLocale(), "name"));
             if (builder.EntityRecognizer.findEntity(args.entities, '가솔린 2.4')) {
 
                 

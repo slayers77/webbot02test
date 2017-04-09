@@ -91,7 +91,7 @@ bot.dialog('/init', [
             .attachments([
                 new builder.HeroCard(session)
                     .title(options)
-                    .text("그랜저 ig 가격이 궁금해서 오신거죠? 어떤 정보를 알고 싶으세요?")
+                    .text(session.localizer.gettext(session.preferredLocale(), "welcomemessage"))
                         .buttons([
                             builder.CardAction.imBack(session, "가격 보여줘", "가격"),
                             builder.CardAction.imBack(session, "디자인 보여줘", "디자인"),
@@ -102,6 +102,12 @@ bot.dialog('/init', [
 
         builder.Prompts.choice(session, msg, '가격|디자인|편의사항|시승');
         session.endDialog();
+        
+        greeting.create(bot, session.preferredLocale());           // 인사
+        testDriveKor.create(bot);       // 시승
+        designKor.create(bot);          // 디자인
+        convenienceKor.create(bot);     // 편의사항
+        priceKor.create(bot);           // 가격
         console.log("user insert : " + session.message.text);
     }
 ]);
