@@ -80,6 +80,7 @@ function create(bot) {                                                  // funct
                     builder.Prompts.choice(session, msg, '한국어|English');
         },
         function (session, results) {
+            console.log('83 : ' + results.response.entity);
             switch (results.response.entity) {
                 case '한국어':
                     languageValue = 'ko';
@@ -89,29 +90,26 @@ function create(bot) {                                                  // funct
                     break;
             }
             session.preferredLocale(languageValue, function (err) {
+                console.log('93 : ' + languageValue);
                 if (err) {
                     session.error(err);
                 }
             });
-            var options = session.localizer.gettext(session.preferredLocale(), "name");
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
-                        .title(options)
+                        .title(session.localizer.gettext(session.preferredLocale(), "name"))
                         .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
                             .buttons([
                                 builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive")),
-                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
-                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
-                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price"))
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price"))
                             ])
                 ]);
-
-            builder.Prompts.choice(session, msg, session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
+            console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
             session.endDialog();
-            
-                    // 가격
-            console.log("user insert : " + session.message.text);
         }
     ]);
 
