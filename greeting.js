@@ -74,54 +74,16 @@ function create(bot) {                                                  // funct
                                 { url: 'http://webbot02.azurewebsites.net/openning.wav' }
                             ])
                             .buttons([
-                                builder.CardAction.imBack(session, "Korean", "한국어"),
+                                builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
                                 builder.CardAction.imBack(session, "English", "English")
                             ])
                     ]);
                     builder.Prompts.choice(session, msg, '한국어|English');
-        },
-        function (session, results) {
-            console.log('83 : ' + results.response.entity);
-            switch (results.response.entity) {
-                case 'Korean':
-                    languageValue = 'ko';
-                    break;
-                case 'English':
-                    languageValue = 'en';
-                    break;
-            }
-            session.preferredLocale(languageValue, function (err) {
-                console.log('93 : ' + languageValue);
-                if (err) {
-                    session.error(err);
-                }
-            });
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.HeroCard(session)
-                        .title(session.localizer.gettext(session.preferredLocale(), "name"))
-                        .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
-                            .buttons([
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive"))
-                            ])
-                ]);
-            console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
-            session.endDialog();
+                    session.endDialog();
         }
     ]);
 
-    var recognizer;
-    if (languageValue == 'en') {
-        console.log('en');
-        recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6d1b3594-6506-4b62-b822-e88f8b9b8ed5?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
-    } else {
-        console.log('ko');
-        recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
-    }
+    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
 
@@ -408,6 +370,18 @@ function create(bot) {                                                  // funct
     intents.matches('korCompareModel', [
         function (session, args, next) {
             console.log("user insert : ");
+        }
+    ]);
+
+    intents.matches('LanguageSelectEnglish', [
+        function (session, args, next) {
+            session.beginDialog('/LanguageSelectEnglish');
+        }
+    ]);
+
+    intents.matches('LanguageSelectKorean', [
+        function (session, args, next) {
+            session.beginDialog('/LanguageSelectKorean');
         }
     ]);
 
@@ -910,12 +884,57 @@ function create(bot) {                                                  // funct
         }
     ]);
 
+    bot.dialog('/LanguageSelectKorean', [
 
+        function (session, args, next) {
+            session.preferredLocale('Ko', function (err) {
+                if (err) {
+                    session.error(err);
+                }
+            });
+            var msg = new builder.Message(session)
+                .attachments([
+                    new builder.HeroCard(session)
+                        .title(session.localizer.gettext(session.preferredLocale(), "name"))
+                        .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
+                            .buttons([
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive"))
+                            ])
+                ]);
+            console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
+            session.endDialog();             
+        }
+    ]);
 
+    bot.dialog('/LanguageSelectEnglish', [
 
-
-
-
+        function (session, args, next) {
+            session.preferredLocale('En', function (err) {
+                if (err) {
+                    session.error(err);
+                }
+            });
+            var msg = new builder.Message(session)
+                .attachments([
+                    new builder.HeroCard(session)
+                        .title(session.localizer.gettext(session.preferredLocale(), "name"))
+                        .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
+                            .buttons([
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive"))
+                            ])
+                ]);
+            console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
+            session.endDialog();            
+        }
+    ]);
 }   // function create(bot) END
 
 

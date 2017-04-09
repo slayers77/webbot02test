@@ -10,7 +10,6 @@ var convenienceKor = require('./convenience/kor/convenienceKor');
 var priceKor = require('./price/kor/priceKor');
 var query = require('./config/query');
 
-global.sample;
 
 //=========================================================
 // Bot Setup
