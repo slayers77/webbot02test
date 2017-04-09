@@ -37,7 +37,6 @@ function create(bot) {
             builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "convenienceMenuList"));
             
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -94,7 +93,6 @@ function create(bot) {
             ]);
             session.send(msg);
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -203,7 +201,6 @@ function create(bot) {
             ]);
             session.send(msg);
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -355,7 +352,6 @@ function create(bot) {
 
             session.send(msg);
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {

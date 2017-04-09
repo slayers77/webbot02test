@@ -33,8 +33,6 @@ function create(bot) {
                 ]);
             builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "designMenuList")); 
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
-
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
@@ -151,8 +149,7 @@ function create(bot) {
 
             builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "colorMenuList"));
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
-            
+           
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {

@@ -45,7 +45,6 @@ function create(bot) {
             builder.Prompts.choice(session, msg, "온라인 예약|시승센터 전화예약 ");
             
             session.endDialog();
-            session.beginDialog('/korReMainMenu');
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {

@@ -101,10 +101,10 @@ function create(bot) {                                                  // funct
                         .title(session.localizer.gettext(session.preferredLocale(), "name"))
                         .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
                             .buttons([
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive")),
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
                                 builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
                                 builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price"))
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive"))
                             ])
                 ]);
             console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
@@ -773,13 +773,13 @@ function create(bot) {                                                  // funct
                         .text("다른 메뉴를 원하시면 선택하시거나 질문해주세요!!")
                         //.text(str)
                         .buttons([
-                            builder.CardAction.imBack(session, "시승 방법 보여줘", "시승"),
+                            builder.CardAction.imBack(session, "가격 보여줘", "가격"),
                             builder.CardAction.imBack(session, "디자인 보여줘", "디자인"),
                             builder.CardAction.imBack(session, "편의사항 보여줘", "편의사항"),
-                            builder.CardAction.imBack(session, "가격 보여줘", "가격")
+                            builder.CardAction.imBack(session, "시승 방법 보여줘", "시승"),
                         ])
                 ]);
-            builder.Prompts.choice(session, msg, "시승|디자인|편의사항|가격 ");
+            builder.Prompts.choice(session, msg, "가격|디자인|편의사항|시승");
             session.endDialog();
             //session.beginDialog('/korReMainMenu');
             //responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
