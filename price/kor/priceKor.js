@@ -59,12 +59,12 @@ function create(bot) {
             session.endDialog();
             //session.beginDialog('/korReMainMenu');
 
-            /*responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
                     console.log("query.getData : " + result);
                 }
-            });*/
+            });
         }
     ]);
     
@@ -340,12 +340,12 @@ function create(bot) {
             }
             builder.Prompts.choice(session, msg, "BTN1|BTN2|BTN3|BTN4|BTN5|BTN6");
             session.endDialog();
-            /*responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
                     console.log("query.getData : " + result);
                 }
-            });*/
+            });
         }
     ]);
     
@@ -468,6 +468,12 @@ function create(bot) {
             //builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " 기본품목|홈", { listStyle: builder.ListStyle.button });
             builder.Prompts.choice(session, nextBtn, "선택품목|홈", { listStyle: builder.ListStyle.button });
             session.endDialog();
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
     
@@ -552,6 +558,12 @@ function create(bot) {
             var msg = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel).attachments(options);
             builder.Prompts.choice(session, msg, "BTN1|BTN|2|BTN3|BTN4|BTN5|BTN6");
             session.endDialog();
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
     
@@ -590,6 +602,12 @@ function create(bot) {
             
             session.endDialog();
             //builder.Prompts.choice(session, msg, "트림|다른모델|홈");
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
     ]);
     
