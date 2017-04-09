@@ -53,6 +53,7 @@ function create(bot) {                                                  // funct
                         return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
                     })
                     .join(', ');
+            console.log('56 : ' + membersAdded);
             if (membersAdded != 'Bot') {
                 bot.beginDialog(message.address, '/init');
             }
