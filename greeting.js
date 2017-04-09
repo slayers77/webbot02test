@@ -54,7 +54,7 @@ function create(bot) {                                                  // funct
                     })
                     .join(', ');
             console.log('56 : ' + membersAdded);
-            if (membersAdded != 'Bot' || membersAdded != 'quotationBot') {
+            if (membersAdded != 'Bot' && membersAdded != 'quotationBot') {
                 bot.beginDialog(message.address, '/init');
             }
         }
@@ -69,8 +69,7 @@ function create(bot) {                                                  // funct
                             .title('그랜다이저')
                             .subtitle('Grandizer')
                             .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
-
-                            .images([builder.CardImage.create(session, img_path + '/images/openning.png')])
+                            .image(builder.CardImage.create(session, img_path + "/images/openning.png"))
                             .media([
                                 { url: 'http://webbot02.azurewebsites.net/openning.wav' }
                             ])
