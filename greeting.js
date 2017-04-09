@@ -74,16 +74,16 @@ function create(bot) {                                                  // funct
                                 { url: 'http://webbot02.azurewebsites.net/openning.wav' }
                             ])
                             .buttons([
-                                builder.CardAction.imBack(session, "한국어", "한국어"),
+                                builder.CardAction.imBack(session, "Korean", "한국어"),
                                 builder.CardAction.imBack(session, "English", "English")
                             ])
                     ]);
-                    builder.Prompts.choice(session, msg, '한국어|English');
+                    builder.Prompts.choice(session, msg, 'Korean|English');
         },
         function (session, results) {
             console.log('83 : ' + results.response.entity);
             switch (results.response.entity) {
-                case '한국어':
+                case 'Korean':
                     languageValue = 'ko';
                     break;
                 case 'English':
