@@ -78,7 +78,7 @@ function create(bot) {                                                  // funct
                                 builder.CardAction.imBack(session, "English", "English")
                             ])
                             .autostart(true)
-                            .autoloop(true)
+                            
                             
                     ]);
             builder.Prompts.choice(session, msg, 'Korean|English');
