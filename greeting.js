@@ -69,7 +69,7 @@ function create(bot) {                                                  // funct
                             .title('그랜다이저')
                             .subtitle('Grandizer')
                             .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
-                            .image(builder.CardImage.create(session, img_path + "/images/openning.png"))
+                            .image(builder.CardImage.create(session, img_path + "/images/Grandeur_main.png"))
                             .media([
                                 { url: 'http://webbot02.azurewebsites.net/openning.wav' }
                             ])
