@@ -38,18 +38,90 @@ var config = {
 
 
 
-function create(bot, languageValue) {                                                  // function create(bot) START
-
-    var responseTime;
-
+function create(bot) {                                                  // function create(bot) START
     if (!bot) throw new error('bot instance was not provided!!');
+    
+    var responseTime;
+    var languageValue;
+    
+    //챗봇 시작시 다이얼로그 출력
+    bot.on('conversationUpdate', function (message) {
+        if (message.membersAdded && message.membersAdded.length > 0) {
+            var membersAdded = message.membersAdded
+                    .map(function (m) {
+                        var isSelf = m.id === message.address.bot.id;
+                        return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+                    })
+                    .join(', ');
+            if (membersAdded != 'Bot') {
+                bot.beginDialog(message.address, '/init');
+            }
+        }
+    });
 
-    if (languageValue == 'ko') {
-        console.log('ko');
-        var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
-    } else {
+    //초기 출력 화면
+    bot.dialog('/init', [
+        function (session) {
+            var msg = new builder.Message(session)
+                    .attachments([
+                        new builder.AudioCard(session)
+                            .title('그랜다이저')
+                            .subtitle('Grandizer')
+                            .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
+                            .image(builder.CardImage.create(session, 'http://webbot02.azurewebsites.net/hyundai/images/openning.png'))
+                            .media([
+                                { url: 'http://webbot02.azurewebsites.net/openning.wav' }
+                            ])
+                            .buttons([
+                                builder.CardAction.imBack(session, "한국어", "한국어"),
+                                builder.CardAction.imBack(session, "English", "English")
+                            ])
+                    ]);
+                    builder.Prompts.choice(session, msg, '한국어|English');
+        },
+        function (session, results) {
+            switch (results.response.entity) {
+                case '한국어':
+                    languageValue = 'ko';
+                    break;
+                case 'English':
+                    languageValue = 'en';
+                    break;
+            }
+            session.preferredLocale(languageValue, function (err) {
+                if (err) {
+                    session.error(err);
+                }
+            });
+            var options = session.localizer.gettext(session.preferredLocale(), "name");
+            var msg = new builder.Message(session)
+                .attachments([
+                    new builder.HeroCard(session)
+                        .title(options)
+                        .text(session.localizer.gettext(session.preferredLocale(), "welcomemessage"))
+                            .buttons([
+                                builder.CardAction.imBack(session, "가격 보여줘", "가격"),
+                                builder.CardAction.imBack(session, "디자인 보여줘", "디자인"),
+                                builder.CardAction.imBack(session, "편의사항 보여줘", "편의사항"),
+                                builder.CardAction.imBack(session, "시승 보여줘", "시승")
+                            ])
+                ]);
+
+            builder.Prompts.choice(session, msg, '가격|디자인|편의사항|시승');
+            session.endDialog();
+            
+                    // 가격
+            console.log("user insert : " + session.message.text);
+        }
+    ]);
+
+    var recognizer;
+    if (languageValue == 'en') {
         console.log('en');
-        var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dc1e0bf6-7b94-4d8a-8f20-6c4bf1fe2298?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true&timezoneOffset=0.0&q=');    
+        recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dc1e0bf6-7b94-4d8a-8f20-6c4bf1fe2298?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
+    } else {
+        console.log('ko');
+        recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     }
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
