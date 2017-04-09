@@ -65,7 +65,7 @@ function create(bot) {                                                  // funct
         function (session) {
             var msg = new builder.Message(session)
                     .attachments([
-                        new builder.AudioCard(session)
+                        new builder.VideoCard(session)
                             .title('그랜다이저')
                             .subtitle('Grandizer')
                             .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
@@ -77,8 +77,11 @@ function create(bot) {                                                  // funct
                                 builder.CardAction.imBack(session, "Korean", "한국어"),
                                 builder.CardAction.imBack(session, "English", "English")
                             ])
+                            .autostart(true)
+                            .autoloop(true)
+                            
                     ]);
-                    builder.Prompts.choice(session, msg, '한국어|English');
+            builder.Prompts.choice(session, msg, 'Korean|English');
         },
         function (session, results) {
             console.log('83 : ' + results.response.entity);
@@ -734,40 +737,43 @@ function create(bot) {                                                  // funct
             console.log("modelNameVar : " + modelNameVar);
             console.log("modelNumberVar : " + modelNumberVar);
 
+            if (engineNameVar) {
 
-            var statusTask = [
-                function (callback) {
-                    var returnData;
-                    tp.setConnectionConfig(config);
-                    tp.sql("MERGE TBL_CUSTOMER_STATUS AS A "
-                        + "USING (SELECT @userID USER_ID, @engineNm ENGINE_NAME, @modelNm MODEL_NAME) AS B "
-                        + "ON (A.USER_ID = B.USER_ID ) "
-                        + "WHEN MATCHED THEN "
-                        + "UPDATE SET MODEL_NAME = B.MODEL_NAME, A.USER_ID = B.USER_ID, A.ENGINE_NAME = B.ENGINE_NAME "
-                        + "WHEN NOT MATCHED THEN  "
-                        + "INSERT (USER_ID, ENGINE_NAME, MODEL_NAME, LAST_REG_DATE) "
-                        + "VALUES (B.USER_ID, B.ENGINE_NAME, B.MODEL_NAME,  CONVERT(VARCHAR, DATEADD(Hour, 9,GETDATE()), 101)+' '+CONVERT(VARCHAR, DATEADD(Hour, 9,GETDATE()), 24)); "
-                    )
+                var statusTask = [
+                    function (callback) {
+                        var returnData;
+                        tp.setConnectionConfig(config);
+                        tp.sql("MERGE TBL_CUSTOMER_STATUS AS A "
+                            + "USING (SELECT @userID USER_ID, @engineNm ENGINE_NAME, @modelNm MODEL_NAME) AS B "
+                            + "ON (A.USER_ID = B.USER_ID ) "
+                            + "WHEN MATCHED THEN "
+                            + "UPDATE SET MODEL_NAME = B.MODEL_NAME, A.USER_ID = B.USER_ID, A.ENGINE_NAME = B.ENGINE_NAME "
+                            + "WHEN NOT MATCHED THEN  "
+                            + "INSERT (USER_ID, ENGINE_NAME, MODEL_NAME, LAST_REG_DATE) "
+                            + "VALUES (B.USER_ID, B.ENGINE_NAME, B.MODEL_NAME,  CONVERT(VARCHAR, DATEADD(Hour, 9,GETDATE()), 101)+' '+CONVERT(VARCHAR, DATEADD(Hour, 9,GETDATE()), 24)); "
+                        )
 
-                        .parameter('userID', TYPES.NVarChar, session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1])
-                        .parameter('engineNm', TYPES.NVarChar, engineNameVar)
-                        .parameter('modelNm', TYPES.NVarChar, modelNameVar)
-                        .execute()
-                        .then(function (results) {
-                            console.log("TBL_CUSTOMER_STATUS Merge Success!!!!");
-                            callback(null, results);
-                        }).fail(function (err) {
-                            console.log(err);
-                        });
-                }
-            ];
+                            .parameter('userID', TYPES.NVarChar, session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1])
+                            .parameter('engineNm', TYPES.NVarChar, engineNameVar)
+                            .parameter('modelNm', TYPES.NVarChar, modelNameVar)
+                            .execute()
+                            .then(function (results) {
+                                console.log("TBL_CUSTOMER_STATUS Merge Success!!!!");
+                                callback(null, results);
+                            }).fail(function (err) {
+                                console.log(err);
+                            });
+                    }
+                ];
 
-            async.series(statusTask, function (err, results) {
+                async.series(statusTask, function (err, results) {
 
-                var statusMerge;
-                
-                console.log("Merge Result : " + results[0]);
-            });
+                    var statusMerge;
+
+                    console.log("Merge Result : " + results[0]);
+                });
+            };
+            
 
             if (modelNumberVar != 0)
             {
@@ -808,9 +814,7 @@ function create(bot) {                                                  // funct
 
                     console.log("Insert Result : " + results[0]);
                 });
-
-
-            }
+            };
 
 
 
