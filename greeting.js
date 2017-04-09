@@ -54,7 +54,7 @@ function create(bot) {                                                  // funct
                     })
                     .join(', ');
             console.log('56 : ' + membersAdded);
-            if (membersAdded != 'Bot' && membersAdded != 'quotationBot') {
+            if (membersAdded == 'Bot' || membersAdded == 'quotationBot') {
                 bot.beginDialog(message.address, '/init');
             }
         }
@@ -78,7 +78,7 @@ function create(bot) {                                                  // funct
                                 builder.CardAction.imBack(session, "English", "English")
                             ])
                     ]);
-                    builder.Prompts.choice(session, msg, 'Korean|English');
+                    builder.Prompts.choice(session, msg, '한국어|English');
         },
         function (session, results) {
             console.log('83 : ' + results.response.entity);
