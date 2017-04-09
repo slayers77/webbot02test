@@ -117,13 +117,6 @@ bot.dialog('/init', [
 // Bots Dialogs
 //=========================================================
 
-greeting.create(bot);
-testDriveKor.create(bot);
-designKor.create(bot);
-convenienceKor.create(bot);
-priceKor.create(bot);
-
-
 var app = express();
 var fs = require('fs');
 
