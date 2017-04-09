@@ -369,7 +369,22 @@ function create(bot) {                                                  // funct
     ]);
     intents.matches('korCompareModel', [
         function (session, args, next) {
-            console.log("user insert : ");
+            var messagenospace = session.message.text.replace(/ /gi, '');
+            var compare1 = null;
+            var compare2 = null;
+            var compare3 = null;
+            var compare4 = null;
+
+            var sendPrice = new Array(2);
+            var j = 0;
+
+            for (var i = 0; i < args.entities.length; i++) {
+                if (args.entities[i].type.indexOf("상세모델명") != -1) {
+                    sendPrice[j++] = args.entities[i].entity;
+                }
+            }
+
+            session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korCompareModel", tableNm: "insert_history", sendPrice });
         }
     ]);
 
@@ -385,7 +400,40 @@ function create(bot) {                                                  // funct
         }
     ]);
 
+    intents.onDefault(
+        function (session, args, next) {
+            var qnaMsg = "";
+            var qnaScore = 0;
 
+            // 헤더 부분
+            var headers = {
+                'Ocp-Apim-Subscription-Key': '7d9d91d741684466bed2e706cfe5421a',
+                'Content-Type': 'application/json'
+            }
+
+            // 요청 세부 내용
+            var options = {
+                url: 'https://westus.api.cognitive.microsoft.com/qnamaker/v1.0/knowledgebases/b9c07815-a65e-410e-98e7-171ff06d5748/generateAnswer',
+                method: 'POST',
+                headers: headers,
+                form: { 'question': session.message.text }
+            }
+
+            // 요청 시작 받은값은 body
+            request(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    console.log(JSON.parse(body).answer);
+                    msg = JSON.parse(body).answer;
+                    score = JSON.parse(body).score;
+                }
+                console.log("qnaMsg : " + qnaMsg);
+                //session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score });
+                session.endDialog();
+                session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score , sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "None", tableNm: "insert_history" });
+            })
+        }
+    );
 
     /*
             가격 INTENT MATCH
@@ -935,6 +983,7 @@ function create(bot) {                                                  // funct
             session.endDialog();            
         }
     ]);
+    
 }   // function create(bot) END
 
 

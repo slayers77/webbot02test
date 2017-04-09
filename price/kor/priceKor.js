@@ -88,9 +88,9 @@ function create(bot) {
             if (args.sendMsg.match(/모던/g) || args.sendMsg.match(/프리미엄/g) || args.sendMsg.match(/프리미엄스페셜/g) || args.sendMsg.match(/프리미엄 스페셜/g) 
                 || args.sendMsg.match(/익스클루시브/g) || args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g) 
                 || args.sendMsg.match(/셀러브리티/g)) {
-                session.send("말씀하신 트림의 가격입니다. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.");
+                session.send("말씀하신 모델의 가격입니다. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.");
             } else {
-                session.send("트림의 가격은 옵션별로 달라요. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.");
+                session.send("모델의 가격은 옵션별로 달라요. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.");
             }
             if (args.sendMsg.match(/가솔린2.4/g) || args.sendMsg.match(/가솔린 2.4/g)) {
                 model = "가솔린 2.4";
@@ -459,7 +459,7 @@ function create(bot) {
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                 new builder.HeroCard(session)
-                        .title("선택품목을 보시겠습니까?")
+                        .title("선택옵션도 보여드릴까요?")
                         .buttons([
                     builder.CardAction.imBack(session, args.model + " " + args.trim + " 선택품목", "예"),
                     builder.CardAction.imBack(session, "홈", "아니오")
@@ -495,7 +495,7 @@ function create(bot) {
             var options;
             if (args.trim == "모던") {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택품목")
+                    .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
                         builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
@@ -504,7 +504,7 @@ function create(bot) {
                     ])];
             } else if (args.trim == "프리미엄") {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택품목")
+                    .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
                         builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
@@ -514,7 +514,7 @@ function create(bot) {
                     ])];
             } else if (args.trim == "프리미엄 스페셜" || args.trim == "프리미엄스페셜") {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택품목")
+                    .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
                         builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
@@ -525,7 +525,7 @@ function create(bot) {
                     ])];
             } else if (args.trim == "익스클루시브") {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택품목")
+                    .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
                         builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
@@ -536,7 +536,7 @@ function create(bot) {
                     ])];
             } else if (args.trim == "익스클루시브 스페셜" || args.trim == "익스클루시브스페셜") {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택품목")
+                    .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
                         builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
@@ -547,7 +547,7 @@ function create(bot) {
                     ])];
             } else if (args.trim == "셀러브리티") {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택품목")
+                    .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
                         builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지", "TUIX 컴포트 패키지"),
@@ -608,6 +608,182 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
+        }
+    ]);
+
+    bot.dialog('/korCompareModel', [
+        function (session, args) {
+            var compare1 = args.sendPrice[0];
+            var compare2 = args.sendPrice[1];
+            var msg;
+            var price1;
+            var price2;
+            var title1 = null;
+            var title2 = null;
+            
+            if (compare1 != null) {
+                switch (compare1) {
+                    case "가 솔 린 2 . 4 모 던":
+                        title1 = "가솔린2.4 모던";
+                        price1 = "30,550,000";
+                        break;
+                    case "가 솔 린 2 . 4 프 리 미 엄":
+                        title1 = "가솔린2.4 프리미엄";
+                        price1 = "31,750,000";
+                        break;
+                    case "가 솔 린 2 . 4 프 리 미 엄 스 페 셜":
+                        title1 = "가솔린2.4 프리미엄스페셜";
+                        price1 = "33,750,000";
+                        break;
+                    case "가 솔 린 3 . 0 익 스 클 루 시 브":
+                        title1 = "가솔린3.0 익스클루시브";
+                        price1 = "35,500,000";
+                        break;
+                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜":
+                        title1 = "가솔린3.0 익스클루시브스페셜";
+                        price1 = "38,700,000";
+                        break;
+                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜 프 리 미 어 인 테 리 어 셀 렉 션":
+                        title1 = "가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션";
+                        price1 = "40,200,000";
+                        break;
+                    case "가 솔 린 3 . 3 셀 러 브 리 티":
+                        title1 = "가솔린3.3 셀러브리티";
+                        price1 = "41,600,000";
+                        break;
+                    case "디 젤 2 . 2 모 던":
+                        title1 = "디젤2.2 모던";
+                        price1 = "33,550,000";
+                        break;
+                    case "디 젤 2 . 2 프 리 미 엄":
+                        title1 = "디젤2.2 프리미엄";
+                        price1 = "30,550,000";
+                        break;
+                    case "디 젤 2 . 2 프 리 미 엄 스 페 셜":
+                        title1 = "디젤2.2 프리미엄스페셜";
+                        price1 = "35,500,000";
+                        break;
+                    case "가 솔 린 2 . 4":
+                        title1 = "가솔린2.4 모던";
+                        price1 = "30,550,000";
+                        break;
+                    case "가 솔 린 3 . 0":
+                        title1 = "가솔린3.0 익스클루시브";
+                        price1 = "35,500,000";
+                        break;
+                    case "가 솔 린 3 . 3":
+                        title1 = "가솔린3.3 셀러브리티";
+                        price1 = "41,600,000";
+                        break;
+                    case "디 젤 2 . 2":
+                        title1 = "디젤2.2 모던";
+                        price1 = "33,550,000";
+                        break;
+                    default:
+                        price1 = "30,550,000";
+                        break;
+                }
+            }
+            
+            if (compare2 != null) {
+                switch (compare2) {
+                    case "가 솔 린 2 . 4 모 던":
+                        title2 = "가솔린2.4 모던";
+                        price2 = "30,550,000";
+                        break;
+                    case "가 솔 린 2 . 4 프 리 미 엄":
+                        title2 = "가솔린2.4 프리미엄";
+                        price2 = "31,750,000";
+                        break;
+                    case "가 솔 린 2 . 4 프 리 미 엄 스 페 셜":
+                        title2 = "가솔린2.4 프리미엄스페셜";
+                        price2 = "33,750,000";
+                        break;
+                    case "가 솔 린 3 . 0 익 스 클 루 시 브":
+                        title2 = "가솔린3.0 익스클루시브";
+                        price2 = "35,500,000";
+                        break;
+                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜":
+                        title2 = "가솔린3.0 익스클루시브스페셜";
+                        price2 = "38,700,000";
+                        break;
+                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜 프 리 미 어 인 테 리 어 셀 렉 션":
+                        title2 = "가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션";
+                        price2 = "40,200,000";
+                        break;
+                    case "가 솔 린 3 . 3 셀 러 브 리 티":
+                        title2 = "가솔린3.3 셀러브리티";
+                        price2 = "41,600,000";
+                        break;
+                    case "디 젤 2 . 2 모 던":
+                        title2 = "디젤2.2 모던";
+                        price2 = "33,550,000";
+                        break;
+                    case "디 젤 2 . 2 프 리 미 엄":
+                        title2 = "디젤2.2 프리미엄";
+                        price2 = "30,550,000";
+                        break;
+                    case "디 젤 2 . 2 프 리 미 엄 스 페 셜":
+                        title2 = "디젤2.2 프리미엄스페셜";
+                        price2 = "35,500,000";
+                        break;
+                    case "가 솔 린 2 . 4":
+                        title2 = "가솔린2.4 모던";
+                        price2 = "30,550,000";
+                        break;
+                    case "가 솔 린 3 . 0":
+                        title2 = "가솔린3.0 익스클루시브";
+                        price2 = "35,500,000";
+                        break;
+                    case "가 솔 린 3 . 3":
+                        title2 = "가솔린3.3 셀러브리티";
+                        price2 = "41,600,000";
+                        break;
+                    case "디 젤 2 . 2":
+                        title2 = "디젤2.2 모던";
+                        price2 = "33,550,000";
+                        break;
+                    default:
+                        price2 = "30,550,000";
+                        break;
+                }
+            }
+            
+            if (title1 != null && title2 != null) {
+                
+                msg = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments([
+                    new builder.HeroCard(session)
+            .title(title1)
+            .text("가격 : " + price1 + "원")
+            .images([
+                        builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+            .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                    ])
+            .buttons([
+                        builder.CardAction.imBack(session, title1 + " 기본품목", "기본 옵션 보기"),
+                        builder.CardAction.imBack(session, title1 + " 선택품목", "선택 옵션 추가")
+                    ]),
+                    new builder.HeroCard(session)
+            .title(title2)
+            .text("가격 : " + price2 + "원")
+            .images([
+                        builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
+            .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
+                    ])
+            .buttons([
+                        builder.CardAction.imBack(session, title2 + " 기본품목", "기본 옵션 보기"),
+                        builder.CardAction.imBack(session, title2 + " 선택품목", "선택 옵션 추가")
+                    ])
+                ]);
+
+                session.endDialog(msg);
+            } else {
+                session.send("모델을 비교 할수없습니다. 모델명을 다시 확인해 주세요.");
+                session.endDialog(msg);
+            }
+            
         }
     ]);
     
