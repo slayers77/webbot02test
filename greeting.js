@@ -6,6 +6,9 @@ date = new Date();
 var language = "";
 
 var query = require('./config/query');
+var date = require('date-utils');
+date = new Date();
+
 
 
 //이미지경로 전역 변수 선언
@@ -65,8 +68,9 @@ function create(bot) {                                                  // funct
         function (session) {
             var msg = new builder.Message(session)
                     .attachments([
-                        new builder.AudioCard(session)
+                        new builder.VideoCard(session)
                             .title('그랜다이저')
+                            .autostart(true)
                             .subtitle('Grandizer')
                             .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
                             .image(builder.CardImage.create(session, img_path + "/images/Grandeur_main.png"))
@@ -1003,6 +1007,7 @@ function create(bot) {                                                  // funct
     bot.dialog('/QnA', [
 
         function (session, args, next) {
+            var responseTime;
             console.log("args : " + args);
             if (args.qnaScore > 80) {
                 session.send(args.qnaResponse);
@@ -1010,7 +1015,13 @@ function create(bot) {                                                  // funct
             else {
                 session.send("아직 가방끈이 짧아 이해를 못하겠어요 ㅠㅠ 다시 질문해주시면 안되나용??");
             }
-            session.endDialog();            
+            session.endDialog();  
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });          
         }
     ]);
 
