@@ -900,6 +900,8 @@ function create(bot) {                                                  // funct
                                 console.log(err);
                             });
 
+                    } else {
+                        callback(null, "");
                     }
 
                 }
@@ -919,6 +921,73 @@ function create(bot) {                                                  // funct
                 }
 
                 session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korCompareBeforeModel", tableNm: "insert_history", sendPrice });
+
+            });
+
+        }
+    ]);
+
+    intents.matches('korCompareBeforeModels', [
+        function (session, args, next) {
+            var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
+
+            var sid = "";
+            var sendPrice = new Array(2);
+
+            var beforModelsTasks = [
+                function (callback) {
+                    tp.setConnectionConfig(config);
+                    tp.sql("SELECT TOP 2 SID, USER_ID, MODEL_NUMBER " +
+                        "FROM TBL_MODEL_CUSTOMER_SELECTED " +
+                        "WHERE USER_ID = @userId " +
+                        "ORDER BY SID DESC"
+                    )
+                        .parameter("userId", TYPES.NVarChar, userId)
+                        .execute()
+                        .then(function (results) {
+                            callback(null, results);
+                        }).fail(function (err) {
+                            console.log(err);
+                        })
+                },
+                function (data, callback) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].MODEL_NUMBER != null) {
+                            sid += data[i].MODEL_NUMBER +",";
+                        }
+                    }
+
+                    sid = sid.slice(0, -1);
+
+
+                    if (data.length > 0 && data[0].MODEL_NUMBER != null && data[0].MODEL_NUMBER != 0) {
+
+                        tp.setConnectionConfig(config);
+                        tp.sql("SELECT CAR_TYPE, CAR_TYPE_ENG " +
+                            "FROM TBL_CAR_TYPE " +
+                            "WHERE convert(varchar(20), SID) in (" + sid + ")"
+                        )
+                            .execute()
+                            .then(function (results) {
+                                callback(null, results);
+                            }).fail(function (err) {
+                                console.log(err);
+                            });
+                    } else {
+                        callback(null, "");
+                    }
+                }
+            ];
+
+            async.waterfall(beforModelsTasks, function (err, results) {
+
+                if (results.length > 1) {
+                    sendPrice[0] = results[0].CAR_TYPE.replace("그랜저IG 자가용 ", "");
+                    sendPrice[1] = results[1].CAR_TYPE.replace("그랜저IG 자가용 ", "");
+                }
+
+                session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korCompareBeforeModels", tableNm: "insert_history", sendPrice });
 
             });
 

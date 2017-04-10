@@ -788,15 +788,25 @@ function create(bot) {
 
                 session.endDialog(msg);
             } else {
-                session.send("모델을 비교 할수없습니다. 모델명을 다시 확인해 주세요.");
+                
+                switch (args.intent) {
+                    case "korCompareModel":
+                        session.send("모델명이 정확하지 않아 모델을 비교 할수없어요. 모델명을 다시 확인해 주세요.");
+                        break;
+                    case "korCompareBeforeModel":
+                        session.send("이전에 본 모델이 없어요. 모델을 보시고 비교해 주세요.");
+                        break;
+                    case "korCompareBeforeModels":
+                        session.send("모델을 2개 이상 봐주세요 비교할 모델이 없어요.");
+                        break;
+                    default:
+                        session.send("비교할 모델을 모르겠어요. 모델을 확인해 주세요.");
+                }
+                
                 session.endDialog(msg);
             }
             
         }
-    ]);
-
-    bot.dialog('/korCompareBeforeModel', [
-
     ]);
     
 }
