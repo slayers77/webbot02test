@@ -370,17 +370,15 @@ function create(bot) {                                                  // funct
     intents.matches('korCompareModel', [
         function (session, args, next) {
             var messagenospace = session.message.text.replace(/ /gi, '');
-            var compare1 = null;
-            var compare2 = null;
-            var compare3 = null;
-            var compare4 = null;
+            var compare = null;
 
             var sendPrice = new Array(2);
             var j = 0;
 
             for (var i = 0; i < args.entities.length; i++) {
                 if (args.entities[i].type.indexOf("상세모델명") != -1) {
-                    sendPrice[j++] = args.entities[i].entity;
+                    compare = args.entities[i].entity;
+                    sendPrice[j++] = compare.replace(/ /gi, '');
                 }
             }
 
@@ -839,6 +837,90 @@ function create(bot) {                                                  // funct
 
         }
     ]);
+
+    /*
+        가격 비교 INTENT MATCH
+    */
+    intents.matches('korCompareBeforeModel', [
+        function (session, args, next) {
+
+            var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
+
+            var messagenospace = session.message.text.replace(/ /gi, '');
+            var compare = null;
+
+            var sendPrice = new Array(2);
+            var j = 0;
+
+            for (var i = 0; i < args.entities.length; i++) {
+                if (args.entities[i].type.indexOf("상세모델명") != -1) {
+                    if (compare == null) {
+                        compare = args.entities[i].entity;
+                    }
+                }
+            }
+
+            var beforModelTasks = [
+                function (callback) {
+                    tp.setConnectionConfig(config);
+                    tp.sql("SELECT TOP 1 SID, USER_ID, MODEL_NUMBER " +
+                        "FROM TBL_MODEL_CUSTOMER_SELECTED " +
+                        "WHERE USER_ID = @userId " +
+                        "ORDER BY SID DESC"
+                    )
+                        .parameter("userId", TYPES.NVarChar, userId)
+                        .execute()
+                        .then(function (results) {
+                            console.log("tbl_model_customer_selected select Success!!!!");
+                            console.log(results);
+                            callback(null, results);
+                        }).fail(function (err) {
+                            console.log(err);
+                        });
+                },
+                function (data, callback) {
+
+                    if (data.length > 0 && data[0].MODEL_NUMBER != null && data[0].MODEL_NUMBER != 0) {
+
+                        tp.setConnectionConfig(config);
+                        tp.sql("SELECT CAR_TYPE, CAR_TYPE_ENG " +
+                            "FROM TBL_CAR_TYPE " +
+                            "WHERE SID = @sid"
+                        )
+                            .parameter("sid", TYPES.Int, data[0].MODEL_NUMBER)
+                            .execute()
+                            .then(function (results) {
+                                console.log("TBL_CAR_TYPE select Success!!!!");
+                                callback(null, results);
+                            }).fail(function (err) {
+                                console.log(err);
+                            });
+
+                    }
+
+                }
+
+            ];
+
+            async.waterfall(beforModelTasks, function (err, results) {
+                console.log("Insert Result : " + results);
+
+                sendPrice[0] = compare;
+
+                if (results.length > 0) {
+                    var carType = results[0].CAR_TYPE.replace("그랜저IG 자가용 ", "");
+                    sendPrice[1] = carType;
+                } else {
+                    sendPrice[1] = null;
+                }
+
+                session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korCompareBeforeModel", tableNm: "insert_history", sendPrice });
+
+            });
+
+        }
+    ]);
+
 
     /***********************************************************************************
         한국어 메뉴 초기화면

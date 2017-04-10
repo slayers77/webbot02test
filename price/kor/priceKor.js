@@ -622,128 +622,136 @@ function create(bot) {
             var title2 = null;
             
             if (compare1 != null) {
+
+                compare1 = compare1.replace(/ /gi, "");
+
                 switch (compare1) {
-                    case "가 솔 린 2 . 4 모 던":
+                    case "가솔린2.4모던":
                         title1 = "가솔린2.4 모던";
                         price1 = "30,550,000";
                         break;
-                    case "가 솔 린 2 . 4 프 리 미 엄":
+                    case "가솔린2.4프리미엄":
                         title1 = "가솔린2.4 프리미엄";
                         price1 = "31,750,000";
                         break;
-                    case "가 솔 린 2 . 4 프 리 미 엄 스 페 셜":
+                    case "가솔린2.4프리미엄스페셜":
                         title1 = "가솔린2.4 프리미엄스페셜";
                         price1 = "33,750,000";
                         break;
-                    case "가 솔 린 3 . 0 익 스 클 루 시 브":
+                    case "가솔린3.0익스클루시브":
                         title1 = "가솔린3.0 익스클루시브";
                         price1 = "35,500,000";
                         break;
-                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜":
+                    case "가솔린3.0익스클루시브스페셜":
                         title1 = "가솔린3.0 익스클루시브스페셜";
                         price1 = "38,700,000";
                         break;
-                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜 프 리 미 어 인 테 리 어 셀 렉 션":
+                    case "가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션":
                         title1 = "가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션";
                         price1 = "40,200,000";
                         break;
-                    case "가 솔 린 3 . 3 셀 러 브 리 티":
+                    case "가솔린3.3셀러브리티":
                         title1 = "가솔린3.3 셀러브리티";
                         price1 = "41,600,000";
                         break;
-                    case "디 젤 2 . 2 모 던":
+                    case "디젤2.2모던":
                         title1 = "디젤2.2 모던";
                         price1 = "33,550,000";
                         break;
-                    case "디 젤 2 . 2 프 리 미 엄":
+                    case "디젤2.2프리미엄":
                         title1 = "디젤2.2 프리미엄";
                         price1 = "30,550,000";
                         break;
-                    case "디 젤 2 . 2 프 리 미 엄 스 페 셜":
+                    case "디젤2.2프리미엄스페셜":
                         title1 = "디젤2.2 프리미엄스페셜";
                         price1 = "35,500,000";
                         break;
-                    case "가 솔 린 2 . 4":
+                    case "가솔린2.4":
                         title1 = "가솔린2.4 모던";
                         price1 = "30,550,000";
                         break;
-                    case "가 솔 린 3 . 0":
+                    case "가솔린3.0":
                         title1 = "가솔린3.0 익스클루시브";
                         price1 = "35,500,000";
                         break;
-                    case "가 솔 린 3 . 3":
+                    case "가솔린3.3":
                         title1 = "가솔린3.3 셀러브리티";
                         price1 = "41,600,000";
                         break;
-                    case "디 젤 2 . 2":
+                    case "디젤2.2":
                         title1 = "디젤2.2 모던";
                         price1 = "33,550,000";
                         break;
                     default:
+                        title1 = "가솔린2.4 모던";
                         price1 = "30,550,000";
                         break;
                 }
             }
             
             if (compare2 != null) {
+                
+                compare2 = compare2.replace(/ /gi, "");
+
                 switch (compare2) {
-                    case "가 솔 린 2 . 4 모 던":
+                    case "가솔린2.4모던":
                         title2 = "가솔린2.4 모던";
                         price2 = "30,550,000";
                         break;
-                    case "가 솔 린 2 . 4 프 리 미 엄":
+                    case "가솔린2.4프리미엄":
                         title2 = "가솔린2.4 프리미엄";
                         price2 = "31,750,000";
                         break;
-                    case "가 솔 린 2 . 4 프 리 미 엄 스 페 셜":
+                    case "가솔린2.4프리미엄스페셜":
                         title2 = "가솔린2.4 프리미엄스페셜";
                         price2 = "33,750,000";
                         break;
-                    case "가 솔 린 3 . 0 익 스 클 루 시 브":
+                    case "가솔린3.0익스클루시브":
                         title2 = "가솔린3.0 익스클루시브";
                         price2 = "35,500,000";
                         break;
-                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜":
+                    case "가솔린3.0익스클루시브스페셜":
                         title2 = "가솔린3.0 익스클루시브스페셜";
                         price2 = "38,700,000";
                         break;
-                    case "가 솔 린 3 . 0 익 스 클 루 시 브 스 페 셜 프 리 미 어 인 테 리 어 셀 렉 션":
+                    case "가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션":
                         title2 = "가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션";
                         price2 = "40,200,000";
                         break;
-                    case "가 솔 린 3 . 3 셀 러 브 리 티":
+                    case "가솔린3.3셀러브리티":
                         title2 = "가솔린3.3 셀러브리티";
                         price2 = "41,600,000";
                         break;
-                    case "디 젤 2 . 2 모 던":
+                    case "디젤2.2모던":
                         title2 = "디젤2.2 모던";
                         price2 = "33,550,000";
                         break;
-                    case "디 젤 2 . 2 프 리 미 엄":
+                    case "디젤2.2프리미엄":
                         title2 = "디젤2.2 프리미엄";
                         price2 = "30,550,000";
                         break;
-                    case "디 젤 2 . 2 프 리 미 엄 스 페 셜":
+                    case "디젤2.2프리미엄스페셜":
                         title2 = "디젤2.2 프리미엄스페셜";
                         price2 = "35,500,000";
                         break;
-                    case "가 솔 린 2 . 4":
+                    case "가솔린2.4":
                         title2 = "가솔린2.4 모던";
                         price2 = "30,550,000";
                         break;
-                    case "가 솔 린 3 . 0":
+                    case "가솔린3.0":
                         title2 = "가솔린3.0 익스클루시브";
                         price2 = "35,500,000";
                         break;
-                    case "가 솔 린 3 . 3":
+                    case "가솔린3.3":
                         title2 = "가솔린3.3 셀러브리티";
                         price2 = "41,600,000";
                         break;
-                    case "디 젤 2 . 2":
+                    case "디젤2.2":
                         title2 = "디젤2.2 모던";
                         price2 = "33,550,000";
                         break;
                     default:
+                        title2 = "가솔린2.4 모던";
                         price2 = "30,550,000";
                         break;
                 }
@@ -785,6 +793,10 @@ function create(bot) {
             }
             
         }
+    ]);
+
+    bot.dialog('/korCompareBeforeModel', [
+
     ]);
     
 }
