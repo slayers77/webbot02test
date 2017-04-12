@@ -376,24 +376,7 @@ function create(bot) {
     ************************************************************************************/
     bot.dialog('/korPriceBasicOptionList', [
         function (session, args) {
-            /*
-            var modelTrim = "";
-            
-            var searchModel = query.getOption({ model: session.userData.model, trim: session.userData.trim, queryName: "select_carType" }, function (err, result) {
-                if (!err) {
-                    console.log("query.getOption : " + result.length);
-                    for (var i = 0; i < result.length; i++) {
-                        console.log("[ " + i + " ] :  " + result[i].CAR_TYPE);
-                    }
-                }
-            });
            
-            var text1 = query.getBasicOption(session.userData.model, session.userData.trim, "select_carType", function (result) {
-                console.log("getOption1 :::: " + result);
-            });
-             */
-            //session.send("searchModel :::: " + text1[CAR_TYPE]);
-
             var modelTrim;
             var powerTrain;
             var performance;
@@ -404,98 +387,91 @@ function create(bot) {
             var convenience;
             var multi;
             
-            if (args.trim == "모던") {
+            if (args.trim == session.localizer.gettext(session.preferredLocale(), "basicOptionModern")) {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
-                powerTrain = "\n\n파워트레인 \n\n - 가솔린 2.4엔진";
-                performance = "\n\n성능 \n\n - 6단 자동변속기 \n\n - 전동식 파워 스티어링(속도감응형)";
-                safety = "\n\n안전 \n\n - 9 에어백 시스템(앞좌석 어드밴스드, 운전석 무릎, 앞/뒷좌석 사이드, 전복 대응 커튼)\n\n - 앞좌석 후방충격 저감 시스템\n\n - 앞좌석 하체 상해 저감 시트벨트(EFD 시스템)\n\n - 뒷좌석 센터 3점식 시트벨트\n\n - 유아용 시트 고정장치(뒷좌석)\n\n - 차체 자세 제어 장치(ESC)\n\n - 샤시 통합 제어 시스템(VSM)\n\n - 경사로 밀림 방지 장치(HAC)\n\n - 급제동 경보 장치(ESS)\n\n - 개별 타이어 공기압 경보 장치(TPMS)\n\n - 세이프티 언락\n\n - 타이어 응급처치 키트";
-                outSide = "\n\n외관 \n\n - 듀얼 프로젝션 헤드램프\n\n - LED 주간주행등(DRL, 포지셔닝 기능 포함)\n\n - LED 리어 콤비램프(제동등, 후미등 적용) \n\n - LED 보조제동등\n\n - 17인치 알로이 휠 & 타이어\n\n - 이중접합 차음 유리(앞면, 앞도어) \n\n - 아웃사이드 미러(열선, 전동 조절, 전동 접이, LED 방향지시등) \n\n - 도어 포켓라이팅(앞) \n\n - 듀얼 머플러";
-                inSide = "\n\n내장 \n\n - 슈퍼비전 클러스터(3.5인치 단색 LCD)\n\n - 가죽 스티어링 휠(열선, 수동식 틸트 & 텔레스코픽, 리모컨)\n\n - 가죽 변속기 노브\n\n - 크래쉬패드 인조가죽 감싸기\n\n - 도어트림 우드그레인 가니쉬\n\n - 트리코트 내장재\n\n - 메탈 도어스커프\n\n - 룸램프(LED)\n\n - ECM 룸미러\n\n - 아날로그 시계";
-                sit = "\n\n시트 \n\n - 천연가죽 시트\n\n - 운전석 전동 조절(8way) & 전동식 2way 럼버서포트\n\n - 동승석 전동 조절(4way)\n\n - 앞좌석 열선\n\n - 뒷좌석 열선\n\n - 뒷좌석 암레스트(스키쓰루)";
-                convenience = "\n\n편의 \n\n - 버튼 시동 & 스마트키 시스템\n\n - 듀얼 풀오토 에어컨\n\n - 오토 디포그\n\n - 고성능 에어컨 필터\n\n - 통합주행모드\n\n - 오토 크루즈 컨트롤, 풋파킹 브레이크\n\n - 전/후방 주차보조 시스템\n\n - 후방카메라(조향 연동)\n\n - 스마트 트렁크(풀오픈 타입)\n\n - 세이프티 파워윈도우(앞좌석)\n\n - USB 충전기\n\n - 파워 아웃렛(센터페시아, 센터콘솔 암레스트)";
-                multi = "\n\n멀티미디어 \n\n - 8인치 내비게이션\n\n - 일반 사운드 시스템(8스피커)\n\n - AUX & USB 단자\n\n - 블루투스 핸즈프리";
-                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
-                //session.send(modelTrim + powerTrain + performance + safety + outSide + inSide + sit + convenience + multi);
-                session.send( powerTrain + performance + safety + outSide + inSide + sit + convenience + multi);
+                powerTrain = session.localizer.gettext(session.preferredLocale(), "basicOptionModernPowerTrain");
+                performance = session.localizer.gettext(session.preferredLocale(), "basicOptionModernPerformance");
+                safety = session.localizer.gettext(session.preferredLocale(), "basicOptionModernSafety");
+                outSide = session.localizer.gettext(session.preferredLocale(), "basicOptionModernOutside");
+                inSide = session.localizer.gettext(session.preferredLocale(), "basicOptionModernInSide");
+                sit = session.localizer.gettext(session.preferredLocale(), "basicOptionModernSit");
+                convenience = session.localizer.gettext(session.preferredLocale(), "basicOptionModernConvenience");
+                multi = session.localizer.gettext(session.preferredLocale(), "basicOptionModernMulti");
+                session.send(modelTrim + powerTrain + performance + safety + outSide + inSide + sit + convenience + multi);
 
-            } else if (args.trim == "프리미엄 스페셜") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecial")) {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
-                powerTrain = "";
-                performance = "";
-                safety = "";
-                outSide = "\n\n외관 \n\n - 고급 샤틴 크롬 라디에이터 그릴\n\n - 고급 샤틴 크롬 몰딩\n\n - LED 방향지시등(앞)\n\n - 18인치 알로이 휠 & 미쉐린 타이어\n\n - 자외선 차단 유리(앞면)\n\n - 아웃사이드 미러 퍼들램프";
-                inSide = "\n\n내장 \n\n - 도어트림 인조가죽 감싸기\n\n - 도어트림 인서트필름 가니쉬\n\n - 도어 암레스트 크롬 엑센트";
-                sit = "\n\n시트 \n\n - 운전석 전동식 4way 럼버서포트\n\n - 운전석 자세 메모리 시스템(IMS)\n\n - 운전석 전동식 쿠션 익스텐션\n\n - 동승석 워크인 스위치\n\n - 뒷좌석 다기능 암레스트";
-                convenience = "\n\n편의 \n\n - 전동식 틸트 & 텔레스코픽 스티어링 휠\n\n - 수동식 뒷좌석 도어 커튼";
-                multi = "";
-                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
-                session.send(modelTrim + "가솔린 2.4 프리미엄 기본 사양 및 \n\n" + outSide + inSide + sit + convenience);
+                powerTrain = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialPowerTrain");
+                performance = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialPerformance");
+                safety = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialSafety");
+                outSide = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialOutside");
+                inSide = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialInSide");
+                sit = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialSit");
+                convenience = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialConvenience");
+                multi = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecialMulti");
+                session.send(modelTrim + session.localizer.gettext(session.preferredLocale(), "includeGasoline2.4PremiumBasicOption") + outSide + inSide + sit + convenience);
 
-            } else if (args.trim == "프리미엄") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "basicOptionPremium")) {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
-                powerTrain = "";
-                performance = "";
-                safety = "\n\n안전 \n\n - 스마트 후측방 경보 시스템(BSD)";
-                outSide = "";
-                inSide = "";
-                sit = "\n\n시트 \n\n - 앞좌석 통풍";
-                convenience = "\n\n편의 \n\n - 전동식 파킹 브레이크(EPB)\n\n - 하이패스 시스템\n\n - 레인센서";
-                multi = "";
-                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
-                session.send(modelTrim + "가솔린 2.4 모던 기본 사양 및 \n\n" + safety + sit + convenience);
+                powerTrain = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumPowerTrain");
+                performance = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumPerformance");
+                safety = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSafety");
+                outSide = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumOutside");
+                inSide = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumInSide");
+                sit = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSit");
+                convenience = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumConvenience");
+                multi = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumMulti");
+                session.send(modelTrim + session.localizer.gettext(session.preferredLocale(), "includeGasoline2.4ModernBasicOption") + safety + sit + convenience);
 
-            } else if (args.trim == "익스클루시브 스페셜") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecial")) {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
-                powerTrain = "";
-                performance = "";
-                safety = "";
-                outSide = "\n\n외관 \n\n - Full LED 헤드램프(다이나믹 밴딩 기능)\n\n - 19인치 스퍼터링 알로이 휠 & 미쉐린 타이어\n\n - 자외선 차단 유리(전체 도어, 뒷면)";
-                inSide = "\n\n내장 \n\n - 4.2인치 컬러 LCD 클러스터\n\n - 클러스터 이오나이저\n\n - 어라운드 뷰 모니터(AVM)";
-                sit = "";
-                convenience = "\n\n편의 \n\n - 스마트 전동식 트렁크\n\n - 전동식 뒷좌석 후방 커튼";
-                multi = "";
-                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
-                session.send(modelTrim + "가솔린 3.0 익스클루시브 기본 사양 및 \n\n" + outSide + inSide + convenience);
+                powerTrain = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialPowerTrain");
+                performance = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialPerformance");
+                safety = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialSafety");
+                outSide = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialOutside");
+                inSide = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialInSide");
+                sit = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialSit");
+                convenience = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialConvenience");
+                multi = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecialMulti");;
+                session.send(modelTrim + session.localizer.gettext(session.preferredLocale(), "includeGasoline3.0ExclusiveBasicOption") + outSide + inSide + convenience);
 
-            } else if (args.trim == "익스클루시브") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "basicOptionExclusive")) {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
-                powerTrain = "\n\n파워트레인 \n\n - 가솔린 3.0엔진, 8단 자동변속기";
-                performance = "";
-                safety = "";
-                outSide = "";
-                inSide = "";
-                sit = "";
-                convenience = "\n\n편의 \n\n - 카드타입 스마트키\n\n - 스마트폰 무선충전 시스템";
-                multi = "";
-                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
-                session.send(modelTrim + "가솔린 2.4 프리미엄 스페셜 기본 사양 및 \n\n" + powerTrain + convenience);
+                powerTrain = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusivePowerTrain");
+                performance = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusivePerformance");
+                safety = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSafety");
+                outSide = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveOutside");
+                inSide = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveInSide");
+                sit = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSit");
+                convenience = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveConvenience");
+                multi = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveMulti");
+                session.send(modelTrim + session.localizer.gettext(session.preferredLocale(), "includeGasoline2.4PremiumSpecialBasicOption") + powerTrain + convenience);
 
-            } else if (args.trim == "셀러브리티") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrity")) {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
-                powerTrain = "\n\n파워트레인 \n\n - 가솔린 3.3엔진";
-                performance = "\n\n성능 \n\n - 전륜 대용량 디스크 브레이크";
-                safety = "";
-                outSide = "\n\n외관 \n\n - 발수 적용 유리(앞도어)\n\n - 이중접합 차음 유리(뒷도어)";
-                inSide = "\n\n내장 \n\n - 크래쉬패드 인조가죽 감싸기(무엠보형)\n\n - 스티어링 휠 혼 커버 나파가죽 감싸기\n\n - 스웨이드 내장재\n\n - 도어트림 리얼 알루미늄 가니쉬\n\n - 고급 카매트";
-                sit = "\n\n시트 \n\n - 프라임 나파 가죽시트\n\n - 동승석 전동 조절(8way) & 전동식 럼버서포트(2way)";
-                convenience = "\n\n편의 \n\n - 블루링크(텔레메틱스 시스템)";
-                multi = "\n\n멀티미디어 \n\n - JBL 프리미엄 사운드 시스템(12스피커, 외장앰프)\n\n - CDP";
-                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
-                session.send(modelTrim + "가솔린 3.0 익스클루시브 스페셜 기본 사양 및 \n\n" + powerTrain + performance + outSide + inSide + sit + convenience + multi);
+                powerTrain = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrityPowerTrain");
+                performance = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrityPerformance");
+                safety = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebritySafety");
+                outSide = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrityOutside");
+                inSide = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrityInSide");
+                sit = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebritySit");
+                convenience = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrityConvenience");
+                multi = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrityMulti");
+                session.send(modelTrim + session.localizer.gettext(session.preferredLocale(), "includeGasoline3.0ExclusiveSpecialBasicOption") + powerTrain + performance + outSide + inSide + sit + convenience + multi);
             }
             
             var nextBtn = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                 new builder.HeroCard(session)
-                        .title("선택옵션도 보여드릴까요?")
+                        .title(session.localizer.gettext(session.preferredLocale(), "basicOptionEndMessage"))
                         .buttons([
-                    builder.CardAction.imBack(session, args.model + " " + args.trim + " 선택품목", "예"),
-                    builder.CardAction.imBack(session, "홈", "아니오")
+                    builder.CardAction.imBack(session, args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "basicOptionEndYesClickMessage"), session.localizer.gettext(session.preferredLocale(), "basicOptionEndYesMessage")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "basicOptionEndNoClickMessage"), session.localizer.gettext(session.preferredLocale(), "basicOptionEndNoMessage"))
                 ])
             ]);
             //builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " 기본품목|홈", { listStyle: builder.ListStyle.button });
-            builder.Prompts.choice(session, nextBtn, "선택품목|홈", { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, nextBtn, session.localizer.gettext(session.preferredLocale(), "basicOptionEndMenuList"), { listStyle: builder.ListStyle.button });
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -523,69 +499,68 @@ function create(bot) {
             var selectItem7;
             var options;
             
-            session.send(args.model + " " + args.trim + " 선택 옵션은 다음과 같습니다. \n\n 선택하시면 옵션이 추가 됩니다.");
+            session.send(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage"));
 
-            if (args.trim == "모던") {
+            if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionModern")) {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택옵션")
+                    .title(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOption"))
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 앞좌석 통풍+하이패스 시스템 추가", "앞좌석 통풍+하이패스 시스템"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지IV 추가", "현대 스마트 센스 패키지IV")
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem1ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem1")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem2ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem2")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem3ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem3")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem10ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem10"))
                     ])];
-            } else if (args.trim == "프리미엄") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionPremium")) {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택옵션")
+                    .title(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOption"))
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 익스테리어 패키지I 추가", "익스테리어 패키지I"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지I 추가", "현대 스마트 센스 패키지I")
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem1ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem1")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem2ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem2")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem5ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem5")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem6ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem6")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem8ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem8"))
                     ])];
-            } else if (args.trim == "프리미엄 스페셜" || args.trim == "프리미엄스페셜") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionPremiumSpecial1") || args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionPremiumSpecial2")) {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택옵션")
+                    .title(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOption"))
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가", "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 익스테리어 패키지II 추가", "익스테리어 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " JBL 사운드 패키지 추가", "JBL 사운드 패키지")
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem1ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem1")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem2ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem2")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem5ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem5")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem7ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem7")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem4ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem4")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem11ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem11"))
                     ])];
-            } else if (args.trim == "익스클루시브") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionExclusive")) {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택옵션")
+                    .title(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOption"))
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가", "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 익스테리어 패키지II 추가", "익스테리어 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II")
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem1ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem1")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem2ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem2")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem5ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem5")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem9ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem9")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem7ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem7")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem11ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem11"))
                     ])];
-            } else if (args.trim == "익스클루시브 스페셜" || args.trim == "익스클루시브스페셜") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionExclusiveSpecial1") || args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionExclusiveSpecial2")) {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택옵션")
+                    .title(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOption"))
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 프리미어 인테리어 셀렉션 추가", "프리미어 인테리어 셀렉션"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " JBL 사운드 패키지 추가", "JBL 사운드 패키지")
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem1ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem1")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem2ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem2")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem5ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem5")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem9ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem9")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem4ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem4")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem12ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem12"))
                     ])];
-            } else if (args.trim == "셀러브리티") {
+            } else if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionCelebrity")) {
                 options = [new builder.HeroCard(session)
-                    .title(args.model + " " + args.trim + " 선택옵션")
+                    .title(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOption"))
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II")
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem1ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem1")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem2ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem2")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem5ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem5")),
+                        builder.CardAction.imBack(session, model + " " + trim + session.localizer.gettext(session.preferredLocale(), "selectOptionItem9ClickMessage"), session.localizer.gettext(session.preferredLocale(), "selectOptionItem9"))
                     ])];
             }
             var msg = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel).attachments(options);
@@ -600,17 +575,18 @@ function create(bot) {
         }
     ]);
     
+    
+    
+    
     /***********************************************************************************
     3-2-1. 한국어 가격 메뉴 (선택옵션 가격표)
     ************************************************************************************/
     bot.dialog('/korPriceRecipt', [
         function (session, args, next) {
-            //session.send("선택하신 차량의 산출 가격 입니다.");
-            //session.send("선택하신 옵션을 제거를 원하실 경우 \n\n [ 예 : 가솔린 2.4 모던 파노라마썬루프 삭제 ] 명령어를 입력하시면 \n\n 옵션이 빠진 가격을 보실수 있습니다.");
+            session.send("선택하신 차량의 산출 가격 입니다.");
             
-            console.log("user insert : " + session.message.text);
-            var userId = userId;
-            
+            console.log(userId + " user insert : " + session.message.text);
+            //var userId = userId;
             var tasks = [
                 function (callback) {
                     var returnData;
@@ -668,7 +644,7 @@ function create(bot) {
                 var priceTemp = [];
                 var tmp = 1;
                 for (var i = 0; i < optionCnt; i++) {
-                    console.log(typeof numberTemp[i]);
+                    //console.log(typeof numberTemp[i]);
                     itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
                     priceTemp.push(results[0][numberTemp[i] - 1].OPTION_PRICE);
                     optionPrice = optionPrice + results[0][numberTemp[i] - 1].OPTION_PRICE;
@@ -687,70 +663,70 @@ function create(bot) {
                     console.log("price :::: " + priceTemp[j].price);
                 }*/
                 if (optionCnt == 0) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),];
                 } else if (optionCnt == 1) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0])];
                 } else if (optionCnt == 2) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1])];
                 } else if (optionCnt == 3) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2])];
                 } else if (optionCnt == 4) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[3])];
                 } else if (optionCnt == 5) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[4])];
                 } else if (optionCnt == 6) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[5])];
                 } else if (optionCnt == 7) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + " 원", itemsTemp[6])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[5]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[6])];
                 } else if (optionCnt == 8) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + " 원", itemsTemp[6]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + " 원", itemsTemp[7])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[5]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[6]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[7])];
                 } else if (optionCnt == 9) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + " 원", itemsTemp[6]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + " 원", itemsTemp[7]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[8]) + " 원", itemsTemp[8])];
+                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[5]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[6]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[7]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[8]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), itemsTemp[8])];
                 }
                 
                 var msg = new builder.Message(session)
@@ -759,9 +735,9 @@ function create(bot) {
                             .title(args.model + " " + args.trim)
                             .items(items)
                             .facts([
-                        builder.Fact.create(session, "(단위 : 원)", "2017년 3월 30일 기준")
+                        builder.Fact.create(session, session.localizer.gettext(session.preferredLocale(), "priceReciptTopMenu2"), session.localizer.gettext(session.preferredLocale(), "priceReciptTopMenu1"))
                     ])
-                            .total(total + " 원")
+                            .total(total + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"))
                 ]);
                 session.send(msg);
                 
@@ -769,21 +745,18 @@ function create(bot) {
                     .attachmentLayout(builder.AttachmentLayout.carousel)
                     .attachments([
                     new builder.HeroCard(session)
-                            .title("다른 선택옵션을 추가 하시겠습니까?")
+                            .title(session.localizer.gettext(session.preferredLocale(), "priceReciptEndMessage")) 
                             .buttons([
-                        builder.CardAction.imBack(session, args.model + " " + args.trim + " " + "선택품목", "예"),
-                        builder.CardAction.imBack(session, "홈", "아니오")
+                        builder.CardAction.imBack(session, args.model + " " + args.trim + " " + session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
                     ])
                 ]);
-                builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + "선택품목|홈", { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + session.localizer.gettext(session.preferredLocale(), "priceReciptEndMenuList"), { listStyle: builder.ListStyle.button });
                 session.endDialog();
                 
             });
         }
     ]);
-    
-    
-    
     
     
     bot.dialog('/korCompareModel', [
