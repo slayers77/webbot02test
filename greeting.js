@@ -13,6 +13,7 @@ date = new Date();
 
 //이미지경로 전역 변수 선언
 global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
+global.userId = "";
 
 //DB Config
 
@@ -118,7 +119,19 @@ function create(bot) {                                                  // funct
 
         console.log("session ID : " + session.message.sourceEvent.clientActivityId);
 
-        var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
+
+        if (session.message.sourceEvent.clientActivityId == "undefined") {
+
+            userId = "";
+
+        } else {
+
+            userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
+
+        }
+
+
+        //var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
 
         var tasks = [
             function (callback) {
