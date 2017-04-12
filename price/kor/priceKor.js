@@ -628,7 +628,7 @@ function create(bot) {
                 var optionCnt = 0;
                 var numberTemp = [];
                 for (var i = 1; i < 10; i++) {
-                    console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
+                    //console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
                     if (eval("results[1][0].OPTION" + i)) {
                         optionCnt++;
                         
@@ -643,6 +643,7 @@ function create(bot) {
                 var itemsTemp = [];
                 var priceTemp = [];
                 var tmp = 1;
+                var OPTION1 = 0;
                 for (var i = 0; i < optionCnt; i++) {
                     //console.log(typeof numberTemp[i]);
                     itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
