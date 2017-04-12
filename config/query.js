@@ -27,7 +27,19 @@ var config = {
     }
 };
 
-
+// 메시지 한글/영어 체크
+function kor_en_Checker(str) {
+    var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    
+    if (str.match(check)) {
+        console.log("Ko");
+        return "Ko";
+    }
+    else {
+        console.log("En");
+        return "En";
+    }
+}
 
 function getQuery(str) {
 
@@ -137,5 +149,5 @@ function insertHistoryQuery(data, resTime, callback) {
 
 
 module.exports = {
-    getData, insertHistoryQuery
+    getData, insertHistoryQuery,kor_en_Checker
 }
