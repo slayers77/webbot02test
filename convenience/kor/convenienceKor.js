@@ -550,7 +550,7 @@ function create(bot) {
             //]);
 
             builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "YesOrNo"));
-
+            session.endDialog();
         }
     ]);
     
