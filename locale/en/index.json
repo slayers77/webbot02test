@@ -336,7 +336,11 @@
   "basicOptionEndNoClickMessage": "Home",
   "basicOptionEndMenuList": "SelectItem|Home",
 
+  "priceReMainCall":"Stop",
+  "priceModelCall": "Selet Model",
+
   "selectOption": " Select Option",
+  "selectOptionInitMessage":" I'll show you the selection options. \n\n If you select an option, you can see the optional quotation added.",
   "selectOptionModern": "Modern",
   "selectOptionPremium": "Premium",
   "selectOptionPremiumSpecial1": "Premium Special",
@@ -380,11 +384,68 @@
   "priceReciptEndNoMessage": "No",
   "priceReciptEndNoClickMessage": "Home",
   "priceReciptEndMenuList": "BasicItem|Home",
+  "priceOptionAddMessage": "It is an added price.",
+  "priceOptionRemoveMessage": "It is the price that removed the option.",
+
+
+
+  "compareCase1":"gasoline2.4modern",
+  "compareCase2":"gasoline2.4premium",
+  "compareCase3":"gasoline 2.4premiumspecial",
+  "compareCase4":"asoline 3.0exclusive",
+  "compareCase5":"gasoline 3.0exclusivespecial",
+  "compareCase6":"gasoline 3.0exclusivespecialpremierinteriorselection",
+  "compareCase7":"gasoline3.3celebrity",
+  "compareCase8":"diesel2.2modern",
+  "compareCase9":"diesel2.2premium",
+  "compareCase10":"diesel2.2premiumspecial",
+  "compareCase11":"gasoline2.4",
+  "compareCase12":"gasoline 3.0",
+  "compareCase13":"gasoline3.3",
+  "compareCase14":"diesel2.2",
+
+  "compareTitle1":"gasoline2.4 modern",
+  "compareTitle2":"gasoline2.4 premium",
+  "compareTitle3":"gasoline 2.4 premiumspecial",
+  "compareTitle4":"gasoline 3.0 exclusive",
+  "compareTitle5":"gasoline 3.0 exclusivespecial",
+  "compareTitle6":"gasoline 3.0 exclusivespecialpremierinteriorselection",
+  "compareTitle7":"gasoline3.3 celebrity",
+  "compareTitle8":"diesel2.2 modern",
+  "compareTitle9":"diesel2.2 premium",
+  "compareTitle10":"diesel2.2 premiumspecial",
+  "compareTitle11":"gasoline2.4 modern",
+  "compareTitle12":"gasoline 3.0 exclusive",
+  "compareTitle13":"gasoline3.3 celebrity",
+  "compareTitle14":"diesel2.2 modern",
+
+  "comparePrice1":"30,550,000",
+  "comparePrice2":"31,750,000",
+  "comparePrice3":"33,750,000",
+  "comparePrice4":"35,500,000",
+  "comparePrice5":"38,700,000",
+  "comparePrice6":"40,200,000",
+  "comparePrice7":"41,600,000",
+  "comparePrice8":"33,550,000",
+  "comparePrice9":"30,550,000",
+  "comparePrice10":"35,500,000",
+  "comparePrice11":"30,550,000",
+  "comparePrice12":"35,500,000",
+  "comparePrice13":"41,600,000",
+  "comparePrice14":"33,550,000",
 
   "compareModelItem1BasicOptionView": "Basic Option View",
   "compareModelItem1BasicOptionClickMessage": " BasicItem",
   "compareModelItem1SelectOptionAdd": "Select Option Add",
   "compareModelItem1SelectOptionClickMessage": " SelectItem",
+
+  
+  "compareAndMessage":" with",
+  "compareMessage":"I'll compare",
+
+  "korCompareModelMessage": "I can not compare models because the model name is not correct. Please check your model name again.",
+  "korCompareBeforeModelMessage": "You have not seen model before. Please look at the model and compare.",
+  "korCompareBeforeModelsMessage": "Please see two or more models I do not have a model to compare.",
   "NocompareModelMessage": "Unable to compare models. Please check your model name again."
 
 }
