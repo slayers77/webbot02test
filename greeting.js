@@ -423,17 +423,13 @@ function create(bot) {                                                  // funct
     intents.matches('korCompareModel', [
         function (session, args, next) {
             var messagenospace = session.message.text.replace(/ /gi, '');
+
             var compare = null;
 
             var sendPrice = new Array(2);
             var j = 0;
 
-            for (var i = 0; i < args.entities.length; i++) {
-                if (args.entities[i].type.indexOf("상세모델명") != -1) {
-                    compare = args.entities[i].entity;
-                    sendPrice[j++] = compare.replace(/ /gi, '');
-                }
-            }
+            sendPrice = messagenospace.match(/가솔린2.4프리미엄스페셜|가솔린2.4프리미엄|가솔린2.4모던|가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션|가솔린3.0익스클루시브스페셜|가솔린3.0익스클루시브|가솔린3.3셀러브리티|디젤2.2프리미엄스페셜|디젤2.2프리미엄|디젤2.2모던|가솔린2.4|가솔린3.0|가솔린3.3|디젤2.2|gasoline 2.4premiumspecial|gasoline2.4premium|gasoline2.4modern|gasoline 3.0exclusivespecialpremierinteriorselection|gasoline 3.0exclusivespecial|gasoline 3.0exclusive|gasoline3.3celebrity|diesel2.2premiumspecial|diesel2.2premium|Sedan diesel2.2modern|gasoline2.4|gasoline 3.0|gasoline3.3|diesel2.2/g);
 
             session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareModel", tableNm: "insert_history", sendPrice });
         }
@@ -911,15 +907,13 @@ function create(bot) {                                                  // funct
     */
     intents.matches('korCompareBeforeModel', [
         function (session, args, next) {
-
-            var userId = userId;
-
             var messagenospace = session.message.text.replace(/ /gi, '');
             var compare = null;
 
             var sendPrice = new Array(2);
             var j = 0;
 
+            /*
             for (var i = 0; i < args.entities.length; i++) {
                 if (args.entities[i].type.indexOf("상세모델명") != -1) {
                     if (compare == null) {
@@ -927,6 +921,8 @@ function create(bot) {                                                  // funct
                     }
                 }
             }
+            */
+
 
             var beforModelTasks = [
                 function (callback) {
@@ -975,7 +971,7 @@ function create(bot) {                                                  // funct
             async.waterfall(beforModelTasks, function (err, results) {
                 console.log("Insert Result : " + results);
 
-                sendPrice[0] = compare;
+                sendPrice = messagenospace.match(/가솔린2.4프리미엄스페셜|가솔린2.4프리미엄|가솔린2.4모던|가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션|가솔린3.0익스클루시브스페셜|가솔린3.0익스클루시브|가솔린3.3셀러브리티|디젤2.2프리미엄스페셜|디젤2.2프리미엄|디젤2.2모던|가솔린2.4|가솔린3.0|가솔린3.3|디젤2.2|gasoline 2.4premiumspecial|gasoline2.4premium|gasoline2.4modern|gasoline 3.0exclusivespecialpremierinteriorselection|gasoline 3.0exclusivespecial|gasoline 3.0exclusive|gasoline3.3celebrity|diesel2.2premiumspecial|diesel2.2premium|Sedan diesel2.2modern|gasoline2.4|gasoline 3.0|gasoline3.3|diesel2.2/g);
 
                 if (results.length > 0) {
                     var carType = results[0].CAR_TYPE.replace("그랜저IG 자가용 ", "");
@@ -993,8 +989,6 @@ function create(bot) {                                                  // funct
 
     intents.matches('korCompareBeforeModels', [
         function (session, args, next) {
-            var userId = userId;
-
             var sid = "";
             var sendPrice = new Array(2);
 

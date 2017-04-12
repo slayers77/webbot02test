@@ -36,6 +36,7 @@
   "induceinfotainmentToTestDrive":"you have seen the convenience of infotainment and Do you want to take a test drive?",
   "induceSafetyToTestDrive":"you have seen the convenience of safety and Do you want to take a test drive?",
 
+
   "designTitleName": "Design",
   "designMainMessage": "Design introduction. You can see the Color, Exterior and Interior.",
   "designSubtitleMessage": "Is not it cool? Would you like to see more details?",
@@ -68,7 +69,6 @@
   "KakiMetal": "Kaki Metal",
   "KakiMetalCilckMessage": "Show me the Kaki Metal color",
   "colorMenuList": "White Cream|Ion Siver|Luna Gray|Pantera Gray|Midnight Black|Valentine Red|Grand Blue|Shade Bronze|Kaki Metal",
-
 
   "selectedColorMessage": "I'll show you the colors !! Pretty?",
 
@@ -225,6 +225,8 @@
   "diesel2.2": "Diesel2.2",
   "diesel2.2ClickMessage": "Diesel 2.2 select",
   "priceModelMenuList": "Gasoline 2.4|Gasoline 3.0|Gasoline 3.3|Diesel 2.2",
+
+  "priceMainCall": "show me the Price",
 
   "priceTrimBasicOptionViewMessage": "Basic Option View",
   "priceTrimSelectOptionAddMessage": "Select Oprtion Add",
