@@ -1441,6 +1441,7 @@ function create(bot) {
             
             console.log("UPDATE Result : " + results[0]);
         });
+    }
 
 
 }
