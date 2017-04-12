@@ -667,6 +667,7 @@ function create(bot) {
                 var itemsTemp = [];
                 var priceTemp = [];
                 var tmp = 1;
+                var OPTION1 = 0;
                 for (var i = 0; i < optionCnt; i++) {
                     console.log(typeof numberTemp[i]);
                     itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
