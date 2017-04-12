@@ -1275,6 +1275,7 @@ function create(bot) {
                     optionNm = session.localizer.gettext(query.kor_en_Checker(session.message.text), "selectOptionItem9");
                 } else {
                     modelOptionNumberVar = 0;
+
                 }
             }
         } else if (message.match(/디젤 2.2/) || message.match(/디젤2.2/)) {
