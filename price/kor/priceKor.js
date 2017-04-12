@@ -609,7 +609,7 @@ function create(bot) {
             //session.send("선택하신 옵션을 제거를 원하실 경우 \n\n [ 예 : 가솔린 2.4 모던 파노라마썬루프 삭제 ] 명령어를 입력하시면 \n\n 옵션이 빠진 가격을 보실수 있습니다.");
             
             console.log("user insert : " + session.message.text);
-            var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
+            var userId = userId;
             
             var tasks = [
                 function (callback) {
@@ -1023,15 +1023,15 @@ function create(bot) {
             
             session.send(fnResultModelNm + " " + fnResultTrimNm +"에 [ "+ fnResultOptionNm+" ] 옵션을 추가한 가격입니다.");
 
-            //functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 1);
+            //functionOptionUpdate(userId, fnResultModel, fnResultOption, 1);
             
-            //console.log(functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 1));
+            //console.log(functionOptionUpdate(userId, fnResultModel, fnResultOption, 1));
             
-            if (!functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 1)) {
+            if (!functionOptionUpdate(userId, fnResultModel, fnResultOption, 1)) {
                 
                 
                 session.endDialog();
-                session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice });
+                session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice });
                 
                 responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
                 query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -1043,7 +1043,7 @@ function create(bot) {
             }
 
             //session.endDialog();
-            //session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice});
+            //session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice});
             
             //responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             //query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -1078,11 +1078,11 @@ function create(bot) {
             
             session.send(fnResultModelNm + " " + fnResultTrimNm + "에 [ " + fnResultOptionNm + " ] 옵션을 제거한 가격입니다.");
 
-            functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 0);
+            functionOptionUpdate(userId, fnResultModel, fnResultOption, 0);
             
             
             session.endDialog();
-            session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice });
+            session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice });
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -1216,7 +1216,7 @@ function create(bot) {
                     modelOptionNumberVar = 6;
                     optionNm = "JBL 사운드 패키지";
                 } else if (message.match(/프리미어인테리어셀렉션/) || message.match(/프리미어 인테리어셀렉션/) || message.match(/프리미어 인테리어 셀렉션/)) {
-                    //session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
+                    //session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
                     modelOptionNumberVar = 3;
                     optionNm = "프리미어 인테리어 셀렉션";
                 } else {
