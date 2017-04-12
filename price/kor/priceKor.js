@@ -414,7 +414,9 @@ function create(bot) {
                 sit = "\n\n시트 \n\n - 천연가죽 시트\n\n - 운전석 전동 조절(8way) & 전동식 2way 럼버서포트\n\n - 동승석 전동 조절(4way)\n\n - 앞좌석 열선\n\n - 뒷좌석 열선\n\n - 뒷좌석 암레스트(스키쓰루)";
                 convenience = "\n\n편의 \n\n - 버튼 시동 & 스마트키 시스템\n\n - 듀얼 풀오토 에어컨\n\n - 오토 디포그\n\n - 고성능 에어컨 필터\n\n - 통합주행모드\n\n - 오토 크루즈 컨트롤, 풋파킹 브레이크\n\n - 전/후방 주차보조 시스템\n\n - 후방카메라(조향 연동)\n\n - 스마트 트렁크(풀오픈 타입)\n\n - 세이프티 파워윈도우(앞좌석)\n\n - USB 충전기\n\n - 파워 아웃렛(센터페시아, 센터콘솔 암레스트)";
                 multi = "\n\n멀티미디어 \n\n - 8인치 내비게이션\n\n - 일반 사운드 시스템(8스피커)\n\n - AUX & USB 단자\n\n - 블루투스 핸즈프리";
-                session.send(modelTrim + powerTrain + performance + safety + outSide + inSide + sit + convenience + multi);
+                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
+                //session.send(modelTrim + powerTrain + performance + safety + outSide + inSide + sit + convenience + multi);
+                session.send( powerTrain + performance + safety + outSide + inSide + sit + convenience + multi);
 
             } else if (args.trim == "프리미엄 스페셜") {
                 modelTrim = "[" + args.model + " " + args.trim + "]\n\n";
@@ -426,6 +428,7 @@ function create(bot) {
                 sit = "\n\n시트 \n\n - 운전석 전동식 4way 럼버서포트\n\n - 운전석 자세 메모리 시스템(IMS)\n\n - 운전석 전동식 쿠션 익스텐션\n\n - 동승석 워크인 스위치\n\n - 뒷좌석 다기능 암레스트";
                 convenience = "\n\n편의 \n\n - 전동식 틸트 & 텔레스코픽 스티어링 휠\n\n - 수동식 뒷좌석 도어 커튼";
                 multi = "";
+                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
                 session.send(modelTrim + "가솔린 2.4 프리미엄 기본 사양 및 \n\n" + outSide + inSide + sit + convenience);
 
             } else if (args.trim == "프리미엄") {
@@ -438,6 +441,7 @@ function create(bot) {
                 sit = "\n\n시트 \n\n - 앞좌석 통풍";
                 convenience = "\n\n편의 \n\n - 전동식 파킹 브레이크(EPB)\n\n - 하이패스 시스템\n\n - 레인센서";
                 multi = "";
+                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
                 session.send(modelTrim + "가솔린 2.4 모던 기본 사양 및 \n\n" + safety + sit + convenience);
 
             } else if (args.trim == "익스클루시브 스페셜") {
@@ -450,6 +454,7 @@ function create(bot) {
                 sit = "";
                 convenience = "\n\n편의 \n\n - 스마트 전동식 트렁크\n\n - 전동식 뒷좌석 후방 커튼";
                 multi = "";
+                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
                 session.send(modelTrim + "가솔린 3.0 익스클루시브 기본 사양 및 \n\n" + outSide + inSide + convenience);
 
             } else if (args.trim == "익스클루시브") {
@@ -462,6 +467,7 @@ function create(bot) {
                 sit = "";
                 convenience = "\n\n편의 \n\n - 카드타입 스마트키\n\n - 스마트폰 무선충전 시스템";
                 multi = "";
+                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
                 session.send(modelTrim + "가솔린 2.4 프리미엄 스페셜 기본 사양 및 \n\n" + powerTrain + convenience);
 
             } else if (args.trim == "셀러브리티") {
@@ -474,6 +480,7 @@ function create(bot) {
                 sit = "\n\n시트 \n\n - 프라임 나파 가죽시트\n\n - 동승석 전동 조절(8way) & 전동식 럼버서포트(2way)";
                 convenience = "\n\n편의 \n\n - 블루링크(텔레메틱스 시스템)";
                 multi = "\n\n멀티미디어 \n\n - JBL 프리미엄 사운드 시스템(12스피커, 외장앰프)\n\n - CDP";
+                session.send("[" + args.model + " " + args.trim + "] 기본 옵션 입니다.");
                 session.send(modelTrim + "가솔린 3.0 익스클루시브 스페셜 기본 사양 및 \n\n" + powerTrain + performance + outSide + inSide + sit + convenience + multi);
             }
             
@@ -515,6 +522,9 @@ function create(bot) {
             var selectItem6;
             var selectItem7;
             var options;
+            
+            session.send(args.model + " " + args.trim + " 선택 옵션은 다음과 같습니다. \n\n 선택하시면 옵션이 추가 됩니다.");
+
             if (args.trim == "모던") {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
@@ -594,7 +604,8 @@ function create(bot) {
     ************************************************************************************/
     bot.dialog('/korPriceRecipt', [
         function (session, args, next) {
-            session.send("선택하신 차량의 산출 가격 입니다.");
+            //session.send("선택하신 차량의 산출 가격 입니다.");
+            //session.send("선택하신 옵션을 제거를 원하실 경우 \n\n [ 예 : 가솔린 2.4 모던 파노라마썬루프 삭제 ] 명령어를 입력하시면 \n\n 옵션이 빠진 가격을 보실수 있습니다.");
             
             console.log("user insert : " + session.message.text);
             var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
@@ -728,6 +739,8 @@ function create(bot) {
                 ]);
                 session.send(msg);
                 
+                session.send("선택하신 옵션을 제거를 원하실 경우 \n\n [ 예 : 가솔린 2.4 모던 파노라마썬루프 삭제 ] 명령어를 입력하시면 \n\n 옵션이 빠진 가격을 보실수 있습니다.");
+
                 var nextBtn = new builder.Message(session)
                     .attachmentLayout(builder.AttachmentLayout.carousel)
                     .attachments([
@@ -735,7 +748,7 @@ function create(bot) {
                             .title("다른 선택옵션을 추가 하시겠습니까?")
                             .buttons([
                         builder.CardAction.imBack(session, args.model + " " + args.trim + " " + "선택품목", "예"),
-                        builder.CardAction.imBack(session, "홈", "아니오")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
                     ])
                 ]);
                 builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + "선택품목|홈", { listStyle: builder.ListStyle.button });
@@ -895,8 +908,12 @@ function create(bot) {
                 }
             }
             
+           
+
             if (title1 != null && title2 != null) {
                 
+                session.send(title1 +"와 "+ title2 + "를 비교해드리겠습니다.");
+
                 msg = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments([
@@ -965,7 +982,7 @@ function create(bot) {
             var fnResultModel = '';
             var fnResultOption = '';
             var fnResultCarPrice = 0;
-            session.send("옵션을 더합니다.");
+            
             
             fnResult = optionNumChoice(session.message.text);
             fnResultsplit = fnResult.split('|');
@@ -974,7 +991,10 @@ function create(bot) {
             fnResultModelNm = fnResultsplit[2];
             fnResultTrimNm = fnResultsplit[3];
             fnResultCarPrice = fnResultsplit[4];
+            fnResultOptionNm = fnResultsplit[5];
             
+            session.send(fnResultModelNm + " " + fnResultTrimNm +"에 [ "+ fnResultOptionNm+" ] 옵션을 추가한 가격입니다.");
+
             //functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 1);
             
             //console.log(functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 1));
@@ -1014,7 +1034,7 @@ function create(bot) {
             var fnResultsplit = '';
             var fnResultModel = '';
             var fnResultOption = '';
-            session.send("옵션을 뺍니다.");
+            //session.send("옵션을 뺍니다.");
             
             fnResult = optionNumChoice(session.message.text);
             fnResultsplit = fnResult.split('|');
@@ -1023,7 +1043,10 @@ function create(bot) {
             fnResultModelNm = fnResultsplit[2];
             fnResultTrimNm = fnResultsplit[3];
             fnResultCarPrice = fnResultsplit[4];
+            fnResultOptionNm = fnResultsplit[5];
             
+            session.send(fnResultModelNm + " " + fnResultTrimNm + "에 [ " + fnResultOptionNm + " ] 옵션을 제거한 가격입니다.");
+
             functionOptionUpdate(session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], fnResultModel, fnResultOption, 0);
             
             
@@ -1047,6 +1070,7 @@ function create(bot) {
         var modelNumberVar = 0;
         var engineNameVar = "";
         var carPriceVar = 0;
+        var optionNm = "";
         
         if (message.match(/가솔린 2.4/g) || message.match(/가솔린2.4/g) || message.match(/2.4/g)) {
             console.log("가솔린 2.4");
@@ -1060,14 +1084,19 @@ function create(bot) {
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 3;
+                    optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 2;
+                    optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/앞좌석통풍/) || message.match(/앞좌석 통풍/) || message.match(/앞 좌석 통풍/)) {
                     modelOptionNumberVar = 1;
+                    optionNm = "앞좌석 통풍+하이패스시스템";
                 } else if (message.match(/하이패스 시스템/) || message.match(/하이패스시스템/) || message.match(/하이 패스 시스템/)) {
                     modelOptionNumberVar = 1;
+                    optionNm = "앞좌석 통풍+하이패스시스템";
                 } else if (message.match(/현대스마트센스패키지IV/) || message.match(/현대 스마트센스패키지IV/) || message.match(/현대 스마트 센스패키지IV/) || message.match(/현대 스마트 센스 패키지IV/) || message.match(/현대 스마트 센스 패키지 IV/)) {
                     modelOptionNumberVar = 4;
+                    optionNm = "현대 스마트 센스 패키지 IV";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1079,20 +1108,21 @@ function create(bot) {
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 4;
+                    optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 3;
+                    modelOptionNumberVar = 3; optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 5;
+                    modelOptionNumberVar = 5; optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 6;
+                    modelOptionNumberVar = 6; optionNm = "현대 스마트 센스 패키지 II";
                 } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
-                    modelOptionNumberVar = 2;
+                    modelOptionNumberVar = 2; optionNm = "익스테리어 패키지 II";
                 } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
-                    modelOptionNumberVar = 7;
+                    modelOptionNumberVar = 7; optionNm = "JBL 사운드 패키지";
                 } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1104,14 +1134,15 @@ function create(bot) {
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 3;
+                    optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 2;
+                    modelOptionNumberVar = 2; optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 4;
+                    modelOptionNumberVar = 4; optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지I/) || message.match(/현대 스마트센스패키지I/) || message.match(/현대 스마트 센스패키지I/) || message.match(/현대 스마트 센스 패키지I/) || message.match(/현대 스마트 센스 패키지 I/)) {
-                    modelOptionNumberVar = 5;
+                    modelOptionNumberVar = 5; optionNm = "현대 스마트 센스 패키지 I";
                 } else if (message.match(/익스테리어패키지I/) || message.match(/익스테리어 패키지I/) || message.match(/익스테리어 패키지 I/) || message.match(/익스테리어패키지 I/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "익스테리어 패키지 I";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1128,14 +1159,15 @@ function create(bot) {
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 2;
+                    optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 4;
+                    modelOptionNumberVar = 4; optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 5;
+                    modelOptionNumberVar = 5; optionNm = "현대 스마트 센스 패키지 II";
                 } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
-                    modelOptionNumberVar = 6;
+                    modelOptionNumberVar = 6; optionNm = "JBL 사운드 패키지";
                 } else if (message.match(/프리미어인테리어셀렉션/) || message.match(/프리미어 인테리어셀렉션/) || message.match(/프리미어 인테리어 셀렉션/)) {
                     session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
                 } else {
@@ -1149,18 +1181,19 @@ function create(bot) {
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 4;
+                    optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 3;
+                    modelOptionNumberVar = 3; optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 5;
+                    modelOptionNumberVar = 5; optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 6;
+                    modelOptionNumberVar = 6; optionNm = "현대 스마트 센스 패키지 II";
                 } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
-                    modelOptionNumberVar = 2;
+                    modelOptionNumberVar = 2; optionNm = "익스테리어 패키지 II";
                 } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1179,11 +1212,11 @@ function create(bot) {
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 2;
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 1;
+                    modelOptionNumberVar = 1; optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 3;
+                    modelOptionNumberVar = 3; optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 4;
+                    modelOptionNumberVar = 4; optionNm = "현대 스마트 센스 패키지 II";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1200,13 +1233,13 @@ function create(bot) {
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 3;
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                        modelOptionNumberVar = 2;
+                        modelOptionNumberVar = 2; optionNm = "TUIX 컴포트 패키지";
                     } else if (message.match(/앞좌석통풍/) || message.match(/앞좌석 통풍/) || message.match(/앞 좌석 통풍/)) {
-                        modelOptionNumberVar = 1;
+                        modelOptionNumberVar = 1; optionNm = "앞좌석 통풍+하이패스시스템";
                     } else if (message.match(/하이패스 시스템/) || message.match(/하이패스시스템/) || message.match(/하이 패스 시스템/)) {
-                        modelOptionNumberVar = 1;
+                        modelOptionNumberVar = 1; optionNm = "앞좌석 통풍+하이패스시스템";
                     } else if (message.match(/현대스마트센스패키지IV/) || message.match(/현대 스마트센스패키지IV/) || message.match(/현대 스마트 센스패키지IV/) || message.match(/현대 스마트 센스 패키지IV/) || message.match(/현대 스마트 센스 패키지 IV/)) {
-                        modelOptionNumberVar = 4;
+                        modelOptionNumberVar = 4; optionNm = "현대 스마트 센스 패키지 IV";
                     } else {
                         modelOptionNumberVar = 0;
                     }
@@ -1218,20 +1251,21 @@ function create(bot) {
                     
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 4;
+                        optionNm = "파노라마 썬루프";
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                        modelOptionNumberVar = 3;
+                        modelOptionNumberVar = 3; optionNm = "TUIX 컴포트 패키지";
                     } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                        modelOptionNumberVar = 5;
+                        modelOptionNumberVar = 5; optionNm = "헤드업 디스플레이(HUD)";
                     } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                        modelOptionNumberVar = 6;
+                        modelOptionNumberVar = 6; optionNm = "현대 스마트 센스 패키지 II";
                     } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
-                        modelOptionNumberVar = 2;
+                        modelOptionNumberVar = 2; optionNm = "익스테리어 패키지 II";
                     } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
-                        modelOptionNumberVar = 7;
+                        modelOptionNumberVar = 7; optionNm = "JBL 사운드 패키지";
                     } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
-                        modelOptionNumberVar = 1;
+                        modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                     } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
-                        modelOptionNumberVar = 1;
+                        modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                     } else {
                         modelOptionNumberVar = 0;
                     }
@@ -1243,14 +1277,15 @@ function create(bot) {
                     
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 3;
+                        optionNm = "파노라마 썬루프";
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                        modelOptionNumberVar = 2;
+                        modelOptionNumberVar = 2; optionNm = "TUIX 컴포트 패키지";
                     } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                        modelOptionNumberVar = 4;
+                        modelOptionNumberVar = 4; optionNm = "헤드업 디스플레이(HUD)";
                     } else if (message.match(/현대스마트센스패키지I/) || message.match(/현대 스마트센스패키지I/) || message.match(/현대 스마트 센스패키지I/) || message.match(/현대 스마트 센스 패키지I/) || message.match(/현대 스마트 센스 패키지 I/)) {
-                        modelOptionNumberVar = 5;
+                        modelOptionNumberVar = 5; optionNm = "현대 스마트 센스 패키지 I";
                     } else if (message.match(/익스테리어패키지I/) || message.match(/익스테리어 패키지I/) || message.match(/익스테리어 패키지 I/) || message.match(/익스테리어패키지 I/)) {
-                        modelOptionNumberVar = 1;
+                        modelOptionNumberVar = 1; optionNm = "익스테리어 패키지 I";
                     } else {
                         modelOptionNumberVar = 0;
                     }
@@ -1259,7 +1294,7 @@ function create(bot) {
             }
         }
         
-        return modelNumberVar + '|' + modelOptionNumberVar + "|" + engineNameVar + "|" + modelNameVar + "|" + carPriceVar;
+        return modelNumberVar + '|' + modelOptionNumberVar + "|" + engineNameVar + "|" + modelNameVar + "|" + carPriceVar + "|" + optionNm;
 
     }
     /***********************************************************************************

@@ -13,6 +13,8 @@ function create(bot) {
     bot.dialog('/korDesignMain', [
 
         function (session, args) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "designMainMessage")); 
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -163,10 +165,11 @@ function create(bot) {
     bot.dialog('/korDesignExteriorSimple', [
 
         function (session, args) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "exteriorMainMessage")); 
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
-
-
                 .attachments([
                     new builder.HeroCard(session)
                         .title(session.localizer.gettext(session.preferredLocale(), "exteriorTitleName"))
@@ -198,6 +201,9 @@ function create(bot) {
     bot.dialog('/korDesignExteriorDetail', [
     
         function (session, args, results) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "exteriorDetailMessage")); 
+
             //if (results.response.entity == "외관상세") {
                 var msg1 = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -231,17 +237,30 @@ function create(bot) {
                 ]);
                 
             session.send(msg1);
-            session.endDialog();
-            session.beginDialog('/korReMainMenu');
-            
+           
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
                     console.log("query.getData : " + result);
                 }
             });
-            //}
+           
+            var msg = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .title("")
+                            .text("그랜저 IG의 외관 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                            //.text(str)
+                            .buttons([
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                            ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
         }
+
     ]);
 
 
@@ -250,9 +269,11 @@ function create(bot) {
     bot.dialog('/korDesignInteriorSimple', [
 
         function (session, args) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "interiorMainMessage")); 
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
-
                 .attachments([
                 new builder.HeroCard(session)
                         .title(session.localizer.gettext(session.preferredLocale(), "interiorTitleName"))
@@ -282,6 +303,9 @@ function create(bot) {
     bot.dialog('/korDesignInteriorDetail', [
     
         function (session, args, results) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "interiorDetailMessage")); 
+
             //if (results.response.entity == "내관상세") {
                 var msg1 = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -303,8 +327,6 @@ function create(bot) {
                 ]);
                 
             session.send(msg1);
-            session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -312,9 +334,22 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-                //builder.Prompts.choice(session, "그랜저의 디자인에 대해 메뉴를 보시겠습니까?", '디자인|색상|내관|외관|홈', { listStyle: builder.ListStyle.button });
-            }
-        //}
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 내관 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+        }
     ]);
      
 
@@ -327,6 +362,9 @@ function create(bot) {
     //화이트 크림 색상
     bot.dialog('/korDesignSelectWhiteCream', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 화이트 크림 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -364,8 +402,6 @@ function create(bot) {
                 ])
             ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -373,14 +409,34 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 화이트 크림 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
+
+        
     ]);
     
 
     //이온 실버 색상
     bot.dialog('/korDesignSelectIonSilver', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 이온 실버 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -419,8 +475,6 @@ function create(bot) {
                 ])
             ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -428,13 +482,42 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+        //    session.beginDialog('/korReMainMenu');
+        //    session.endDialog();
+            
+        //    responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+        //    query.insertHistoryQuery(args, responseTime, function (err, result) {
+        //        if (!err) {
+        //            console.log("query.getData : " + result);
+        //        }
+        //    });
+        //    //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+        //}
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 이온 실버 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
     //루나 그레이 색상
     bot.dialog('/korDesignSelectLunaGray', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 루나 그레이 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -473,8 +556,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -482,13 +563,31 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 루나 그레이 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
     //판테라 그레이 색상
     bot.dialog('/korDesignSelectPanteraGray', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 판테라 그레이 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -528,8 +627,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -537,7 +634,22 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 판테라 그레이 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
@@ -545,6 +657,9 @@ function create(bot) {
     //미드나잇 블랙 색상
     bot.dialog('/korDesignSelectMidnightBlack', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 미드나잇 블랙 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -584,8 +699,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -593,13 +706,31 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 미드나잇 블랙 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
     //발렌타인 레드 색상
     bot.dialog('/korDesignSelectValentineRed', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 발렌타인 레드 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -639,8 +770,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -648,13 +777,31 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 발렌타인 레드 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
     //그랑 블루 색상
     bot.dialog('/korDesignSelectGrandBlue', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 그랑 블루 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -692,8 +839,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -701,13 +846,31 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 그랑 블루 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
     //쉐이드 브론즈 차
     bot.dialog('/korDesignSelectShadeBronze', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 쉐이드 브론즈 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -747,8 +910,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -756,13 +917,31 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 쉐이드 브론즈 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
     ]);
 
     //카키 메탈 차
     bot.dialog('/korDesignSelectKakiMetal', [
         function (session, args) {
+            
+            session.send("그랜저 IG의 카키 메탈 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -802,8 +981,6 @@ function create(bot) {
                         ])
                 ]);
             session.send(msg);
-            session.beginDialog('/korReMainMenu');
-            session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -811,8 +988,24 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
-            //builder.Prompts.choice(session, "그랜저의 다른 색상을 보시겠습니까?", '예|아니오', { listStyle: builder.ListStyle.button });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 카키 메탈 색상 디자인을 보셨는데 편의사항도 한번 보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
+
         }
+
     ]);
 }
 

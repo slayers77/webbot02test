@@ -87,7 +87,8 @@ function create(bot) {                                                  // funct
         }
     ]);
 
-    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
+    //var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
+    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/e120869f-be93-4b48-b8a6-d58b10a63290?subscription-key=7efb093087dd48918b903885b944740c&verbose=true');
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
 
@@ -206,7 +207,7 @@ function create(bot) {                                                  // funct
     ]);
 
     
-    intents.matches('korReturnMainMenu', [
+    intents.matches('korReMainMenu', [
         function (session, args, next) {
             session.beginDialog('/korReMainMenu', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history"});
         }
