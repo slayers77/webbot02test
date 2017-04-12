@@ -1,4 +1,4 @@
-var builder = require('botbuilder');
+﻿var builder = require('botbuilder');
 var query = require('../../config/query');
 var date = require('date-utils');
 date = new Date();
@@ -473,6 +473,9 @@ function create(bot) {
             //builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " 기본품목|홈", { listStyle: builder.ListStyle.button });
             builder.Prompts.choice(session, nextBtn, session.localizer.gettext(session.preferredLocale(), "basicOptionEndMenuList"), { listStyle: builder.ListStyle.button });
             session.endDialog();
+            
+            session.send("다른 모델 보실래요?");
+
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
@@ -633,6 +636,17 @@ function create(bot) {
                 //선택된 옵션 갯수
                 var optionCnt = 0;
                 var numberTemp = [];
+                
+                var OPTION1 = 0;
+                var OPTION2 = 0;
+                var OPTION3 = 0;
+                var OPTION4 = 0;
+                var OPTION5 = 0;
+                var OPTION6 = 0;
+                var OPTION7 = 0;
+                var OPTION8 = 0;
+                var OPTION9 = 0;
+
                 for (var i = 1; i < 10; i++) {
                     //console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
                     if (eval("results[1][0].OPTION" + i)) {
@@ -649,15 +663,7 @@ function create(bot) {
                 var itemsTemp = [];
                 var priceTemp = [];
                 var tmp = 1;
-                var OPTION1 = 0;
-                var OPTION2 = 0;
-                var OPTION3 = 0;
-                var OPTION4 = 0;
-                var OPTION5 = 0;
-                var OPTION6 = 0;
-                var OPTION7 = 0;
-                var OPTION8 = 0;
-                var OPTION9 = 0;
+               
                 
                 for (var i = 0; i < optionCnt; i++) {
                     //console.log(typeof numberTemp[i]);
