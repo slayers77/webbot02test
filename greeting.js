@@ -67,16 +67,20 @@ function create(bot) {                                                  // funct
     bot.dialog('/init', [
         function (session) {
             var msg = new builder.Message(session)
+                .textFormat(builder.TextFormat.xml)
                     .attachments([
-                        new builder.VideoCard(session)
+                        new builder.HeroCard(session)
                             .title('그랜다이저')
-                            .autostart(true)
+                            //.autostart(true)
                             .subtitle('Grandizer')
                             .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
-                            .image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
-                            .media([
-                                { url: 'http://webbot02.azurewebsites.net/openning.wav' }
+                            //.image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/img_car01.jpg")
                             ])
+                            //.media([
+                            //    { url: 'http://webbot02.azurewebsites.net/openning.wav' }
+                            //])
                             //.buttons([
                             //    builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
                             //    builder.CardAction.imBack(session, "English", "English")

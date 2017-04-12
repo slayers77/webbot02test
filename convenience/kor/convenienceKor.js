@@ -26,15 +26,22 @@ function create(bot) {
                         .images([
                             builder.CardImage.create(session, img_path + "/images/convenience/convenience00.png")
                         ])
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                .textFormat(builder.TextFormat.xml)
+                //.attachmentLayout(builder.AttachmentLayout.carousel)
+                .attachments([
+                    //AnimationCard
+                new builder.HeroCard(session)
                         .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseClickMessage"), session.localizer.gettext(session.preferredLocale(), "smartSense")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainment")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyClickMessage"), session.localizer.gettext(session.preferredLocale(), "safety"))
-                        ])
-
-
-                ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "convenienceMenuList"));
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseClickMessage"), session.localizer.gettext(session.preferredLocale(), "smartSense")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainment")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyClickMessage"), session.localizer.gettext(session.preferredLocale(), "safety"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "convenienceMenuList"));
             
             session.endDialog();
             
@@ -86,12 +93,20 @@ function create(bot) {
                             .images([
                         builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense0.png")
                     ])
-                            .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "smartSenseDetail"))
-                ])
-
             ]);
+            
             session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .textFormat(builder.TextFormat.xml)
+                    //.attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                        //AnimationCard
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "smartSenseDetail"))
+                ])
+            ]);
+            session.send(msg1);
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -165,14 +180,23 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 스마트센스 편의사항을 보셨는데 시승 한번 해보실래요?")
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceSmartsenseToTestDrive"))
                                     //.text(str)
+            ]);
+            
+            session.send(msg);
+
+            var msg1 = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
                                     .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -208,11 +232,22 @@ function create(bot) {
                             .images([
                     builder.CardImage.create(session, "http://www.hyundai.com/kr/dsp/20161122094424247104.jpg")
                 ])
+            ]);
+            session.send(msg);
+            
+            
+            var msg1 = new builder.Message(session)
+                    .textFormat(builder.TextFormat.xml)
+                    //.attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                        //AnimationCard
+                new builder.HeroCard(session)
                              .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainmentDetail"))
                 ])
             ]);
-            session.send(msg);
+            session.send(msg1);
+
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -268,14 +303,24 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 인포테인먼트 편의사항을 보셨는데 시승 한번 해보실래요?")
-                                    //.text(str)
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceinfotainmentToTestDrive"))
+            ]);
+            
+            session.send(msg);
+            
+            var msg1 = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
                                     .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            
+
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -374,13 +419,24 @@ function create(bot) {
                             .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/safe/safe0.jpg")
                 ])
-                            .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "safetyDetail"))
-                ])
             ]);
         
 
             session.send(msg);
+    
+            var msg1 = new builder.Message(session)
+                            .textFormat(builder.TextFormat.xml)
+                            //.attachmentLayout(builder.AttachmentLayout.carousel)
+                            .attachments([
+                                //AnimationCard
+                new builder.HeroCard(session)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "safetyDetail"))
+                ])
+            ]);
+    
+    
+            session.send(msg1);
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -445,14 +501,32 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 안전 편의사항을 보셨는데 시승 한번 해보실래요?")
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceSafetyToTestDrive"))
                                     //.text(str)
                                     .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                    //builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+    
+            session.send(msg);
+    
+            var msg1 = new builder.Message(session)
+                                    .attachments([
+            
+                new builder.HeroCard(session)
+                                            .title("")
+                                            .text(session.localizer.gettext(session.preferredLocale(), "induceSafetyToTestDrive"))
+                                            //.text(str)
+                                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                            //builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+                ])
+            ]);
+
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
 
         }
     ]);
