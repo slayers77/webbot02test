@@ -19,16 +19,6 @@ function create(bot) {
 
         function (session, args, next) {
             
-            var aa = query.getData("select_catType", function (err, result) {
-                if (!err) {
-                    console.log("query.getData : " + result);
-                }
-            });
-            console.log("AA : " + aa);
-            
-            
-
-            //console.log("sid : " + args.key + " || message : " + args.sendMsg + "|| begin date : " + args.beginTime + " || intent : " + args.intent+ " || "+args.tableNm);
             var msg = new builder.Message(session)
             .attachments([
             
@@ -38,11 +28,11 @@ function create(bot) {
                     //.text(str)
                     .buttons([
                 
-                    builder.CardAction.imBack(session, "온라인 예약 알려줘", "온라인 예약"),
-                    builder.CardAction.imBack(session, "시승센터 전화예약 알려줘", "시승센터 전화예약")
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "onlineReservationClickMessage"), session.localizer.gettext(session.preferredLocale(), "onlineReservationMessage")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "centerCallReservationClickMessage"), session.localizer.gettext(session.preferredLocale(), "centerCallReservationMessage"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, "온라인 예약|시승센터 전화예약 ");
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "testDriveMenuList"));
             
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -61,21 +51,21 @@ function create(bot) {
             console.log("sid : " + args.key +" || message : "+ args.sendMsg +"|| begin date : " + args.beginTime + " || intent : "+args.intent);
             //session.send("korOnlineTestDrive session key : " + session.message.sourceEvent.clientActivityId);
             //query.getData(args);
-            session.send("온라인 예약 방법을 알려 드릴께요!!");
+            session.send(session.localizer.gettext(session.preferredLocale(), "onlineReservationWelcomeMessage"));
             
                                 var onlineReserveCard = new builder.HeroCard(session)
-                                    .title('현대자동차 시승센터')
-                                    .subtitle('현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요합니다.')
+                                    .title(session.localizer.gettext(session.preferredLocale(), "onlineReservationTitleName"))
+                                    .subtitle(session.localizer.gettext(session.preferredLocale(), "onlineReservationSubtitleMessage"))
                                     .images([
                                         new builder.CardImage(session)
                                             .url(img_path + "/images/testDrive/testDriveReservation.jpg")
                                             .alt('contoso_flowers')
                                     ])
                                     .buttons([
-                                        builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", "여기에서 예약할수 있어요^^*"),
+                                        builder.CardAction.openUrl(session, "http://www.hyundai.com/kr/tdn/index.do", session.localizer.gettext(session.preferredLocale(), "onlineReservationUrlClickMessage")),
                                     ]);
                                 session.send(new builder.Message(session).addAttachment(onlineReserveCard));
-                                session.send("멋진 시승 하세요^^");
+                                session.send(session.localizer.gettext(session.preferredLocale(), "onlineReservationEndMessage"));
             
             
 
@@ -84,7 +74,7 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 시승도 해보셨는데 가격 한번 보실래요?")
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceTestDriveToPrice"))
                                     //.text(str)
                                     .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
@@ -236,7 +226,7 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 시승도 해보셨는데 가격 한번 보실래요?")
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceTestDriveToPrice"))
                                     //.text(str)
                                     .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 

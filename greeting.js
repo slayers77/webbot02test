@@ -67,35 +67,39 @@ function create(bot) {                                                  // funct
     bot.dialog('/init', [
         function (session) {
             var msg = new builder.Message(session)
+                .textFormat(builder.TextFormat.xml)
                     .attachments([
-                        new builder.VideoCard(session)
+                        new builder.HeroCard(session)
                             .title('그랜다이저')
-                            .autostart(true)
+                            //.autostart(true)
                             .subtitle('Grandizer')
                             .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
-                            .image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
-                            .media([
-                                { url: 'http://webbot02.azurewebsites.net/openning.wav' }
+                            //.image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
+                            .images([
+                                builder.CardImage.create(session, img_path + "/images/img_car01.jpg")
                             ])
-                            //.buttons([
-                            //    builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
-                            //    builder.CardAction.imBack(session, "English", "English")
+                            //.media([
+                            //    { url: 'http://webbot02.azurewebsites.net/openning.wav' }
                             //])
-                ]);
-
-            session.send(msg);
-
-            var msg1 = new builder.Message(session)
-                //.attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments([
-                    new builder.HeroCard(session)
-                        .buttons([
+                            .buttons([
                                 builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
                                 builder.CardAction.imBack(session, "English", "English")
                             ])
                 ]);
 
-            session.send(msg1);
+            session.send(msg);
+
+            //var msg1 = new builder.Message(session)
+            //    //.attachmentLayout(builder.AttachmentLayout.carousel)
+            //    .attachments([
+            //        new builder.HeroCard(session)
+            //            .buttons([
+            //                    builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
+            //                    builder.CardAction.imBack(session, "English", "English")
+            //                ])
+            //    ]);
+
+            //session.send(msg1);
             session.endDialog();
         }
     ]);
@@ -111,6 +115,9 @@ function create(bot) {                                                  // funct
 
         console.log("user insert : " + session.message.text);
         var insert;
+
+        console.log("session ID : " + session.message.sourceEvent.clientActivityId);
+
         var userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
 
         var tasks = [
@@ -1104,12 +1111,6 @@ function create(bot) {                                                  // funct
 
                     new builder.HeroCard(session)
                         .text(session.localizer.gettext(session.preferredLocale(), "returnMainMenuMessage"))//"원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!")
-                ]);
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                .attachments([
-
-                    new builder.HeroCard(session)
                         .buttons([
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
@@ -1117,8 +1118,20 @@ function create(bot) {                                                  // funct
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive")),
                         ])
                 ]);
+            //session.send(msg);
+            //var msg1 = new builder.Message(session)
+            //    .attachments([
 
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
+            //        new builder.HeroCard(session)
+            //            .buttons([
+            //                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
+            //                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
+            //                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "convenience")),
+            //                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "testDrive")),
+            //            ])
+            //    ]);
+
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
             session.endDialog();
         }
 

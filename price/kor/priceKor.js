@@ -529,60 +529,61 @@ function create(bot) {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
                         builder.CardAction.imBack(session, model + " " + trim + " 앞좌석 통풍+하이패스 시스템 추가", "앞좌석 통풍+하이패스 시스템"),
+                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지IV 추가", "현대 스마트 센스 패키지IV")
                     ])];
             } else if (args.trim == "프리미엄") {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
                         builder.CardAction.imBack(session, model + " " + trim + " 익스테리어 패키지I 추가", "익스테리어 패키지I"),
+                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
                         builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지I 추가", "현대 스마트 센스 패키지I")
                     ])];
             } else if (args.trim == "프리미엄 스페셜" || args.trim == "프리미엄스페셜") {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가", "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크"),
                         builder.CardAction.imBack(session, model + " " + trim + " 익스테리어 패키지II 추가", "익스테리어 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " JBL 사운드 패키지 추가", "JBL 사운드 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가", "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크")
+                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II"),
+                        builder.CardAction.imBack(session, model + " " + trim + " JBL 사운드 패키지 추가", "JBL 사운드 패키지")
                     ])];
             } else if (args.trim == "익스클루시브") {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
-                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가", "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크"),
                         builder.CardAction.imBack(session, model + " " + trim + " 익스테리어 패키지II 추가", "익스테리어 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가", "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크")
+                        builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II")
                     ])];
             } else if (args.trim == "익스클루시브 스페셜" || args.trim == "익스클루시브스페셜") {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 프리미어 인테리어 셀렉션 추가", "프리미어 인테리어 셀렉션"),
                         builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
                         builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II"),
-                        builder.CardAction.imBack(session, model + " " + trim + " JBL 사운드 패키지 추가", "JBL 사운드 패키지"),
-                        builder.CardAction.imBack(session, model + " " + trim + " 프리미어 인테리어 컬렉션 추가", "프리미어 인테리어 컬렉션")
+                        builder.CardAction.imBack(session, model + " " + trim + " JBL 사운드 패키지 추가", "JBL 사운드 패키지")
                     ])];
             } else if (args.trim == "셀러브리티") {
                 options = [new builder.HeroCard(session)
                     .title(args.model + " " + args.trim + " 선택옵션")
                     .buttons([
-                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " TUIX 컴포트 패키지 추가", "TUIX 컴포트 패키지"),
+                        builder.CardAction.imBack(session, model + " " + trim + " 파노라마 썬루프 추가", "파노라마 썬루프"),
                         builder.CardAction.imBack(session, model + " " + trim + " 헤드업 디스플레이(HUD) 추가", "헤드업 디스플레이(HUD)"),
                         builder.CardAction.imBack(session, model + " " + trim + " 현대 스마트 센스 패키지II 추가", "현대 스마트 센스 패키지II")
                     ])];
@@ -614,22 +615,30 @@ function create(bot) {
                 function (callback) {
                     var returnData;
                     tp.setConnectionConfig(config);
-                    tp.sql("SELECT DISTINCT A.MODEL_NUMBER as MODEL_NUMBER, B.OPTION_NAME as OPTION_NAME, B.OPTION_PRICE as OPTION_PRICE " 
-                           + "FROM " 
-                           + "   ( " 
-                           + "     SELECT MODEL_NUMBER, COL2, RIGHT(COL, 1) AS COL " 
-                           + "       FROM TBL_MODEL_CUSTOMER_SELECTED A " 
-                           + "    UNPIVOT (COL2 FOR COL IN ([OPTION1], [OPTION2], [OPTION3], [OPTION4], [OPTION5], [OPTION6], [OPTION7], [OPTION8], [OPTION9])) AS UNPVT " 
-                           + "      WHERE USER_ID = @USERID " 
-                           + "        AND COL2 = '1' " 
-                           + "    ) A, TBL_OPTION_DEF B " 
-                           + "WHERE A.MODEL_NUMBER = B.MODEL_NUMBER " 
-                           + "  AND A.COL = B.OPTION_NUMBER "
+                    tp.sql("SELECT OPTION_NUMBER, OPTION_NAME, OPTION_PRICE " 
+                        + "FROM dbo.TBL_MODEL_CUSTOMER_SELECTED TMCS, dbo.TBL_OPTION_DEF TOD " 
+                        + "WHERE TMCS.MODEL_NUMBER = TOD.MODEL_NUMBER " 
+                        + "AND TMCS.USER_ID=@USERID " 
+                        + "ORDER BY OPTION_NUMBER "
                     )
                         .parameter('USERID', TYPES.NVarChar, userId)
                         .execute()
                         .then(function (results) {
-                        console.log("select SELECTOPTION success!!!!");
+                        console.log("select TBL_OPTION_DEF success!!!!");
+                        callback(null, results);
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                },
+                function (callback) {
+                    tp.sql("SELECT MODEL_NUMBER, OPTION1, OPTION2, OPTION3, OPTION4, OPTION5, OPTION6, OPTION7, OPTION8, OPTION9 " 
+                    + "FROM dbo.TBL_MODEL_CUSTOMER_SELECTED " 
+                    + "WHERE USER_ID=@USERID "
+                    )
+                        .parameter('USERID', TYPES.NVarChar, userId)
+                        .execute()
+                        .then(function (results) {
+                        console.log("select TBL_MODEL_CUSTOMER_SELECTED success!!!!");
                         callback(null, results);
                     }).fail(function (err) {
                         console.log(err);
@@ -640,19 +649,36 @@ function create(bot) {
             async.series(tasks, function (err, results) {
                 
                 //선택된 옵션 갯수
-                var optionCnt = results[0].length;
+                var optionCnt = 0;
+                var numberTemp = [];
+                for (var i = 1; i < 10; i++) {
+                    console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
+                    if (eval("results[1][0].OPTION" + i)) {
+                        optionCnt++;
+                        
+                        //OPTION_NUMBER check
+                        numberTemp.push(i);
+                    }
+                }
                 
                 //선택된 옵션명 + 가격
                 var optionPrice = 0;
                 var total = 0;
                 var itemsTemp = [];
                 var priceTemp = [];
+                var tmp = 1;
                 for (var i = 0; i < optionCnt; i++) {
-                    itemsTemp.push({ name: results[0][i].OPTION_NAME });
-                    priceTemp.push({ price: results[0][i].OPTION_PRICE });
-                    optionPrice = optionPrice + results[0][i].OPTION_PRICE;
+                    console.log(typeof numberTemp[i]);
+                    itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
+                    priceTemp.push(results[0][numberTemp[i] - 1].OPTION_PRICE);
+                    optionPrice = optionPrice + results[0][numberTemp[i] - 1].OPTION_PRICE;
                 }
-                total = number_format(parseInt(args.carPrice) + parseInt(optionPrice));
+                console.log(" itemTemp ::: " + itemsTemp);
+                console.log(" priceTemp ::: " + priceTemp);
+                console.log(typeof args.carPrice);
+                console.log(typeof optionPrice);
+                total = parseInt(args.carPrice) + optionPrice;
+                total = number_format(total);
                 
                 //선택된 옵션만 담기
                 var items;
@@ -664,67 +690,67 @@ function create(bot) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),];
                 } else if (optionCnt == 1) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0])];
                 } else if (optionCnt == 2) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1])];
                 } else if (optionCnt == 3) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2])];
                 } else if (optionCnt == 4) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3].price) + " 원", itemsTemp[3].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3])];
                 } else if (optionCnt == 5) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3].price) + " 원", itemsTemp[3].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4].price) + " 원", itemsTemp[4].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4])];
                 } else if (optionCnt == 6) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3].price) + " 원", itemsTemp[3].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4].price) + " 원", itemsTemp[4].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5].price) + " 원", itemsTemp[5].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5])];
                 } else if (optionCnt == 7) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3].price) + " 원", itemsTemp[3].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4].price) + " 원", itemsTemp[4].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5].price) + " 원", itemsTemp[5].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6].price) + " 원", itemsTemp[6].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + " 원", itemsTemp[6])];
                 } else if (optionCnt == 8) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3].price) + " 원", itemsTemp[3].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4].price) + " 원", itemsTemp[4].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5].price) + " 원", itemsTemp[5].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6].price) + " 원", itemsTemp[6].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[7].price) + " 원", itemsTemp[7].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + " 원", itemsTemp[6]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + " 원", itemsTemp[7])];
                 } else if (optionCnt == 9) {
                     items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + " 원", args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0].price) + " 원", itemsTemp[0].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1].price) + " 원", itemsTemp[1].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2].price) + " 원", itemsTemp[2].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3].price) + " 원", itemsTemp[3].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4].price) + " 원", itemsTemp[4].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5].price) + " 원", itemsTemp[5].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6].price) + " 원", itemsTemp[6].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[7].price) + " 원", itemsTemp[7].name),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[8].price) + " 원", itemsTemp[8].name)];
+                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + " 원", itemsTemp[0]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + " 원", itemsTemp[1]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + " 원", itemsTemp[2]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + " 원", itemsTemp[3]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + " 원", itemsTemp[4]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + " 원", itemsTemp[5]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + " 원", itemsTemp[6]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + " 원", itemsTemp[7]),
+                        builder.ReceiptItem.create(session, number_format(priceTemp[8]) + " 원", itemsTemp[8])];
                 }
                 
                 var msg = new builder.Message(session)
@@ -739,8 +765,6 @@ function create(bot) {
                 ]);
                 session.send(msg);
                 
-                session.send("선택하신 옵션을 제거를 원하실 경우 \n\n [ 예 : 가솔린 2.4 모던 파노라마썬루프 삭제 ] 명령어를 입력하시면 \n\n 옵션이 빠진 가격을 보실수 있습니다.");
-
                 var nextBtn = new builder.Message(session)
                     .attachmentLayout(builder.AttachmentLayout.carousel)
                     .attachments([
@@ -748,7 +772,7 @@ function create(bot) {
                             .title("다른 선택옵션을 추가 하시겠습니까?")
                             .buttons([
                         builder.CardAction.imBack(session, args.model + " " + args.trim + " " + "선택품목", "예"),
-                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                        builder.CardAction.imBack(session, "홈", "아니오")
                     ])
                 ]);
                 builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + "선택품목|홈", { listStyle: builder.ListStyle.button });
@@ -981,6 +1005,8 @@ function create(bot) {
             var fnResultsplit = '';
             var fnResultModel = '';
             var fnResultOption = '';
+            var fnResultModelNm = '';
+            var fnResultTrimNm = '';
             var fnResultCarPrice = 0;
             
             
@@ -992,6 +1018,8 @@ function create(bot) {
             fnResultTrimNm = fnResultsplit[3];
             fnResultCarPrice = fnResultsplit[4];
             fnResultOptionNm = fnResultsplit[5];
+            
+            console.log(fnResultsplit[5] + " fnResultsplit : "+ fnResultsplit.length);
             
             session.send(fnResultModelNm + " " + fnResultTrimNm +"에 [ "+ fnResultOptionNm+" ] 옵션을 추가한 가격입니다.");
 
@@ -1034,6 +1062,9 @@ function create(bot) {
             var fnResultsplit = '';
             var fnResultModel = '';
             var fnResultOption = '';
+            var fnResultModelNm = '';
+            var fnResultTrimNm = '';
+            var fnResultCarPrice = 0;
             //session.send("옵션을 뺍니다.");
             
             fnResult = optionNumChoice(session.message.text);
@@ -1071,6 +1102,7 @@ function create(bot) {
         var engineNameVar = "";
         var carPriceVar = 0;
         var optionNm = "";
+        var modelOptionNumberVar = "";
         
         if (message.match(/가솔린 2.4/g) || message.match(/가솔린2.4/g) || message.match(/2.4/g)) {
             console.log("가솔린 2.4");
@@ -1110,19 +1142,26 @@ function create(bot) {
                     modelOptionNumberVar = 4;
                     optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 3; optionNm = "TUIX 컴포트 패키지";
+                    modelOptionNumberVar = 3;
+                    optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 5; optionNm = "헤드업 디스플레이(HUD)";
+                    modelOptionNumberVar = 5;
+                    optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 6; optionNm = "현대 스마트 센스 패키지 II";
+                    modelOptionNumberVar = 6;
+                    optionNm = "현대 스마트 센스 패키지 II";
                 } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
-                    modelOptionNumberVar = 2; optionNm = "익스테리어 패키지 II";
+                    modelOptionNumberVar = 2;
+                    optionNm = "익스테리어 패키지 II";
                 } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
-                    modelOptionNumberVar = 7; optionNm = "JBL 사운드 패키지";
+                    modelOptionNumberVar = 7;
+                    optionNm = "JBL 사운드 패키지";
                 } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
-                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    modelOptionNumberVar = 1;
+                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
-                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    modelOptionNumberVar = 1;
+                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1136,13 +1175,17 @@ function create(bot) {
                     modelOptionNumberVar = 3;
                     optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 2; optionNm = "TUIX 컴포트 패키지";
+                    modelOptionNumberVar = 2;
+                    optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 4; optionNm = "헤드업 디스플레이(HUD)";
+                    modelOptionNumberVar = 4;
+                    optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지I/) || message.match(/현대 스마트센스패키지I/) || message.match(/현대 스마트 센스패키지I/) || message.match(/현대 스마트 센스 패키지I/) || message.match(/현대 스마트 센스 패키지 I/)) {
-                    modelOptionNumberVar = 5; optionNm = "현대 스마트 센스 패키지 I";
+                    modelOptionNumberVar = 5;
+                    optionNm = "현대 스마트 센스 패키지 I";
                 } else if (message.match(/익스테리어패키지I/) || message.match(/익스테리어 패키지I/) || message.match(/익스테리어 패키지 I/) || message.match(/익스테리어패키지 I/)) {
-                    modelOptionNumberVar = 1; optionNm = "익스테리어 패키지 I";
+                    modelOptionNumberVar = 1;
+                    optionNm = "익스테리어 패키지 I";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1161,15 +1204,21 @@ function create(bot) {
                     modelOptionNumberVar = 2;
                     optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 1; optionNm = "TUIX 컴포트 패키지";
+                    modelOptionNumberVar = 1;
+                    optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 4; optionNm = "헤드업 디스플레이(HUD)";
+                    modelOptionNumberVar = 4;
+                    optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 5; optionNm = "현대 스마트 센스 패키지 II";
+                    modelOptionNumberVar = 5;
+                    optionNm = "현대 스마트 센스 패키지 II";
                 } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
-                    modelOptionNumberVar = 6; optionNm = "JBL 사운드 패키지";
+                    modelOptionNumberVar = 6;
+                    optionNm = "JBL 사운드 패키지";
                 } else if (message.match(/프리미어인테리어셀렉션/) || message.match(/프리미어 인테리어셀렉션/) || message.match(/프리미어 인테리어 셀렉션/)) {
-                    session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
+                    //session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1], beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
+                    modelOptionNumberVar = 3;
+                    optionNm = "프리미어 인테리어 셀렉션";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1183,17 +1232,23 @@ function create(bot) {
                     modelOptionNumberVar = 4;
                     optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 3; optionNm = "TUIX 컴포트 패키지";
+                    modelOptionNumberVar = 3;
+                    optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 5; optionNm = "헤드업 디스플레이(HUD)";
+                    modelOptionNumberVar = 5;
+                    optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 6; optionNm = "현대 스마트 센스 패키지 II";
+                    modelOptionNumberVar = 6;
+                    optionNm = "현대 스마트 센스 패키지 II";
                 } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
-                    modelOptionNumberVar = 2; optionNm = "익스테리어 패키지 II";
+                    modelOptionNumberVar = 2;
+                    optionNm = "익스테리어 패키지 II";
                 } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
-                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    modelOptionNumberVar = 1;
+                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
-                    modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    modelOptionNumberVar = 1;
+                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1211,12 +1266,16 @@ function create(bot) {
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 2;
+                    optionNm = "파노라마 썬루프";
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                    modelOptionNumberVar = 1; optionNm = "TUIX 컴포트 패키지";
+                    modelOptionNumberVar = 1;
+                    optionNm = "TUIX 컴포트 패키지";
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                    modelOptionNumberVar = 3; optionNm = "헤드업 디스플레이(HUD)";
+                    modelOptionNumberVar = 3;
+                    optionNm = "헤드업 디스플레이(HUD)";
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                    modelOptionNumberVar = 4; optionNm = "현대 스마트 센스 패키지 II";
+                    modelOptionNumberVar = 4;
+                    optionNm = "현대 스마트 센스 패키지 II";
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1232,14 +1291,19 @@ function create(bot) {
                     
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 3;
+                        optionNm = "파노라마 썬루프";
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                        modelOptionNumberVar = 2; optionNm = "TUIX 컴포트 패키지";
+                        modelOptionNumberVar = 2;
+                        optionNm = "TUIX 컴포트 패키지";
                     } else if (message.match(/앞좌석통풍/) || message.match(/앞좌석 통풍/) || message.match(/앞 좌석 통풍/)) {
-                        modelOptionNumberVar = 1; optionNm = "앞좌석 통풍+하이패스시스템";
+                        modelOptionNumberVar = 1;
+                        optionNm = "앞좌석 통풍+하이패스시스템";
                     } else if (message.match(/하이패스 시스템/) || message.match(/하이패스시스템/) || message.match(/하이 패스 시스템/)) {
-                        modelOptionNumberVar = 1; optionNm = "앞좌석 통풍+하이패스시스템";
+                        modelOptionNumberVar = 1;
+                        optionNm = "앞좌석 통풍+하이패스시스템";
                     } else if (message.match(/현대스마트센스패키지IV/) || message.match(/현대 스마트센스패키지IV/) || message.match(/현대 스마트 센스패키지IV/) || message.match(/현대 스마트 센스 패키지IV/) || message.match(/현대 스마트 센스 패키지 IV/)) {
-                        modelOptionNumberVar = 4; optionNm = "현대 스마트 센스 패키지 IV";
+                        modelOptionNumberVar = 4;
+                        optionNm = "현대 스마트 센스 패키지 IV";
                     } else {
                         modelOptionNumberVar = 0;
                     }
@@ -1253,19 +1317,26 @@ function create(bot) {
                         modelOptionNumberVar = 4;
                         optionNm = "파노라마 썬루프";
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                        modelOptionNumberVar = 3; optionNm = "TUIX 컴포트 패키지";
+                        modelOptionNumberVar = 3;
+                        optionNm = "TUIX 컴포트 패키지";
                     } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                        modelOptionNumberVar = 5; optionNm = "헤드업 디스플레이(HUD)";
+                        modelOptionNumberVar = 5;
+                        optionNm = "헤드업 디스플레이(HUD)";
                     } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
-                        modelOptionNumberVar = 6; optionNm = "현대 스마트 센스 패키지 II";
+                        modelOptionNumberVar = 6;
+                        optionNm = "현대 스마트 센스 패키지 II";
                     } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
-                        modelOptionNumberVar = 2; optionNm = "익스테리어 패키지 II";
+                        modelOptionNumberVar = 2;
+                        optionNm = "익스테리어 패키지 II";
                     } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
-                        modelOptionNumberVar = 7; optionNm = "JBL 사운드 패키지";
+                        modelOptionNumberVar = 7;
+                        optionNm = "JBL 사운드 패키지";
                     } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
-                        modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                        modelOptionNumberVar = 1;
+                        optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                     } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
-                        modelOptionNumberVar = 1; optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                        modelOptionNumberVar = 1;
+                        optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
                     } else {
                         modelOptionNumberVar = 0;
                     }
@@ -1279,13 +1350,17 @@ function create(bot) {
                         modelOptionNumberVar = 3;
                         optionNm = "파노라마 썬루프";
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
-                        modelOptionNumberVar = 2; optionNm = "TUIX 컴포트 패키지";
+                        modelOptionNumberVar = 2;
+                        optionNm = "TUIX 컴포트 패키지";
                     } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
-                        modelOptionNumberVar = 4; optionNm = "헤드업 디스플레이(HUD)";
+                        modelOptionNumberVar = 4;
+                        optionNm = "헤드업 디스플레이(HUD)";
                     } else if (message.match(/현대스마트센스패키지I/) || message.match(/현대 스마트센스패키지I/) || message.match(/현대 스마트 센스패키지I/) || message.match(/현대 스마트 센스 패키지I/) || message.match(/현대 스마트 센스 패키지 I/)) {
-                        modelOptionNumberVar = 5; optionNm = "현대 스마트 센스 패키지 I";
+                        modelOptionNumberVar = 5;
+                        optionNm = "현대 스마트 센스 패키지 I";
                     } else if (message.match(/익스테리어패키지I/) || message.match(/익스테리어 패키지I/) || message.match(/익스테리어 패키지 I/) || message.match(/익스테리어패키지 I/)) {
-                        modelOptionNumberVar = 1; optionNm = "익스테리어 패키지 I";
+                        modelOptionNumberVar = 1;
+                        optionNm = "익스테리어 패키지 I";
                     } else {
                         modelOptionNumberVar = 0;
                     }
@@ -1293,6 +1368,7 @@ function create(bot) {
 
             }
         }
+        console.log("OPTION : "+ modelNumberVar + '|' + modelOptionNumberVar + "|" + engineNameVar + "|" + modelNameVar + "|" + carPriceVar + "|" + optionNm);
         
         return modelNumberVar + '|' + modelOptionNumberVar + "|" + engineNameVar + "|" + modelNameVar + "|" + carPriceVar + "|" + optionNm;
 
