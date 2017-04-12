@@ -1,4 +1,4 @@
-﻿var builder = require('botbuilder');
+var builder = require('botbuilder');
 var query = require('../../config/query');
 var date = require('date-utils');
 date = new Date();
@@ -593,34 +593,38 @@ function create(bot) {
                 function (callback) {
                     var returnData;
                     tp.setConnectionConfig(config);
-                    tp.sql("SELECT OPTION_NUMBER, OPTION_NAME, OPTION_PRICE " 
-                        + "FROM dbo.TBL_MODEL_CUSTOMER_SELECTED TMCS, dbo.TBL_OPTION_DEF TOD " 
-                        + "WHERE TMCS.MODEL_NUMBER = TOD.MODEL_NUMBER " 
-                        + "AND TMCS.USER_ID=@USERID " 
+                    tp.sql("SELECT TOD.MODEL_NUMBER, TOD.OPTION_NUMBER, TOD.OPTION_NAME, TOD.OPTION_PRICE "
+                        + "FROM TBL_MODEL_CUSTOMER_SELECTED TMCS, TBL_OPTION_DEF TOD "
+                        + "WHERE TMCS.MODEL_NUMBER = TOD.MODEL_NUMBER "
+                        + "AND TMCS.USER_ID=@USERID "
+                        + "AND TOD.MODEL_NUMBER=@MODELNUM "
                         + "ORDER BY OPTION_NUMBER "
                     )
                         .parameter('USERID', TYPES.NVarChar, userId)
+                        .parameter('MODELNUM', TYPES.Int, args.modelNum)
                         .execute()
                         .then(function (results) {
-                        console.log("select TBL_OPTION_DEF success!!!!");
-                        callback(null, results);
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
+                            console.log("select TBL_OPTION_DEF success!!!!");
+                            callback(null, results);
+                        }).fail(function (err) {
+                            console.log(err);
+                        });
                 },
                 function (callback) {
-                    tp.sql("SELECT MODEL_NUMBER, OPTION1, OPTION2, OPTION3, OPTION4, OPTION5, OPTION6, OPTION7, OPTION8, OPTION9 " 
-                    + "FROM dbo.TBL_MODEL_CUSTOMER_SELECTED " 
-                    + "WHERE USER_ID=@USERID "
+                    tp.sql("SELECT MODEL_NUMBER, OPTION1, OPTION2, OPTION3, OPTION4, OPTION5, OPTION6, OPTION7, OPTION8, OPTION9 "
+                        + "FROM TBL_MODEL_CUSTOMER_SELECTED "
+                        + "WHERE USER_ID=@USERID "
+                        + "AND MODEL_NUMBER=@MODELNUM "
                     )
                         .parameter('USERID', TYPES.NVarChar, userId)
+                        .parameter('MODELNUM', TYPES.Int, args.modelNum)
                         .execute()
                         .then(function (results) {
-                        console.log("select TBL_MODEL_CUSTOMER_SELECTED success!!!!");
-                        callback(null, results);
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
+                            console.log("select TBL_MODEL_CUSTOMER_SELECTED success!!!!");
+                            callback(null, results);
+                        }).fail(function (err) {
+                            console.log(err);
+                        });
                 }
             ];
             
@@ -646,6 +650,15 @@ function create(bot) {
                 var priceTemp = [];
                 var tmp = 1;
                 var OPTION1 = 0;
+                var OPTION2 = 0;
+                var OPTION3 = 0;
+                var OPTION4 = 0;
+                var OPTION5 = 0;
+                var OPTION6 = 0;
+                var OPTION7 = 0;
+                var OPTION8 = 0;
+                var OPTION9 = 0;
+                
                 for (var i = 0; i < optionCnt; i++) {
                     //console.log(typeof numberTemp[i]);
                     itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
@@ -1007,7 +1020,7 @@ function create(bot) {
                 
                 
                 session.endDialog();
-                session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice });
+                session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel });
                 
                 responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
                 query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -1058,7 +1071,7 @@ function create(bot) {
             
             
             session.endDialog();
-            session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm , carPrice: fnResultCarPrice });
+            session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel });
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
