@@ -652,7 +652,7 @@ function create(bot) {
                 var optionCnt = 0;
                 var numberTemp = [];
                 for (var i = 1; i < 10; i++) {
-                    console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
+                    //console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
                     if (eval("results[1][0].OPTION" + i)) {
                         optionCnt++;
                         
