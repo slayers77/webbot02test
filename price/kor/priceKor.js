@@ -644,6 +644,15 @@ function create(bot) {
                 var priceTemp = [];
                 var tmp = 1;
                 var OPTION1 = 0;
+                var OPTION2 = 0;
+                var OPTION3 = 0;
+                var OPTION4 = 0;
+                var OPTION5 = 0;
+                var OPTION6 = 0;
+                var OPTION7 = 0;
+                var OPTION8 = 0;
+                var OPTION9 = 0;
+                
                 for (var i = 0; i < optionCnt; i++) {
                     //console.log(typeof numberTemp[i]);
                     itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
