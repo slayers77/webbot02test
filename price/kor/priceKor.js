@@ -467,15 +467,13 @@ function create(bot) {
                         .title(session.localizer.gettext(session.preferredLocale(), "basicOptionEndMessage"))
                         .buttons([
                     builder.CardAction.imBack(session, args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "basicOptionEndYesClickMessage"), session.localizer.gettext(session.preferredLocale(), "basicOptionEndYesMessage")),
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "basicOptionEndNoClickMessage"), session.localizer.gettext(session.preferredLocale(), "basicOptionEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceReMainCall"), session.localizer.gettext(session.preferredLocale(), "basicOptionEndNoMessage"))
                 ])
             ]);
             //builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " 기본품목|홈", { listStyle: builder.ListStyle.button });
             builder.Prompts.choice(session, nextBtn, session.localizer.gettext(session.preferredLocale(), "basicOptionEndMenuList"), { listStyle: builder.ListStyle.button });
             session.endDialog();
             
-            session.send("다른 모델 보실래요?");
-
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
@@ -770,7 +768,8 @@ function create(bot) {
                             .title(session.localizer.gettext(session.preferredLocale(), "priceReciptEndMessage")) 
                             .buttons([
                         builder.CardAction.imBack(session, args.model + " " + args.trim + " " + session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")),
-                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                        //builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceReMainCall"), session.localizer.gettext(session.preferredLocale(), "basicOptionEndNoMessage"))
                     ])
                 ]);
                 builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + session.localizer.gettext(session.preferredLocale(), "priceReciptEndMenuList"), { listStyle: builder.ListStyle.button });
@@ -1005,7 +1004,7 @@ function create(bot) {
             var fnResultCarPrice = 0;
             
             
-            fnResult = optionNumChoice(session.message.text);
+            fnResult = optionNumChoice(session, session.message.text);
             fnResultsplit = fnResult.split('|');
             fnResultModel = fnResultsplit[0];
             fnResultOption = fnResultsplit[1];
@@ -1062,7 +1061,7 @@ function create(bot) {
             var fnResultCarPrice = 0;
             //session.send("옵션을 뺍니다.");
             
-            fnResult = optionNumChoice(session.message.text);
+            fnResult = optionNumChoice(session, session.message.text);
             fnResultsplit = fnResult.split('|');
             fnResultModel = fnResultsplit[0];
             fnResultOption = fnResultsplit[1];
@@ -1090,7 +1089,7 @@ function create(bot) {
     /***********************************************************************************
     3-3-3 . 한국어 옵션 NUMBER 확인
     ************************************************************************************/
-    function optionNumChoice(message) {
+    function optionNumChoice(session, message) {
         
         var modelNameVar = "";
         var modelNumberVar = 0;

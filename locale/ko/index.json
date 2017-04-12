@@ -21,20 +21,20 @@
    "Yes":"예",
    "No":"아니요",
    "YesOrNo":"예|아니요",
-   "NoMessage":"궁금한거 있으면 물어봐!!",
+   "NoMessage":"궁금한거 있으면 물어봐주세요!!",
 
   "returnMainMenu":"메인메뉴",
   "returnMainMenuClickMessage": "메인메뉴 보여줄래",
-  "returnMainMenuMessage":"보고싶은 메뉴 선택해봐봐!! 보여줄께^^",
+  "returnMainMenuMessage":" 다른 모델 보실래요~ 보여드릴께요~",
 
   "induceTestDriveToPrice":"시승도 해보셨는데 가격 한번 보실래요?",
   "induceColorDesignToConvenience":"색상 디자인을 보셨는데 편의사항도 한번 보실래요?",
   "induceExteriorDesignToConvenience":"외관 디자인을 보셨는데 편의사항도 한번 보실래요?",
   "induceInteriorDesignToConvenience":"내관 디자인을 보셨는데 편의사항도 한번 보실래요?",
 
-  "induceSmartsenseToTestDrive":"스마트 센스 편의사항을 보셨는데 시승 해볼래?",
-  "induceinfotainmentToTestDrive":"인포테인먼트 편의사항을 보셨는데 시승 해볼래?",
-  "induceSafetyToTestDrive":"안전 편의사항을 보셨는데 시승 해볼래?",
+  "induceSmartsenseToTestDrive":"스마트 센스 편의사항을 보셨는데 시승 어떠세요?",
+  "induceinfotainmentToTestDrive":"인포테인먼트 편의사항을 보셨는데 시승 어떠세요?",
+  "induceSafetyToTestDrive":"안전 편의사항을 보셨는데 시승 어떠세요?",
 
 
   "designTitleName": "Design",
@@ -49,7 +49,7 @@
   "designMenuList": "색상|내관|외관",
 
   "colorSelect": "선택",
-  "colorSelectWelcomeMessage": "원하시는 색상을 선택하시면 그랜저 색상이 바껴요.",
+  "colorSelectWelcomeMessage": "원하시는 색상을 선택하시면 자세히 보실수 있어요.",
   "whiteCream": "화이트 크림",
   "whiteCreamCilckMessage": "화이트 크림 색상 보여줄래",
   "IonSilver": "이온 실버",
@@ -70,7 +70,7 @@
   "KakiMetalCilckMessage": "카키 메탈 색상 보여줄래",
   "colorMenuList": "화이트 크림|이온 실버|루나 그레이|판테라 그레이|미드나잇 블랙|발렌타인 레드|그랑 블루|쉐이드 브론즈|카키 메탈",
 
-  "selectedColorMessage":"색상 보여줄께!! 이뿌지?",
+  "selectedColorMessage":"색상 보여드릴께요!! 이쁘죠??",
 
 
   "colorDetailFront": "정면",
@@ -180,13 +180,13 @@
 
   "onlineReservationWelcomeMessage": "온라인 예약 방법을 알려 드릴께요!!",
   "onlineReservationTitleName": "현대자동차 시승센터",
-  "onlineReservationSubtitleMessage": "현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요합니다.",
+  "onlineReservationSubtitleMessage": "현대자동차 시승센터에서 다양한 시승 서비스를 경험하세요. \n\n온라인 예약 시 회원가입이 필요해요.",
   "onlineReservationImgAltMessage": "contoso_flowers",
   "onlineReservationUrlClickMessage": "여기에서 예약할수 있어요^^*",
   "onlineReservationEndMessage": "멋진 시승 하세요^^",
 
   "centerCallReservationTitleName": "시승센터",
-  "centerCallReservationSubTitleMessage": "시승센터를 찾기위하여 원하시는 지역을 선택해주세요..",
+  "centerCallReservationSubTitleMessage": "시승센터를 찾기위하여 원하시는 지역을 선택해주세요",
   "seoul": "서울",
   "seoulClickMessage": "서울 시승센터 찾아줘",
   "busan": "부산",
@@ -211,7 +211,7 @@
   "busanCenterCallReservationItem2SubtitmeMessage": "전화번호 051-517-7365 (FAX:051-517-7363) 센터주소 (46233) 부산 금정구 중앙대로 1883 현대자동차 금정지점 1층 부산동부시승센터",
 
 
-  "priceWelcomeMessage": "가격을 보시려면 모델을 선택하셔야 합니다. \n\n 모델은 엔진타입별로 달라요.",
+  "priceWelcomeMessage": "가격을 보시려면 모델을 선택하셔야 해요. \n\n 모델은 엔진타입별로 달라요.",
   "priceGasoline2.4ModelMessage": "30,550,000 원 ~ 33,750,000 원",
   "gasoline2.4": "가솔린2.4",
   "gasoline2.4ClickMessage": "가솔린 2.4 선택",
@@ -226,11 +226,11 @@
   "diesel2.2ClickMessage": "디젤 2.2 선택",
   "priceModelMenuList": "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2",
 
-  "priceMainCall":"가격 보여줘",
+  "priceMainCall":"가격 보여줄래",
 
   "priceTrimBasicOptionViewMessage": "기본 옵션 보기",
   "priceTrimSelectOptionAddMessage": "선택 옵션 추가",
-  "priceTrimWelcomeMessgae1": "말씀하신 모델의 가격입니다. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.",
+  "priceTrimWelcomeMessgae1": "말씀하신 모델의 가격이에요. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.",
   "priceTrimWelcomeMessgae2": "모델의 가격은 옵션별로 달라요. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.",
   "priceTrimGasoline2.4Model": "가솔린 2.4",
   "priceTrimModern": "모던(Modern)",
@@ -335,9 +335,12 @@
   "basicOptionEndNoMessage": "아니오",
   "basicOptionEndNoClickMessage": "홈",
   "basicOptionEndMenuList": "선택품목|홈",
+  
+   "priceReMainCall":"그만할래",
+   "priceModelCall":"모델 선택",
 
   "selectOption": " 선택옵션",
-  "selectOptionInitMessage":" 선택 옵션은 다음과 같습니다. \n\n 선택하시면 옵션이 추가 됩니다.",
+  "selectOptionInitMessage":" 선택 옵션을 보여드릴께요. \n\n 옵션을 선택하시면 옵션추가된 견적을 보실수 있어요.",
   "selectOptionModern": "모던",
   "selectOptionPremium": "프리미엄",
   "selectOptionPremiumSpecial1": "프리미엄 스페셜",
@@ -371,18 +374,18 @@
   "selectOptionItem11ClickMessage": " 어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크 추가",
   "selectOptionItem12ClickMessage": " 프리미어 인테리어 컬렉션 추가",
 
-  "priceReciptWelcomeMessage": "선택하신 차량의 산출 가격 입니다.",
+  "priceReciptWelcomeMessage": "선택하신 차량의 견적이에요.",
   "priceReciptCurrencyUnit": " 원",
   "priceReciptTopMenu1": "2017년 3월 30일 기준",
   "priceReciptTopMenu2": "(단위 : 원)",
-  "priceReciptEndMessage": "다른 선택옵션을 추가 하시겠습니까?",
+  "priceReciptEndMessage": "다른 선택옵션을 추가 하시겠어요?",
   "priceReciptEndYesMessage": "예",
   "priceReciptEndYesClickMessage": "선택품목",
   "priceReciptEndNoMessage": "아니요",
   "priceReciptEndNoClickMessage": "홈",
   "priceReciptEndMenuList": "선택품목|홈",
-  "priceOptionAddMessage": "옵션을 추가한 가격입니다.",
-  "priceOptionRemoveMessage": "옵션을 제거한 가격입니다.",
+  "priceOptionAddMessage": "옵션을 추가한 가격이에요.",
+  "priceOptionRemoveMessage": "옵션을 제거한 가격이에요.",
 
 
 
