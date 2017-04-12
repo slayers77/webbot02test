@@ -27,6 +27,11 @@ function create(bot) {
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/20170302091059771443.jpg")
                         ])
+                        .buttons([
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
+                        ])
                         //.buttons([
                         //    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
                         //    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
@@ -34,27 +39,27 @@ function create(bot) {
                         //])
             ]);
             
-            session.send(msg);
+            //session.send(msg);
 
-            var msg1 = new builder.Message(session)
-                .textFormat(builder.TextFormat.xml)
-                //.attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments([
-                    //AnimationCard
-                new builder.HeroCard(session)
-                //        .title(session.localizer.gettext(session.preferredLocale(), "designTitleName"))
-                //        .subtitle(session.localizer.gettext(session.preferredLocale(), "designSubtitleMessage"))
-                //        .images([
-                //    builder.CardImage.create(session, img_path + "/images/carDesign/20170302091059771443.jpg")
-                //])
-                        .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
-                ])
-            ]);
+            //var msg1 = new builder.Message(session)
+            //    .textFormat(builder.TextFormat.xml)
+            //    //.attachmentLayout(builder.AttachmentLayout.carousel)
+            //    .attachments([
+            //        //AnimationCard
+            //    new builder.HeroCard(session)
+            //    //        .title(session.localizer.gettext(session.preferredLocale(), "designTitleName"))
+            //    //        .subtitle(session.localizer.gettext(session.preferredLocale(), "designSubtitleMessage"))
+            //    //        .images([
+            //    //    builder.CardImage.create(session, img_path + "/images/carDesign/20170302091059771443.jpg")
+            //    //])
+            //            .buttons([
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
+            //    ])
+            //]);
 
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "designMenuList")); 
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "designMenuList")); 
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -199,20 +204,23 @@ function create(bot) {
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/car_outside_title.jpg")
                         ])
+                        .buttons([
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "exteriorDetail"))
+                        ])
             ]);
             
-            session.send(msg);
+            //session.send(msg);
 
-            var msg1 = new builder.Message(session)
-                .textFormat(builder.TextFormat.xml)
-                .attachments([
-                new builder.HeroCard(session)
-                .buttons([
-                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "exteriorDetail"))
-                ])
-            ]);
+            //var msg1 = new builder.Message(session)
+            //    .textFormat(builder.TextFormat.xml)
+            //    .attachments([
+            //    new builder.HeroCard(session)
+            //    .buttons([
+            //         builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "exteriorDetail"))
+            //    ])
+            //]);
            
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "exteriorMenuList"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "exteriorMenuList"));
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -279,20 +287,24 @@ function create(bot) {
                 new builder.HeroCard(session)
                             .title("")
                             .text(session.localizer.gettext(session.preferredLocale(), "induceExteriorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
                             .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
-                ])
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+                            ])
             ]);
+            
+            //session.send(msg);
+            //var msg1 = new builder.Message(session)
+            //        .attachments([
+            
+            //    new builder.HeroCard(session)
+            //                .buttons([
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+            //    ])
+            //]);
 
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
         }
         //, function (session, results) { 
@@ -320,22 +332,25 @@ function create(bot) {
                         .subtitle(session.localizer.gettext(session.preferredLocale(), "interiorSubtitleMessage"))
                         .text(session.localizer.gettext(session.preferredLocale(), "interiorTextMessage"))
                         .images([
-                    builder.CardImage.create(session, img_path + "/images/carDesign/car_inside_title.jpg")
-                ])
-            ]);
-            
-            session.send(msg);            
-            
-            var msg1 = new builder.Message(session)
-                .textFormat(builder.TextFormat.xml)
-                .attachments([
-                new builder.HeroCard(session)
+                            builder.CardImage.create(session, img_path + "/images/carDesign/car_inside_title.jpg")
+                        ])
                         .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "interiorDetail"))
-                ])
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "interiorDetail"))
+                        ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "interiorMenuList"));
+            //session.send(msg);            
+            
+            //var msg1 = new builder.Message(session)
+            //    .textFormat(builder.TextFormat.xml)
+            //    .attachments([
+            //    new builder.HeroCard(session)
+            //            .buttons([
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "interiorDetail"))
+            //    ])
+            //]);
+            
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "interiorMenuList"));
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -387,22 +402,26 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceInteriorDesignToConvenience"))
-            ]);
+                    .title("")
+                    .text(session.localizer.gettext(session.preferredLocale(), "induceInteriorDesignToConvenience"))
+                    .buttons([
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+                    ])
+                ]);
             
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
+            //session.send(msg);
+            //var msg1 = new builder.Message(session)
+            //        .attachments([
             
-                new builder.HeroCard(session)
-                            .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
-                ])
-            ]);
+            //    new builder.HeroCard(session)
+            //                .buttons([
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+            //    ])
+            //]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
         }
     ]);
@@ -470,22 +489,26 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            //session.send(msg);
+            //var msg1 = new builder.Message(session)
+            //        .attachments([
+            
+            //    new builder.HeroCard(session)
+            //                .buttons([
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+            //    ])
+            //]);
+            
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -561,22 +584,14 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -638,22 +653,14 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                    .title("")
+                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                    .buttons([
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+                    ])
             ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
-                ])
-            ]);
-            
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -716,22 +723,15 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -795,22 +795,15 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -873,22 +866,15 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -949,22 +935,15 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -1027,22 +1006,15 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -1105,22 +1077,15 @@ function create(bot) {
                             .attachments([
             
                 new builder.HeroCard(session)
-                                    .title("")
-                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
-            ]);
-            
-            session.send(msg);
-            var msg1 = new builder.Message(session)
-                    .attachments([
-            
-                new builder.HeroCard(session)
-                            .buttons([
+                .title("")
+                .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+                .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }

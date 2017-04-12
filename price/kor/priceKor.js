@@ -36,51 +36,51 @@ function create(bot) {
 
         function (session, args) {
             session.userData.model = "";
-            session.send("가격을 보시려면 모델을 선택하셔야 합니다. \n\n 모델은 엔진타입별로 달라요.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "priceWelcomeMessage"));
             var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                 new builder.HeroCard(session)
-                        .title("30,550,000 원 ~ 33,750,000 원")
+                        .title(session.localizer.gettext(session.preferredLocale(), "priceGasoline2.4ModelMessage"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/price/Grandeur_24spec.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_24spec.PNG"))
                 ])
                         .buttons([
-                    builder.CardAction.imBack(session, "가솔린2.4", "가솔린 2.4 선택")
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "gasoline2.4"), session.localizer.gettext(session.preferredLocale(), "gasoline2.4ClickMessage"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("35,500,000 원 ~ 38,700,000 원")
+                        .title(session.localizer.gettext(session.preferredLocale(), "priceGasoline3.0ModelMessage"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/price/Grandeur_30spec.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_30spec.PNG"))
                 ])
                         .buttons([
-                    builder.CardAction.imBack(session, "가솔린3.0", "가솔린 3.0 선택")
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "gasoline3.0"), session.localizer.gettext(session.preferredLocale(), "gasoline3.0ClickMessage"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("41,600,000 원")
+                        .title(session.localizer.gettext(session.preferredLocale(), "gasoline3.3ClickMessage"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/price/Grandeur_33spec.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_33spec.PNG"))
                 ])
                         .buttons([
-                    builder.CardAction.imBack(session, "가솔린3.3", "가솔린 3.3 선택")
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "gasoline3.3"), session.localizer.gettext(session.preferredLocale(), "gasoline3.3ClickMessage"))
                 ]),
                 new builder.HeroCard(session)
-                        .title("33,550,000 원 ~ 36,750,000 원")
+                        .title(session.localizer.gettext(session.preferredLocale(), "priceDiesel2.2ModelMessage"))
                         .images([
                     builder.CardImage.create(session, img_path + "/images/price/Grandeur_22spec.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_22spec.PNG"))
                 ])
                         .buttons([
-                    builder.CardAction.imBack(session, "디젤2.2", "디젤 2.2 선택")
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "diesel2.2"), session.localizer.gettext(session.preferredLocale(), "diesel2.2ClickMessage"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2");
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "priceModelMenuList"));
             session.endDialog();
             //session.beginDialog('/korReMainMenu');
-            
+
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
@@ -110,84 +110,84 @@ function create(bot) {
             if (args.sendMsg.match(/모던/g) || args.sendMsg.match(/프리미엄/g) || args.sendMsg.match(/프리미엄스페셜/g) || args.sendMsg.match(/프리미엄 스페셜/g) 
                 || args.sendMsg.match(/익스클루시브/g) || args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g) 
                 || args.sendMsg.match(/셀러브리티/g)) {
-                session.send("말씀하신 모델의 가격입니다. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.");
+                session.send(session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae1"));
             } else {
-                session.send("모델의 가격은 옵션별로 달라요. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.");
+                session.send(session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae2"));
             }
             if (args.sendMsg.match(/가솔린2.4/g) || args.sendMsg.match(/가솔린 2.4/g)) {
-                model = "가솔린 2.4";
-                trim1 = "모던(Modern)";
-                trim2 = "프리미엄(Premium)";
-                trim3 = "프리미엄 스페셜(Premium Special)";
+                model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4Model");
+                trim1 = session.localizer.gettext(session.preferredLocale(), "priceTrimModern");
+                trim2 = session.localizer.gettext(session.preferredLocale(), "priceTrimPremium");
+                trim3 = session.localizer.gettext(session.preferredLocale(), "priceTrimPremiumSpecial");
                 //모던 카드
                 trimCard1 = [new builder.HeroCard(session)
                     .title(model + " " + trim1)
-                    .text("가격 : 30,550,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ModernPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린2.4 모던 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린2.4 모던 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ModernBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ModernSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //프리미엄 카드
                 trimCard2 = [new builder.HeroCard(session)
                     .title(model + " " + trim2)
-                    .text("가격 : 31,750,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //프리미엄 스페셜 카드
                 trimCard3 = [new builder.HeroCard(session)
                     .title(model + " " + trim3)
-                    .text("가격 : 33,750,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSpecialPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄스페셜 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄스페셜 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSpecialBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSpecialSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //모던 + 프리미엄 + 프리미엄 스페셜 카드
                 trimCard4 = [new builder.HeroCard(session)
                     .title(model + " " + trim1)
-                    .text("가격 : 30,550,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ModernPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린2.4 모던 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린2.4 모던 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ModernBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ModernSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ]),
                     new builder.HeroCard(session)
                         .title(model + " " + trim2)
-                        .text("가격 : 31,750,000 원")
+                        .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumPrice"))
                         .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                         .buttons([
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ]),
                     new builder.HeroCard(session)
                         .title(model + " " + trim3)
-                        .text("가격 : 33,750,000 원")
+                        .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSpecialPrice"))
                         .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                         .buttons([
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄스페셜 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린2.4 프리미엄스페셜 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSpecialBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4PremiumSpecialSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 if (args.sendMsg.match(/모던/g)) {
                     showTrim = trimCard1;
@@ -200,55 +200,55 @@ function create(bot) {
                 }
                 msg = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel).attachments(showTrim);
             } else if (args.sendMsg.match(/가솔린3.0/g) || args.sendMsg.match(/가솔린 3.0/g)) {
-                model = "가솔린 3.0";
-                trim1 = "익스클루시브(Exclusive)";
-                trim2 = "익스클루시브 스페셜(Exclusive Special)";
+                model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline3.0Model");
+                trim1 = session.localizer.gettext(session.preferredLocale(), "priceTrimExclusive");
+                trim2 = session.localizer.gettext(session.preferredLocale(), "priceTrimExclusiveSpecial");
                 //익스클루시브 카드
                 trimCard1 = [new builder.HeroCard(session)
                         .title(model + " " + trim1)
-                        .text("가격 : 35,550,000 원")
+                        .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusivePrice"))
                         .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
                     ])
                         .buttons([
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //익스클루시브 스페셜 카드
                 trimCard2 = [new builder.HeroCard(session)
                     .title(model + " " + trim2)
-                    .text("가격 : 38,700,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSpecialPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브스페셜 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브스페셜 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSpecialBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSpecialSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //익스클루시브 + 익스클루시브 스페셜 카드
                 trimCard3 = [new builder.HeroCard(session)
                     .title(model + " " + trim1)
-                    .text("가격 : 35,550,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusivePrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ]),
                     new builder.HeroCard(session)
                         .title(model + " " + trim2)
-                        .text("가격 : 38,700,000 원")
+                        .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSpecialPrice"))
                         .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_exclusive.PNG")
                                 .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_exclusive.PNG"))
                     ])
                         .buttons([
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브스페셜 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린3.0 익스클루시브스페셜 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSpecialBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4ExclusiveSpecialSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 if (args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g)) {
                     showTrim = trimCard2;
@@ -259,95 +259,95 @@ function create(bot) {
                 }
                 msg = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel).attachments(showTrim);
             } else if (args.sendMsg.match(/가솔린3.3/g) || args.sendMsg.match(/가솔린 3.3/g)) {
-                model = "가솔린 3.3";
-                trim1 = "셀러브리티(Celebrity)";
+                model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline3.3Model");
+                trim1 = session.localizer.gettext(session.preferredLocale(), "priceTrimCelebrity");
                 //셀러브리티 카드
                 showTrim = [new builder.HeroCard(session)
                     .title(model + " " + trim1)
-                    .text("가격 : 41,600,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline3.3CelebrityPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_celebrity.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_celebrity.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "가솔린3.3 셀러브리티 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "가솔린3.3 셀러브리티 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline3.3CelebrityBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline3.3CelebritySelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 msg = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel).attachments(showTrim);
             } else if (args.sendMsg.match(/디젤2.2/g) || args.sendMsg.match(/디젤 2.2/g)) {
-                model = "디젤 2.2";
-                trim1 = "모던(Modern)";
-                trim2 = "프리미엄(Premium)";
-                trim3 = "프리미엄 스페셜(Premium Special)";
+                model = session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2Model");
+                trim1 = session.localizer.gettext(session.preferredLocale(), "priceTrimModern");
+                trim2 = session.localizer.gettext(session.preferredLocale(), "priceTrimPremium");
+                trim3 = session.localizer.gettext(session.preferredLocale(), "priceTrimPremiumSpecial");
                 //모던 카드
                 trimCard1 = [new builder.HeroCard(session)
                     .title(model + " " + trim1)
-                    .text("가격 : 33,550,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2ModernPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "디젤2.2 모던 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "디젤2.2 모던 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2ModernBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2ModernSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //프리미엄 카드
                 trimCard2 = [new builder.HeroCard(session)
                     .title(model + " " + trim2)
-                    .text("가격 : 34,750,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //프리미엄 스페셜 카드
                 trimCard3 = [new builder.HeroCard(session)
                     .title(model + " " + trim3)
-                    .text("가격 : 36,750,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSpecialPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄스페셜 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄스페셜 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSpecialBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSpecialSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 //모던 + 프리미엄 + 프리미엄 스페셜 카드
                 trimCard4 = [new builder.HeroCard(session)
                     .title(model + " " + trim1)
-                    .text("가격 : 33,550,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2ModernPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "디젤2.2 모던 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "디젤2.2 모던 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2ModernBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2ModernSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ]),
                     new builder.HeroCard(session)
                     .title(model + " " + trim2)
-                    .text("가격 : 34,750,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ]),
                     new builder.HeroCard(session)
                     .title(model + " " + trim3)
-                    .text("가격 : 36,750,000 원")
+                    .text(session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSpecialPrice"))
                     .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
                             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
                     .buttons([
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄스페셜 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, "디젤2.2 프리미엄스페셜 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSpecialBasicItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimBasicOptionViewMessage")),
+                        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceTrimDiesel2.2PremiumSpecialSelectItemMessage"), session.localizer.gettext(session.preferredLocale(), "priceTrimSelectOptionAddMessage"))
                     ])];
                 if (args.sendMsg.match(/모던/g)) {
                     showTrim = trimCard1;
