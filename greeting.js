@@ -71,9 +71,6 @@ function create(bot) {                                                  // funct
     //초기 출력 화면
     bot.dialog('/init', [
         function (session) {
-
-            console.log("channel ID : " + session.message.address.channelId);
-
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                     .attachments([
@@ -125,7 +122,7 @@ function create(bot) {                                                  // funct
         var insert;
 
         console.log("session ID : " + session.message.sourceEvent.clientActivityId);
-        
+        console.log("channel ID : " + session.message.address.channelId);
         
 
 
