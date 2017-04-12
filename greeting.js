@@ -78,14 +78,14 @@ function create(bot) {                                                  // funct
                             .title('그랜다이저')
                             //.autostart(true)
                             .subtitle('Grandizer')
-                            .text('안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\nHi. My name is Grandizer.')
+                            .text("안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요. \n\nHi. My name is Grandizer. \\n\n At any time, type 'Grandizer' to return to the initial screen. ")
                             //.image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
                             .images([
                                 builder.CardImage.create(session, img_path + "/images/img_car01.jpg")
                             ])
-                            //.media([
-                            //    { url: 'http://webbot02.azurewebsites.net/openning.wav' }
-                            //])
+                            .media([
+                                { url: 'http://webbot02.azurewebsites.net/openning.wav' }
+                            ])
                             .buttons([
                                 builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
                                 builder.CardAction.imBack(session, "English", "English")
