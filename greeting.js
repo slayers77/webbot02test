@@ -74,7 +74,7 @@ function create(bot) {                                                  // funct
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                     .attachments([
-                        new builder.HeroCard(session)
+                        new builder.VideoCard(session)
                             .title('그랜다이저')
                             //.autostart(true)
                             .subtitle('Grandizer')
