@@ -482,6 +482,8 @@ function create(bot) {
         }
     ]);
     
+
+
     
     /***********************************************************************************
     3-2. 한국어 가격 메뉴 (선택옵션 리스트)
@@ -775,65 +777,65 @@ function create(bot) {
                 compare1 = compare1.replace(/ /gi, "");
                 
                 switch (compare1) {
-                    case "가솔린2.4모던":
-                        title1 = "가솔린2.4 모던";
-                        price1 = "30,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase1"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle1");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice1");
                         break;
-                    case "가솔린2.4프리미엄":
-                        title1 = "가솔린2.4 프리미엄";
-                        price1 = "31,750,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase2"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle2");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice2");
                         break;
-                    case "가솔린2.4프리미엄스페셜":
-                        title1 = "가솔린2.4 프리미엄스페셜";
-                        price1 = "33,750,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase3"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle3");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice3");
                         break;
-                    case "가솔린3.0익스클루시브":
-                        title1 = "가솔린3.0 익스클루시브";
-                        price1 = "35,500,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase4"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle4");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice4");
                         break;
-                    case "가솔린3.0익스클루시브스페셜":
-                        title1 = "가솔린3.0 익스클루시브스페셜";
-                        price1 = "38,700,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase5"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle5");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice5");
                         break;
-                    case "가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션":
-                        title1 = "가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션";
-                        price1 = "40,200,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase6"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle6");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice6");
                         break;
-                    case "가솔린3.3셀러브리티":
-                        title1 = "가솔린3.3 셀러브리티";
-                        price1 = "41,600,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase7"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle7");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice7");
                         break;
-                    case "디젤2.2모던":
-                        title1 = "디젤2.2 모던";
-                        price1 = "33,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase8"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle8");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice8");
                         break;
-                    case "디젤2.2프리미엄":
-                        title1 = "디젤2.2 프리미엄";
-                        price1 = "30,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase9"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle9");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice9");
                         break;
-                    case "디젤2.2프리미엄스페셜":
-                        title1 = "디젤2.2 프리미엄스페셜";
-                        price1 = "35,500,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase10"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle10");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice10");
                         break;
-                    case "가솔린2.4":
-                        title1 = "가솔린2.4 모던";
-                        price1 = "30,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase11"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle11");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice11");
                         break;
-                    case "가솔린3.0":
-                        title1 = "가솔린3.0 익스클루시브";
-                        price1 = "35,500,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase12"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle12");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice12");
                         break;
-                    case "가솔린3.3":
-                        title1 = "가솔린3.3 셀러브리티";
-                        price1 = "41,600,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase13"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle13");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice13");
                         break;
-                    case "디젤2.2":
-                        title1 = "디젤2.2 모던";
-                        price1 = "33,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase14"):
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle14");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice14");
                         break;
                     default:
-                        title1 = "가솔린2.4 모던";
-                        price1 = "30,550,000";
+                        title1 = session.localizer.gettext(session.preferredLocale(), "compareTitle1");
+                        price1 = session.localizer.gettext(session.preferredLocale(), "comparePrice1");
                         break;
                 }
             }
@@ -843,65 +845,65 @@ function create(bot) {
                 compare2 = compare2.replace(/ /gi, "");
                 
                 switch (compare2) {
-                    case "가솔린2.4모던":
-                        title2 = "가솔린2.4 모던";
-                        price2 = "30,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase1"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle1");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice1");
                         break;
-                    case "가솔린2.4프리미엄":
-                        title2 = "가솔린2.4 프리미엄";
-                        price2 = "31,750,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase2"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle2");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice2");
                         break;
-                    case "가솔린2.4프리미엄스페셜":
-                        title2 = "가솔린2.4 프리미엄스페셜";
-                        price2 = "33,750,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase3"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle3");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice3");
                         break;
-                    case "가솔린3.0익스클루시브":
-                        title2 = "가솔린3.0 익스클루시브";
-                        price2 = "35,500,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase4"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle4");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice4");
                         break;
-                    case "가솔린3.0익스클루시브스페셜":
-                        title2 = "가솔린3.0 익스클루시브스페셜";
-                        price2 = "38,700,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase5"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle5");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice5");
                         break;
-                    case "가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션":
-                        title2 = "가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션";
-                        price2 = "40,200,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase6"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle6");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice6");
                         break;
-                    case "가솔린3.3셀러브리티":
-                        title2 = "가솔린3.3 셀러브리티";
-                        price2 = "41,600,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase7"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle7");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice7");
                         break;
-                    case "디젤2.2모던":
-                        title2 = "디젤2.2 모던";
-                        price2 = "33,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase8"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle8");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice8");
                         break;
-                    case "디젤2.2프리미엄":
-                        title2 = "디젤2.2 프리미엄";
-                        price2 = "30,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase9"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle9");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice9");
                         break;
-                    case "디젤2.2프리미엄스페셜":
-                        title2 = "디젤2.2 프리미엄스페셜";
-                        price2 = "35,500,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase10"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle10");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice10");
                         break;
-                    case "가솔린2.4":
-                        title2 = "가솔린2.4 모던";
-                        price2 = "30,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase11"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle11");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice11");
                         break;
-                    case "가솔린3.0":
-                        title2 = "가솔린3.0 익스클루시브";
-                        price2 = "35,500,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase12"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle12");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice12");
                         break;
-                    case "가솔린3.3":
-                        title2 = "가솔린3.3 셀러브리티";
-                        price2 = "41,600,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase13"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle13");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice13");
                         break;
-                    case "디젤2.2":
-                        title2 = "디젤2.2 모던";
-                        price2 = "33,550,000";
+                    case session.localizer.gettext(session.preferredLocale(), "compareCase14"):
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle14");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice14");
                         break;
                     default:
-                        title2 = "가솔린2.4 모던";
-                        price2 = "30,550,000";
+                        title2 = session.localizer.gettext(session.preferredLocale(), "compareTitle1");
+                        price2 = session.localizer.gettext(session.preferredLocale(), "comparePrice1");
                         break;
                 }
             }
@@ -910,32 +912,32 @@ function create(bot) {
 
             if (title1 != null && title2 != null) {
                 
-                session.send(title1 +"와 "+ title2 + "를 비교해드리겠습니다.");
+                session.send(title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage"));
 
                 msg = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments([
                     new builder.HeroCard(session)
             .title(title1)
-            .text("가격 : " + price1 + "원")
+            .text(session.localizer.gettext(session.preferredLocale(), "price") +" : " + price1 + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"))
             .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
             .buttons([
-                        builder.CardAction.imBack(session, title1 + " 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, title1 + " 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, title1 + session.localizer.gettext(session.preferredLocale(), "compareModelItem1BasicOptionClickMessage"), session.localizer.gettext(session.preferredLocale(), "compareModelItem1BasicOptionView")),
+                        builder.CardAction.imBack(session, title1 + session.localizer.gettext(session.preferredLocale(), "compareModelItem1SelectOptionClickMessage"), session.localizer.gettext(session.preferredLocale(), "compareModelItem1SelectOptionAdd"))
                     ]),
                     new builder.HeroCard(session)
             .title(title2)
-            .text("가격 : " + price2 + "원")
+            .text(session.localizer.gettext(session.preferredLocale(), "price") + " : " + price2 + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"))
             .images([
                         builder.CardImage.create(session, img_path + "/images/price/Grandeur_modern.PNG")
             .tap(builder.CardAction.showImage(session, img_path + "/images/price/Grandeur_modern.PNG"))
                     ])
             .buttons([
-                        builder.CardAction.imBack(session, title2 + " 기본품목", "기본 옵션 보기"),
-                        builder.CardAction.imBack(session, title2 + " 선택품목", "선택 옵션 추가")
+                        builder.CardAction.imBack(session, title1 + session.localizer.gettext(session.preferredLocale(), "compareModelItem1BasicOptionClickMessage"), session.localizer.gettext(session.preferredLocale(), "compareModelItem1BasicOptionView")),
+                        builder.CardAction.imBack(session, title1 + session.localizer.gettext(session.preferredLocale(), "compareModelItem1SelectOptionClickMessage"), session.localizer.gettext(session.preferredLocale(), "compareModelItem1SelectOptionAdd"))
                     ])
                 ]);
                 
@@ -944,16 +946,16 @@ function create(bot) {
                 
                 switch (args.intent) {
                     case "korCompareModel":
-                        session.send("모델명이 정확하지 않아 모델을 비교 할수없어요. 모델명을 다시 확인해 주세요.");
+                        session.send(session.localizer.gettext(session.preferredLocale(), "korCompareModelMessage"));
                         break;
                     case "korCompareBeforeModel":
-                        session.send("이전에 본 모델이 없어요. 모델을 보시고 비교해 주세요.");
+                        session.send(session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelMessage"));
                         break;
                     case "korCompareBeforeModels":
-                        session.send("모델을 2개 이상 봐주세요 비교할 모델이 없어요.");
+                        session.send(session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelsMessage"));
                         break;
                     default:
-                        session.send("비교할 모델을 모르겠어요. 모델을 확인해 주세요.");
+                        session.send(session.localizer.gettext(session.preferredLocale(), "NocompareModelMessage"));
                 }
                 
                 session.endDialog(msg);
@@ -995,7 +997,7 @@ function create(bot) {
             
             console.log(fnResultsplit[5] + " fnResultsplit : "+ fnResultsplit.length);
             
-            session.send(fnResultModelNm + " " + fnResultTrimNm +"에 [ "+ fnResultOptionNm+" ] 옵션을 추가한 가격입니다.");
+            session.send(fnResultModelNm + " " + fnResultTrimNm +" [ "+ fnResultOptionNm+" ] "+ session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage"));
 
             //functionOptionUpdate(userId, fnResultModel, fnResultOption, 1);
             
@@ -1050,7 +1052,7 @@ function create(bot) {
             fnResultCarPrice = fnResultsplit[4];
             fnResultOptionNm = fnResultsplit[5];
             
-            session.send(fnResultModelNm + " " + fnResultTrimNm + "에 [ " + fnResultOptionNm + " ] 옵션을 제거한 가격입니다.");
+            session.send(fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage"));
 
             functionOptionUpdate(userId, fnResultModel, fnResultOption, 0);
             
@@ -1079,150 +1081,149 @@ function create(bot) {
         var modelOptionNumberVar = "";
         
         if (message.match(/가솔린 2.4/g) || message.match(/가솔린2.4/g) || message.match(/2.4/g)) {
-            console.log("가솔린 2.4");
-            engineNameVar = "가솔린 2.4";
+            
+            engineNameVar = session.localizer.gettext(session.preferredLocale(), "gasoline2.4");
             if (message.match(/모던/g) || message.match(/모 던/g)) {
-                console.log("모던");
                 
-                modelNameVar = "모던";
+                modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionModern");
                 modelNumberVar = 1;
                 carPriceVar = 30550000;
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 3;
-                    optionNm = "파노라마 썬루프";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 2;
-                    optionNm = "TUIX 컴포트 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                 } else if (message.match(/앞좌석통풍/) || message.match(/앞좌석 통풍/) || message.match(/앞 좌석 통풍/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "앞좌석 통풍+하이패스시스템";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem3");
                 } else if (message.match(/하이패스 시스템/) || message.match(/하이패스시스템/) || message.match(/하이 패스 시스템/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "앞좌석 통풍+하이패스시스템";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem3");
                 } else if (message.match(/현대스마트센스패키지IV/) || message.match(/현대 스마트센스패키지IV/) || message.match(/현대 스마트 센스패키지IV/) || message.match(/현대 스마트 센스 패키지IV/) || message.match(/현대 스마트 센스 패키지 IV/)) {
                     modelOptionNumberVar = 4;
-                    optionNm = "현대 스마트 센스 패키지 IV";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem10");
                 } else {
                     modelOptionNumberVar = 0;
                 }
             } else if (message.match(/프리미엄 스페셜/g) || message.match(/프리미엄스페셜/g)) {
                 
-                modelNameVar = "프리미엄 스페셜";
+                modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecial"); 
                 modelNumberVar = 3;
                 carPriceVar = 33750000;
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 4;
-                    optionNm = "파노라마 썬루프";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 3;
-                    optionNm = "TUIX 컴포트 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                     modelOptionNumberVar = 5;
-                    optionNm = "헤드업 디스플레이(HUD)";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
                     modelOptionNumberVar = 6;
-                    optionNm = "현대 스마트 센스 패키지 II";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem9");
                 } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
                     modelOptionNumberVar = 2;
-                    optionNm = "익스테리어 패키지 II";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem7");
                 } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
                     modelOptionNumberVar = 7;
-                    optionNm = "JBL 사운드 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem4");
                 } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem11");
                 } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem11");
                 } else {
                     modelOptionNumberVar = 0;
                 }
             } else if (message.match(/프리미엄/)) {
                 
-                modelNameVar = "프리미엄";
+                modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionPremium"); 
                 modelNumberVar = 2;
                 carPriceVar = 31750000;
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 3;
-                    optionNm = "파노라마 썬루프";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 2;
-                    optionNm = "TUIX 컴포트 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                     modelOptionNumberVar = 4;
-                    optionNm = "헤드업 디스플레이(HUD)";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                 } else if (message.match(/현대스마트센스패키지I/) || message.match(/현대 스마트센스패키지I/) || message.match(/현대 스마트 센스패키지I/) || message.match(/현대 스마트 센스 패키지I/) || message.match(/현대 스마트 센스 패키지 I/)) {
                     modelOptionNumberVar = 5;
-                    optionNm = "현대 스마트 센스 패키지 I";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem8");
                 } else if (message.match(/익스테리어패키지I/) || message.match(/익스테리어 패키지I/) || message.match(/익스테리어 패키지 I/) || message.match(/익스테리어패키지 I/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "익스테리어 패키지 I";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem6");
                 } else {
                     modelOptionNumberVar = 0;
                 }
             }
         } else if (message.match(/가솔린 3.0/) || message.match(/가솔린3.0/)) {
             
-            engineNameVar = "가솔린 3.0";
+            engineNameVar = session.localizer.gettext(session.preferredLocale(), "gasoline3.0"); 
             
             if (message.match(/익스클루시브 스페셜/) || message.match(/익스클루시브스페셜/)) {
                 
-                modelNameVar = "익스클루시브 스페셜";
+                modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusiveSpecial"); 
                 modelNumberVar = 5;
                 carPriceVar = 38700000;
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 2;
-                    optionNm = "파노라마 썬루프";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "TUIX 컴포트 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                     modelOptionNumberVar = 4;
-                    optionNm = "헤드업 디스플레이(HUD)";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
                     modelOptionNumberVar = 5;
-                    optionNm = "현대 스마트 센스 패키지 II";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem9");
                 } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
                     modelOptionNumberVar = 6;
-                    optionNm = "JBL 사운드 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem4");
                 } else if (message.match(/프리미어인테리어셀렉션/) || message.match(/프리미어 인테리어셀렉션/) || message.match(/프리미어 인테리어 셀렉션/)) {
                     //session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
                     modelOptionNumberVar = 3;
-                    optionNm = "프리미어 인테리어 셀렉션";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem12");
                 } else {
                     modelOptionNumberVar = 0;
                 }
             } else if (message.match(/익스클루시브/)) {
                 
-                modelNameVar = "익스클루시브";
+                modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionExclusive"); 
                 modelNumberVar = 4;
                 carPriceVar = 35500000;
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 4;
-                    optionNm = "파노라마 썬루프";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 3;
-                    optionNm = "TUIX 컴포트 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                     modelOptionNumberVar = 5;
-                    optionNm = "헤드업 디스플레이(HUD)";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
                     modelOptionNumberVar = 6;
-                    optionNm = "현대 스마트 센스 패키지 II";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), " selectOptionItem9 ");
                 } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
                     modelOptionNumberVar = 2;
-                    optionNm = "익스테리어 패키지 II";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem7");
                 } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem11");
                 } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem11");
                 } else {
                     modelOptionNumberVar = 0;
                 }
@@ -1230,111 +1231,111 @@ function create(bot) {
 
         } else if (message.match(/가솔린 3.3/) || message.match(/가솔린3.3/)) {
             
-            engineNameVar = "가솔린 3.3";
+            engineNameVar = session.localizer.gettext(session.preferredLocale(), "gasoline3.3"); 
             
             if (message.match(/셀러브리티/)) {
                 
-                modelNameVar = "셀러브리티";
+                modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionCelebrity"); 
                 modelNumberVar = 7;
                 carPriceVar = 41600000;
                 
                 if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                     modelOptionNumberVar = 2;
-                    optionNm = "파노라마 썬루프";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                 } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                     modelOptionNumberVar = 1;
-                    optionNm = "TUIX 컴포트 패키지";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                 } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                     modelOptionNumberVar = 3;
-                    optionNm = "헤드업 디스플레이(HUD)";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                 } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
                     modelOptionNumberVar = 4;
-                    optionNm = "현대 스마트 센스 패키지 II";
+                    optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem9");
                 } else {
                     modelOptionNumberVar = 0;
                 }
             } else if (message.match(/디젤 2.2/) || message.match(/디젤2.2/)) {
                 
-                engineNameVar = "디젤 2.2";
+                engineNameVar = session.localizer.gettext(session.preferredLocale(), "diesel2.2"); 
                 
                 if (message.match(/모던/)) {
                     
-                    modelNameVar = "모던";
+                    modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionModern");
                     modelNumberVar = 8;
                     carPriceVar = 33550000;
                     
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 3;
-                        optionNm = "파노라마 썬루프";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                         modelOptionNumberVar = 2;
-                        optionNm = "TUIX 컴포트 패키지";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                     } else if (message.match(/앞좌석통풍/) || message.match(/앞좌석 통풍/) || message.match(/앞 좌석 통풍/)) {
                         modelOptionNumberVar = 1;
-                        optionNm = "앞좌석 통풍+하이패스시스템";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem3");
                     } else if (message.match(/하이패스 시스템/) || message.match(/하이패스시스템/) || message.match(/하이 패스 시스템/)) {
                         modelOptionNumberVar = 1;
-                        optionNm = "앞좌석 통풍+하이패스시스템";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem3");
                     } else if (message.match(/현대스마트센스패키지IV/) || message.match(/현대 스마트센스패키지IV/) || message.match(/현대 스마트 센스패키지IV/) || message.match(/현대 스마트 센스 패키지IV/) || message.match(/현대 스마트 센스 패키지 IV/)) {
                         modelOptionNumberVar = 4;
-                        optionNm = "현대 스마트 센스 패키지 IV";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem10");
                     } else {
                         modelOptionNumberVar = 0;
                     }
                 } else if (message.match(/프리미엄 스페셜/g) || message.match(/프리미엄스페셜/g)) {
                     
-                    modelNameVar = "프리미엄 스페셜";
+                    modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionPremiumSpecial"); 
                     modelNumberVar = 10;
                     carPriceVar = 36750000;
                     
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 4;
-                        optionNm = "파노라마 썬루프";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                         modelOptionNumberVar = 3;
-                        optionNm = "TUIX 컴포트 패키지";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                     } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                         modelOptionNumberVar = 5;
-                        optionNm = "헤드업 디스플레이(HUD)";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                     } else if (message.match(/현대스마트센스패키지II/) || message.match(/현대 스마트센스패키지II/) || message.match(/현대 스마트 센스패키지II/) || message.match(/현대 스마트 센스 패키지II/) || message.match(/현대 스마트 센스 패키지 II/)) {
                         modelOptionNumberVar = 6;
-                        optionNm = "현대 스마트 센스 패키지 II";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem9");
                     } else if (message.match(/익스테리어패키지II/) || message.match(/익스테리어 패키지II/) || message.match(/익스테리어 패키지 II/) || message.match(/익스테리어패키지 II/)) {
                         modelOptionNumberVar = 2;
-                        optionNm = "익스테리어 패키지 II";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem7");
                     } else if (message.match(/JBL사운드패키지/) || message.match(/JBL 사운드패키지/) || message.match(/JBL 사운드 패키지/)) {
                         modelOptionNumberVar = 7;
-                        optionNm = "JBL 사운드 패키지";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem4");
                     } else if (message.match(/어라운드뷰모니터(AVM)/) || message.match(/어라운드 뷰모니터(AVM)/) || message.match(/어라운드 뷰 모니터(AVM)/) || message.match(/어라운드 뷰 모니터 (AVM)/)) {
                         modelOptionNumberVar = 1;
-                        optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem11");
                     } else if (message.match(/스마트전동식트렁크/) || message.match(/스마트 전동식트렁크/) || message.match(/스마트 전동식 트렁크/) || message.match(/스마트전동식 트렁크/)) {
                         modelOptionNumberVar = 1;
-                        optionNm = "어라운드 뷰 모니터(AVM) + 스마트 전동식 트렁크";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem11");
                     } else {
                         modelOptionNumberVar = 0;
                     }
                 } else if (message.match(/프리미엄/)) {
                     
-                    modelNameVar = "프리미엄";
+                    modelNameVar = session.localizer.gettext(session.preferredLocale(), "basicOptionPremium"); 
                     modelNumberVar = 9;
                     carPriceVar = 34750000;
                     
                     if (message.match(/파노라마 썬루프/) || message.match(/파노라마썬루프/)) {
                         modelOptionNumberVar = 3;
-                        optionNm = "파노라마 썬루프";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem1");
                     } else if (message.match(/TUIX 컴포트 패키지/) || message.match(/TUIX 컴포트패키지/) || message.match(/TUIX컴포트패키지/) || message.match(/튜익스 컴포트 패키지/) || message.match(/튜익스 컴포트패키지/) || message.match(/튜익스컴포트패키지/)) {
                         modelOptionNumberVar = 2;
-                        optionNm = "TUIX 컴포트 패키지";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem2");
                     } else if (message.match(/헤드업디스플레이(HUD)/) || message.match(/헤드업 디스플레이(HUD)/) || message.match(/헤드업 디스플레이 (HUD)/) || message.match(/헤드업디스플레이/) || message.match(/헤드업 디스플레이/) || message.match(/HUD/)) {
                         modelOptionNumberVar = 4;
-                        optionNm = "헤드업 디스플레이(HUD)";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem5");
                     } else if (message.match(/현대스마트센스패키지I/) || message.match(/현대 스마트센스패키지I/) || message.match(/현대 스마트 센스패키지I/) || message.match(/현대 스마트 센스 패키지I/) || message.match(/현대 스마트 센스 패키지 I/)) {
                         modelOptionNumberVar = 5;
-                        optionNm = "현대 스마트 센스 패키지 I";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem8");
                     } else if (message.match(/익스테리어패키지I/) || message.match(/익스테리어 패키지I/) || message.match(/익스테리어 패키지 I/) || message.match(/익스테리어패키지 I/)) {
                         modelOptionNumberVar = 1;
-                        optionNm = "익스테리어 패키지 I";
+                        optionNm = session.localizer.gettext(session.preferredLocale(), "selectOptionItem6");
                     } else {
                         modelOptionNumberVar = 0;
                     }

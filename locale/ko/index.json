@@ -226,6 +226,8 @@
   "diesel2.2ClickMessage": "디젤 2.2 선택",
   "priceModelMenuList": "가솔린 2.4|가솔린 3.0|가솔린 3.3|디젤 2.2",
 
+  "priceMainCall":"가격 보여줘",
+
   "priceTrimBasicOptionViewMessage": "기본 옵션 보기",
   "priceTrimSelectOptionAddMessage": "선택 옵션 추가",
   "priceTrimWelcomeMessgae1": "말씀하신 모델의 가격입니다. \n\n 선택 옵션을 추가하시면 추가된 가격을 볼 수 있어요.",
@@ -379,10 +381,67 @@
   "priceReciptEndNoMessage": "아니요",
   "priceReciptEndNoClickMessage": "홈",
   "priceReciptEndMenuList": "선택품목|홈",
+  "priceOptionAddMessage": "옵션을 추가한 가격입니다.",
+  "priceOptionRemoveMessage": "옵션을 제거한 가격입니다.",
+
+
+
+   "compareCase1":"가솔린2.4모던",
+   "compareCase2":"가솔린2.4프리미엄",
+   "compareCase3":"가솔린2.4프리미엄스페셜",
+   "compareCase4":"가솔린3.0익스클루시브",
+   "compareCase5":"가솔린3.0익스클루시브스페셜",
+   "compareCase6":"가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션",
+   "compareCase7":"가솔린3.3셀러브리티",
+   "compareCase8":"디젤2.2모던",
+   "compareCase9":"디젤2.2프리미엄",
+   "compareCase10":"디젤2.2프리미엄스페셜",
+   "compareCase11":"가솔린2.4",
+   "compareCase12":"가솔린3.0",
+   "compareCase13":"가솔린3.3",
+   "compareCase14":"디젤2.2",
+
+   "compareTitle1":"가솔린2.4 모던",
+   "compareTitle2":"가솔린2.4 프리미엄",
+   "compareTitle3":"가솔린2.4 프리미엄스페셜",
+   "compareTitle4":"가솔린3.0 익스클루시브",
+   "compareTitle5":"가솔린3.0 익스클루시브스페셜",
+   "compareTitle6":"가솔린3.0 익스클루시브스페셜프리미어인테리어셀렉션",
+   "compareTitle7":"가솔린3.3 셀러브리티",
+   "compareTitle8":"디젤2.2 모던",
+   "compareTitle9":"디젤2.2 프리미엄",
+   "compareTitle10":"디젤2.2 프리미엄스페셜",
+   "compareTitle11":"가솔린2.4 모던",
+   "compareTitle12":"가솔린3.0 익스클루시브",
+   "compareTitle13":"가솔린3.3 셀러브리티",
+   "compareTitle14":"디젤2.2 모던",
+
+   "comparePrice1":"30,550,000",
+   "comparePrice2":"31,750,000",
+   "comparePrice3":"33,750,000",
+   "comparePrice4":"35,500,000",
+   "comparePrice5":"38,700,000",
+   "comparePrice6":"40,200,000",
+   "comparePrice7":"41,600,000",
+   "comparePrice8":"33,550,000",
+   "comparePrice9":"30,550,000",
+   "comparePrice10":"35,500,000",
+   "comparePrice11":"30,550,000",
+   "comparePrice12":"35,500,000",
+   "comparePrice13":"41,600,000",
+   "comparePrice14":"33,550,000",
 
   "compareModelItem1BasicOptionView": "기본 옵션 보기",
   "compareModelItem1BasicOptionClickMessage": " 기본품목",
   "compareModelItem1SelectOptionAdd": "선택 옵션 추가",
   "compareModelItem1SelectOptionClickMessage": " 선택품목",
+  
+
+  "compareAndMessage":" 와",
+  "compareMessage":"비교해 드릴께요",
+
+  "korCompareModelMessage": "모델명이 정확하지 않아 모델을 비교 할수없어요. 모델명을 다시 확인해 주세요.",
+  "korCompareBeforeModelMessage": "이전에 본 모델이 없어요. 모델을 보시고 비교해 주세요.",
+  "korCompareBeforeModelsMessage": "모델을 2개 이상 봐주세요 비교할 모델이 없어요.",
   "NocompareModelMessage": "모델을 비교 할수없습니다. 모델명을 다시 확인해 주세요."
 }
