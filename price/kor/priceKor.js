@@ -1027,16 +1027,17 @@ function create(bot) {
             if (!functionOptionUpdate(userId, fnResultModel, fnResultOption, 1)) {
                 
                 
-                session.endDialog();
-                session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel });
-                
-                responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
-                query.insertHistoryQuery(args, responseTime, function (err, result) {
-                    if (!err) {
-                        console.log("query.getData : " + result);
-                    }
-                });
-            
+                setTimeout(function () {
+                    session.endDialog();
+                    session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel });
+                    
+                    responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+                    query.insertHistoryQuery(args, responseTime, function (err, result) {
+                        if (!err) {
+                            console.log("query.getData : " + result);
+                        }
+                    });
+                }, 500); 
             }
 
             //session.endDialog();
@@ -1376,36 +1377,70 @@ function create(bot) {
     function functionOptionUpdate(userID, modelNum, optionNum, val) {
         var statusTask = [
             function (callback) {
-                var tableName = "OPTION" + optionNum;
                 tp.setConnectionConfig(config);
-                
-                tp.sql("UPDATE TBL_MODEL_CUSTOMER_SELECTED SET " + tableName + " = @val WHERE USER_ID = @userID AND MODEL_NUMBER = @modelNum")
-
+                tp.sql("SELECT USER_ID, MODEL_NUMBER FROM TBL_MODEL_CUSTOMER_SELECTED WHERE USER_ID=@userID")
                     .parameter('userID', TYPES.NVarChar, userID)
-                    .parameter('modelNum', TYPES.NVarChar, modelNum)
-                    .parameter('val', TYPES.NVarChar, val)
                     .execute()
-
                     .then(function (results) {
-                    console.log("TBL_MODEL_CUSTOMER_SELECTED UPDATE Success!!!!");
+                    console.log("TBL_MODEL_CUSTOMER_SELECTED USER_CHECK Success!!!!");
                     callback(null, results);
                 }).fail(function (err) {
                     console.log(err);
                 });
-
+            },
+            function (data, callback) {
+                var tf = true;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].MODEL_NUMBER == modelNum) {
+                        tf = false;
+                        break;
+                    }
+                }
+                
+                //console.log("========================== " + tf);
+                //console.log("========================== " + data.length);
+                if (tf || data.length == 0) {
+                    var tableName = "OPTION" + optionNum;
+                    tp.setConnectionConfig(config);
+                    tp.sql("INSERT INTO TBL_MODEL_CUSTOMER_SELECTED (USER_ID, MODEL_NUMBER, " + tableName + ") " 
+                        + "VALUES (@USERID, @MODELNUM, @VAL )  "
+                    )
+                        .parameter('USERID', TYPES.NVarChar, userID)
+                        .parameter('MODELNUM', TYPES.Int, modelNum)
+                        .parameter('VAL', TYPES.NVarChar, val)
+                        .execute()
+                        .then(function (results) {
+                        console.log("select TBL_MODEL_CUSTOMER_SELECTED insert success!!!!");
+                        callback(null, results);
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                } else if (!tf && data.length > 0) {
+                    var tableName = "OPTION" + optionNum;
+                    tp.setConnectionConfig(config);
+                    tp.sql("UPDATE TBL_MODEL_CUSTOMER_SELECTED SET " + tableName + " = @val WHERE USER_ID = @userID AND MODEL_NUMBER = @modelNum")
+                        .parameter('userID', TYPES.NVarChar, userID)
+                        .parameter('modelNum', TYPES.NVarChar, modelNum)
+                        .parameter('val', TYPES.NVarChar, val)
+                        .execute()
+                        .then(function (results) {
+                        console.log("TBL_MODEL_CUSTOMER_SELECTED UPDATE Success!!!!");
+                        callback(null, results);
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                } else {
+                    callback(null, "");
+                }
+                
             }
         ];
-        
-        async.series(statusTask, function (err, results) {
+        async.waterfall(statusTask, function (err, results) {
             
             var statusMerge;
             
             console.log("UPDATE Result : " + results[0]);
         });
-        
-        return false;
-    }
-
 
 
 }
