@@ -120,7 +120,7 @@ function create(bot) {                                                  // funct
         console.log("session ID : " + session.message.sourceEvent.clientActivityId);
 
 
-        if (session.message.sourceEvent.clientActivityId == "undefined") {
+        if (typeof session.message.sourceEvent.clientActivityId  == "undefined") {
 
             userId = "";
 
