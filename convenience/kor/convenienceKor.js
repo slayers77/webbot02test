@@ -14,7 +14,7 @@ function create(bot) {
     bot.dialog('/korConvenienceMain', [
 
         function (session, args) {
-
+            session.send(session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae"));
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -73,7 +73,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSmartSenseSimple', [
     
         function (session,args, results) {
-            
+            session.send(session.localizer.gettext(session.preferredLocale(), "smartSenseMainMessage"));
             //if (results.response.entity == '스마트 센스 소개') {
                 var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -107,8 +107,8 @@ function create(bot) {
     
     bot.dialog('/korConvenienceSmartsenseList', [
     
-        function (session, args, results) { 
-        
+        function (session, args) { 
+            session.send(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailMessage"));
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -159,9 +159,21 @@ function create(bot) {
             ]);
             
             session.send(msg);
-            session.endDialog();
-            session.beginDialog('/korReMainMenu');
+
+            var msg = new builder.Message(session)
+                            .attachments([
             
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 스마트센스 편의사항을 보셨는데 시승 한번 해보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
@@ -169,7 +181,6 @@ function create(bot) {
                 }
             });
         }
-    
     ]);
 
     /***********************************************************************************
@@ -182,8 +193,10 @@ function create(bot) {
 
     bot.dialog('/korConvenienceInfotainmentSimple', [
     
-        function (session, args, results) { 
-        
+        function (session, args, results) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "InfotainmentMainMessage"));
+            
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
                     //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -216,8 +229,10 @@ function create(bot) {
     
     bot.dialog('/korConvenienceInfotainmentList', [
     
-        function (session, args, results) { 
-        
+        function (session, args, results) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "InfotainmentDetailMessage"));
+
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -245,9 +260,23 @@ function create(bot) {
                 ])
             ]);
             session.send(msg);
-            session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
+            
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 인포테인먼트 편의사항을 보셨는데 시승 한번 해보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
@@ -255,6 +284,7 @@ function create(bot) {
                 }
             });
         }
+
     ]);
 
 
@@ -331,7 +361,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSafetySimple', [
     
         function (session, args, results) { 
-            
+            session.send(session.localizer.gettext(session.preferredLocale(), "safetyMainMessage"));
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
                     //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -366,8 +396,10 @@ function create(bot) {
     
     bot.dialog('/korConvenienceSafetyList', [
     
-        function (session, args, results) { 
-        
+        function (session, args, results) {
+            
+            session.send(session.localizer.gettext(session.preferredLocale(), "safetyDetailMessage"));
+
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -400,8 +432,6 @@ function create(bot) {
             ]);
         
             session.send(msg);
-            session.endDialog();
-            session.beginDialog('/korReMainMenu');
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -409,6 +439,20 @@ function create(bot) {
                     console.log("query.getData : " + result);
                 }
             });
+
+            var msg = new builder.Message(session)
+                            .attachments([
+            
+                new builder.HeroCard(session)
+                                    .title("")
+                                    .text("그랜저 IG의 안전 편의사항을 보셨는데 시승 한번 해보실래요?")
+                                    //.text(str)
+                                    .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                ])
+            ]);
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
 
         }
     ]);
