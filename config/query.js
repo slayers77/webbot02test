@@ -32,11 +32,11 @@ function kor_en_Checker(str) {
     var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
     
     if (str.match(check)) {
-        console.log("Ko");
+        //console.log("Ko");
         return "Ko";
     }
     else {
-        console.log("En");
+        //console.log("En");
         return "En";
     }
 }
