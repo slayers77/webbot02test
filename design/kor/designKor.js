@@ -27,13 +27,34 @@ function create(bot) {
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/20170302091059771443.jpg")
                         ])
+                        //.buttons([
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
+                        //])
+            ]);
+            
+            session.send(msg);
+
+            var msg1 = new builder.Message(session)
+                .textFormat(builder.TextFormat.xml)
+                //.attachmentLayout(builder.AttachmentLayout.carousel)
+                .attachments([
+                    //AnimationCard
+                new builder.HeroCard(session)
+                //        .title(session.localizer.gettext(session.preferredLocale(), "designTitleName"))
+                //        .subtitle(session.localizer.gettext(session.preferredLocale(), "designSubtitleMessage"))
+                //        .images([
+                //    builder.CardImage.create(session, img_path + "/images/carDesign/20170302091059771443.jpg")
+                //])
                         .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
-                        ])
-                ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "designMenuList")); 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "colorClickMessage"), session.localizer.gettext(session.preferredLocale(), "color")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorClickMessage"), session.localizer.gettext(session.preferredLocale(), "interior")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorClickMessage"), session.localizer.gettext(session.preferredLocale(), "exterior"))
+                ])
+            ]);
+
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "designMenuList")); 
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -178,13 +199,20 @@ function create(bot) {
                         .images([
                             builder.CardImage.create(session, img_path + "/images/carDesign/car_outside_title.jpg")
                         ])
-                        .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "exteriorDetail"))
-                        ])
+            ]);
+            
+            session.send(msg);
 
-                ]);
+            var msg1 = new builder.Message(session)
+                .textFormat(builder.TextFormat.xml)
+                .attachments([
+                new builder.HeroCard(session)
+                .buttons([
+                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "exteriorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "exteriorDetail"))
+                ])
+            ]);
            
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "exteriorMenuList"));
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "exteriorMenuList"));
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -250,16 +278,28 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                             .title("")
-                            .text("그랜저 IG의 외관 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                            //.text(str)
-                            .buttons([
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                                builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
-                            ])
+                            .text(session.localizer.gettext(session.preferredLocale(), "induceExteriorDesignToConvenience"))
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
+                ])
+            ]);
+
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
         }
+        //, function (session, results) { 
+        
+        //    console.log("AAAA : " + session.message.text);
+        //    session.endDialog();
+        //}
 
     ]);
 
@@ -282,12 +322,20 @@ function create(bot) {
                         .images([
                     builder.CardImage.create(session, img_path + "/images/carDesign/car_inside_title.jpg")
                 ])
+            ]);
+            
+            session.send(msg);            
+            
+            var msg1 = new builder.Message(session)
+                .textFormat(builder.TextFormat.xml)
+                .attachments([
+                new builder.HeroCard(session)
                         .buttons([
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "interiorDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "interiorDetail"))
                 ])
             ]);
             
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "interiorMenuList"));
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "interiorMenuList"));
             session.endDialog();
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -340,14 +388,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 내관 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceInteriorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
         }
     ]);
@@ -363,7 +418,8 @@ function create(bot) {
     bot.dialog('/korDesignSelectWhiteCream', [
         function (session, args) {
             
-            session.send("그랜저 IG의 화이트 크림 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            //session.send("화이트 크림 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "whiteCream")+" "+ session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -415,14 +471,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 화이트 크림 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -435,7 +498,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectIonSilver', [
         function (session, args) {
             
-            session.send("그랜저 IG의 이온 실버 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "IonSilver") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -499,14 +562,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 이온 실버 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -516,7 +586,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectLunaGray', [
         function (session, args) {
             
-            session.send("그랜저 IG의 루나 그레이 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "LunaGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -569,14 +639,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 루나 그레이 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -586,7 +663,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectPanteraGray', [
         function (session, args) {
             
-            session.send("그랜저 IG의 판테라 그레이 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "PanteraGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -640,14 +717,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 판테라 그레이 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -658,7 +742,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectMidnightBlack', [
         function (session, args) {
             
-            session.send("그랜저 IG의 미드나잇 블랙 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "MidnightBlack") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -712,14 +796,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 미드나잇 블랙 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -729,7 +820,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectValentineRed', [
         function (session, args) {
             
-            session.send("그랜저 IG의 발렌타인 레드 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "ValentineRed") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -783,14 +874,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 발렌타인 레드 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -800,7 +898,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectGrandBlue', [
         function (session, args) {
             
-            session.send("그랜저 IG의 그랑 블루 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "GrandBlue") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -852,14 +950,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 그랑 블루 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -869,7 +974,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectShadeBronze', [
         function (session, args) {
             
-            session.send("그랜저 IG의 쉐이드 브론즈 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -923,14 +1028,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 쉐이드 브론즈 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
@@ -940,7 +1052,7 @@ function create(bot) {
     bot.dialog('/korDesignSelectKakiMetal', [
         function (session, args) {
             
-            session.send("그랜저 IG의 카키 메탈 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
+            session.send(session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -994,14 +1106,21 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text("그랜저 IG의 카키 메탈 색상 디자인을 보셨는데 편의사항도 한번 보실래요?")
-                                    //.text(str)
-                                    .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceColorDesignToConvenience"))
+            ]);
+            
+            session.send(msg);
+            var msg1 = new builder.Message(session)
+                    .attachments([
+            
+                new builder.HeroCard(session)
+                            .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "convenienceClickMessage"), session.localizer.gettext(session.preferredLocale(), "Yes")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
+            
+            builder.Prompts.choice(session, msg1, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
 
         }
