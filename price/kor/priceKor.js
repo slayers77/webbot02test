@@ -1410,7 +1410,21 @@ function create(bot) {
 
 }
 
+// 자동으로 콤마 넣기 
+function number_format(num) {
+    var num_str = num.toString();
+    var result = '';
+    
+    for (var i = 0; i < num_str.length; i++) {
+        var tmp = num_str.length - (i + 1);
+        if (i % 3 == 0 && i != 0) result = ',' + result;
+        result = num_str.charAt(tmp) + result;
+    }
+    
+    return result;
+}
+
 
 module.exports = {
-    create
+    create,number_format
 }
