@@ -1,14 +1,14 @@
 ﻿var modelpriceref = [];
 modelpriceref[0] = new Array("가솔린2.4모던", 30550000);
 modelpriceref[1] = new Array("가솔린2.4프리미엄", 31750000);
-modelpriceref[2] = new Array("가솔린2.4프리미엄스페셜", 33750000);
+modelpriceref[2] = new Array("가솔린2.4프리미엄 스페셜", 33750000);
 modelpriceref[3] = new Array("가솔린3.0익스클루시브", 35500000);
-modelpriceref[4] = new Array("가솔린3.0익스클루시브스페셜", 38700000);
+modelpriceref[4] = new Array("가솔린3.0익스클루시브 스페셜", 38700000);
 modelpriceref[5] = new Array("가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션", 40200000);
 modelpriceref[6] = new Array("가솔린3.3셀러브리티", 41600000);
 modelpriceref[7] = new Array("디젤2.2모던", 33550000);
 modelpriceref[8] = new Array("디젤2.2프리미엄", 34750000);
-modelpriceref[9] = new Array("디젤2.2프리미엄스페셜", 36750000);
+modelpriceref[9] = new Array("디젤2.2프리미엄 스페셜", 36750000);
 var optionpriceref = [];
 optionpriceref[0] = new Array("파노라마 썬루프", 1100000);
 optionpriceref[1] = new Array("앞좌석 통풍+하이패스 시스템", 600000);
