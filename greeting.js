@@ -110,7 +110,8 @@ function create(bot) {                                                  // funct
     ]);
 
     //var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
-    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/e120869f-be93-4b48-b8a6-d58b10a63290?subscription-key=7efb093087dd48918b903885b944740c&verbose=true');
+    //var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/e120869f-be93-4b48-b8a6-d58b10a63290?subscription-key=7efb093087dd48918b903885b944740c&verbose=true');
+    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/88f5711d-8692-4ab1-8eba-36d285c2d639?subscription-key=9fed2fd1ec614cb58ae1989302151d13&timezoneOffset=0.0&verbose=false&q=');
     var intents = new builder.IntentDialog({ recognizers: [recognizer] });
     bot.dialog('/', intents);
 
