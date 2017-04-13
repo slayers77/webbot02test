@@ -9,7 +9,10 @@ var query = require('./config/query');
 var date = require('date-utils');
 date = new Date();
 
-var beforeMsg = "";
+var userConversationId = "";
+var userAddressId = "";
+
+
 
 //이미지경로 전역 변수 선언
 global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
@@ -95,6 +98,11 @@ function create(bot) {                                                  // funct
     //초기 출력 화면
     bot.dialog('/init', [
         function (session) {
+            console.log("init dialog : " + session.message.address.conversation.id);
+            console.log("init dialog : " + session.message.address.id);
+            userConversationId = session.message.address.conversation.id;
+            userAddressId = session.message.address.id;
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                     .attachments([
@@ -148,23 +156,26 @@ function create(bot) {                                                  // funct
         var timer;
         var increment = 0;
         console.log(session.message.address);
+        console.log(session.message.address.id); //바뀜
+        console.log(session.message.address.conversation.id); //unique
 
-       // session.prototype.sendTyping = function () {
-       //     this.msgSent = true;
-       //     var m = { type: 'typing' };
-       //     this.prepareMessage(m);
-       //     this.batch.push(m);
-       //     logger.info(this, 'session.sendTyping()');
-       //     this.startBatch();
-       //     return this;
-       // };
+        //userAddressId 
 
-       //// Notice the call to startBatch which has this line inside
-       // this.batchTimer = setTimeout(function () {
-       //     _this.sendBatch();
-       // }, 3000);
 
-        
+        if ( userConversationId == session.message.address.conversation.id ) {
+
+            timer = setInterval(
+
+                function () {
+
+                    console.log("꺼져");
+
+            }, 10000);
+
+        } else {
+
+
+        }
 
         //beforeMsg = session.message.text;
 
