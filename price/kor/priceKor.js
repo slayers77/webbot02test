@@ -4,7 +4,7 @@ var date = require('date-utils');
 date = new Date();
 
 var query = require('../../config/query');
-
+var stored = require('../../config/storedModel');
 var async = require('async');
 var tp = require('tedious-promises');
 var TYPES = require('tedious').TYPES;
