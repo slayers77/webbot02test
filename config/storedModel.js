@@ -64,14 +64,15 @@ exports.getmodel = function (modelname) {
                 }
             }
             tempmodel[2] = selectedmodels[idx][1];
+            tempmodel[3] = '';
             var Cntoption = optionpriceref.length;
             for (var idx3 = 0; idx3 < Cntoption; idx3++) {
                 if (optionpriceref[idx3][0] == selectedmodels[idx][1]) {
                     tempmodel[3] = optionpriceref[idx3][1];
                 }
             }
+            returnmodel.push(tempmodel);
         }
-        returnmodel.push(tempmodel);
     }
     return returnmodel;
 }
@@ -86,9 +87,9 @@ exports.delmodel = function (sam) {
                 delnum = idx;
             }
         }
-        if (delnum != null) {
-            selectedmodels.splice(delnum,1);
-        }
+    }
+    if (delnum != null) {
+        selectedmodels.splice(delnum,1);
     }
     console.log(selectedmodels);
 }
