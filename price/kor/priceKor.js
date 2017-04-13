@@ -792,6 +792,12 @@ function create(bot) {
             var price2;
             var title1 = null;
             var title2 = null;
+            var model1
+            var model2
+            var total1 = 0;
+            var total2 = 0;
+            var item1;
+            var itme2;
             
             if (compare1 != null) {
                 
@@ -800,65 +806,145 @@ function create(bot) {
                 switch (compare1) {
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase1"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle1");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice1");
+                        price1 = 30550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase2"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle2");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice2");
+                        price1 = 31750000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase3"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle3");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice3");
+                        price1 = 33750000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase4"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle4");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice4");
+                        price1 = 35500000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase5"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle5");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice5");
+                        price1 = 38700000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase6"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle6");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice6");
+                        price1 = 40200000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase7"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle7");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice7");
+                        price1 = 41600000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase8"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle8");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice8");
+                        price1 = 33550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase9"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle9");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice9");
+                        price1 = 30550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase10"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle10");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice10");
+                        price1 = 35500000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase11"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle11");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice11");
+                        price1 = 30550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase12"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle12");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice12");
+                        price1 = 35500000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase13"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle13");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice13");
+                        price1 = 41600000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase14"):
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle14");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice14");
+                        price1 = 33550000;
                         break;
                     default:
                         title1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle1");
-                        price1 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice1");
+                        price1 = 30550000;
                         break;
                 }
+                
+                model1 = stored.getmodel(title1);
+                
+                for (var i = 0; i < model1.length; i++) {
+                    total1 += parseInt(model1[i][3]);
+                }
+                
+                total1 += parseInt(price1);
+                total1 = number_format(total1);
+                
+                var item1;
+                
+                if (model1.length == 0) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),];
+                } else if (model1.length == 1) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2])];
+                } else if (model1.length == 2) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2])];
+                } else if (model1.length == 3) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2])];
+                } else if (model1.length == 4) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[3][2])];
+                } else if (model1.length == 5) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[4][2])];
+                } else if (model1.length == 6) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[5][2])];
+                } else if (model1.length == 7) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[5][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[6][2])];
+                } else if (model1.length == 8) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[5][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[6][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[7][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[7][2])];
+                } else if (model1.length == 9) {
+                    item1 = [builder.ReceiptItem.create(session, number_format(price1) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title1),
+                        builder.ReceiptItem.create(session, number_format(model1[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[5][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[6][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[7][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[7][2]),
+                        builder.ReceiptItem.create(session, number_format(model1[8][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model1[8][2])];
+                }
+
+
             }
             
             if (compare2 != null) {
@@ -868,73 +954,150 @@ function create(bot) {
                 switch (compare2) {
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase1"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle1");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice1");
+                        price2 = 30550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase2"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle2");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice2");
+                        price2 = 31750000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase3"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle3");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice3");
+                        price2 = 33750000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase4"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle4");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice4");
+                        price2 = 35500000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase5"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle5");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice5");
+                        price2 = 38700000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase6"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle6");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice6");
+                        price2 = 40200000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase7"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle7");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice7");
+                        price2 = 41600000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase8"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle8");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice8");
+                        price2 = 33550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase9"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle9");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice9");
+                        price2 = 30550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase10"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle10");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice10");
+                        price2 = 35500000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase11"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle11");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice11");
+                        price2 = 30550000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase12"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle12");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice12");
+                        price2 = 35500000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase13"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle13");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice13");
+                        price2 = 41600000;
                         break;
                     case session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareCase14"):
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle14");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice14");
+                        price2 = 33550000;
                         break;
                     default:
                         title2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareTitle1");
-                        price2 = session.localizer.gettext(query.kor_en_Checker(session.message.text), "comparePrice1");
+                        price2 = 30550000;
                         break;
                 }
+                
+                model2 = stored.getmodel(title2);
+                
+                for (var i = 0; i < model2.length; i++) {
+                    total += parseInt(model2[i][3]);
+                }
+                
+                total2 += parseInt(price2);
+                total2 = number_format(total2);
+                
+                var item2;
+                
+                if (model2.length == 0) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),];
+                } else if (model2.length == 1) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2])];
+                } else if (model2.length == 2) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2])];
+                } else if (model2.length == 3) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2])];
+                } else if (model2.length == 4) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[3][2])];
+                } else if (model2.length == 5) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[4][2])];
+                } else if (model2.length == 6) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[5][2])];
+                } else if (model2.length == 7) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[5][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[6][2])];
+                } else if (model2.length == 8) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[5][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[6][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[7][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[7][2])];
+                } else if (model2.length == 9) {
+                    item2 = [builder.ReceiptItem.create(session, number_format(price2) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), title2),
+                        builder.ReceiptItem.create(session, number_format(model2[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[0][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[1][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[2][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[3][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[4][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[5][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[6][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[7][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[7][2]),
+                        builder.ReceiptItem.create(session, number_format(model2[8][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), model2[8][2])];
+                }
+
             }
-            
-            
             
             if (title1 != null && title2 != null) {
                 
                 session.send(title1 + session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareAndMessage") + title2 + session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareMessage"));
-                
+                /*
                 msg = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments([
@@ -961,8 +1124,29 @@ function create(bot) {
                         builder.CardAction.imBack(session, title1 + session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareModelItem1SelectOptionClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "compareModelItem1SelectOptionAdd"))
                     ])
                 ]);
+                */
+
+                var msg = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments([
+                    new builder.ReceiptCard(session)
+                            .title(title1)
+                            .items(item1)
+                            .facts([
+                        builder.Fact.create(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu2"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu1"))
+                    ])
+                            .total(total1 + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit")),
+                    new builder.ReceiptCard(session)
+                            .title(title2)
+                            .items(item2)
+                            .facts([
+                        builder.Fact.create(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu2"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu1"))
+                    ])
+                            .total(total2 + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"))
+                ]);
                 
-                session.endDialog(msg);
+                session.send(msg);
+                
             } else {
                 
                 switch (args.intent) {
@@ -979,9 +1163,22 @@ function create(bot) {
                         session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "NocompareModelMessage"));
                 }
                 
-                session.endDialog(msg);
-                
             }
+            
+            var endMsg = new builder.Message(session)
+                .attachments([
+
+                new builder.HeroCard(session)
+                        .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnMainMenuMessage"))//"원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!")
+                        .buttons([
+                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceModelCall")),
+                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No")),
+                ])
+            ]);
+            builder.Prompts.choice(session, endMsg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "initMenuList"));
+            
+            session.endDialog();
+            
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
                 if (!err) {
