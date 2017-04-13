@@ -164,20 +164,20 @@ function create(bot) {                                                  // funct
         //userAddressId 
 
 
-        if ( userConversationId == session.message.address.conversation.id ) {
+        //if ( userConversationId == session.message.address.conversation.id ) {
 
-            timer = setInterval(
+        //    timer = setInterval(
 
-                function () {
+        //        function () {
 
-                    console.log("꺼져");
+        //            console.log("꺼져");
 
-            }, 10000);
+        //    }, 10000);
 
-        } else {
+        //} else {
 
 
-        }
+        //}
 
         //beforeMsg = session.message.text;
 
