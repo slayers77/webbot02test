@@ -7,6 +7,7 @@ var language = "";
 
 var query = require('./config/query');
 var date = require('date-utils');
+var stored = require('./config/storedModel');
 date = new Date();
 
 var userConversationId = "";
@@ -285,17 +286,26 @@ function create(bot) {                                                  // funct
             console.log("priceT/F : " + results[0][0].price);
             priceRes = results[0][0].price;
 
+            /*
             if (results[1].length > 0) {
                 engineName = results[1][0].ENGINE_NAME;
                 modelName = results[1][0].MODEL_NAME;
 
                 console.log("engineName : " + results[1][0].ENGINE_NAME);
                 console.log("modelName : " + results[1][0].MODEL_NAME);
-            }
+            }*/
 
             if (priceRes == 'true') {
+                /*
                 if (engineName != null && modelName != null && engineName != '' & modelName != '') {
                     priceMsg = engineName + " " + modelName + " " + session.message.text;
+                    session.message.text = priceMsg;
+                }
+                */
+                var lastModel = stored.lastmodel();
+
+                if (lastModel != null) {
+                    priceMsg = lastModel[0] + " " + session.message.text;
                     session.message.text = priceMsg;
                 }
             }
