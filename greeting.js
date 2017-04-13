@@ -347,12 +347,24 @@ function create(bot) {                                                  // funct
             session.beginDialog('/korReMainMenu', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history"});
         }
     ]);
-    
-    //intents.matches('greeting', [   
-    //    function (session, args, next) {
-    //        session.beginDialog('/korMenu', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korMenu", tableNm: "insert_history"});
-    //    }
-    //]);
+
+
+    intents.matches('greeting', [   
+        function (session, args, next) {
+
+            console.log("GREETING : " + query.kor_en_Checker(session.message.text));
+
+            if (query.kor_en_Checker(session.message.text) == "Ko") {
+
+                session.beginDialog('/LanguageSelectKorean', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectKorean", tableNm: "insert_history" });
+            } else if (query.kor_en_Checker(session.message.text) == "En") {
+
+                session.beginDialog('/LanguageSelectEnglish', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectEnglish", tableNm: "insert_history" });
+                
+            }
+            
+        }
+    ]);
 
      /*
         시승 INTENT MATCH
