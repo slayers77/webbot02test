@@ -10,7 +10,7 @@ modelpriceref[7] = new Array("디젤2.2모던", 33550000);
 modelpriceref[8] = new Array("디젤2.2프리미엄", 34750000);
 modelpriceref[9] = new Array("디젤2.2프리미엄스페셜", 36750000);
 var optionpriceref = [];
-optionpriceref[0] = new Array("파노라마 썬루프", 1100000);
+optionpriceref[0] = new Array("파노라마썬루프", 1100000);
 optionpriceref[1] = new Array("앞좌석통풍+하이패스시스템", 600000);
 optionpriceref[2] = new Array("현대스마트센스패키지IV", 1800000);
 optionpriceref[3] = new Array("튜익스컴포트패키지", 780000);
@@ -26,25 +26,21 @@ var selectedmodels = [];
 
 exports.addmodel = function (sam) {
     var Cnt = selectedmodels.length;
-    var res1 = true;
-    var model = sam[0] + sam[1];
-    if (selectedmodels.length == 0) {
-        res1 = true;
-    }
+    var insertflag = true;
+    var fixmodel = new Array(sam[0], fixoptionname(sam[1]));
 
-    for (var idx = 0; idx < Cnt; idx++) {
-
-        var msg = selectedmodels[idx][0] + selectedmodels[idx][1];
-
-        if (msg == model) {
-            res1 = false;
-            break;
+    if (selectedmodels.length != 0) {
+        for (var idx = 0; idx < Cnt; idx++) {
+            if (selectedmodels[idx][0] == fixmodel[0]) {
+                if (selectedmodels[idx][1] == fixmodel[1]) {
+                    insertflag = false;
+                }
+            }
         }
-
     }
-    if (res1) {
-        console.log(res1);
-        selectedmodels.push(sam);
+
+    if (insertflag) {
+        selectedmodels.push(fixmodel);
     }
     console.log(selectedmodels);
 }
@@ -78,12 +74,12 @@ exports.getmodel = function (modelname) {
 }
 
 exports.delmodel = function (sam) {
-    console.log(selectedmodels);
+    var fixmodel = new Array(sam[0], fixoptionname(sam[1]));
     var Cnt = selectedmodels.length;
     var delnum = null;
     for (var idx = 0; idx < Cnt; idx++) {
-        if (selectedmodels[idx][0] == sam[0]) {
-            if (selectedmodels[idx][1] == sam[1]) {
+        if (selectedmodels[idx][0] == fixmodel[0]) {
+            if (selectedmodels[idx][1] == fixmodel[1]) {
                 delnum = idx;
             }
         }
@@ -92,4 +88,23 @@ exports.delmodel = function (sam) {
         selectedmodels.splice(delnum,1);
     }
     console.log(selectedmodels);
+}
+
+//option name partial matching check 
+var fixoptionname = function(inputoptionname) {
+    var returnoptionname;
+    var Cntoption = optionpriceref.length;
+    var indexnumber;
+    for (var idx3 = 0; idx3 < Cntoption; idx3++) {
+        var strindex = optionpriceref[idx3][0].search(inputoptionname);
+        if (strindex == 0) {
+            indexnumber = idx3;
+        }
+    }
+    if (indexnumber == 0) {
+        returnoptionname = optionpriceref[indexnumber][0];
+    } else {
+        returnoptionname = inputoptionname;
+    }
+    return returnoptionname;
 }
