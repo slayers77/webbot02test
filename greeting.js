@@ -122,6 +122,9 @@ function create(bot) {                                                  // funct
         console.log( "user insert : " + session.message.text);
         var insert;
 
+
+        console.log("session.statusCode : " + session.sessionState.callstack.id);
+        
         console.log("session ID : " + session.message.sourceEvent.clientActivityId);
         console.log("channel ID : " + session.message.address.channelId);
 

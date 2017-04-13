@@ -1429,7 +1429,7 @@ function create(bot) {
                     }).fail(function (err) {
                         console.log(err);
                     });
-                } else {
+                } else { 
                     callback(null, "");
                 }
                 
