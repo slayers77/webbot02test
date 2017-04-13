@@ -9,7 +9,7 @@ var query = require('./config/query');
 var date = require('date-utils');
 date = new Date();
 
-
+var beforeMsg = "";
 
 //이미지경로 전역 변수 선언
 global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
@@ -47,7 +47,31 @@ function create(bot) {                                                  // funct
     
     var responseTime;
     var languageValue;
-    
+
+
+    //incoming
+    //bot.on('incoming', function (message) {
+
+    //    var increment = 0;
+
+    //    playAlert = setInterval(function () {
+
+    //        console.log("increment = " + increment);
+    //        increment++;
+    //        if (increment == 5) {
+    //            console.log("5초 지남");
+    //        } else if (increment == 10) {
+    //            console.log("10초 지남");
+    //        } else if (increment == 20) {
+    //            console.log("GAME OVER");
+    //            clearInterval(playAlert);
+    //        }
+    //    }, 1000);
+    //});
+
+
+
+
     //챗봇 시작시 다이얼로그 출력
     bot.on('conversationUpdate', function (message) {
 
@@ -118,10 +142,69 @@ function create(bot) {                                                  // funct
 
     //status table 
     intents.onBegin(function (session, args, next) {
-
+        
         console.log( "user insert : " + session.message.text);
         var insert;
+        var timer;
+        var increment = 0;
+        console.log(session.message.address);
 
+       // session.prototype.sendTyping = function () {
+       //     this.msgSent = true;
+       //     var m = { type: 'typing' };
+       //     this.prepareMessage(m);
+       //     this.batch.push(m);
+       //     logger.info(this, 'session.sendTyping()');
+       //     this.startBatch();
+       //     return this;
+       // };
+
+       //// Notice the call to startBatch which has this line inside
+       // this.batchTimer = setTimeout(function () {
+       //     _this.sendBatch();
+       // }, 3000);
+
+        
+
+        //beforeMsg = session.message.text;
+
+        //    timer = setInterval(
+
+        //        function () {
+
+
+        //        //    console.log("increment : " + increment);
+        //        //    increment++;
+        //        //if (session.message.text) {
+
+        //        //    clearInterval(timer);
+
+        //        //}
+        //        //else {
+
+        //        //    console.log("꺼져");
+
+        //        //}
+        //            console.log("꺼져");
+                
+        //    }, 10000);
+            
+        
+
+
+        //playAlert = setInterval(function () {
+
+        //    console.log("increment = " + increment);
+        //    increment++;
+        //    if (increment == 5) {
+        //        console.log("5초 지남");
+        //    } else if (increment == 10) {
+        //        console.log("10초 지남");
+        //    } else if (increment == 20) {
+        //        console.log("GAME OVER");
+        //        clearInterval(playAlert);
+        //    }
+        //}, 1000);
 
         console.log("session.statusCode : " + session.sessionState.callstack.id);
         
@@ -265,11 +348,11 @@ function create(bot) {                                                  // funct
         }
     ]);
     
-    intents.matches('greeting', [   
-        function (session, args, next) {
-            session.beginDialog('/korMenu', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korMenu", tableNm: "insert_history"});
-        }
-    ]);
+    //intents.matches('greeting', [   
+    //    function (session, args, next) {
+    //        session.beginDialog('/korMenu', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korMenu", tableNm: "insert_history"});
+    //    }
+    //]);
 
      /*
         시승 INTENT MATCH
