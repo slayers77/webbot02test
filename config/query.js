@@ -38,7 +38,7 @@ function kor_en_Checker(str) {
         //console.log("En");
         return "En";
     }
-}
+};
 
 function getQuery(str) {
 
@@ -47,7 +47,7 @@ function getQuery(str) {
     var query = eval("result.query." + str); 
     
     return query;
-}
+};
 
 
 function insertHistoryQuery(data, resTime, callback) {

@@ -2,13 +2,6 @@
 
 <query>
 
-  <select_catType>
-
-    SELECT CAR_TYPE
-      FROM TBL_CAR_TYPE
-    WHERE SID = @sid
-  </select_catType>
-
   <insert_history>
 
     INSERT INTO TBL_HISTORY_QUERY
