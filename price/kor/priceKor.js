@@ -590,198 +590,148 @@ function create(bot) {
     bot.dialog('/korPriceRecipt', [
         function (session, args, next) {
             session.send("선택하신 차량의 산출 가격 입니다.");
-            
             console.log(userId + " user insert : " + session.message.text);
-            //var userId = userId;
-            var tasks = [
-                function (callback) {
-                    var returnData;
-                    tp.setConnectionConfig(config);
-                    tp.sql("SELECT TOD.MODEL_NUMBER, TOD.OPTION_NUMBER, TOD.OPTION_NAME, TOD.OPTION_PRICE " 
-                        + "FROM TBL_MODEL_CUSTOMER_SELECTED TMCS, TBL_OPTION_DEF TOD " 
-                        + "WHERE TMCS.MODEL_NUMBER = TOD.MODEL_NUMBER " 
-                        + "AND TMCS.USER_ID=@USERID " 
-                        + "AND TOD.MODEL_NUMBER=@MODELNUM " 
-                        + "ORDER BY OPTION_NUMBER "
-                    )
-                        .parameter('USERID', TYPES.NVarChar, userId)
-                        .parameter('MODELNUM', TYPES.Int, args.modelNum)
-                        .execute()
-                        .then(function (results) {
-                        console.log("select TBL_OPTION_DEF success!!!!");
-                        callback(null, results);
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
-                },
-                function (callback) {
-                    tp.sql("SELECT MODEL_NUMBER, OPTION1, OPTION2, OPTION3, OPTION4, OPTION5, OPTION6, OPTION7, OPTION8, OPTION9 " 
-                        + "FROM TBL_MODEL_CUSTOMER_SELECTED " 
-                        + "WHERE USER_ID=@USERID " 
-                        + "AND MODEL_NUMBER=@MODELNUM "
-                    )
-                        .parameter('USERID', TYPES.NVarChar, userId)
-                        .parameter('MODELNUM', TYPES.Int, args.modelNum)
-                        .execute()
-                        .then(function (results) {
-                        console.log("select TBL_MODEL_CUSTOMER_SELECTED success!!!!");
-                        callback(null, results);
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
-                }
-            ];
+
+            var fnResult = '';
+            var fnResultsplit = '';
+            var fnResultModelNm = '';
+            var fnResultTrimNm = '';
+            var fnResultOptionNm = '';
+            fnResult = optionNumChoice(session, session.message.text);
+            fnResultsplit = fnResult.split('|');
+            fnResultTrimNm = fnResultsplit[3];
+            fnResultModelNm = fnResultsplit[2];
+            fnResultOptionNm = fnResultsplit[5];
             
-            async.series(tasks, function (err, results) {
-                
-                //선택된 옵션 갯수
-                var optionCnt = 0;
-                var numberTemp = [];
-                
-                var OPTION1 = 0;
-                var OPTION2 = 0;
-                var OPTION3 = 0;
-                var OPTION4 = 0;
-                var OPTION5 = 0;
-                var OPTION6 = 0;
-                var OPTION7 = 0;
-                var OPTION8 = 0;
-                var OPTION9 = 0;
-                
-                for (var i = 1; i < 10; i++) {
-                    //console.log("results[1][0].OPTION" + i + " ::: " + eval("results[1][0].OPTION" + i));
-                    if (eval("results[1][0].OPTION" + i)) {
-                        optionCnt++;
-                        
-                        //OPTION_NUMBER check
-                        numberTemp.push(i);
-                    }
-                }
-                
-                //선택된 옵션명 + 가격
-                var optionPrice = 0;
-                var total = 0;
-                var itemsTemp = [];
-                var priceTemp = [];
-                var tmp = 1;
-                
-                
-                for (var i = 0; i < optionCnt; i++) {
-                    //console.log(typeof numberTemp[i]);
-                    itemsTemp.push(results[0][numberTemp[i] - 1].OPTION_NAME);
-                    priceTemp.push(results[0][numberTemp[i] - 1].OPTION_PRICE);
-                    optionPrice = optionPrice + results[0][numberTemp[i] - 1].OPTION_PRICE;
-                }
-                console.log(" itemTemp ::: " + itemsTemp);
-                console.log(" priceTemp ::: " + priceTemp);
-                console.log(typeof args.carPrice);
-                console.log(typeof optionPrice);
-                total = parseInt(args.carPrice) + optionPrice;
-                total = number_format(total);
-                
-                //선택된 옵션만 담기
-                var items;
-                /*for (var j = 0; j < optionCnt; j++) {
-                    console.log("name :::: " + itemsTemp[j].name);
-                    console.log("price :::: " + priceTemp[j].price);
-                }*/
-                if (optionCnt == 0) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),];
-                } else if (optionCnt == 1) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0])];
-                } else if (optionCnt == 2) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1])];
-                } else if (optionCnt == 3) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2])];
-                } else if (optionCnt == 4) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[3])];
-                } else if (optionCnt == 5) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[4])];
-                } else if (optionCnt == 6) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[5])];
-                } else if (optionCnt == 7) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[5]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[6])];
-                } else if (optionCnt == 8) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[5]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[6]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[7])];
-                } else if (optionCnt == 9) {
-                    items = [builder.ReceiptItem.create(session, number_format(args.carPrice) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), args.model + " " + args.trim),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[0]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[0]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[1]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[2]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[2]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[3]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[4]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[4]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[5]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[5]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[6]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[6]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[7]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[7]),
-                        builder.ReceiptItem.create(session, number_format(priceTemp[8]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), itemsTemp[8])];
-                }
-                
-                var msg = new builder.Message(session)
-                    .attachments([
+            var selectData = new Array();
+            selectData[0] = fnResultModelNm + fnResultTrimNm;
+            selectData[1] = fnResultOptionNm;
+            if (args.check == "add") {
+                //추가
+                stored.addmodel(selectData);
+            } else if (args.check == "del"){
+                //삭제
+                stored.delmodel(selectData);
+            }
+            //옵션값
+            var searchData = stored.getmodel(fnResultModelNm + fnResultTrimNm);
+            //console.log("searchData  ::: " + searchData);
+            //console.log("searchData.length :::" + searchData.length);
+
+            var modelNm;
+            var modelPrice = 0;
+            var optionNm;
+            var optionPrice = 0;
+            var optionTotal = 0;
+            var total = 0;
+            for (var i = 0; i < searchData.length; i++) {
+                modelNm = searchData[i][0];
+                modelPrice = searchData[i][1];
+                optionNm = searchData[i][2];
+                optionPrice = searchData[i][3];
+
+                optionTotal = optionTotal + searchData[i][3]
+            }
+            //합계
+            total = searchData[0][1] + optionTotal;
+
+            //선택된 옵션만 담기
+            var items;
+
+            if (searchData.length == 0) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),];
+            } else if (searchData.length == 1) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2])];
+            } else if (searchData.length == 2) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2])];
+            } else if (searchData.length == 3) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2])];
+            } else if (searchData.length == 4) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[3][2])];
+            } else if (searchData.length == 5) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[3][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[4][2])];
+            } else if (searchData.length == 6) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[3][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[4][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[5][2])];
+            } else if (searchData.length == 7) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[3][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[4][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[5][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[6][2])];
+            } else if (searchData.length == 8) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[3][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[4][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[5][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[6][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[7][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[7][2])];
+            } else if (searchData.length == 9) {
+                items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), modelNm),
+                    builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[0][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[1][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[2][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[3][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[4][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[5][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[6][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[6][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[7][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[7][2]),
+                    builder.ReceiptItem.create(session, number_format(searchData[8][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[8][2])];
+            }
+
+            var msg = new builder.Message(session)
+                .attachments([
                     new builder.ReceiptCard(session)
-                            .title(args.model + " " + args.trim)
-                            .items(items)
-                            .facts([
-                        builder.Fact.create(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu2"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu1"))
-                    ])
-                            .total(total + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"))
+                        .title(args.model + " " + args.trim)
+                        .items(items)
+                        .facts([
+                            builder.Fact.create(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu2"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu1"))
+                        ])
+                        .total(number_format(total) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"))
                 ]);
-                session.send(msg);
-                
-                var nextBtn = new builder.Message(session)
-                    .attachmentLayout(builder.AttachmentLayout.carousel)
-                    .attachments([
+            session.send(msg);
+
+            var nextBtn = new builder.Message(session)
+                .attachmentLayout(builder.AttachmentLayout.carousel)
+                .attachments([
                     new builder.HeroCard(session)
-                            .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndMessage"))
-                            .buttons([
-                        builder.CardAction.imBack(session, args.model + " " + args.trim + " " + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")),
-                        //builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndNoClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndNoMessage"))
-                        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReMainCall"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "basicOptionEndNoMessage"))
-                    ])
+                        .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndMessage"))
+                        .buttons([
+                            builder.CardAction.imBack(session, args.model + " " + args.trim + " " + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")),
+                            //builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndNoClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndNoMessage"))
+                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReMainCall"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "basicOptionEndNoMessage"))
+                        ])
                 ]);
-                builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndMenuList"), { listStyle: builder.ListStyle.button });
-                session.endDialog();
-                
-            });
+            builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " " + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndMenuList"), { listStyle: builder.ListStyle.button });
+            session.endDialog();
         }
     ]);
-    
     
     bot.dialog('/korCompareModel', [
         function (session, args) {
@@ -1226,7 +1176,7 @@ function create(bot) {
                 
                 setTimeout(function () {
                     session.endDialog();
-                    session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel });
+                    session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel, check: "add" });
                     
                     responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
                     query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -1277,7 +1227,7 @@ function create(bot) {
             
             
             session.endDialog();
-            session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel });
+            session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: fnResultModelNm, trim: fnResultTrimNm, carPrice: fnResultCarPrice, modelNum: fnResultModel, check: "del" });
             
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
