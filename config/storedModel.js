@@ -108,3 +108,11 @@ var fixoptionname = function(inputoptionname) {
     }
     return returnoptionname;
 }
+
+exports.lastmodel = function () {
+    if (selectedmodels.length > 0) {
+        return selectedmodels[selectedmodels.length - 1];
+    } else {
+        return null;
+    }
+}
