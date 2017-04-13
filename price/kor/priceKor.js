@@ -469,7 +469,7 @@ function create(bot) {
                         .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "basicOptionEndMessage"))
                         .buttons([
                     builder.CardAction.imBack(session, args.model + " " + args.trim + session.localizer.gettext(query.kor_en_Checker(session.message.text), "basicOptionEndYesClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "basicOptionEndYesMessage")),
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReMainCall"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "basicOptionEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
                 ])
             ]);
             //builder.Prompts.choice(session, nextBtn, args.model + " " + args.trim + " 기본품목|홈", { listStyle: builder.ListStyle.button });
