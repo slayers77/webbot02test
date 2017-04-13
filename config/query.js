@@ -13,7 +13,7 @@ var connection = "";
 var poolConfig = {
     min: 2,
     max: 5,
-    log: true
+    log: false
 };
 
 var config = {
