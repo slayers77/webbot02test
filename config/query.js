@@ -81,8 +81,8 @@ function insertHistoryQuery(data, resTime, callback) {
 
             }
             console.log("rowCount : " + rowCount);
-            
             connection.release();
+            
         });
         
         console.log("data : " + data.key);
@@ -96,6 +96,7 @@ function insertHistoryQuery(data, resTime, callback) {
         request.addParameter('responseTime', TYPES.Int, resTime);
         
         connection.execSql(request);
+        
     
     });
 
