@@ -1223,6 +1223,12 @@ function create(bot) {                                                  // funct
 
             session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "NoMessage"));
             session.endDialog();
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });
         }
 
     ])
