@@ -121,7 +121,7 @@ function create(bot) {                                                  // funct
                             ])
                             .buttons([
                                 builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
-                                builder.CardAction.imBack(session, "English", "English")
+                                builder.CardAction.imBack(session, "hey there", "English")
                             ])
                 ]);
 
@@ -1379,6 +1379,19 @@ function create(bot) {                                                  // funct
     bot.dialog('/LanguageSelectEnglish', [
 
         function (session, args, next) {
+
+            var Lang = "";
+            console.log("session.message.text : " + session.message.text);
+            if (query.kor_en_Checker(session.message.text) == "En") {
+
+                Lang = "En";
+
+            }
+            else if (query.kor_en_Checker(session.message.text) == "Kr") {
+
+                Lang = "Kr";
+            }
+
             //session.preferredLocale('En', function (err) {
             //    if (err) {
             //        session.error(err);
@@ -1387,14 +1400,23 @@ function create(bot) {                                                  // funct
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
-                        .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "name"))
-                        .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "welcomeMessage"))
+                        .title(session.localizer.gettext(Lang, "name"))
+                        .text(session.localizer.gettext(Lang, "welcomeMessage"))
                         .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "price")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "designClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "design")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenienceClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenience")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDrive"))
+                            builder.CardAction.imBack(session, session.localizer.gettext(Lang, "priceClickMessage"), session.localizer.gettext(Lang, "price")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(Lang, "designClickMessage"), session.localizer.gettext(Lang, "design")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(Lang, "convenienceClickMessage"), session.localizer.gettext(Lang, "convenience")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(Lang, "testDriveClickMessage"), session.localizer.gettext(Lang, "testDrive"))
                         ])
+
+                        //.title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "name"))
+                        //.text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "welcomeMessage"))
+                        //.buttons([
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "price")),
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "designClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "design")),
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenienceClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenience")),
+                        //    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDrive"))
+                        //])
                 ]);
             //session.send(msg);
             //var msg1 = new builder.Message(session)
@@ -1407,8 +1429,8 @@ function create(bot) {                                                  // funct
             //                builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDrive"))
             //            ])
             //    ]);
-            console.log('110 : ' + session.localizer.gettext(query.kor_en_Checker(session.message.text), "name"));
-            builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "initMenuList"));
+            console.log('110 : ' + session.localizer.gettext(Lang, "name"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext("en", "initMenuList"));
             session.endDialog();            
         }
     ]);
