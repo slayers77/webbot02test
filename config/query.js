@@ -28,14 +28,15 @@ var config = {
 
 // 메시지 한글/영어 체크
 function kor_en_Checker(str) {
-    var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    var check = /[가-힣ㄱ-ㅎㅏ-ㅣ]/g;
     
-    if (str.match(check)) {
-        //console.log("Ko");
+    //if (str.match(check)) {
+    if(check.test(str)){
+        console.log("Ko");
         return "Ko";
     }
     else {
-        //console.log("En");
+        console.log("En");
         return "En";
     }
 };

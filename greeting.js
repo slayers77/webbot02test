@@ -53,6 +53,11 @@ function create(bot) {                                                  // funct
     var languageValue;
 
 
+
+    console.log("한글 : "+query.kor_en_Checker("l"));
+
+    console.log("바 : "+query.kor_en_Checker("|")); 
+
     //incoming
     //bot.on('incoming', function (message) {
 
@@ -1342,11 +1347,11 @@ function create(bot) {                                                  // funct
     bot.dialog('/LanguageSelectKorean', [
 
         function (session, args, next) {
-            //session.preferredLocale('Ko', function (err) {
-            //    if (err) {
-            //        session.error(err);
-            //    }
-            //});
+            session.preferredLocale('Ko', function (err) {
+                if (err) {
+                    session.error(err);
+                }
+            });
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
@@ -1392,11 +1397,13 @@ function create(bot) {                                                  // funct
                 Lang = "Kr";
             }
 
-            //session.preferredLocale('En', function (err) {
-            //    if (err) {
-            //        session.error(err);
-            //    }
-            //});
+            console.log("LANG : " + Lang);
+
+            session.preferredLocale('En', function (err) {
+                if (err) {
+                    session.error(err);
+                }
+            });
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
@@ -1430,7 +1437,7 @@ function create(bot) {                                                  // funct
             //            ])
             //    ]);
             console.log('110 : ' + session.localizer.gettext(Lang, "name"));
-            builder.Prompts.choice(session, msg, session.localizer.gettext("en", "initMenuList"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(Lang, "initMenuList"));
             session.endDialog();            
         }
     ]);
