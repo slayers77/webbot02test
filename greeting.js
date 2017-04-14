@@ -1336,11 +1336,11 @@ function create(bot) {                                                  // funct
     bot.dialog('/LanguageSelectKorean', [
 
         function (session, args, next) {
-            session.preferredLocale('Ko', function (err) {
-                if (err) {
-                    session.error(err);
-                }
-            });
+            //session.preferredLocale('Ko', function (err) {
+            //    if (err) {
+            //        session.error(err);
+            //    }
+            //});
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
@@ -1373,11 +1373,11 @@ function create(bot) {                                                  // funct
     bot.dialog('/LanguageSelectEnglish', [
 
         function (session, args, next) {
-            session.preferredLocale('En', function (err) {
-                if (err) {
-                    session.error(err);
-                }
-            });
+            //session.preferredLocale('En', function (err) {
+            //    if (err) {
+            //        session.error(err);
+            //    }
+            //});
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
