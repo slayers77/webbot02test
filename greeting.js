@@ -232,7 +232,7 @@ function create(bot) {                                                  // funct
         
 
 
-        if (session.message.address.channelId == "skype" ) {
+        if (session.message.address.channelId == "skype" || session.message.address.channelId == "facebook" ) {
 
 
             var now = new Date();
