@@ -78,74 +78,70 @@ function create(bot) {                                                  // funct
     //    }, 1000);
     //});
 
+    
 
 
 
     //챗봇 시작시 다이얼로그 출력
-    bot.on('conversationUpdate', function (message) {
+    //bot.on('conversationUpdate', function (message) {
 
-        
 
-        if (message.membersAdded && message.membersAdded.length > 0) {
-            var membersAdded = message.membersAdded
-                    .map(function (m) {
-                        var isSelf = m.id === message.address.bot.id;
-                        console.log("message.address.bot.id : " + message.address.bot.id);
-                        return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-                    })
-                    .join(', ');
-            console.log('56 : ' + membersAdded);
-            if (membersAdded == 'Bot' || membersAdded == 'quotationBot') {
-                bot.beginDialog(message.address, '/init');
-            }
-        }
-    });
+    //    if (message.membersAdded && message.membersAdded.length > 0) {
+    //        var membersAdded = message.membersAdded
+    //                .map(function (m) {
+    //                    var isSelf = m.id === message.address.bot.id;
+    //                    console.log("message.address.bot.id : " + message.address.bot.id);
+    //                    //console.log("message.address.bot.id : " + message.address.conversation.id);
+    //                    return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+    //                })
+    //                .join(', ');
+    //        console.log('56 : ' + membersAdded);
+    //        if (membersAdded == 'Bot' || membersAdded == 'quotationBot') {
+    //            bot.beginDialog(message.address, '/init');
+    //        }
+    //    }
+    //});
+
 
     //초기 출력 화면
-    bot.dialog('/init', [
-        function (session) {
-            console.log("init dialog : " + session.message.address.conversation.id);
-            console.log("init dialog : " + session.message.address.id);
-            userConversationId = session.message.address.conversation.id;
-            userAddressId = session.message.address.id;
+    //bot.dialog('/init', [
+    //    function (session) {
+    //        console.log("init dialog : " + session.message.address.conversation.id);
+    //        console.log("init dialog : " + session.message.address.id);
+            
 
-            var msg = new builder.Message(session)
-                .textFormat(builder.TextFormat.xml)
-                    .attachments([
-                        new builder.VideoCard(session)
-                            .title('그랜다이저')
-                            .autostart(true)
-                            .subtitle('Grandizer')
-                            .text("안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요. \n\n Hi. My name is Grandizer. \n\n At any time, type 'Grandizer' to return to the initial screen. ")
-                            .image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
-                            //.images([
-                            //    builder.CardImage.create(session, img_path + "/images/img_car01.jpg")
-                            //])
-                            .media([
-                                { url: 'http://webbot02.azurewebsites.net/openning.wav' }
-                            ])
-                            .buttons([
-                                builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
-                                builder.CardAction.imBack(session, "hey there", "English")
-                            ])
-                ]);
+    //        console.log(session.localizer);
+    //        console.log("session.preferredLocale()  : " + session.preferredLocale("ko"));
 
-            session.send(msg);
 
-            //var msg1 = new builder.Message(session)
-            //    //.attachmentLayout(builder.AttachmentLayout.carousel)
-            //    .attachments([
-            //        new builder.HeroCard(session)
-            //            .buttons([
-            //                    builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
-            //                    builder.CardAction.imBack(session, "English", "English")
-            //                ])
-            //    ]);
+    //        userConversationId = session.message.address.conversation.id;
+    //        userAddressId = session.message.address.id;
 
-            //session.send(msg1);
-            session.endDialog();
-        }
-    ]);
+    //        var msg = new builder.Message(session)
+    //            .textFormat(builder.TextFormat.xml)
+    //                .attachments([
+    //                    new builder.VideoCard(session)
+    //                        .title('그랜다이저')
+    //                        .autostart(true)
+    //                        .subtitle('Grandizer')
+    //                        .text("안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요. \n\n Hi. My name is Grandizer. \n\n At any time, type 'Grandizer' to return to the initial screen. ")
+    //                        .image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
+    //                        //.images([
+    //                        //    builder.CardImage.create(session, img_path + "/images/img_car01.jpg")
+    //                        //])
+    //                        .media([
+    //                            { url: 'http://webbot02.azurewebsites.net/openning.wav' }
+    //                        ])
+    //                        .buttons([
+    //                            builder.CardAction.imBack(session, "한국어로 해줘", "한국어"),
+    //                            builder.CardAction.imBack(session, "hey there", "English")
+    //                        ])
+    //            ]);
+
+    //        session.send(msg);
+    //        session.endDialog();
+    //    }
+    //]);
 
     //var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4e351e9f-d983-4ba7-b575-f78f7ff709a2?subscription-key=9fed2fd1ec614cb58ae1989302151d13&verbose=true');
     //var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/e120869f-be93-4b48-b8a6-d58b10a63290?subscription-key=7efb093087dd48918b903885b944740c&verbose=true');
@@ -165,6 +161,9 @@ function create(bot) {                                                  // funct
         console.log(session.message.address);
         console.log(session.message.address.id); //바뀜
         console.log(session.message.address.conversation.id); //unique
+
+
+        
 
         //userAddressId 
 

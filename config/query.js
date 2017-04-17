@@ -32,11 +32,11 @@ function kor_en_Checker(str) {
     
     //if (str.match(check)) {
     if(check.test(str)){
-        console.log("Ko");
+        //console.log("Ko");
         return "Ko";
     }
     else {
-        console.log("En");
+        //console.log("En");
         return "En";
     }
 };
