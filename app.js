@@ -15,7 +15,7 @@ var query = require('./config/query');
 // Bot Setup
 //=========================================================
 
-// Setup Restify Server00000000
+// Setup Restify Server
 var server = restify.createServer();
 var botenv = process.env.BOT_ENV;
 
