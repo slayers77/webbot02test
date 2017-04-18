@@ -28,8 +28,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 var connector = new builder.ChatConnector({
     //appId: process.env.MICROSOFT_APP_ID,
     //appPassword: process.env.MICROSOFT_APP_PASSWORD
-    appId: '98ee3e87-b025-4e50-a7b3-1df9e902dacc',
-    appPassword: 'aKLgB9zVeiCPRBPObwAvwEr'
+    appId: 'eec04357-0a4d-4a6a-b94e-02e723bd71b5',
+    appPassword: '8KpLbHA9Eei1hsXk75HzP2P'
 });
 server.post('/api/messages', connector.listen());
 
