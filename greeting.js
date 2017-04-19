@@ -96,9 +96,7 @@ function create(bot) {                                                  // funct
                     })
                     .join(', ');
             console.log('56 : ' + membersAdded);
-            if (membersAdded == 'Bot' || membersAdded == 'quotationBot' || membersAdded == 'quotationBotSessionTest
-
-') {
+            if (membersAdded == 'Bot' || membersAdded == 'quotationBot' || membersAdded == 'quotationBotSessionTest') {
                 bot.beginDialog(message.address, '/init');
             }
         }
