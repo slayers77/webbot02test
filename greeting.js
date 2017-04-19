@@ -175,8 +175,8 @@ function create(bot) {                                                  // funct
         console.log(session.message.address.id); //바뀜
         console.log(session.message.address.conversation.id); //unique
 
-        console.log("identyID" + identyID);        
-        console.log("botID" + botID);
+        console.log("identyID : " + identyID);        
+        console.log("botID : " + botID);
         
 
         //userAddressId 
