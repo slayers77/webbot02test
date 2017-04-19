@@ -82,25 +82,35 @@ function create(bot) {                                                  // funct
 
 
 
-    //챗봇 시작시 다이얼로그 출력
+    //챗봇 시작시 다이얼로그 출력    
     bot.on('conversationUpdate', function (message) {
+        //if (message.membersAdded && message.membersAdded.length > 0) {        
+        //    var membersAdded = message.membersAdded        
+        //            .map(function (m) {        
+        //                var isSelf = m.id === message.address.bot.id;        
+        //                console.log("message.address.bot.id : " + message.address.bot.id);        
+        //                //console.log("message.address.bot.id : " + message.address.conversation.id);          
+        //                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id +  ')';        
+        //            })        
+        //            .join(', ');        
+        //    console.log('56 : ' + membersAdded);            
+        //    if (membersAdded == 'Bot' || membersAdded == 'quotationBot' || membersAdded == 'quotationBotSessionTest') {        
+        //        bot.beginDialog(message.address, '/init');        
+        //    }        
+        //}        
+        console.log("message.membersAdded : " + message.membersAdded);        
+        if (message.membersAdded) {
+            message.membersAdded.forEach(function (identify) {
+                console.log("identify : " + identify);                
+                console.log("identify ID : " + identify.id);                
+                console.log("message.address.bot.id : " + message.address.bot.id);                
+                if (identify.id === message.address.bot.id) {
+                    bot.beginDialog(message.address, '/init');
+                }
+            })
+        }
+    });
 
-
-        if (message.membersAdded && message.membersAdded.length > 0) {
-            var membersAdded = message.membersAdded
-                    .map(function (m) {
-                        var isSelf = m.id === message.address.bot.id;
-                        console.log("message.address.bot.id : " + message.address.bot.id);
-                        //console.log("message.address.bot.id : " + message.address.conversation.id);
-                        return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-                    })
-                    .join(', ');
-            console.log('56 : ' + membersAdded);
-            if (membersAdded == 'Bot' || membersAdded == 'quotationBot' || membersAdded == 'quotationBotSessionTest') {
-                bot.beginDialog(message.address, '/init');
-            }
-        }
-    });
 
 
     //초기 출력 화면
