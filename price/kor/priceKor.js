@@ -721,8 +721,8 @@ function create(bot) {
                                     //timestamp: "",
                                     elements: [
                                         {
-                                            title: "Classic White T-Shirt",
-                                            subtitle: "100% Soft and Luxurious Cotton",
+                                            title: modelNm,
+                                            subtitle: number_format(modelPrice).toString,
                                             text: number_format(modelPrice).toString,
                                             quantity: 2,
                                             price: 1000000,
@@ -730,8 +730,8 @@ function create(bot) {
                                             //image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
                                         },
                                         {
-                                            title: "Classic Gray T-Shirt",
-                                            subtitle: "100% Soft and Luxurious Cotton",
+                                            title: optionNm,
+                                            subtitle: optionPrice.toString,
                                             text: optionPrice.toString,
                                             quantity: 1,
                                             price: 1250000,
