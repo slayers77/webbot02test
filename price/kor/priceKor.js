@@ -740,7 +740,7 @@ function create(bot) {
                                     },
                                     {
                                         title: "Classic Gray T-Shirt",
-                                        subtitle: "100% Soft and Luxurious Cotton",
+                                        subtitle: "100% Soft and Luxurious Cotton", 
                                         quantity: 1,
                                         price: 1250000,
                                         currency: "KRW",
