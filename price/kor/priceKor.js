@@ -756,7 +756,7 @@ function create(bot) {
                                     country: "US"
                                 },
                                 summary: {
-                                    subtotal: elements[0].price + elements[1].price,
+                                    subtotal: 75.00,
                                     shipping_cost: 4.95,
                                     total_tax: 6.19,
                                     total_cost: 56.14
