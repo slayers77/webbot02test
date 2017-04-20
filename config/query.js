@@ -113,6 +113,7 @@ function insertHistoryQuery(data, resTime, callback) {
         console.log("data : " + data.key);
         console.log("data : " + data.sendMsg);
         console.log("data : " + data.intent);
+        console.log("data : " + data.chanelID);
         console.log("data : " + resTime);
         var query = getQuery(data.tableNm);
         
@@ -128,6 +129,7 @@ function insertHistoryQuery(data, resTime, callback) {
         request.addParameter('userNumber', TYPES.NVarChar , data.key);
         request.addParameter('customerComment', TYPES.NVarChar , data.sendMsg);
         request.addParameter('chatbotCommentCode', TYPES.NVarChar , data.intent);
+        request.addParameter('chanelId', TYPES.NVarChar, data.chanelID);
         request.addParameter('responseTime', TYPES.Int, resTime);
         
         request.on('row', function (columns) {
