@@ -713,7 +713,7 @@ function create(bot) {
                                 type: "template",
                                 payload: {
                                     template_type: "receipt",
-                                    recipient_name: "Stephane Crozatier",
+                                    recipient_name: " ",
                                     order_number: " ",
                                     currency: "KRW",
                                     payment_method: " ",
@@ -749,11 +749,11 @@ function create(bot) {
                                         subtotal: 75.00,
                                         shipping_cost: 4.95,
                                         total_tax: 6.19,
-                                        total_cost: 56.14
+                                        total_cost: total
                                     },
                                     adjustments: [
-                                        { name: "New Customer Discount", amount: 20 },
-                                        { name: "$10 Off Coupon", amount: 10 }
+                                        { name: modelNm, amount: modelPrice },
+                                        { name: optionNm, amount: optionPrice }
                                     ]
                                 }
                             }
