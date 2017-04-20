@@ -720,11 +720,15 @@ function create(bot) {
                                     elements: [
                                         {
                                             title: modelNm,
-                                            subtitle: number_format(modelPrice).toString() + " 원"
+                                            subtitle: number_format(modelPrice).toString() + " 원",
+                                            price: 1000000,
+                                            currency: "KRW"
                                         },
                                         {
                                             title: optionNm,
-                                            subtitle: number_format(optionPrice).toString() + " 원"
+                                            subtitle: number_format(optionPrice).toString() + " 원",
+                                            price: 1250000,
+                                            currency: "KRW"
                                         }
                                     ],
                                     summary: {
