@@ -705,7 +705,7 @@ function create(bot) {
 
 
             var msg;
-            /*if (session.message.address.channelId == "facebook"){
+            if (session.message.address.channelId == "facebook"){
                 msg = new builder.Message(session)
                     .sourceEvent({
                         facebook: {
@@ -721,22 +721,30 @@ function create(bot) {
                                     //timestamp: "",
                                     elements: [
                                         {
-                                            title: "Classic White T-Shirt",
-                                            subtitle: "100% Soft and Luxurious Cotton",
-                                            quantity: 2,
-                                            price: 1000000,
+                                            title: modelNm,
+                                            //subtitle: "100% Soft and Luxurious Cotton",
+                                            quantity: 1,
+                                            price: number_format(modelPrice),
                                             currency: "KRW",
                                             image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
                                         },
                                         {
-                                            title: "Classic Gray T-Shirt",
-                                            subtitle: "100% Soft and Luxurious Cotton",
-                                            quantity: 1,
-                                            price: 1250000,
+                                            title: optionNm,
+                                            //subtitle: "100% Soft and Luxurious Cotton",
+                                            quantity: 2,
+                                            price: number_format(optionPrice),
                                             currency: "KRW",
                                             image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
                                         }
                                     ],
+                                    /*address: {
+                                        street_1: "1 Hacker Way",
+                                        street_2: "",
+                                        city: "Menlo Park",
+                                        postal_code: "94025",
+                                        state: "CA",
+                                        country: "US"
+                                    },*/
                                     summary: {
                                         //subtotal: 75.00,
                                         //shipping_cost: 4.95,
@@ -763,22 +771,7 @@ function create(bot) {
                             .total(number_format(total) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"))
                     ]);
                 
-            }*/
-
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Recipient's Name")
-                        .items([
-                            builder.ReceiptItem.create(session, "22.00 원", "EMP Museum").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/a/a0/Night_Exterior_EMP.jpg")),
-                            builder.ReceiptItem.create(session, "22.00 원", "Space Needle").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/7/7c/Seattlenighttimequeenanne.jpg"))
-                        ])
-                        .facts([
-                            builder.Fact.create(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu2"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu1"))
-                        ])
-                        .tax("4.40 원")
-                        .total("48.40 원")
-                ]);
+            }
             session.endDialog(msg);
 
             /*var msg = new builder.Message(session)
