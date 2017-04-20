@@ -13,8 +13,7 @@ date = new Date();
 var userConversationId = "";
 var userAddressId = "";
 
-var identyID = "";
-var botID = "";
+
 
 //이미지경로 전역 변수 선언
 global.img_path = 'http://webbot02.azurewebsites.net/hyundai';
@@ -53,67 +52,25 @@ function create(bot) {                                                  // funct
     var responseTime;
     var languageValue;
 
-
-
-    console.log("한글 : "+query.kor_en_Checker("l"));
-
-    console.log("바 : "+query.kor_en_Checker("|")); 
-
-    //incoming
-    //bot.on('incoming', function (message) {
-
-    //    var increment = 0;
-
-    //    playAlert = setInterval(function () {
-
-    //        console.log("increment = " + increment);
-    //        increment++;
-    //        if (increment == 5) {
-    //            console.log("5초 지남");
-    //        } else if (increment == 10) {
-    //            console.log("10초 지남");
-    //        } else if (increment == 20) {
-    //            console.log("GAME OVER");
-    //            clearInterval(playAlert);
-    //        }
-    //    }, 1000);
-    //});
-
-    
-
-
-
-    //챗봇 시작시 다이얼로그 출력    
+    //챗봇 시작시 다이얼로그 출력
     bot.on('conversationUpdate', function (message) {
-        //if (message.membersAdded && message.membersAdded.length > 0) {        
-        //    var membersAdded = message.membersAdded        
-        //            .map(function (m) {        
-        //                var isSelf = m.id === message.address.bot.id;        
-        //                console.log("message.address.bot.id : " + message.address.bot.id);        
-        //                //console.log("message.address.bot.id : " + message.address.conversation.id);          
-        //                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id +  ')';        
-        //            })        
-        //            .join(', ');        
-        //    console.log('56 : ' + membersAdded);            
-        //    if (membersAdded == 'Bot' || membersAdded == 'quotationBot' || membersAdded == 'quotationBotSessionTest') {        
-        //        bot.beginDialog(message.address, '/init');        
-        //    }        
-        //}        
-        console.log("message.membersAdded : " + message.membersAdded);        
-        if (message.membersAdded) {
-            message.membersAdded.forEach(function (identify) {
-                console.log("identify : " + identify);                
-                console.log("identify ID : " + identify.id);                
-                console.log("message.address.bot.id : " + message.address.bot.id);                
-                identyID = identify.id;                
-                botID = message.address.bot.id;
-                if (identify.id === message.address.bot.id) {
-                    bot.beginDialog(message.address, '/init');
-                }
-            })
-        }
-    });
 
+
+        if (message.membersAdded && message.membersAdded.length > 0) {
+            var membersAdded = message.membersAdded
+                    .map(function (m) {
+                        var isSelf = m.id === message.address.bot.id;
+                        console.log("message.address.bot.id : " + message.address.bot.id);
+                        //console.log("message.address.bot.id : " + message.address.conversation.id);
+                        return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+                    })
+                    .join(', ');
+            console.log('56 : ' + membersAdded);
+            if (membersAdded == 'Bot' || membersAdded == 'quotationBot') {
+                bot.beginDialog(message.address, '/init');
+            }
+        }
+    });
 
 
     //초기 출력 화면
@@ -123,7 +80,9 @@ function create(bot) {                                                  // funct
             console.log("init dialog : " + session.message.address.id);
             
 
+            console.log(session.localizer.locales);
             console.log(session.localizer);
+            console.log("session.preferredLocale()  : " + session.preferredLocale());
             console.log("session.preferredLocale()  : " + session.preferredLocale("ko"));
 
 
@@ -134,7 +93,7 @@ function create(bot) {                                                  // funct
                 .textFormat(builder.TextFormat.xml)
                     .attachments([
                         new builder.VideoCard(session)
-                            .title('그랜다이저11')
+                            .title('그랜다이저')
                             .autostart(true)
                             .subtitle('Grandizer')
                             .text("안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요. \n\n Hi. My name is Grandizer. \n\n At any time, type 'Grandizer' to return to the initial screen. ")
@@ -175,8 +134,7 @@ function create(bot) {                                                  // funct
         console.log(session.message.address.id); //바뀜
         console.log(session.message.address.conversation.id); //unique
 
-        console.log("identyID : " + identyID);        
-        console.log("botID : " + botID);
+
         
 
         //userAddressId 
