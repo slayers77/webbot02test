@@ -722,18 +722,18 @@ function create(bot) {
                                     elements: [
                                         {
                                             title: modelNm,
-                                            subtitle: number_format(modelPrice).toString,
+                                            subtitle: number_format(modelPrice).toString(),
                                             text: number_format(modelPrice).toString,
-                                            quantity: 2,
+                                            //quantity: 2,
                                             price: 1000000,
                                             currency: "KRW",
                                             //image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
                                         },
                                         {
                                             title: optionNm,
-                                            subtitle: optionPrice.toString,
+                                            subtitle: optionPrice.toString(),
                                             text: optionPrice.toString,
-                                            quantity: 1,
+                                            //quantity: 1,
                                             price: 1250000,
                                             currency: "KRW",
                                             //image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
