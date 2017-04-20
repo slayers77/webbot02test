@@ -16,22 +16,22 @@ function create(bot) {
     bot.dialog('/korConvenienceMain', [
 
         function (session, args) {
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenienceMainMessgae"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae"));
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 //.attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
                     //AnimationCard
                     new builder.HeroCard(session)
-                        .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenienceTitleName"))
-                        .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenienceWelcomeMessage"))
+                        .title(session.localizer.gettext(session.preferredLocale(), "convenienceTitleName"))
+                        .subtitle(session.localizer.gettext(session.preferredLocale(), "convenienceWelcomeMessage"))
                         .images([
                             builder.CardImage.create(session, img_path + "/images/convenience/convenience00.png")
                         ])
                         .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSense")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainment")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "safety"))
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseClickMessage"), session.localizer.gettext(session.preferredLocale(), "smartSense")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainment")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyClickMessage"), session.localizer.gettext(session.preferredLocale(), "safety"))
                         ])
             ]);
             
@@ -43,12 +43,12 @@ function create(bot) {
             //        //AnimationCard
             //    new builder.HeroCard(session)
             //            .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSense")),
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainment")),
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "safety"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseClickMessage"), session.localizer.gettext(session.preferredLocale(), "smartSense")),
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainment")),
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyClickMessage"), session.localizer.gettext(session.preferredLocale(), "safety"))
             //    ])
             //]);
-            builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "convenienceMenuList"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "convenienceMenuList"));
             
             session.endDialog();
             
@@ -87,7 +87,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSmartSenseSimple', [
     
         function (session,args, results) {
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseMainMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "smartSenseMainMessage"));
             //if (results.response.entity == '스마트 센스 소개') {
                 var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -95,13 +95,13 @@ function create(bot) {
                     .attachments([
                         //AnimationCard
                     new builder.HeroCard(session)
-                            .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseTitleName"))
-                            .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseSubtitleMessage"))
+                            .title(session.localizer.gettext(session.preferredLocale(), "smartSenseTitleName"))
+                            .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseSubtitleMessage"))
                             .images([
                                 builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense0.png")
                 ])
                             .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailClickMessgae"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetail"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "smartSenseDetail"))
                 ])
             ]);
             
@@ -113,7 +113,7 @@ function create(bot) {
             //            //AnimationCard
             //    new builder.HeroCard(session)
             //                .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailClickMessgae"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetail"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "smartSenseDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "smartSenseDetail"))
             //    ])
             //]);
             //session.send(msg1);
@@ -133,51 +133,51 @@ function create(bot) {
     bot.dialog('/korConvenienceSmartsenseList', [
     
         function (session, args) { 
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailMessage"));
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
                         .attachments([
                             //AnimationCard
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem1"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem1SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem1"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem1SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense1.png")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem2"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem2SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem2"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem2SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense2.png")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem3"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem3SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem3"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem3SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense3.png")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem4"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem4SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem4"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem4SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense4.png")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem5"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem5SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem5"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem5SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense5.png")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem6"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem6SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem6"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem6SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense6.png")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem7"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "smartSenseDetailItem7SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem7"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailItem7SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/smartsense/smartsense7.png")
                 ])
@@ -190,10 +190,10 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "induceSmartsenseToTestDrive"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceSmartsenseToTestDrive"))
                                     .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
@@ -204,12 +204,12 @@ function create(bot) {
             
             //    new builder.HeroCard(session)
             //                        .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")), 
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
             //    ])
             //]);
 
-            builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -232,7 +232,7 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "InfotainmentMainMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "InfotainmentMainMessage"));
             
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -240,13 +240,13 @@ function create(bot) {
                     .attachments([
                         //AnimationCard
                 new builder.HeroCard(session)
-                            .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentTitleName"))
-                            .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentSubtitleMessage"))
+                            .title(session.localizer.gettext(session.preferredLocale(), "infotainmentTitleName"))
+                            .subtitle(session.localizer.gettext(session.preferredLocale(), "infotainmentSubtitleMessage"))
                             .images([
                     builder.CardImage.create(session, "http://www.hyundai.com/kr/dsp/20161122094424247104.jpg")
                 ])
                             .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetailClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetail"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainmentDetail"))
                 ])
             ]);
             session.send(msg);
@@ -259,7 +259,7 @@ function create(bot) {
             //            //AnimationCard
             //    new builder.HeroCard(session)
             //                 .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetailClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetail"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "infotainmentDetailClickMessage"), session.localizer.gettext(session.preferredLocale(), "infotainmentDetail"))
             //    ])
             //]);
             //session.send(msg1);
@@ -282,7 +282,7 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "InfotainmentDetailMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "InfotainmentDetailMessage"));
 
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -290,22 +290,22 @@ function create(bot) {
                         .attachments([
                             //AnimationCard
                 new builder.HeroCard(session)
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetailItem1"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "infotainmentDetailItem1"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/infotainment/infotainment1.png")
                 ]),
                 new builder.HeroCard(session)
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetailItem2"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "infotainmentDetailItem2"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/infotainment/infotainment2.png")
                 ]),
                 new builder.HeroCard(session)
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetailItem3"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "infotainmentDetailItem3"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/infotainment/infotainment3.png")
                 ]),
                 new builder.HeroCard(session)
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "infotainmentDetailItem4"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "infotainmentDetailItem4"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/infotainment/infotainment4.png")
                 ])
@@ -319,10 +319,10 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "induceinfotainmentToTestDrive"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceinfotainmentToTestDrive"))
                                     .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")), 
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
             
@@ -333,14 +333,14 @@ function create(bot) {
             
             //    new builder.HeroCard(session)
             //                        .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")), 
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
             //    ])
             //]);
             
             
 
-            builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -426,21 +426,21 @@ function create(bot) {
     bot.dialog('/korConvenienceSafetySimple', [
     
         function (session, args, results) { 
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyMainMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "safetyMainMessage"));
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
                     //.attachmentLayout(builder.AttachmentLayout.carousel)
                     .attachments([
                         //AnimationCard
                 new builder.HeroCard(session)
-                            .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyTitleName"))
-                            .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetySubtitleMessage"))
-                            .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyTextMessage"))
+                            .title(session.localizer.gettext(session.preferredLocale(), "safetyTitleName"))
+                            .subtitle(session.localizer.gettext(session.preferredLocale(), "safetySubtitleMessage"))
+                            .text(session.localizer.gettext(session.preferredLocale(), "safetyTextMessage"))
                             .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/safe/safe0.jpg")
                 ])
                             .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailClickMessgae"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetail"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "safetyDetail"))
                 ])
             ]);
         
@@ -454,7 +454,7 @@ function create(bot) {
             //                    //AnimationCard
             //    new builder.HeroCard(session)
             //                        .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailClickMessgae"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetail"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "safetyDetailClickMessgae"), session.localizer.gettext(session.preferredLocale(), "safetyDetail"))
             //    ])
             //]);
     
@@ -477,7 +477,7 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "safetyDetailMessage"));
 
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -485,25 +485,25 @@ function create(bot) {
                         .attachments([
                             //AnimationCard
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailItem1"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "safetyDetailItem1"))
                                 //.subtitle("부주의 운전 경보 시스템")
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/safe/safe1.jpg")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailItem2"))
-                                .subtitle(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailItem2SubtitleMessage"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "safetyDetailItem2"))
+                                .subtitle(session.localizer.gettext(session.preferredLocale(), "safetyDetailItem2SubtitleMessage"))
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/safe/safe2.jpg")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailItem3"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "safetyDetailItem3"))
                                 //.subtitle("어드밴스드 스마트 크루즈 컨트롤")
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/safe/safe3.jpg")
                 ]),
                 new builder.HeroCard(session)
-                                .title(session.localizer.gettext(query.kor_en_Checker(session.message.text), "safetyDetailItem4"))
+                                .title(session.localizer.gettext(session.preferredLocale(), "safetyDetailItem4"))
                                 //.subtitle("어라운드 뷰 모니터")
                                 .images([
                     builder.CardImage.create(session, img_path + "/images/convenience/safe/safe4.jpg")
@@ -524,12 +524,12 @@ function create(bot) {
             
                 new builder.HeroCard(session)
                                     .title("")
-                                    .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "induceSafetyToTestDrive"))
+                                    .text(session.localizer.gettext(session.preferredLocale(), "induceSafetyToTestDrive"))
                                     //.text(str)
                                     .buttons([
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")), 
-                    //builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnMainMenu"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndNoMessage"))
-                    builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+                    //builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+                    builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
                 ])
             ]);
     
@@ -540,16 +540,16 @@ function create(bot) {
             
             //    new builder.HeroCard(session)
             //                                .title("")
-            //                                .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "induceSafetyToTestDrive"))
+            //                                .text(session.localizer.gettext(session.preferredLocale(), "induceSafetyToTestDrive"))
             //                                //.text(str)
             //                                .buttons([
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "testDriveClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndYesMessage")), 
-            //                //builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnMainMenu"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptEndNoMessage"))
-            //        builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "testDriveClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndYesMessage")), 
+            //                //builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "returnMainMenu"), session.localizer.gettext(session.preferredLocale(), "priceReciptEndNoMessage"))
+            //        builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No"))
             //    ])
             //]);
 
-            builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "YesOrNo"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "YesOrNo"));
             session.endDialog();
         }
     ]);
@@ -643,19 +643,19 @@ function create(bot) {
 
     bot.dialog('/return', [
         function (session, args) {
-            builder.Prompts.choice(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnMessage"),
-                session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnMenuList"), { listStyle: builder.ListStyle.button });
+            builder.Prompts.choice(session, session.localizer.gettext(session.preferredLocale(), "returnMessage"),
+                session.localizer.gettext(session.preferredLocale(), "returnMenuList"), { listStyle: builder.ListStyle.button });
         }, function (session, results) {
 
-            if (results.response.entity == session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnItem1")) {
+            if (results.response.entity == session.localizer.gettext(session.preferredLocale(), "returnItem1")) {
                 session.beginDialog('/smartsense');
-            } else if (results.response.entity == session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnItem2")) {
+            } else if (results.response.entity == session.localizer.gettext(session.preferredLocale(), "returnItem2")) {
                 session.beginDialog('/infotainment');
-            } else if (results.response.entity == session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnItem3")) {
+            } else if (results.response.entity == session.localizer.gettext(session.preferredLocale(), "returnItem3")) {
                 session.beginDialog('/safe');
-            } else if (results.response.entity == session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnItem4")) {
+            } else if (results.response.entity == session.localizer.gettext(session.preferredLocale(), "returnItem4")) {
                 session.beginDialog('/korConvenience');
-            } else if (results.response.entity == session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnItem5")) {
+            } else if (results.response.entity == session.localizer.gettext(session.preferredLocale(), "returnItem5")) {
                 session.beginDialog('/korMenu');
             }
 
