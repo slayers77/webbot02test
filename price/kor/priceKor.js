@@ -737,14 +737,14 @@ function create(bot) {
                                             image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
                                         }
                                     ],
-                                    /*address: {
+                                    address: {
                                         street_1: "1 Hacker Way",
                                         street_2: "",
                                         city: "Menlo Park",
                                         postal_code: "94025",
                                         state: "CA",
                                         country: "US"
-                                    },*/
+                                    },
                                     summary: {
                                         subtotal: 75.00,
                                         shipping_cost: 4.95,
