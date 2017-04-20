@@ -714,11 +714,11 @@ function create(bot) {
                                 payload: {
                                     template_type: "receipt",
                                     recipient_name: "Stephane Crozatier",
-                                    order_number: "12345678902",
+                                    order_number: "",
                                     currency: "KRW",
-                                    payment_method: "Visa 2345",
-                                    order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
-                                    timestamp: "1428444852",
+                                    payment_method: "",
+                                    //order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
+                                    //timestamp: "",
                                     elements: [
                                         {
                                             title: "Classic White T-Shirt",
@@ -737,14 +737,14 @@ function create(bot) {
                                             image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
                                         }
                                     ],
-                                    address: {
+                                    /*address: {
                                         street_1: "1 Hacker Way",
                                         street_2: "",
                                         city: "Menlo Park",
                                         postal_code: "94025",
                                         state: "CA",
                                         country: "US"
-                                    },
+                                    },*/
                                     summary: {
                                         subtotal: 75.00,
                                         shipping_cost: 4.95,
