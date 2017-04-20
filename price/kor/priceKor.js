@@ -723,18 +723,20 @@ function create(bot) {
                                         {
                                             title: "Classic White T-Shirt",
                                             subtitle: "100% Soft and Luxurious Cotton",
+                                            text: number_format(modelPrice).toString,
                                             quantity: 2,
                                             price: 1000000,
                                             currency: "KRW",
-                                            image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
+                                            //image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
                                         },
                                         {
                                             title: "Classic Gray T-Shirt",
                                             subtitle: "100% Soft and Luxurious Cotton",
+                                            text: optionPrice.toString,
                                             quantity: 1,
                                             price: 1250000,
                                             currency: "KRW",
-                                            image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
+                                            //image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
                                         }
                                     ],
                                     summary: {
