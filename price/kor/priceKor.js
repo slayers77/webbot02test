@@ -705,7 +705,7 @@ function create(bot) {
 
 
             var msg;
-            if (session.message.address.channelId == "facebook"){
+            /*if (session.message.address.channelId == "facebook"){
                 msg = new builder.Message(session)
                     .sourceEvent({
                         facebook: {
@@ -737,18 +737,10 @@ function create(bot) {
                                             image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
                                         }
                                     ],
-                                    /*address: {
-                                        street_1: "1 Hacker Way",
-                                        street_2: "",
-                                        city: "Menlo Park",
-                                        postal_code: "94025",
-                                        state: "CA",
-                                        country: "US"
-                                    },*/
                                     summary: {
-                                        subtotal: 75.00,
-                                        shipping_cost: 4.95,
-                                        total_tax: 6.19,
+                                        //subtotal: 75.00,
+                                        //shipping_cost: 4.95,
+                                        //total_tax: 6.19,
                                         total_cost: total
                                     },
                                     adjustments: [
@@ -771,7 +763,23 @@ function create(bot) {
                             .total(number_format(total) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"))
                     ]);
                 
-            }
+            }*/
+
+            var msg = new builder.Message(session)
+                .attachments([
+                    new builder.ReceiptCard(session)
+                        .title("Recipient's Name")
+                        .items([
+                            builder.ReceiptItem.create(session, "$22.00", "EMP Museum").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/a/a0/Night_Exterior_EMP.jpg")),
+                            builder.ReceiptItem.create(session, "$22.00", "Space Needle").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/7/7c/Seattlenighttimequeenanne.jpg"))
+                        ])
+                        .facts([
+                            builder.Fact.create(session, "1234567898", "Order Number"),
+                            builder.Fact.create(session, "VISA 4076", "Payment Method")
+                        ])
+                        .tax("$4.40")
+                        .total("$48.40")
+                ]);
             session.endDialog(msg);
 
             /*var msg = new builder.Message(session)
