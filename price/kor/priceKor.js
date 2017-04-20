@@ -770,15 +770,14 @@ function create(bot) {
                     new builder.ReceiptCard(session)
                         .title("Recipient's Name")
                         .items([
-                            builder.ReceiptItem.create(session, "$22.00", "EMP Museum").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/a/a0/Night_Exterior_EMP.jpg")),
-                            builder.ReceiptItem.create(session, "$22.00", "Space Needle").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/7/7c/Seattlenighttimequeenanne.jpg"))
+                            builder.ReceiptItem.create(session, "22.00 원", "EMP Museum").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/a/a0/Night_Exterior_EMP.jpg")),
+                            builder.ReceiptItem.create(session, "22.00 원", "Space Needle").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/7/7c/Seattlenighttimequeenanne.jpg"))
                         ])
                         .facts([
-                            builder.Fact.create(session, "1234567898", "Order Number"),
-                            builder.Fact.create(session, "VISA 4076", "Payment Method")
+                            builder.Fact.create(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu2"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptTopMenu1"))
                         ])
-                        .tax("$4.40")
-                        .total("$48.40")
+                        .tax("4.40 원")
+                        .total("48.40 원")
                 ]);
             session.endDialog(msg);
 
