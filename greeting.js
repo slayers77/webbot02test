@@ -43,45 +43,11 @@ var config = {
     }
 };
 
-
-
-
-
 function create(bot) {                                                  // function create(bot) START
     if (!bot) throw new error('bot instance was not provided!!');
     
     var responseTime;
     var languageValue;
-
-
-
-    console.log("한글 : "+query.kor_en_Checker("l"));
-
-    console.log("바 : "+query.kor_en_Checker("|")); 
-
-    //incoming
-    //bot.on('incoming', function (message) {
-
-    //    var increment = 0;
-
-    //    playAlert = setInterval(function () {
-
-    //        console.log("increment = " + increment);
-    //        increment++;
-    //        if (increment == 5) {
-    //            console.log("5초 지남");
-    //        } else if (increment == 10) {
-    //            console.log("10초 지남");
-    //        } else if (increment == 20) {
-    //            console.log("GAME OVER");
-    //            clearInterval(playAlert);
-    //        }
-    //    }, 1000);
-    //});
-
-    
-
-
 
     //챗봇 시작시 다이얼로그 출력    
     bot.on('conversationUpdate', function (message) {
@@ -125,9 +91,7 @@ function create(bot) {                                                  // funct
             
 
             console.log(session.localizer);
-            console.log("session.preferredLocale()  : " + session.preferredLocale("ko"));
-
-
+            
             userConversationId = session.message.address.conversation.id;
             userAddressId = session.message.address.id;
 
@@ -140,9 +104,6 @@ function create(bot) {                                                  // funct
                             .subtitle('Grandizer')
                             .text("안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요. \n\n Hi. My name is Grandizer. \n\n At any time, type 'Grandizer' to return to the initial screen. ")
                             .image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
-                            //.images([
-                            //    builder.CardImage.create(session, img_path + "/images/img_car01.jpg")
-                            //])
                             .media([
                                 { url: 'http://webbot02.azurewebsites.net/openning.wav' }
                             ])
@@ -179,91 +140,32 @@ function create(bot) {                                                  // funct
         console.log("identyID : " + identyID);        
         console.log("botID : " + botID);
         
-
-        //userAddressId 
-
-
-        //if ( userConversationId == session.message.address.conversation.id ) {
-
-        //    timer = setInterval(
-
-        //        function () {
-
-        //            console.log("꺼져");
-
-        //    }, 10000);
-
-        //} else {
-
-
-        //}
-
-        //beforeMsg = session.message.text;
-
-        //    timer = setInterval(
-
-        //        function () {
-
-
-        //        //    console.log("increment : " + increment);
-        //        //    increment++;
-        //        //if (session.message.text) {
-
-        //        //    clearInterval(timer);
-
-        //        //}
-        //        //else {
-
-        //        //    console.log("꺼져");
-
-        //        //}
-        //            console.log("꺼져");
-                
-        //    }, 10000);
-            
-        
-
-
-        //playAlert = setInterval(function () {
-
-        //    console.log("increment = " + increment);
-        //    increment++;
-        //    if (increment == 5) {
-        //        console.log("5초 지남");
-        //    } else if (increment == 10) {
-        //        console.log("10초 지남");
-        //    } else if (increment == 20) {
-        //        console.log("GAME OVER");
-        //        clearInterval(playAlert);
-        //    }
-        //}, 1000);
-
         console.log("session.statusCode : " + session.sessionState.callstack.id);
         
         console.log("session ID : " + session.message.sourceEvent.clientActivityId);
         console.log("channel ID : " + session.message.address.channelId);
 
-        console.log("user ijnput check : " + query.kor_en_Checker(session.message.text));
+        //console.log("user ijnput check : " + query.kor_en_Checker(session.message.text));
         
 
-        //session.message.address.conversation.id
+        
+
+        session.preferredLocale(query.kor_en_Checker(session.message.text), function (err) {
+            if (err) {
+                session.error(err);
+            }
+        });
+
 
         userId = session.message.address.conversation.id;
 
         //if (session.message.address.channelId == "skype" || session.message.address.channelId == "facebook" ) {
-
-
         //    var now = new Date();
         //    userId = now.getFullYear() + ("00" + (now.getMonth() + 1)).slice(-2) + ("00" + now.getDate()).slice(-2) + ("00" + now.getHours()).slice(-2) + ("00" + now.getMinutes()).slice(-2) + ("00" + now.getSeconds()).slice(-2);
-
         //} else { 
-
         //    userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
-
         //}
 
-
-        //var userId = userId;
 
         var tasks = [
             function (callback) {
@@ -309,22 +211,8 @@ function create(bot) {                                                  // funct
             console.log("priceT/F : " + results[0][0].price);
             priceRes = results[0][0].price;
 
-            /*
-            if (results[1].length > 0) {
-                engineName = results[1][0].ENGINE_NAME;
-                modelName = results[1][0].MODEL_NAME;
-
-                console.log("engineName : " + results[1][0].ENGINE_NAME);
-                console.log("modelName : " + results[1][0].MODEL_NAME);
-            }*/
-
             if (priceRes == 'true') {
-                /*
-                if (engineName != null && modelName != null && engineName != '' & modelName != '') {
-                    priceMsg = engineName + " " + modelName + " " + session.message.text;
-                    session.message.text = priceMsg;
-                }
-                */
+
                 var lastModel = stored.lastmodel();
 
                 if (lastModel != null) {
@@ -342,7 +230,7 @@ function create(bot) {                                                  // funct
     intents.matches('No', [
 
         function (session, args, next) {
-            session.beginDialog('/No', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "No", tableNm: "insert_history" });
+            session.beginDialog('/No', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "No", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
@@ -376,9 +264,8 @@ function create(bot) {                                                  // funct
                     score = JSON.parse(body).score;
                 }
                 console.log("qnaMsg : " + qnaMsg);
-                //session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score });
                 session.endDialog();
-                session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score , sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "None", tableNm: "insert_history" });
+                session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score , sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "None", tableNm: "insert_history" , chanelID : session.message.address.channelId });
             })
             
         }
@@ -388,7 +275,7 @@ function create(bot) {                                                  // funct
     
     intents.matches('korReMainMenu', [
         function (session, args, next) {
-            session.beginDialog('/korReMainMenu', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history"});
+            session.beginDialog('/korReMainMenu', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korReturnMainMenu", tableNm: "insert_history" , chanelID : session.message.address.channelId});
         }
     ]);
 
@@ -396,14 +283,14 @@ function create(bot) {                                                  // funct
     intents.matches('greeting', [   
         function (session, args, next) {
 
-            console.log("GREETING : " + query.kor_en_Checker(session.message.text));
+            //console.log("GREETING : " + query.kor_en_Checker(session.message.text));
 
-            if (query.kor_en_Checker(session.message.text) == "Ko") {
+            if (session.preferredLocale() == "Ko") {
 
-                session.beginDialog('/LanguageSelectKorean', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectKorean", tableNm: "insert_history" });
-            } else if (query.kor_en_Checker(session.message.text) == "En") {
+                session.beginDialog('/LanguageSelectKorean', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectKorean", tableNm: "insert_history" , chanelID : session.message.address.channelId });
+            } else if (session.preferredLocale() == "En") {
 
-                session.beginDialog('/LanguageSelectEnglish', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectEnglish", tableNm: "insert_history" });
+                session.beginDialog('/LanguageSelectEnglish', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectEnglish", tableNm: "insert_history" , chanelID : session.message.address.channelId });
                 
             }
             
@@ -416,25 +303,25 @@ function create(bot) {                                                  // funct
     
     intents.matches('korTestDriveMain', [
         function (session, args, next) {
-            session.beginDialog('/korTestDriveMain', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korTestDriveMain", tableNm: "insert_history"});
+            session.beginDialog('/korTestDriveMain', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korTestDriveMain", tableNm: "insert_history" , chanelID : session.message.address.channelId});
         }
     ]);
 
     intents.matches('korOnlineTestDrive', [
         function (session, args, next) {
-            session.beginDialog('/korOnlineTestDrive', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korOnlineTestDrive", tableNm: "insert_history"});
+            session.beginDialog('/korOnlineTestDrive', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korOnlineTestDrive", tableNm: "insert_history" , chanelID : session.message.address.channelId});
         }
     ]);
 
     intents.matches('korNoAreaOfflineTestDrive', [
         function (session, args, next) {
-            session.beginDialog('/korNoAreaOfflineTestDrive', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korNoAreaOfflineTestDrive", tableNm: "insert_history" });
+            session.beginDialog('/korNoAreaOfflineTestDrive', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korNoAreaOfflineTestDrive", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
     intents.matches('korAreaOfflineTestDrive', [
         function (session, args, next) {
-            session.beginDialog('/korAreaOfflineTestDrive', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korAreaOfflineTestDrive", tableNm: "insert_history" });
+            session.beginDialog('/korAreaOfflineTestDrive', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korAreaOfflineTestDrive", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
@@ -444,40 +331,40 @@ function create(bot) {                                                  // funct
 
     intents.matches('korConvenienceMain', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceMain', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceMain", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceMain', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceMain", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     
     intents.matches('korConvenienceInfotainmentList', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceInfotainmentList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceInfotainmentList", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceInfotainmentList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceInfotainmentList", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korConvenienceInfotainmentSimple', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceInfotainmentSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceInfotainmentSimple", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceInfotainmentSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceInfotainmentSimple", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
     intents.matches('korConvenienceSafetyList', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceSafetyList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSafetyList", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceSafetyList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSafetyList", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korConvenienceSafetySimple', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceSafetySimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSafetySimple", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceSafetySimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSafetySimple", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
     intents.matches('korConvenienceSmartsenseList', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceSmartsenseList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSmartsenseList", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceSmartsenseList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSmartsenseList", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korConvenienceSmartSenseSimple', [
         function (session, args, next) {
-            session.beginDialog('/korConvenienceSmartSenseSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSmartSenseSimple", tableNm: "insert_history" });
+            session.beginDialog('/korConvenienceSmartSenseSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korConvenienceSmartSenseSimple", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
@@ -487,80 +374,80 @@ function create(bot) {                                                  // funct
 
     intents.matches('korDesignMain', [
         function (session, args, next) {
-            session.beginDialog('/korDesignMain', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignMain", tableNm: "insert_history" });
+            session.beginDialog('/korDesignMain', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignMain", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignColorList',[
         function (session, args, next) {
-            session.beginDialog('/korDesignColorList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignColorList", tableNm: "insert_history" });
+            session.beginDialog('/korDesignColorList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignColorList", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectGrandBlue',[
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectGrandBlue', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectGrandBlue", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectGrandBlue', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectGrandBlue", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectIonSilver', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectIonSilver', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectIonSilver", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectIonSilver', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectIonSilver", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectKakiMetal', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectKakiMetal', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectKakiMetal", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectKakiMetal', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectKakiMetal", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectLunaGray', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectLunaGray', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectLunaGray", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectLunaGray', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectLunaGray", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectMidnightBlack', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectMidnightBlack', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectMidnightBlack", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectMidnightBlack', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectMidnightBlack", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectPanteraGray', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectPanteraGray', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectPanteraGray", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectPanteraGray', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectPanteraGray", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectShadeBronze', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectShadeBronze', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectShadeBronze", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectShadeBronze', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectShadeBronze", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectValentineRed', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectValentineRed', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectValentineRed", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectValentineRed', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectValentineRed", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignSelectWhiteCream', [
         function (session, args, next) {
-            session.beginDialog('/korDesignSelectWhiteCream', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectWhiteCream", tableNm: "insert_history" });
+            session.beginDialog('/korDesignSelectWhiteCream', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignSelectWhiteCream", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
     intents.matches('korDesignExteriorSimple', [
         function (session, args, next) {
-            session.beginDialog('/korDesignExteriorSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignExteriorSimple", tableNm: "insert_history" });
+            session.beginDialog('/korDesignExteriorSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignExteriorSimple", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignExteriorDetail', [
         function (session, args, next) {
-            session.beginDialog('/korDesignExteriorDetail', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignExteriorDetail", tableNm: "insert_history" });
+            session.beginDialog('/korDesignExteriorDetail', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignExteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
 
     intents.matches('korDesignInteriorSimple', [
         function (session, args, next) {
-            session.beginDialog('/korDesignInteriorSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorSimple", tableNm: "insert_history" });
+            session.beginDialog('/korDesignInteriorSimple', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorSimple", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korDesignInteriorDetail', [
         function (session, args, next) {
-            session.beginDialog('/korDesignInteriorDetail', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" });
+            session.beginDialog('/korDesignInteriorDetail', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
     intents.matches('korCompareModel', [
@@ -574,19 +461,19 @@ function create(bot) {                                                  // funct
 
             sendPrice = messagenospace.match(/가솔린2.4프리미엄스페셜|가솔린2.4프리미엄|가솔린2.4모던|가솔린3.0익스클루시브스페셜프리미어인테리어셀렉션|가솔린3.0익스클루시브스페셜|가솔린3.0익스클루시브|가솔린3.3셀러브리티|디젤2.2프리미엄스페셜|디젤2.2프리미엄|디젤2.2모던|가솔린2.4|가솔린3.0|가솔린3.3|디젤2.2|gasoline 2.4premiumspecial|gasoline2.4premium|gasoline2.4modern|gasoline 3.0exclusivespecialpremierinteriorselection|gasoline 3.0exclusivespecial|gasoline 3.0exclusive|gasoline3.3celebrity|diesel2.2premiumspecial|diesel2.2premium|Sedan diesel2.2modern|gasoline2.4|gasoline 3.0|gasoline3.3|diesel2.2/g);
 
-            session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareModel", tableNm: "insert_history", sendPrice });
+            session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareModel", tableNm: "insert_history" , chanelID : session.message.address.channelId, sendPrice });
         }
     ]);
 
     intents.matches('LanguageSelectEnglish', [
         function (session, args, next) {
-            session.beginDialog('/LanguageSelectEnglish');
+            session.beginDialog('/LanguageSelectEnglish', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectEnglish", tableNm: "insert_history", chanelID: session.message.address.channelId });
         }
     ]);
 
     intents.matches('LanguageSelectKorean', [
         function (session, args, next) {
-            session.beginDialog('/LanguageSelectKorean');
+            session.beginDialog('/LanguageSelectKorean', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "LanguageSelectKorean", tableNm: "insert_history", chanelID: session.message.address.channelId });
         }
     ]);
 
@@ -620,7 +507,7 @@ function create(bot) {                                                  // funct
                 console.log("qnaMsg : " + qnaMsg);
                 //session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score });
                 session.endDialog();
-                session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score , sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "None", tableNm: "insert_history" });
+                session.beginDialog('/QnA', { qnaResponse: msg, qnaScore: score , sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "None", tableNm: "insert_history" , chanelID : session.message.address.channelId });
             })
         }
     );
@@ -628,13 +515,13 @@ function create(bot) {                                                  // funct
 
     intents.matches('korOptionAdd', [
         function (session, args, next) {
-            session.beginDialog('/korOptionAdd', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korOptionAdd", tableNm: "insert_history" });
+            session.beginDialog('/korOptionAdd', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korOptionAdd", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
     intents.matches('korOptionRemove', [
         function (session, args, next) {
-            session.beginDialog('/korOptionRemove', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korOptionRemove", tableNm: "insert_history" });
+            session.beginDialog('/korOptionRemove', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korOptionRemove", tableNm: "insert_history" , chanelID : session.message.address.channelId });
         }
     ]);
 
@@ -665,27 +552,27 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 1;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던" });
                     } 
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/앞좌석통풍/) || priceMessage.match(/앞좌석 통풍/) || priceMessage.match(/앞 좌석 통풍/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
                     } else if (priceMessage.match(/하이패스 시스템/) || priceMessage.match(/하이패스시스템/) || priceMessage.match(/하이 패스 시스템/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
                     } else if (priceMessage.match(/현대스마트센스패키지IV/) || priceMessage.match(/현대 스마트센스패키지IV/) || priceMessage.match(/현대 스마트 센스패키지IV/) || priceMessage.match(/현대 스마트 센스 패키지IV/) || priceMessage.match(/현대 스마트 센스 패키지 IV/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "현대 스마트 센스 패키지IV", optionPrice1: 18000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", carPrice: 30550000, selectOption1: "현대 스마트 센스 패키지IV", optionPrice1: 18000000 });
                     }
 
                     else {
                         // 모던만 나오게 
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던" });
                     }
 
 
@@ -695,31 +582,31 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 3;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄 스페셜" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄 스페셜" });
                     }
                     
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지II/) || priceMessage.match(/현대 스마트센스패키지II/) || priceMessage.match(/현대 스마트 센스패키지II/) || priceMessage.match(/현대 스마트 센스 패키지II/) || priceMessage.match(/현대 스마트 센스 패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
                     } else if (priceMessage.match(/익스테리어패키지II/) || priceMessage.match(/익스테리어 패키지II/) || priceMessage.match(/익스테리어 패키지 II/) || priceMessage.match(/익스테리어패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "익스테리어 패키지II", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "익스테리어 패키지II", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/JBL사운드패키지/) || priceMessage.match(/JBL 사운드패키지/) || priceMessage.match(/JBL 사운드 패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
                     } else if (priceMessage.match(/어라운드뷰모니터(AVM)/) || priceMessage.match(/어라운드 뷰모니터(AVM)/) || priceMessage.match(/어라운드 뷰 모니터(AVM)/) || priceMessage.match(/어라운드 뷰 모니터 (AVM)/) ) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "어라운드 뷰 모니터(AVM)", optionPrice1: 1200000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "어라운드 뷰 모니터(AVM)", optionPrice1: 1200000 });
                     }
 
                     else {
                         // 프리미엄 스페셜만 나오게 
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄 스페셜" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄 스페셜" });
                     }
                 } else if (priceMessage.match(/프리미엄/)) {
 
@@ -727,32 +614,32 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 2;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄" });
                     }
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지I/) || priceMessage.match(/현대 스마트센스패키지I/) || priceMessage.match(/현대 스마트 센스패키지I/) || priceMessage.match(/현대 스마트 센스 패키지I/) || priceMessage.match(/현대 스마트 센스 패키지 I/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "현대 스마트 센스 패키지I", optionPrice1: 1500000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "현대 스마트 센스 패키지I", optionPrice1: 1500000 });
                     } else if (priceMessage.match(/익스테리어패키지I/) || priceMessage.match(/익스테리어 패키지I/) || priceMessage.match(/익스테리어 패키지 I/) || priceMessage.match(/익스테리어패키지 I/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "익스테리어 패키지I", optionPrice1: 1500000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄", carPrice: 33750000, selectOption1: "익스테리어 패키지I", optionPrice1: 1500000 });
                     }
 
                     else {
                         // 프리미엄만 나오게 
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 2.4", trim: "프리미엄" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "프리미엄" });
                     }
 
                 } 
                 else {
                     //가솔린 2.4만 나오게
-                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 2.4" });
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4" });
                 }
             } else if (priceMessage.match(/가솔린 3.0/) || priceMessage.match(/가솔린3.0/)) {
 
@@ -764,28 +651,28 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 5;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
                     }
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지II/) || priceMessage.match(/현대 스마트센스패키지II/) || priceMessage.match(/현대 스마트 센스패키지II/) || priceMessage.match(/현대 스마트 센스 패키지II/) || priceMessage.match(/현대 스마트 센스 패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
                     } else if (priceMessage.match(/JBL사운드패키지/) || priceMessage.match(/JBL 사운드패키지/) || priceMessage.match(/JBL 사운드 패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
                     } else if (priceMessage.match(/프리미어인테리어셀렉션/) || priceMessage.match(/프리미어 인테리어셀렉션/) || priceMessage.match(/프리미어 인테리어 셀렉션/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜", carPrice: 38700000, selectOption1: "프리미어 인테리어 셀렉션", optionPrice1: 1500000 });
                     }
                     else {
                         // 익스클루시브 스페셜만 나오게 
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브 스페셜" });
                     }
                 }else if (priceMessage.match(/익스클루시브/)) {
 
@@ -793,35 +680,35 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 4;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브" });
                     }
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지II/) || priceMessage.match(/현대 스마트센스패키지II/) || priceMessage.match(/현대 스마트 센스패키지II/) || priceMessage.match(/현대 스마트 센스 패키지II/) || priceMessage.match(/현대 스마트 센스 패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
                     } else if (priceMessage.match(/익스테리어패키지II/) || priceMessage.match(/익스테리어 패키지II/) || priceMessage.match(/익스테리어 패키지 II/) || priceMessage.match(/익스테리어패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "익스테리어 패키지II", optionPrice1: 1600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "익스테리어 패키지II", optionPrice1: 1600000 });
                     } else if (priceMessage.match(/어라운드뷰모니터(AVM)/) || priceMessage.match(/어라운드 뷰모니터(AVM)/) || priceMessage.match(/어라운드 뷰 모니터(AVM)/) || priceMessage.match(/어라운드 뷰 모니터 (AVM)/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크", optionPrice1: 1200000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크", optionPrice1: 1200000 });
                     } else if (priceMessage.match(/스마트전동식트렁크/) || priceMessage.match(/스마트 전동식트렁크/) || priceMessage.match(/스마트 전동식 트렁크/) || priceMessage.match(/스마트전동식 트렁크/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크", optionPrice1: 1200000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브", carPrice: 35500000, selectOption1: "어라운드 뷰 모니터(AVM)+스마트 전동식 트렁크", optionPrice1: 1200000 });
                     }
                     else {
                         // 익스클루시브 만 나오게 
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 3.0", trim: "익스클루시브" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0", trim: "익스클루시브" });
                     }
                 } 
                 else {
                     //가솔린 3.0만 나오게
-                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 3.0" });
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.0" });
                 }
 
             } else if (priceMessage.match(/가솔린 3.3/) || priceMessage.match(/가솔린3.3/)) {
@@ -834,28 +721,28 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 7;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티" });
                     }
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지II/) || priceMessage.match(/현대 스마트센스패키지II/) || priceMessage.match(/현대 스마트 센스패키지II/) || priceMessage.match(/현대 스마트 센스 패키지II/) || priceMessage.match(/현대 스마트 센스 패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티", carPrice: 38700000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
                     }
                     else {
                         // 셀러브리티만 나오게
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 3.3", trim: "셀러브리티" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3", trim: "셀러브리티" });
                     }
                 } else {
                     //가솔린 3.3만 나오게
-                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "가솔린 3.3" });
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 3.3" });
                 }
             } else if (priceMessage.match(/디젤 2.2/) || priceMessage.match(/디젤2.2/)) {
 
@@ -867,26 +754,26 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 8;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던" });
                     }
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/앞좌석통풍/) || priceMessage.match(/앞좌석 통풍/) || priceMessage.match(/앞 좌석 통풍/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
                     } else if (priceMessage.match(/하이패스 시스템/) || priceMessage.match(/하이패스시스템/) || priceMessage.match(/하이 패스 시스템/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "앞좌석 통풍 + 하이패스 시스템", optionPrice1: 600000 });
                     } else if (priceMessage.match(/현대스마트센스패키지IV/) || priceMessage.match(/현대 스마트센스패키지IV/) || priceMessage.match(/현대 스마트 센스패키지IV/) || priceMessage.match(/현대 스마트 센스 패키지IV/) || priceMessage.match(/현대 스마트 센스 패키지 IV/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "현대 스마트 센스 패키지IV", optionPrice1: 18000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던", carPrice: 33550000, selectOption1: "현대 스마트 센스 패키지IV", optionPrice1: 18000000 });
                     }
                     else {
                         // 디젤 2.2 모던만 나오게
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "디젤 2.2", trim: "모던" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "모던" });
                     }
                 } else if (priceMessage.match(/프리미엄 스페셜/g) || priceMessage.match(/프리미엄스페셜/g)) {
 
@@ -894,29 +781,29 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 10;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄 스페셜" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄 스페셜" });
                     }
 
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지II/) || priceMessage.match(/현대 스마트센스패키지II/) || priceMessage.match(/현대 스마트 센스패키지II/) || priceMessage.match(/현대 스마트 센스 패키지II/) || priceMessage.match(/현대 스마트 센스 패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "현대 스마트 센스 패키지II", optionPrice1: 1600000 });
                     } else if (priceMessage.match(/익스테리어패키지II/) || priceMessage.match(/익스테리어 패키지II/) || priceMessage.match(/익스테리어 패키지 II/) || priceMessage.match(/익스테리어패키지 II/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "익스테리어 패키지II", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "익스테리어 패키지II", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/JBL사운드패키지/) || priceMessage.match(/JBL 사운드패키지/) || priceMessage.match(/JBL 사운드 패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "JBL 사운드 패키지", optionPrice1: 1150000 });
                     } else if (priceMessage.match(/어라운드뷰모니터(AVM)/) || priceMessage.match(/어라운드 뷰모니터(AVM)/) || priceMessage.match(/어라운드 뷰 모니터(AVM)/) || priceMessage.match(/어라운드 뷰 모니터 (AVM)/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "어라운드 뷰 모니터(AVM)", optionPrice1: 1200000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜", carPrice: 31750000, selectOption1: "어라운드 뷰 모니터(AVM)", optionPrice1: 1200000 });
                     } else {
                         // 디젤 2.2 프리미엄 스페셜만 나오게
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄스페셜" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄스페셜" });
                     }
                 } else if (priceMessage.match(/프리미엄/)) {
 
@@ -924,33 +811,33 @@ function create(bot) {                                                  // funct
                     modelNumberVar = 9;
 
                     if (priceMessage.match(/기본 품목/) || priceMessage.match(/기본품목/) || priceMessage.match(/기본 옵션/) || priceMessage.match(/기본옵션/)) {
-                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄" });
+                        session.beginDialog('/korPriceBasicOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceBasicOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄" });
                     }
                     
                     else if (priceMessage.match(/선택 품목/) || priceMessage.match(/선택품목/) || priceMessage.match(/선택 옵션/) || priceMessage.match(/선택 옵션/)) {
-                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄" });
+                        session.beginDialog('/korPriceSelectOptionList', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceSelectOptionList", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄" });
                     } else if (priceMessage.match(/파노라마 썬루프/) || priceMessage.match(/파노라마썬루프/)) {
-                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history", model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
+                        //session.beginDialog('/korPriceSelectOptionItem', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korDesignInteriorDetail", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "가솔린 2.4", trim: "모던", selectOption1: "파노라마 썬루프" });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "파노라마 썬루프", optionPrice1: 1100000 });
                     } else if (priceMessage.match(/TUIX 컴포트 패키지/) || priceMessage.match(/TUIX 컴포트패키지/) || priceMessage.match(/TUIX컴포트패키지/) || priceMessage.match(/튜익스 컴포트 패키지/) || priceMessage.match(/튜익스 컴포트패키지/) || priceMessage.match(/튜익스컴포트패키지/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "TUIX 컴포트 패키지", optionPrice1: 780000 });
                     } else if (priceMessage.match(/헤드업디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이(HUD)/) || priceMessage.match(/헤드업 디스플레이 (HUD)/) || priceMessage.match(/헤드업디스플레이/) || priceMessage.match(/헤드업 디스플레이/) || priceMessage.match(/HUD/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "헤드업 디스플레이(HUD)", optionPrice1: 1000000 });
                     } else if (priceMessage.match(/현대스마트센스패키지I/) || priceMessage.match(/현대 스마트센스패키지I/) || priceMessage.match(/현대 스마트 센스패키지I/) || priceMessage.match(/현대 스마트 센스 패키지I/) || priceMessage.match(/현대 스마트 센스 패키지 I/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "현대 스마트 센스 패키지I", optionPrice1: 1500000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "현대 스마트 센스 패키지I", optionPrice1: 1500000 });
                     } else if (priceMessage.match(/익스테리어패키지I/) || priceMessage.match(/익스테리어 패키지I/) || priceMessage.match(/익스테리어 패키지 I/) || priceMessage.match(/익스테리어패키지 I/)) {
-                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "익스테리어 패키지I", optionPrice1: 1500000 });
+                        session.beginDialog('/korPriceRecipt', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceRecipt", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄", carPrice: 34750000, selectOption1: "익스테리어 패키지I", optionPrice1: 1500000 });
                     }
                     else {
                         // 디젤 2.2 프리미엄만 나오게
-                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "디젤 2.2", trim: "프리미엄" });
+                        session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2", trim: "프리미엄" });
                     }
                 } else {
                     // 디젤 2.2만 나오게
-                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history", model: "디젤 2.2" });
+                    session.beginDialog('/korPriceTrim', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceTrim", tableNm: "insert_history" , chanelID : session.message.address.channelId, model: "디젤 2.2" });
                 }
             } else {
-                session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceModel", tableNm: "insert_history" });
+                session.beginDialog('/korPriceModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korPriceModel", tableNm: "insert_history" , chanelID : session.message.address.channelId });
 
             }
             session.endDialog();
@@ -1123,7 +1010,7 @@ function create(bot) {                                                  // funct
                     sendPrice[1] = null;
                 }
 
-                session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareBeforeModel", tableNm: "insert_history", sendPrice });
+                session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareBeforeModel", tableNm: "insert_history" , chanelID : session.message.address.channelId, sendPrice });
 
             });
 
@@ -1188,7 +1075,7 @@ function create(bot) {                                                  // funct
                     sendPrice[1] = results[1].CAR_TYPE.replace("그랜저IG 자가용 ", "");
                 }
 
-                session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareBeforeModels", tableNm: "insert_history", sendPrice });
+                session.beginDialog('/korCompareModel', { sendMsg: session.message.text, key: userId, beginTime: date.getTime(), intent: "korCompareBeforeModels", tableNm: "insert_history" , chanelID : session.message.address.channelId, sendPrice });
 
             });
 
@@ -1243,7 +1130,7 @@ function create(bot) {                                                  // funct
 
         function (session, args, next) {
 
-            session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "NoMessage"));
+            session.send(session.localizer.gettext(session.preferredLocale(), "NoMessage"));
             session.endDialog();
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
             query.insertHistoryQuery(args, responseTime, function (err, result) {
@@ -1314,10 +1201,10 @@ function create(bot) {                                                  // funct
                 .attachments([
 
                     new builder.HeroCard(session)
-                        .text(session.localizer.gettext(query.kor_en_Checker(session.message.text), "returnMainMenuMessage"))//"원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!")
+                        .text(session.localizer.gettext(session.preferredLocale(), "returnMainMenuMessage"))//"원하시는 메뉴를 \n\n 선택하시거나 질문해주세요!!")
                         .buttons([
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceClickMessage"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceModelCall")),
-                            builder.CardAction.imBack(session, session.localizer.gettext(query.kor_en_Checker(session.message.text), "No"), session.localizer.gettext(query.kor_en_Checker(session.message.text), "No")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "priceModelCall")),
+                            builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "No"), session.localizer.gettext(session.preferredLocale(), "No")),
                             
                         ])
                 ]);
@@ -1334,7 +1221,7 @@ function create(bot) {                                                  // funct
             //            ])
             //    ]);
 
-            builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "initMenuList"));
+            builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
             session.endDialog();
         }
 
@@ -1349,7 +1236,7 @@ function create(bot) {                                                  // funct
                 session.send(args.qnaResponse);
             }
             else {
-                session.send(session.localizer.gettext(query.kor_en_Checker(session.message.text), "unknownMessage"));
+                session.send(session.localizer.gettext(session.preferredLocale(), "unknownMessage"));
             }
             session.endDialog();  
             responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
@@ -1408,7 +1295,13 @@ function create(bot) {                                                  // funct
             console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
             //builder.Prompts.choice(session, msg, session.localizer.gettext(query.kor_en_Checker(session.message.text), "initMenuList"));
             builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
-            session.endDialog();             
+            session.endDialog();   
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });          
         }
     ]);
  
@@ -1416,19 +1309,19 @@ function create(bot) {                                                  // funct
 
         function (session, args, next) {
 
-            var Lang = "";
+            //var Lang = "";
             console.log("session.message.text : " + session.message.text);
-            if (query.kor_en_Checker(session.message.text) == "En") {
+            //if (query.kor_en_Checker(session.message.text) == "En") {
 
-                Lang = "En";
+            //    Lang = "En";
 
-            }
-            else if (query.kor_en_Checker(session.message.text) == "Kr") {
+            //}
+            //else if (query.kor_en_Checker(session.message.text) == "Kr") {
 
-                Lang = "Kr";
-            }
+            //    Lang = "Kr";
+            //}
 
-            console.log("LANG : " + Lang);
+            //console.log("LANG : " + Lang);
 
             session.preferredLocale('En', function (err) {
                 if (err) {
@@ -1480,7 +1373,13 @@ function create(bot) {                                                  // funct
             //builder.Prompts.choice(session, msg, session.localizer.gettext(Lang, "initMenuList"));
             console.log('110 : ' + session.localizer.gettext(session.preferredLocale(), "name"));
             builder.Prompts.choice(session, msg, session.localizer.gettext(session.preferredLocale(), "initMenuList"));
-            session.endDialog();            
+            session.endDialog();     
+            responseTime = parseInt(date.getTime()) - parseInt(args.beginTime);
+            query.insertHistoryQuery(args, responseTime, function (err, result) {
+                if (!err) {
+                    console.log("query.getData : " + result);
+                }
+            });       
         }
     ]);
     
