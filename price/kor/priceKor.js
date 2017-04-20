@@ -749,11 +749,11 @@ function create(bot) {
                                         //subtotal: 75.00,
                                         //shipping_cost: 4.95,
                                         //total_tax: 6.19,
-                                        total_cost: total
+                                        total_cost: 1212
                                     },
                                     adjustments: [
-                                        { name: modelNm, amount: modelPrice },
-                                        { name: optionNm, amount: optionPrice }
+                                        { name: modelNm, amount: 1212 },
+                                        { name: optionNm, amount: 1212 }
                                     ]
                                 }
                             }
