@@ -705,7 +705,7 @@ function create(bot) {
 
 
             var msg;
-            /*if (session.message.address.channelId == "facebook"){
+            if (session.message.address.channelId == "facebook"){
                 msg = new builder.Message(session)
                     .sourceEvent({
                         facebook: {
@@ -763,22 +763,8 @@ function create(bot) {
                             .total(number_format(total) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"))
                     ]);
                 
-            }*/
-
-            var msg = new builder.Message(session)
-                .attachments([
-                    new builder.ReceiptCard(session)
-                        .title("Recipient's Name")
-                        .items([
-                            builder.ReceiptItem.create(session, "22.00 원", "EMP Museum").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/a/a0/Night_Exterior_EMP.jpg")),
-                            builder.ReceiptItem.create(session, "22.00 원", "Space Needle").image(builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/7/7c/Seattlenighttimequeenanne.jpg"))
-                        ])
-                        .facts([
-                            builder.Fact.create(session, session.localizer.gettext(session.preferredLocale(), "priceReciptTopMenu2"), session.localizer.gettext(session.preferredLocale(), "priceReciptTopMenu1"))
-                        ])
-                        .tax("4.40 원")
-                        .total("48.40 원")
-                ]);
+            }
+            
             session.endDialog(msg);
 
             /*var msg = new builder.Message(session)
