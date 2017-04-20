@@ -582,8 +582,6 @@ function create(bot) {
     ]);
     
     
-    
-    
     /***********************************************************************************
     3-2-1. 한국어 가격 메뉴 (선택옵션 가격표)
     ************************************************************************************/
@@ -705,7 +703,7 @@ function create(bot) {
                     builder.ReceiptItem.create(session, number_format(searchData[8][3]) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"), searchData[8][2])];
             }
 
-            var msg = new builder.Message(session)
+            /*var msg = new builder.Message(session)
                 .attachments([
                     new builder.ReceiptCard(session)
                         .title(args.model + " " + args.trim)
@@ -716,6 +714,62 @@ function create(bot) {
                         .total(number_format(total) + session.localizer.gettext(query.kor_en_Checker(session.message.text), "priceReciptCurrencyUnit"))
                 ]);
             session.send(msg);
+            */
+
+            msg = new builder.Message(session)
+                .sourceEvent({
+                    facebook: {
+                        attachment: {
+                            type: "template",
+                            payload: {
+                                template_type: "receipt",
+                                recipient_name: "Stephane Crozatier",
+                                order_number: "12345678902",
+                                currency: "USD",
+                                payment_method: "Visa 2345",
+                                order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
+                                timestamp: "1428444852",
+                                elements: [
+                                    {
+                                        title: "Classic White T-Shirt",
+                                        subtitle: "100% Soft and Luxurious Cotton",
+                                        quantity: 2,
+                                        price: 50,
+                                        currency: "USD",
+                                        image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
+                                    },
+                                    {
+                                        title: "Classic Gray T-Shirt",
+                                        subtitle: "100% Soft and Luxurious Cotton",
+                                        quantity: 1,
+                                        price: 25,
+                                        currency: "USD",
+                                        image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
+                                    }
+                                ],
+                                address: {
+                                    street_1: "1 Hacker Way",
+                                    street_2: "",
+                                    city: "Menlo Park",
+                                    postal_code: "94025",
+                                    state: "CA",
+                                    country: "US"
+                                },
+                                summary: {
+                                    subtotal: 75.00,
+                                    shipping_cost: 4.95,
+                                    total_tax: 6.19,
+                                    total_cost: 56.14
+                                },
+                                adjustments: [
+                                    { name: "New Customer Discount", amount: 20 },
+                                    { name: "$10 Off Coupon", amount: 10 }
+                                ]
+                            }
+                        }
+                    }
+                });
+            session.endDialog(msg);
 
             var nextBtn = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -732,7 +786,10 @@ function create(bot) {
             session.endDialog();
         }
     ]);
-    
+
+    /***********************************************************************************
+    3-2-2. 한국어 가격 메뉴 (선택옵션 가격비교표)
+    ************************************************************************************/
     bot.dialog('/korCompareModel', [
         function (session, args) {
             var compare1 = args.sendPrice[0];
