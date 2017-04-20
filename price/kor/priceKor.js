@@ -721,20 +721,20 @@ function create(bot) {
                                     //timestamp: "1428444852",
                                     elements: [
                                         {
-                                            title: modelNm,
-                                            //subtitle: "100% Soft and Luxurious Cotton",
-                                            quantity: 1,
-                                            price: modelPrice,
+                                            title: "Classic White T-Shirt",
+                                            subtitle: "100% Soft and Luxurious Cotton",
+                                            quantity: 2,
+                                            price: 1000000,
                                             currency: "KRW",
-                                            //image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
+                                            image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
                                         },
                                         {
-                                            title: optionNm,
-                                            //subtitle: "100% Soft and Luxurious Cotton",
-                                            quantity: 2,
-                                            price: optionPrice,
+                                            title: "Classic Gray T-Shirt",
+                                            subtitle: "100% Soft and Luxurious Cotton",
+                                            quantity: 1,
+                                            price: 1250000,
                                             currency: "KRW",
-                                            //image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
+                                            image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
                                         }
                                     ],
                                     /*address: {
@@ -746,14 +746,14 @@ function create(bot) {
                                         country: "US"
                                     },*/
                                     summary: {
-                                        //subtotal: 75.00,
-                                        //shipping_cost: 4.95,
-                                        //total_tax: 6.19,
-                                        total_cost: 1212
+                                        subtotal: 75.00,
+                                        shipping_cost: 4.95,
+                                        total_tax: 6.19,
+                                        total_cost: 56.14
                                     },
                                     adjustments: [
-                                        { name: modelNm, amount: 1212 },
-                                        { name: optionNm, amount: 1212 }
+                                        { name: "New Customer Discount", amount: 20 },
+                                        { name: "$10 Off Coupon", amount: 10 }
                                     ]
                                 }
                             }
