@@ -717,38 +717,19 @@ function create(bot) {
                                     order_number: " ",
                                     currency: "KRW",
                                     payment_method: " ",
-                                    //order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
-                                    //timestamp: "",
                                     elements: [
                                         {
                                             title: modelNm,
-                                            subtitle: number_format(modelPrice).toString(),
-                                            text: number_format(modelPrice).toString,
-                                            //quantity: 2,
-                                            price: 1000000,
-                                            currency: "KRW",
-                                            //image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
+                                            subtitle: number_format(modelPrice).toString() + " 원"
                                         },
                                         {
                                             title: optionNm,
-                                            subtitle: optionPrice.toString(),
-                                            text: optionPrice.toString,
-                                            //quantity: 1,
-                                            price: 1250000,
-                                            currency: "KRW",
-                                            //image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
+                                            subtitle: number_format(optionPrice).toString() + " 원"
                                         }
                                     ],
                                     summary: {
-                                        //subtotal: 75.00,
-                                        //shipping_cost: 4.95,
-                                        //total_tax: 6.19,
                                         total_cost: total
-                                    },
-                                    adjustments: [
-                                        { name: modelNm, amount: modelPrice },
-                                        { name: optionNm, amount: optionPrice }
-                                    ]
+                                    }
                                 }
                             }
                         }
