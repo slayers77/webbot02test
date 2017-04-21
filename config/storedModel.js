@@ -24,81 +24,76 @@ optionpriceref[10] = new Array("어라운드 뷰 모니터(AVM) + 스마트 전�
 
 var selectedmodels = [];
 
-//유저 담을 배열
-var user1 = [];
-var user2;
-
 exports.addmodel = function (sam) {
     var Cnt = selectedmodels.length;
     var insertflag = true;
-    var fixmodel = new Array(sam[0], fixoptionname(sam[1]));
-
-    var userYn = userId.length;
-
-    console.log("user1::length " + user1.length);
-    console.log("sam[0] " + sam[0]);
-    console.log("sam[1] " + sam[1]);
-    console.log("user2::length " + user2);
-
+    var fixmodel = new Array(sam[0], sam[1], fixoptionname(sam[2]));
+    
     if (selectedmodels.length != 0) {
         for (var idx = 0; idx < Cnt; idx++) {
             if (selectedmodels[idx][0] == fixmodel[0]) {
-                if (selectedmodels[idx][1] == fixmodel[1]) {
-                    insertflag = false;
+                if (selectedmodels[idx][0] == fixmodel[1]) {
+                    if (selectedmodels[idx][2] == fixmodel[2]) {
+                        insertflag = false;
+                    }
                 }
             }
         }
     }
-
+    
     if (insertflag) {
         selectedmodels.push(fixmodel);
     }
-    console.log(selectedmodels);
 }
 
-exports.getmodel = function (modelname) {
+exports.getmodel = function (userId, modelname) {
     var returnmodel = [];
-    var tempmodel = [4];
+    var tempmodel = [5];
     var Cnt = selectedmodels.length;
     for (var idx = 0; idx < Cnt; idx++) {
-        tempmodel = [4];
-        if (selectedmodels[idx][0] == modelname) {
-            tempmodel[0] = selectedmodels[idx][0];
-            var Cntmodel = modelpriceref.length;
-            for (var idx2 = 0; idx2 < Cntmodel; idx2++) {
-                if (modelpriceref[idx2][0] == selectedmodels[idx][0]) {
-                    tempmodel[1] = modelpriceref[idx2][1];
+        tempmodel = [5];
+        tempmodel[0] = selectedmodels[0][0];
+        if (selectedmodels[idx][0] == userId) {
+            if (selectedmodels[idx][1] == modelname) {
+                tempmodel[1] = selectedmodels[idx][1];
+                var Cntmodel = modelpriceref.length;
+                for (var idx2 = 0; idx2 < Cntmodel; idx2++) {
+                    if (modelpriceref[idx2][0] == selectedmodels[idx][1]) {
+                        tempmodel[2] = modelpriceref[idx2][1];
+                    }
                 }
-            }
-            tempmodel[2] = selectedmodels[idx][1];
-            tempmodel[3] = '';
-            var Cntoption = optionpriceref.length;
-            for (var idx3 = 0; idx3 < Cntoption; idx3++) {
-                if (optionpriceref[idx3][0] == selectedmodels[idx][1]) {
-                    tempmodel[3] = optionpriceref[idx3][1];
+                tempmodel[3] = selectedmodels[idx][2];
+                tempmodel[4] = '';
+                var Cntoption = optionpriceref.length;
+                for (var idx3 = 0; idx3 < Cntoption; idx3++) {
+                    if (optionpriceref[idx3][0] == selectedmodels[idx][2]) {
+                        tempmodel[4] = optionpriceref[idx3][1];
+                    }
                 }
+                returnmodel.push(tempmodel);
             }
-            returnmodel.push(tempmodel);
         }
+        
     }
     return returnmodel;
 }
 
 exports.delmodel = function (sam) {
-    var fixmodel = new Array(sam[0], fixoptionname(sam[1]));
+    var fixmodel = new Array(sam[0], sam[1], fixoptionname(sam[2]));
     var Cnt = selectedmodels.length;
     var delnum = null;
     for (var idx = 0; idx < Cnt; idx++) {
         if (selectedmodels[idx][0] == fixmodel[0]) {
             if (selectedmodels[idx][1] == fixmodel[1]) {
-                delnum = idx;
+                if (selectedmodels[idx][2] == fixmodel[2]) {
+                    delnum = idx;
+                }
             }
         }
     }
     if (delnum != null) {
-        selectedmodels.splice(delnum,1);
+        selectedmodels.splice(delnum, 1);
     }
-    console.log(selectedmodels);
 }
 
 //option name partial matching check 
