@@ -24,10 +24,21 @@ optionpriceref[10] = new Array("어라운드 뷰 모니터(AVM) + 스마트 전�
 
 var selectedmodels = [];
 
+//유저 담을 배열
+var user1 = [];
+var user2;
+
 exports.addmodel = function (sam) {
     var Cnt = selectedmodels.length;
     var insertflag = true;
     var fixmodel = new Array(sam[0], fixoptionname(sam[1]));
+
+    var userYn = userId.length;
+
+    console.log("user1::length " + user1.length);
+    console.log("sam[0] " + sam[0]);
+    console.log("sam[1] " + sam[1]);
+    console.log("user2::length " + user2);
 
     if (selectedmodels.length != 0) {
         for (var idx = 0; idx < Cnt; idx++) {
