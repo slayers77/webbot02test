@@ -643,12 +643,12 @@ function create(bot) {
             } else if (searchData.length == 1) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2])];
-                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price:searchData[0][3]}];
+                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price: searchData[0][3], currency: "KRW" }];
             } else if (searchData.length == 2) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[1][2])];
-                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price: searchData[0][3] }, { title: searchData[1][2], price: searchData[1][3] }];
+                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price: searchData[0][3], currency: "KRW" }, { title: searchData[1][2], price: searchData[1][3], currency: "KRW" }];
             } else if (searchData.length == 3) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
