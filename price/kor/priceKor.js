@@ -634,17 +634,21 @@ function create(bot) {
             total = searchData[0][1] + optionTotal;
 
             //선택된 옵션만 담기
-            var items;
+            var items;      //기본 web에 표시할 item
+            var fbitems;    //facebook에 표시할 item
 
             if (searchData.length == 0) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),];
+                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }];
             } else if (searchData.length == 1) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2])];
+                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price:searchData[0][3]}];
             } else if (searchData.length == 2) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[1][2])];
+                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price: searchData[0][3] }, { title: searchData[1][2], price: searchData[1][3] }];
             } else if (searchData.length == 3) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
@@ -704,6 +708,9 @@ function create(bot) {
             }
 
 
+
+
+
             var msg;
             if (session.message.address.channelId == "facebook"){
                 msg = new builder.Message(session)
@@ -717,20 +724,21 @@ function create(bot) {
                                     order_number: " ",
                                     currency: "KRW",
                                     payment_method: " ",
-                                    elements: [
+                                    /*elements: [
                                         {
                                             title: modelNm,
-                                            subtitle: number_format(modelPrice).toString() + " 원",
+                                            //subtitle: number_format(modelPrice).toString() + " 원",
                                             price: modelPrice,
                                             currency: "KRW"
                                         },
                                         {
                                             title: optionNm,
-                                            subtitle: number_format(optionPrice).toString() + " 원",
+                                            //subtitle: number_format(optionPrice).toString() + " 원",
                                             price: optionPrice,
                                             currency: "KRW"
                                         }
-                                    ],
+                                    ],*/
+                                    elements: fbitems,
                                     summary: {
                                         total_cost: total
                                     }
