@@ -639,27 +639,39 @@ function create(bot) {
 
             if (searchData.length == 0) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),];
-                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" }];
             } else if (searchData.length == 1) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2])];
-                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price: searchData[0][3], currency: "KRW" }];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" }];
             } else if (searchData.length == 2) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[1][2])];
-                fbitems = [{ title: modelNm, price: modelPrice, currency: "KRW" }, { title: searchData[0][2], price: searchData[0][3], currency: "KRW" }, { title: searchData[1][2], price: searchData[1][3], currency: "KRW" }];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" }];
             } else if (searchData.length == 3) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[1][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[2][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" }];
             } else if (searchData.length == 4) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[1][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[1][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[2][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[3][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" },
+                    { title: searchData[3][2], price: searchData[3][3], currency: "KRW" }];
             } else if (searchData.length == 5) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
@@ -667,6 +679,12 @@ function create(bot) {
                     builder.ReceiptItem.create(session, number_format(searchData[2][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[2][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[3][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[4][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" },
+                    { title: searchData[3][2], price: searchData[3][3], currency: "KRW" },
+                    { title: searchData[4][2], price: searchData[4][3], currency: "KRW" }];
             } else if (searchData.length == 6) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
@@ -675,6 +693,13 @@ function create(bot) {
                     builder.ReceiptItem.create(session, number_format(searchData[3][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[3][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[4][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[5][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" },
+                    { title: searchData[3][2], price: searchData[3][3], currency: "KRW" },
+                    { title: searchData[4][2], price: searchData[4][3], currency: "KRW" },
+                    { title: searchData[5][2], price: searchData[5][3], currency: "KRW" }];
             } else if (searchData.length == 7) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
@@ -684,6 +709,14 @@ function create(bot) {
                     builder.ReceiptItem.create(session, number_format(searchData[4][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[4][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[5][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[6][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[6][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" },
+                    { title: searchData[3][2], price: searchData[3][3], currency: "KRW" },
+                    { title: searchData[4][2], price: searchData[4][3], currency: "KRW" },
+                    { title: searchData[5][2], price: searchData[5][3], currency: "KRW" },
+                    { title: searchData[6][2], price: searchData[6][3], currency: "KRW" }];
             } else if (searchData.length == 8) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
@@ -694,6 +727,15 @@ function create(bot) {
                     builder.ReceiptItem.create(session, number_format(searchData[5][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[5][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[6][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[6][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[7][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[7][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" },
+                    { title: searchData[3][2], price: searchData[3][3], currency: "KRW" },
+                    { title: searchData[4][2], price: searchData[4][3], currency: "KRW" },
+                    { title: searchData[5][2], price: searchData[5][3], currency: "KRW" },
+                    { title: searchData[6][2], price: searchData[6][3], currency: "KRW" },
+                    { title: searchData[7][2], price: searchData[7][3], currency: "KRW" }];
             } else if (searchData.length == 9) {
                 items = [builder.ReceiptItem.create(session, number_format(searchData[0][1]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), modelNm),
                     builder.ReceiptItem.create(session, number_format(searchData[0][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[0][2]),
@@ -705,11 +747,17 @@ function create(bot) {
                     builder.ReceiptItem.create(session, number_format(searchData[6][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[6][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[7][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[7][2]),
                     builder.ReceiptItem.create(session, number_format(searchData[8][3]) + session.localizer.gettext(session.preferredLocale(), "priceReciptCurrencyUnit"), searchData[8][2])];
+                fbitems = [{ title: modelNm, price: searchData[0][1], currency: "KRW" },
+                    { title: searchData[0][2], price: searchData[0][3], currency: "KRW" },
+                    { title: searchData[1][2], price: searchData[1][3], currency: "KRW" },
+                    { title: searchData[2][2], price: searchData[2][3], currency: "KRW" },
+                    { title: searchData[3][2], price: searchData[3][3], currency: "KRW" },
+                    { title: searchData[4][2], price: searchData[4][3], currency: "KRW" },
+                    { title: searchData[5][2], price: searchData[5][3], currency: "KRW" },
+                    { title: searchData[6][2], price: searchData[6][3], currency: "KRW" },
+                    { title: searchData[7][2], price: searchData[7][3], currency: "KRW" },
+                    { title: searchData[8][2], price: searchData[8][3], currency: "KRW" }];
             }
-
-
-
-
 
             var msg;
             if (session.message.address.channelId == "facebook"){
