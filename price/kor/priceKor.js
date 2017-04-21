@@ -721,13 +721,13 @@ function create(bot) {
                                         {
                                             title: modelNm,
                                             subtitle: number_format(modelPrice).toString() + " 원",
-                                            price: number_format(modelPrice),
+                                            price: modelPrice,
                                             currency: "KRW"
                                         },
                                         {
                                             title: optionNm,
                                             subtitle: number_format(optionPrice).toString() + " 원",
-                                            price: number_format(optionPrice),
+                                            price: optionPrice,
                                             currency: "KRW"
                                         }
                                     ],
