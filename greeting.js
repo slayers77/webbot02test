@@ -216,7 +216,7 @@ function create(bot) {                                                  // funct
                 var lastModel = stored.lastmodel();
 
                 if (lastModel != null) {
-                    priceMsg = lastModel[0] + " " + session.message.text;
+                    priceMsg = lastModel[1] + " " + session.message.text;
                     session.message.text = priceMsg;
                 }
             }

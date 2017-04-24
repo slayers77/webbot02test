@@ -32,7 +32,7 @@ exports.addmodel = function (sam) {
     if (selectedmodels.length != 0) {
         for (var idx = 0; idx < Cnt; idx++) {
             if (selectedmodels[idx][0] == fixmodel[0]) {
-                if (selectedmodels[idx][0] == fixmodel[1]) {
+                if (selectedmodels[idx][1] == fixmodel[1]) {
                     if (selectedmodels[idx][2] == fixmodel[2]) {
                         insertflag = false;
                     }
