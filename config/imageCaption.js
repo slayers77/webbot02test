@@ -62,28 +62,47 @@ function handleSuccessResponse(session, body) {
     var metadata = "";
     var dominantColor = "";
     if (body) {
-        console.log("caption :::::::::::::::::::: " + body.color.dominantColors);
-        if (body.description.captions[0].text == 'a red car') {
-            caption = "당신이 선택한 빨간색 입니다.";
+        //console.log("caption :::::::::::::::::::: " + body.color.dominantColors);
+
+        for (var i = 0; i < body.tags.length; i++) {
+
+            tag = tag + body.tags[i].name + " , ";
+
+        }
+
+        desctiption = body.description.captions[0].text;
+        metadata = body.metadata;
+        dominantColor = body.color.dominantColors;
+
+        session.send("Tags : [ " + tag.substring(0, tag.length - 2) + " ]");
+        session.send("Desctiption : [ " + desctiption + " ]");
+        session.send("dominantColor : [ " + dominantColor + " ]");
+        session.send("metaData : [ Width = " + metadata.width + " Height = " + metadata.height + " Format = " + metadata.format + " ]");
+
+
+
+        if (desctiption == 'a red car') {
+            caption = "당신 이미지의 차량 색상은 빨간색 입니다.";
             session.send(caption);
             session.beginDialog('/korDesignSelectValentineRed', { sendMsg: "image", key: userId, beginTime: date.getTime(), intent: "korDesignSelectValentineRed", tableNm: "insert_history", chanelID: session.message.address.channelId });
-        } else {
-
-            for (var i = 0; i < body.tags.length; i++) {
-
-                tag = tag + body.tags[i].name + " , ";
-
-            }
-
-            desctiption = body.description.captions[0].text;
-            metadata = body.metadata;
-            dominantColor = body.color.dominantColors;
-            
-            session.send("Tags : [ " + tag.substring(0, tag.length - 2) + " ]");
-            session.send("Desctiption : [ " + desctiption + " ]");
-            session.send("dominantColor : [ " + dominantColor + " ]");
-            session.send("metaData : [ Width = " + metadata.width + " Height = " + metadata.height + " Format = " + metadata.format+" ]");
         }
+        //else {
+
+        //    for (var i = 0; i < body.tags.length; i++) {
+
+        //        tag = tag + body.tags[i].name + " , ";
+
+        //    }
+
+        //    desctiption = body.description.captions[0].text;
+        //    metadata = body.metadata;
+        //    dominantColor = body.color.dominantColors;
+            
+        //    session.send("Tags : [ " + tag.substring(0, tag.length - 2) + " ]");
+        //    session.send("Desctiption : [ " + desctiption + " ]");
+        //    session.send("dominantColor : [ " + dominantColor + " ]");
+        //    session.send("metaData : [ Width = " + metadata.width + " Height = " + metadata.height + " Format = " + metadata.format+" ]");
+        //}
         //session.send('I think it\'s ' + caption);
         
     }

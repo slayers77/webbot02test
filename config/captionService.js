@@ -28,7 +28,7 @@ exports.getCaptionFromStream = function (stream) {
                     reject(body);
                 }
                 else {
-                    console.log(body);
+                    //console.log(body);
                     console.log("body ::::::::::::::::::::: " + JSON.parse(body).tags[0].name);
                     resolve(extractCaption(JSON.parse(body)));
                 }
