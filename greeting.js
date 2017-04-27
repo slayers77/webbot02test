@@ -1,9 +1,12 @@
 ﻿var builder = require('botbuilder');
 var request = require('request');
+//var ttsService = require('./TTSService');
 
 var date = require('date-utils');
 date = new Date();
 var language = "";
+
+var say = require('say');
 
 var query = require('./config/query');
 var date = require('date-utils');
@@ -25,6 +28,13 @@ global.userId = "";
 var async = require('async');
 var tp = require('tedious-promises');
 var TYPES = require('tedious').TYPES;
+
+var needle = require('needle'),
+    restify = require('restify'),
+    url = require('url'),
+    validUrl = require('valid-url'),
+    captionService = require('./config/captionService'),
+    imgCaption = require('./config/imageCaption');
 
 var config = {
     server: 'faxtimedb.database.windows.net',
@@ -128,8 +138,24 @@ function create(bot) {                                                  // funct
 
     //status table 
     intents.onBegin(function (session, args, next) {
+
         
-        console.log( "user insert : " + session.message.text);
+
+        console.log("user insert : " + session.message.text);
+        say.speak('whats up, dog?', 'Alex');
+        say.speak('whats up, dog?', 'Cellos', 0.5);
+        //say.speak("Hello");
+        //ttsService.Synthesize(session.message.text);
+
+        //ttsService.Synthesize(session.message.text);
+
+        //say.speak('Hello World','Alex', 0.5, function(err){
+
+        //    if (err) {
+        //        return console.error(err);
+        //    }
+        //    console.log("SPEAK " + session.message.text);
+        //})
         var insert;
         var timer;
         var increment = 0;
@@ -147,83 +173,105 @@ function create(bot) {                                                  // funct
 
         //console.log("user ijnput check : " + query.kor_en_Checker(session.message.text));
         
-
-        
-
-        session.preferredLocale(query.kor_en_Checker(session.message.text), function (err) {
-            if (err) {
-                session.error(err);
-            }
-        });
-
-
         userId = session.message.address.conversation.id;
 
-        //if (session.message.address.channelId == "skype" || session.message.address.channelId == "facebook" ) {
-        //    var now = new Date();
-        //    userId = now.getFullYear() + ("00" + (now.getMonth() + 1)).slice(-2) + ("00" + now.getDate()).slice(-2) + ("00" + now.getHours()).slice(-2) + ("00" + now.getMinutes()).slice(-2) + ("00" + now.getSeconds()).slice(-2);
-        //} else { 
-        //    userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
-        //}
+        //첨부파일인지 텍스트인지 구분
+        if (imgCaption.hasImageAttachment(session)) {
+            var stream = imgCaption.getImageStreamFromMessage(session.message);
+            captionService
+                .getCaptionFromStream(stream)
+                .then(function (caption) { imgCaption.handleSuccessResponse(session, caption); })
+                .catch(function (error) { imgCaption.handleErrorResponse(session, error); });
+
+            session.endDialog();
+
+        } else {
+            var imageUrl = imgCaption.parseAnchorTag(session.message.text) || (validUrl.isUri(session.message.text) ? session.message.text : null);
+            // URL인지 일반 텍스트인지 구분
+            if (imageUrl) {
+                captionService
+                    .getCaptionFromUrl(imageUrl)
+                    .then(function (caption) { imgCaption.handleSuccessResponse(session, caption); })
+                    .catch(function (error) { imgCaption.handleErrorResponse(session, error); });
+                    session.endDialog();
+            } else {
+                //session.send('Did you upload an image? I\'m more of a visual person. Try sending me an image or an image URL');
+
+                session.preferredLocale(query.kor_en_Checker(session.message.text), function (err) {
+                    if (err) {
+                        session.error(err);
+                    }
+                });
 
 
-        var tasks = [
-            function (callback) {
-                var returnData;
-                tp.setConnectionConfig(config);
-                tp.sql("SELECT CASE WHEN MAX(ENTITYSN) IS NOT NULL THEN 'true' "
-                    + "ELSE 'false' END AS price "
-                    + "FROM TBL_PRICE_ENTITY "
-                    + "WHERE replace(@PRICE,' ','') like '%' + ENTITYNAME + '%'"
-                    + "AND NOT (replace(@PRICE,' ','') like '%가솔린%' OR replace(@PRICE,' ','') like '%디젤%')"
-                )
-                    .parameter('PRICE', TYPES.NVarChar, session.message.text)
-                    .execute()
-                    .then(function (results) {
-                        console.log("select tbl_price_entity success!!!!");
-                        callback(null, results);
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
-            },
-            function (callback) {
-                tp.sql("SELECT ENGINE_NAME, MODEL_NAME " +
-                    "FROM TBL_CUSTOMER_STATUS " +
-                    "WHERE USER_ID = @user_id"
-                )
-                    .parameter('user_id', TYPES.NVarChar, userId)
-                    .execute()
-                    .then(function (results) {
-                        console.log("select tbl_customer_status success!!!!");
-                        callback(null, results);
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
+
+
+                //if (session.message.address.channelId == "skype" || session.message.address.channelId == "facebook" ) {
+                //    var now = new Date();
+                //    userId = now.getFullYear() + ("00" + (now.getMonth() + 1)).slice(-2) + ("00" + now.getDate()).slice(-2) + ("00" + now.getHours()).slice(-2) + ("00" + now.getMinutes()).slice(-2) + ("00" + now.getSeconds()).slice(-2);
+                //} else { 
+                //    userId = session.message.sourceEvent.clientActivityId.split(".")[0] + "." + session.message.sourceEvent.clientActivityId.split(".")[1];
+                //}
+
+
+                var tasks = [
+                    function (callback) {
+                        var returnData;
+                        tp.setConnectionConfig(config);
+                        tp.sql("SELECT CASE WHEN MAX(ENTITYSN) IS NOT NULL THEN 'true' "
+                            + "ELSE 'false' END AS price "
+                            + "FROM TBL_PRICE_ENTITY "
+                            + "WHERE replace(@PRICE,' ','') like '%' + ENTITYNAME + '%'"
+                            + "AND NOT (replace(@PRICE,' ','') like '%가솔린%' OR replace(@PRICE,' ','') like '%디젤%')"
+                        )
+                            .parameter('PRICE', TYPES.NVarChar, session.message.text)
+                            .execute()
+                            .then(function (results) {
+                                console.log("select tbl_price_entity success!!!!");
+                                callback(null, results);
+                            }).fail(function (err) {
+                                console.log(err);
+                            });
+                    },
+                    function (callback) {
+                        tp.sql("SELECT ENGINE_NAME, MODEL_NAME " +
+                            "FROM TBL_CUSTOMER_STATUS " +
+                            "WHERE USER_ID = @user_id"
+                        )
+                            .parameter('user_id', TYPES.NVarChar, userId)
+                            .execute()
+                            .then(function (results) {
+                                console.log("select tbl_customer_status success!!!!");
+                                callback(null, results);
+                            }).fail(function (err) {
+                                console.log(err);
+                            });
+                    }
+                ];
+
+                async.series(tasks, function (err, results) {
+                    var priceRes;
+                    var engineName = null;
+                    var modelName = null;
+                    var priceMsg;
+
+                    console.log("priceT/F : " + results[0][0].price);
+                    priceRes = results[0][0].price;
+
+                    if (priceRes == 'true') {
+
+                        var lastModel = stored.lastmodel();
+
+                        if (lastModel != null) {
+                            priceMsg = lastModel[0] + " " + session.message.text;
+                            session.message.text = priceMsg;
+                        }
+                    }
+
+                    next();
+                });
             }
-        ];
-
-        async.series(tasks, function (err, results) {
-            var priceRes;
-            var engineName = null;
-            var modelName = null;
-            var priceMsg;
-
-            console.log("priceT/F : " + results[0][0].price);
-            priceRes = results[0][0].price;
-
-            if (priceRes == 'true') {
-
-                var lastModel = stored.lastmodel();
-
-                if (lastModel != null) {
-                    priceMsg = lastModel[1] + " " + session.message.text;
-                    session.message.text = priceMsg;
-                }
-            }
-
-            next();
-        });
-
+        }
     });
 
 

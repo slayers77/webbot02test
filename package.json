@@ -15,14 +15,22 @@
     "date-utils": "^1.2.21",
     "express": "^4.15.2",
     "fs": "0.0.1-security",
+    "https": "^1.0.0",
     "iconv-lite": "^0.4.15",
+    "needle": "^1.6.0",
+    "node-gyp": "^3.6.0",
     "request": "^2.81.0",
     "restify": "^4.3.0",
+    "say": "^0.11.0",
     "stringbuilder": "0.0.11",
     "tedious": "^2.0.0",
     "tedious-connection-pool": "^1.0.5",
     "tedious-promises": "^0.4.1",
+    "url": "^0.11.0",
     "util": "^0.10.3",
-    "xml-digester": "0.0.5"
+    "valid-url": "^1.0.9",
+    "wav": "^1.0.1",
+    "xml-digester": "0.0.5",
+    "xmlbuilder": "^8.2.2"
   }
 }
