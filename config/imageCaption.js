@@ -81,10 +81,14 @@ function handleSuccessResponse(session, body) {
 
 
 
-        if (desctiption == 'a red car') {
+        if (desctiption.match(/red/g)) {
             caption = "당신 이미지의 차량 색상은 빨간색 입니다.";
             session.send(caption);
             session.beginDialog('/korDesignSelectValentineRed', { sendMsg: "image", key: userId, beginTime: date.getTime(), intent: "korDesignSelectValentineRed", tableNm: "insert_history", chanelID: session.message.address.channelId });
+        } else if (desctiption.match(/white/g)) {
+            caption = "당신 이미지의 차량 색상은 하얀색 입니다.";
+            session.send(caption);
+            session.beginDialog('/korDesignSelectWhiteCream', { sendMsg: "image", key: userId, beginTime: date.getTime(), intent: "korDesignSelectWhiteCream", tableNm: "insert_history", chanelID: session.message.address.channelId });
         }
         //else {
 
