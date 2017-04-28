@@ -11,6 +11,9 @@ var say = require('say');
 var query = require('./config/query');
 var date = require('date-utils');
 var stored = require('./config/storedModel');
+var tts = require('./TTSService.js');  
+
+
 date = new Date();
 
 var userConversationId = "";
@@ -96,6 +99,7 @@ function create(bot) {                                                  // funct
     //초기 출력 화면
     bot.dialog('/init', [
         function (session) {
+            tts.Synthesize();
             console.log("init dialog : " + session.message.address.conversation.id);
             console.log("init dialog : " + session.message.address.id);
             
