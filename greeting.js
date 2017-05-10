@@ -11,7 +11,7 @@ var say = require('say');
 var query = require('./config/query');
 var date = require('date-utils');
 var stored = require('./config/storedModel');
-var tts = require('./TTSService.js');  
+//var tts = require('./TTSService.js');  
 
 
 date = new Date();
@@ -99,8 +99,8 @@ function create(bot) {                                                  // funct
     //초기 출력 화면
     bot.dialog('/init', [
         function (session) {
-            var botMsg = "안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요.";
-            tts.Synthesize(botMsg);
+            //var botMsg = "안녕하세요. 저는 현대자동차의 그랜저 ig를 소개하는 그랜다이저예요. \n\n 대화중 언제든지'그랜다이저' 라고 입력하면 초기 화면으로 돌아가요.";
+            //tts.Synthesize(botMsg);
             console.log("init dialog : " + session.message.address.conversation.id);
             console.log("init dialog : " + session.message.address.id);
             
@@ -1311,8 +1311,8 @@ function create(bot) {                                                  // funct
             });
 
             console.log("session.preferredLocale : " + session.preferredLocale());
-            var botMsg = session.localizer.gettext(session.preferredLocale(), "welcomeMessage");
-            tts.Synthesize(botMsg);
+            //var botMsg = session.localizer.gettext(session.preferredLocale(), "welcomeMessage");
+            //tts.Synthesize(botMsg);
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
