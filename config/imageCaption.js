@@ -73,7 +73,7 @@ function handleSuccessResponse(session, body) {
         desctiption = body.description.captions[0].text;
         metadata = body.metadata;
         dominantColor = body.color.dominantColors;
-
+        
         session.send("Tags : [ " + tag.substring(0, tag.length - 2) + " ]");
         session.send("Desctiption : [ " + desctiption + " ]");
         session.send("dominantColor : [ " + dominantColor + " ]");

@@ -5,7 +5,7 @@
 
 var request = require('request').defaults({ encoding: null });
 
-var VISION_URL = 'https://api.projectoxford.ai/vision/v1.0/analyze/?visualFeatures=Color,Tags,Description&form=BCSIMG&subscription-key=c84d0e1aaaff482b9014a570927bdbf2';
+var VISION_URL = 'https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze/?visualFeatures=Color,Tags,Description&form=BCSIMG&subscription-key=f2f4e2ebe5fb476e8b806b64ce383832';
 
 /** 
  *  Gets the caption of the image from an image stream

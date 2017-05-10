@@ -11,7 +11,7 @@ var request = require('request'),
     wav = require('wav'),
     Speaker = require('speaker');
 
-exports.Synthesize = function Synthesize(){
+exports.Synthesize = function Synthesize(botMsg){
 
     // Note: The way to get api key:
     // Free: https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
@@ -19,12 +19,13 @@ exports.Synthesize = function Synthesize(){
     var apiKey = "a8d340ad20814c1bb4fe8e3a59a1160a";
     var ssml_doc = xmlbuilder.create('speak')
         .att('version', '1.0')
-        .att('xml:lang', 'en-us')
+        .att('xml:lang', 'ko-kr')
         .ele('voice')
-        .att('xml:lang', 'en-us')
+        .att('xml:lang', 'ko-kr')
         .att('xml:gender', 'Female')
-        .att('name', 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)')
-        .txt('This is a demo to call Microsoft text to speech service.')
+        .att('name', 'Microsoft Server Speech Text to Speech Voice (ko-KR, HeamiRUS)')
+        //봇이 말하는 메세지
+        .txt(botMsg)
         .end();
     var post_speak_data = ssml_doc.toString();
 
