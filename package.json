@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.3.0",
-    "botbuilder": "^3.7.0",
+    "botbuilder": "^3.8.1",
     "date-utils": "^1.2.21",
     "express": "^4.15.2",
     "fs": "0.0.1-security",
