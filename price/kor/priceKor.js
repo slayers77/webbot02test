@@ -144,10 +144,10 @@ function create(bot) {
                 || args.sendMsg.match(/익스클루시브/g) || args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g) 
                 || args.sendMsg.match(/셀러브리티/g)) {
                 var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae1");
-                introMsg(session, "priceTrimWelcomeMessgae1");
+                introMsg(session, text, "priceTrimWelcomeMessgae1");
             } else {
                 var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae2");
-                introMsg(session, "priceTrimWelcomeMessgae2");
+                introMsg(session, text, "priceTrimWelcomeMessgae2");
             }
             if (args.sendMsg.match(/가솔린2.4/g) || args.sendMsg.match(/가솔린 2.4/g)) {
                 model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4Model");
@@ -537,7 +537,8 @@ function create(bot) {
             var selectItem7;
             var options;
 
-            var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
+            //var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
+            var text = session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
             introMsg(session, text, "selectOptionInitMessage");
             
             if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionModern")) {
@@ -1194,8 +1195,9 @@ function create(bot) {
             
             if (title1 != null && title2 != null) {
 
-                var text = title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage");
-                introMsg(session, text, "compareMessage");
+                //var text = title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage");
+                var text = session.localizer.gettext(session.preferredLocale(), "compareMessageCall");
+                introMsg(session, text, "compareMessageCall");
                 
                 /*
                 msg = new builder.Message(session)
@@ -1319,7 +1321,8 @@ function create(bot) {
             
             console.log(fnResultsplit[5] + " fnResultsplit : " + fnResultsplit.length);
 
-            var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
+            //var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
+            var text = session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
             introMsg(session, text, "priceOptionAddMessage");
             
             //functionOptionUpdate(userId, fnResultModel, fnResultOption, 1);
@@ -1376,7 +1379,8 @@ function create(bot) {
             fnResultCarPrice = fnResultsplit[4];
             fnResultOptionNm = fnResultsplit[5];
 
-            var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
+            //var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
+            var text = session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
             introMsg(session, text, "priceOptionRemoveMessage");
             
             functionOptionUpdate(userId, fnResultModel, fnResultOption, 0);
