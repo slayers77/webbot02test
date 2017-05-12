@@ -1009,7 +1009,7 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var ShadeBronze = session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, GrandBlue, 'ShadeBronze');
+            colorMsg(session, ShadeBronze, 'ShadeBronze');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -1082,7 +1082,7 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var KakiMetal = session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, MidnightBlack, 'KakiMetal');
+            colorMsg(session, KakiMetal, 'KakiMetal');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
