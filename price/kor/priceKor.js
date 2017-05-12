@@ -9,7 +9,6 @@ var async = require('async');
 var tp = require('tedious-promises');
 var TYPES = require('tedious').TYPES;
 
-
 var config = {
     server: 'faxtimedb.database.windows.net',
     userName: 'faxtime',
@@ -27,6 +26,23 @@ var config = {
     }
 };
 
+var tts = require('../../TTSService');
+var audioPath = 'http://taiholabchatbot.azurewebsites.net';
+function introMsg(session, text, msg) {
+    tts.Synthesize(text, msg);
+    var audioMsg = new builder.Message(session);
+    audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+    audioMsg.attachments([
+        new builder.AudioCard(session)
+            .text(text)
+            .autostart(true)
+            .media([
+                { url: audioPath + '/'+msg+'.mp3' }
+            ])
+    ]);
+    session.send(audioMsg);
+}
+
 function create(bot) {
     /***********************************************************************************
     1. 한국어 가격 초기 메뉴(모델 카드)
@@ -38,7 +54,21 @@ function create(bot) {
 
         function (session, args) {
             session.userData.model = "";
-            session.send(session.localizer.gettext(session.preferredLocale(), "priceWelcomeMessage"));
+            
+            var text = session.localizer.gettext(session.preferredLocale(), "priceWelcomeMessage");
+            tts.Synthesize(text, 'priceWelcomeMessage');
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(text)
+                    .autostart(true)
+                    .media([
+                        { url: audioPath + '/priceWelcomeMessage.mp3' }
+                    ])
+            ]);
+            session.send(audioMsg);
+
             var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
@@ -109,12 +139,15 @@ function create(bot) {
             var trimCard4;
             var msg;
             var showTrim;
+
             if (args.sendMsg.match(/모던/g) || args.sendMsg.match(/프리미엄/g) || args.sendMsg.match(/프리미엄스페셜/g) || args.sendMsg.match(/프리미엄 스페셜/g) 
                 || args.sendMsg.match(/익스클루시브/g) || args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g) 
                 || args.sendMsg.match(/셀러브리티/g)) {
-                session.send(session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae1"));
+                var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae1");
+                introMsg(session, "priceTrimWelcomeMessgae1");
             } else {
-                session.send(session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae2"));
+                var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae2");
+                introMsg(session, "priceTrimWelcomeMessgae2");
             }
             if (args.sendMsg.match(/가솔린2.4/g) || args.sendMsg.match(/가솔린 2.4/g)) {
                 model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4Model");
@@ -503,8 +536,9 @@ function create(bot) {
             var selectItem6;
             var selectItem7;
             var options;
-            
-            session.send(args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage"));
+
+            var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
+            introMsg(session, text, "selectOptionInitMessage");
             
             if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionModern")) {
                 options = [new builder.HeroCard(session)
@@ -587,7 +621,6 @@ function create(bot) {
     ************************************************************************************/
     bot.dialog('/korPriceRecipt', [
         function (session, args, next) {
-            session.send("선택하신 차량의 산출 가격 입니다.");
             console.log(userId + " user insert : " + session.message.text);
 
             var fnResult = '';
@@ -1160,8 +1193,10 @@ function create(bot) {
             }
             
             if (title1 != null && title2 != null) {
+
+                var text = title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage");
+                introMsg(session, text, "compareMessage");
                 
-                session.send(title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage"));
                 /*
                 msg = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -1216,16 +1251,20 @@ function create(bot) {
                 
                 switch (args.intent) {
                     case "korCompareModel":
-                        session.send(session.localizer.gettext(session.preferredLocale(), "korCompareModelMessage"));
+                        var text = session.localizer.gettext(session.preferredLocale(), "korCompareModelMessage");
+                        introMsg(session, text, "compareMessage");
                         break;
                     case "korCompareBeforeModel":
-                        session.send(session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelMessage"));
+                        var text = session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelMessage");
+                        introMsg(session, text, "korCompareBeforeModelMessage");
                         break;
                     case "korCompareBeforeModels":
-                        session.send(session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelsMessage"));
+                        var text = session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelsMessage");
+                        introMsg(session, text, "korCompareBeforeModelsMessage");
                         break;
                     default:
-                        session.send(session.localizer.gettext(session.preferredLocale(), "NocompareModelMessage"));
+                        var text = session.localizer.gettext(session.preferredLocale(), "NocompareModelMessage");
+                        introMsg(session, text, "NocompareModelMessage");
                 }
                 
             }
@@ -1279,8 +1318,9 @@ function create(bot) {
             fnResultOptionNm = fnResultsplit[5];
             
             console.log(fnResultsplit[5] + " fnResultsplit : " + fnResultsplit.length);
-            
-            session.send(fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage"));
+
+            var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
+            introMsg(session, text, "priceOptionAddMessage");
             
             //functionOptionUpdate(userId, fnResultModel, fnResultOption, 1);
             
@@ -1335,8 +1375,9 @@ function create(bot) {
             fnResultTrimNm = fnResultsplit[3];
             fnResultCarPrice = fnResultsplit[4];
             fnResultOptionNm = fnResultsplit[5];
-            
-            session.send(fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage"));
+
+            var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
+            introMsg(session, text, "priceOptionRemoveMessage");
             
             functionOptionUpdate(userId, fnResultModel, fnResultOption, 0);
             
