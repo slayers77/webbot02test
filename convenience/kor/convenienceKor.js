@@ -3,6 +3,23 @@ var query = require('../../config/query');
 var date = require('date-utils');
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
+
+function introMsg(msg) {
+    var text = session.localizer.gettext(session.preferredLocale(), msg);
+    tts.Synthesize(text, msg);
+    var audioMsg = new builder.Message(session);
+    audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+    audioMsg.attachments([
+        new builder.AudioCard(session)
+            .text(text)
+            .autostart(true)
+            .media([
+            { url: audioPath + '/' + msg + '.mp3' }
+        ])
+    ]);
+    session.send(audioMsg);
+}
+
 date = new Date();
 
 var query = require('../../config/query');
@@ -18,7 +35,7 @@ function create(bot) {
     bot.dialog('/korConvenienceMain', [
 
         function (session, args) {
-            
+            /*
             var convenienceMainMessgae = session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae");
             tts.Synthesize(convenienceMainMessgae, 'convenienceMainMessgae');
             
@@ -34,6 +51,8 @@ function create(bot) {
             ]);
 
             session.send(audioMsg);
+            */
+            introMsg("convenienceMainMessgae");
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 //.attachmentLayout(builder.AttachmentLayout.carousel)
