@@ -4,6 +4,23 @@ var query = require('../../config/query');
 var date = require('date-utils');
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
+
+function introMsg(session, msg) {
+    var text = session.localizer.gettext(session.preferredLocale(), msg);
+    tts.Synthesize(text, msg);
+    var audioMsg = new builder.Message(session);
+    audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+    audioMsg.attachments([
+        new builder.AudioCard(session)
+            .text(text)
+            .autostart(true)
+            .media([
+            { url: audioPath + '/' + msg + '.mp3' }
+        ])
+    ]);
+    session.send(audioMsg);
+}
+
 date = new Date();
 var data = "";
 
@@ -58,7 +75,7 @@ function create(bot) {
             console.log("sid : " + args.key +" || message : "+ args.sendMsg +"|| begin date : " + args.beginTime + " || intent : "+args.intent);
             //session.send("korOnlineTestDrive session key : " + session.message.sourceEvent.clientActivityId);
             //query.getData(args);
-            session.send(session.localizer.gettext(session.preferredLocale(), "onlineReservationWelcomeMessage"));
+            introMsg(session, "onlineReservationWelcomeMessage");
             
                                 var onlineReserveCard = new builder.HeroCard(session)
                                     .title(session.localizer.gettext(session.preferredLocale(), "onlineReservationTitleName"))
@@ -108,13 +125,20 @@ function create(bot) {
         function (session, args, next) {
             console.log("sid : " + args.key + " || message : " + args.sendMsg + "|| begin date : " + args.beginTime + " || intent : " + args.intent);
             //session.send(session.message.text);
+            
+            var centerCallReservationSubTitleMessage = session.localizer.gettext(session.preferredLocale(), "centerCallReservationSubTitleMessage");
+            tts.Synthesize(centerCallReservationSubTitleMessage, 'centerCallReservationSubTitleMessage');
+
             var msg = new builder.Message(session)
             .attachments([
             
                 new builder.HeroCard(session)
                     .title(session.localizer.gettext(session.preferredLocale(), "centerCallReservationTitleName"))
-                    .text(session.localizer.gettext(session.preferredLocale(), "centerCallReservationSubTitleMessage"))
-                    //.text(str)
+                    .text(centerCallReservationSubTitleMessage)
+                    .autostart(true)
+                    .media([
+                        { url: audioPath + '/centerCallReservationSubTitleMessage.mp3' }
+                    ])
                     .buttons([
                 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "seoulClickMessage"), session.localizer.gettext(session.preferredLocale(), "seoul")),
@@ -144,7 +168,8 @@ function create(bot) {
             
             if (session.message.text.match(/서울/g) || session.message.text.match(/Seoul/g)) { 
                 
-                session.send(session.localizer.gettext(session.preferredLocale(), "seoulCenterCallReservationWelcomeMessage"));
+                //session.send(session.localizer.gettext(session.preferredLocale(), "seoulCenterCallReservationWelcomeMessage"));
+                introMsg(session, "seoulCenterCallReservationWelcomeMessage");
                 var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
@@ -196,7 +221,8 @@ function create(bot) {
             
             } else if (session.message.text.match(/부산/g) || session.message.text.match(/Busan/g) ) { 
             
-                session.send(session.localizer.gettext(session.preferredLocale(), "busanCenterCallReservationWelcomeMessage"));
+                //session.send(session.localizer.gettext(session.preferredLocale(), "busanCenterCallReservationWelcomeMessage"));
+                introMsg(session, "busanCenterCallReservationWelcomeMessage");
                 var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
