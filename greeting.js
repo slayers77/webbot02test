@@ -1319,7 +1319,7 @@ function create(bot) {                                                  // funct
                         .title(session.localizer.gettext(session.preferredLocale(), "name"))
                         .text(botMsg)
                         .autostart(true)
-                        .media([{ url: 'C:\\Users\\songhj\\Source\\Repos\\webbot02test\\welcomeMessage.mp3' }])
+                        .media([{ url: 'D:\\home\\site\\wwwroot\\welcomeMessage.mp3' }])
                         .buttons([
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
