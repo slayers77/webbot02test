@@ -3,6 +3,7 @@ var stringBuilder = require('stringbuilder');
 var query = require('../../config/query');
 var date = require('date-utils');
 var tts = require('../../TTSService');
+var audioPath = 'http://taiholabchatbot.azurewebsites.net';
 date = new Date();
 var data = "";
 
