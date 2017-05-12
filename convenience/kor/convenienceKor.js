@@ -19,14 +19,14 @@ function create(bot) {
 
         function (session, args) {
             
-            var text = session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae");
-            tts.Synthesize(text, 'convenienceMainMessgae');
+            var convenienceMainMessgae = session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae");
+            tts.Synthesize(convenienceMainMessgae, 'convenienceMainMessgae');
             
             var audioMsg = new builder.Message(session);
             audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
             audioMsg.attachments([
                 new builder.AudioCard(session)
-                    .text(text)
+                    .text(convenienceMainMessgae)
                     .autostart(true)
                     .media([
                     { url: audioPath + '/convenienceMainMessgae.mp3' }
@@ -103,8 +103,23 @@ function create(bot) {
 
     bot.dialog('/korConvenienceSmartSenseSimple', [
     
-        function (session,args, results) {
-            session.send(session.localizer.gettext(session.preferredLocale(), "smartSenseMainMessage"));
+        function (session, args, results) {
+            
+            var smartSenseMainMessage = session.localizer.gettext(session.preferredLocale(), "smartSenseMainMessage");
+            tts.Synthesize(smartSenseMainMessage, 'smartSenseMainMessage');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(smartSenseMainMessage)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/smartSenseMainMessage.mp3' }
+                ])
+            ]);
+
+            session.send(audioMsg);
             //if (results.response.entity == '스마트 센스 소개') {
                 var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -149,8 +164,24 @@ function create(bot) {
     
     bot.dialog('/korConvenienceSmartsenseList', [
     
-        function (session, args) { 
-            session.send(session.localizer.gettext(session.preferredLocale(), "smartSenseDetailMessage"));
+        function (session, args) {
+            
+            var smartSenseDetailMessage = session.localizer.gettext(session.preferredLocale(), "smartSenseDetailMessage");
+            tts.Synthesize(smartSenseDetailMessage, 'smartSenseDetailMessage');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(smartSenseDetailMessage)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/smartSenseDetailMessage.mp3' }
+                ])
+            ]);
+            
+            session.send(audioMsg);
+            
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -249,7 +280,21 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "InfotainmentMainMessage"));
+            var InfotainmentMainMessage = session.localizer.gettext(session.preferredLocale(), "InfotainmentMainMessage");
+            tts.Synthesize(InfotainmentMainMessage, 'InfotainmentMainMessage');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(InfotainmentMainMessage)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/InfotainmentMainMessage.mp3' }
+                ])
+            ]);
+
+            session.send(audioMsg);
             
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -299,7 +344,21 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "InfotainmentDetailMessage"));
+            var InfotainmentDetailMessage = session.localizer.gettext(session.preferredLocale(), "InfotainmentDetailMessage");
+            tts.Synthesize(InfotainmentDetailMessage, 'InfotainmentDetailMessage');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(InfotainmentDetailMessage)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/InfotainmentDetailMessage.mp3' }
+                ])
+            ]);
+
+            session.send(audioMsg);
 
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -442,8 +501,23 @@ function create(bot) {
 
     bot.dialog('/korConvenienceSafetySimple', [
     
-        function (session, args, results) { 
-            session.send(session.localizer.gettext(session.preferredLocale(), "safetyMainMessage"));
+        function (session, args, results) {
+            
+            var safetyMainMessage = session.localizer.gettext(session.preferredLocale(), "safetyMainMessage");
+            tts.Synthesize(safetyMainMessage, 'safetyMainMessage');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(safetyMainMessage)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/safetyMainMessage.mp3' }
+                ])
+            ]);
+
+            session.send(audioMsg);
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
                     //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -494,7 +568,20 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "safetyDetailMessage"));
+            var safetyDetailMessage = session.localizer.gettext(session.preferredLocale(), "safetyDetailMessage");
+            tts.Synthesize(safetyDetailMessage, 'safetyDetailMessage');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(safetyDetailMessage)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/safetyDetailMessage.mp3' }
+                ])
+            ]);
+            session.send(audioMsg);
 
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
