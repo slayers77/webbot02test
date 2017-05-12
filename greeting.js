@@ -11,7 +11,7 @@ var say = require('say');
 var query = require('./config/query');
 var date = require('date-utils');
 var stored = require('./config/storedModel');
-//var tts = require('./TTSService.js');  
+var tts = require('./TTSService.js');  
 
 
 date = new Date();
@@ -147,8 +147,8 @@ function create(bot) {                                                  // funct
         
 
         console.log("user insert : " + session.message.text);
-        say.speak('whats up, dog?', 'Alex');
-        say.speak('whats up, dog?', 'Cellos', 0.5);
+        //say.speak('whats up, dog?', 'Alex');
+        //say.speak('whats up, dog?', 'Cellos', 0.5);
         //say.speak("Hello");
         //ttsService.Synthesize(session.message.text);
 
@@ -1311,13 +1311,15 @@ function create(bot) {                                                  // funct
             });
 
             console.log("session.preferredLocale : " + session.preferredLocale());
-            //var botMsg = session.localizer.gettext(session.preferredLocale(), "welcomeMessage");
-            //tts.Synthesize(botMsg);
+            var botMsg = session.localizer.gettext(session.preferredLocale(), "welcomeMessage");
+            tts.Synthesize(botMsg,'welcomeMessage');
             var msg = new builder.Message(session)
                 .attachments([
-                    new builder.HeroCard(session)
+                    new builder.AudioCard(session)
                         .title(session.localizer.gettext(session.preferredLocale(), "name"))
-                        .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
+                        .text(botMsg)
+                        .autostart(true)
+                        .media([{ url: 'C:\\Users\\songhj\\Source\\Repos\\webbot02test\\welcomeMessage.mp3' }])
                         .buttons([
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),

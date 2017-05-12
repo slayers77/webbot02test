@@ -9,9 +9,9 @@ THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 var request = require('request'),
     xmlbuilder = require('xmlbuilder'),
     wav = require('wav'),
-    Speaker = require('speaker');
+    fs = require('fs');
 
-exports.Synthesize = function Synthesize(botMsg){
+exports.Synthesize = function Synthesize(botMsg,fileName){
 
     // Note: The way to get api key:
     // Free: https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
@@ -56,15 +56,10 @@ exports.Synthesize = function Synthesize(botMsg){
                         console.log(err, resp.body);
                     } else {
                         try {
-                            var reader = new wav.Reader();
-                            reader.on('format', function (format) {
-                                reader.pipe(new Speaker(format));
+                            fs.writeFile('./' + fileName + '.mp3', speak_data, function (err) {
+                                if (err) throw err;
+                                console.log('File write completed');
                             });
-                            var Readable = require('stream').Readable;
-                            var s = new Readable;
-                            s.push(speak_data);
-                            s.push(null);
-                            s.pipe(reader);
                         } catch (e) {
                             console.log(e.message);
                         }
