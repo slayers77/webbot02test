@@ -542,7 +542,7 @@ function create(bot) {
 
             var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
             var audioText = session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
-            introMsg(session, text, "selectOptionInitMessage");
+            introMsg(session, text, "selectOptionInitMessage", audioText);
             
             if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionModern")) {
                 options = [new builder.HeroCard(session)
