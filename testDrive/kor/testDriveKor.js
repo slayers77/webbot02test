@@ -2,6 +2,7 @@
 var stringBuilder = require('stringbuilder');
 var query = require('../../config/query');
 var date = require('date-utils');
+var tts = require('../../TTSService');
 date = new Date();
 var data = "";
 
@@ -18,13 +19,19 @@ function create(bot) {
 
         function (session, args, next) {
             
+            var testDriveSubtitleMessage = session.localizer.gettext(session.preferredLocale(), "testDriveSubtitleMessage");
+            tts.Synthesize(testDriveSubtitleMessage, 'testDriveSubtitleMessage');;
+
             var msg = new builder.Message(session)
             .attachments([
             
-                new builder.HeroCard(session)
+                new builder.AudioCard(session)
                     .title(session.localizer.gettext(session.preferredLocale(), "testDriveTitleName"))
-                    .text(session.localizer.gettext(session.preferredLocale(), "testDriveSubtitleMessage"))
-                    //.text(str)
+                    .text(testDriveSubtitleMessage)
+                    .autostart(true)
+                    .media([
+                        { url: audioPath + '/testDriveSubtitleMessage.mp3' }
+                    ])
                     .buttons([
                 
                     builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "onlineReservationClickMessage"), session.localizer.gettext(session.preferredLocale(), "onlineReservationMessage")),
