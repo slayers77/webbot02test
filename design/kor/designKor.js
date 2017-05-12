@@ -1,6 +1,40 @@
 ﻿var builder = require('botbuilder');
 var query = require('../../config/query');
 var date = require('date-utils');
+var tts = require('../../TTSService');
+var audioPath = 'http://taiholabchatbot.azurewebsites.net';
+
+function introMsg(session, msg) {
+    var text = session.localizer.gettext(session.preferredLocale(), msg);
+    tts.Synthesize(text, msg);
+    var audioMsg = new builder.Message(session);
+    audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+    audioMsg.attachments([
+        new builder.AudioCard(session)
+            .text(text)
+            .autostart(true)
+            .media([
+            { url: audioPath + '/' + msg + '.mp3' }
+        ])
+    ]);
+    session.send(audioMsg);
+}
+
+function colorMsg(session, msg, fileName) {
+    tts.Synthesize(msg, fileName);
+    var audioMsg = new builder.Message(session);
+    audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+    audioMsg.attachments([
+        new builder.AudioCard(session)
+            .text(text)
+            .autostart(true)
+            .media([
+            { url: audioPath + '/' + msg + '.mp3' }
+        ])
+    ]);
+    session.send(audioMsg);
+}
+
 date = new Date();
 var query = require('../../config/query');
 function create(bot) {
@@ -14,7 +48,8 @@ function create(bot) {
 
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "designMainMessage")); 
+            //session.send(session.localizer.gettext(session.preferredLocale(), "designMainMessage")); 
+            introMsg(session, "designMainMessage");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -75,7 +110,8 @@ function create(bot) {
     bot.dialog('/korDesignColorList', [
 
         function (session, args) {
-            session.send(session.localizer.gettext(session.preferredLocale(), "colorSelectWelcomeMessage")); 
+            //session.send(session.localizer.gettext(session.preferredLocale(), "colorSelectWelcomeMessage")); 
+            introMsg(session, "colorSelectWelcomeMessage");
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -192,7 +228,8 @@ function create(bot) {
 
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "exteriorMainMessage")); 
+            //session.send(session.localizer.gettext(session.preferredLocale(), "exteriorMainMessage")); 
+            introMsg(session, "exteriorMainMessage");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -238,7 +275,8 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "exteriorDetailMessage")); 
+            //session.send(session.localizer.gettext(session.preferredLocale(), "exteriorDetailMessage")); 
+            introMsg(session, "exteriorDetailMessage");
 
             //if (results.response.entity == "외관상세") {
                 var msg1 = new builder.Message(session)
@@ -322,7 +360,8 @@ function create(bot) {
 
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "interiorMainMessage")); 
+            //session.send(session.localizer.gettext(session.preferredLocale(), "interiorMainMessage")); 
+            introMsg(session, "interiorMainMessage");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -367,7 +406,8 @@ function create(bot) {
     
         function (session, args, results) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "interiorDetailMessage")); 
+            //session.send(session.localizer.gettext(session.preferredLocale(), "interiorDetailMessage")); 
+            introMsg(session, "interiorDetailMessage");
 
             //if (results.response.entity == "내관상세") {
                 var msg1 = new builder.Message(session)
@@ -438,7 +478,9 @@ function create(bot) {
         function (session, args) {
             
             //session.send("화이트 크림 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
-            session.send(session.localizer.gettext(session.preferredLocale(), "whiteCream")+" "+ session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "whiteCream")+" "+ session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var whiteCream = session.localizer.gettext(session.preferredLocale(), "whiteCream") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, whiteCream, "whiteCream");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -521,7 +563,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectIonSilver', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "IonSilver") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "IonSilver") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var IonSilver = session.localizer.gettext(session.preferredLocale(), "IonSilver") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, IonSilver, "IonSilver");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -601,7 +645,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectLunaGray', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "LunaGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "LunaGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var LunaGray = session.localizer.gettext(session.preferredLocale(), "LunaGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, LunaGray, "LunaGray");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -670,7 +716,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectPanteraGray', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "PanteraGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "PanteraGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var PanteraGray = session.localizer.gettext(session.preferredLocale(), "PanteraGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, PanteraGray, "PanteraGray");
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -742,7 +790,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectMidnightBlack', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "MidnightBlack") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "MidnightBlack") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var MidnightBlack = session.localizer.gettext(session.preferredLocale(), "MidnightBlack") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, MidnightBlack, 'MidnightBlack');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -813,7 +863,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectValentineRed', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "ValentineRed") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "ValentineRed") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var ValentineRed = session.localizer.gettext(session.preferredLocale(), "ValentineRed") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, ValentineRed, 'ValentineRed');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -884,7 +936,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectGrandBlue', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "GrandBlue") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "GrandBlue") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var GrandBlue = session.localizer.gettext(session.preferredLocale(), "GrandBlue") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, GrandBlue, 'GrandBlue');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -953,7 +1007,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectShadeBronze', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var ShadeBronze = session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, GrandBlue, 'ShadeBronze');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -1024,7 +1080,9 @@ function create(bot) {
     bot.dialog('/korDesignSelectKakiMetal', [
         function (session, args) {
             
-            session.send(session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            //session.send(session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
+            var KakiMetal = session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
+            colorMsg(session, MidnightBlack, 'KakiMetal');
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
