@@ -26,10 +26,10 @@ function colorMsg(session, msg, fileName) {
     audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
     audioMsg.attachments([
         new builder.AudioCard(session)
-            .text(text)
+            .text(msg)
             .autostart(true)
             .media([
-            { url: audioPath + '/' + msg + '.mp3' }
+            { url: audioPath + '/' + fileName + '.mp3' }
         ])
     ]);
     session.send(audioMsg);
