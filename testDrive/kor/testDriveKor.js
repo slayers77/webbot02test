@@ -132,7 +132,7 @@ function create(bot) {
             var msg = new builder.Message(session)
             .attachments([
             
-                new builder.HeroCard(session)
+                new builder.AudioCard(session)
                     .title(session.localizer.gettext(session.preferredLocale(), "centerCallReservationTitleName"))
                     .text(centerCallReservationSubTitleMessage)
                     .autostart(true)
