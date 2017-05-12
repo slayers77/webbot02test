@@ -1,6 +1,8 @@
 ﻿var builder = require('botbuilder');
 var query = require('../../config/query');
 var date = require('date-utils');
+var tts = require('../../TTSService');
+var audioPath = 'http://taiholabchatbot.azurewebsites.net';
 date = new Date();
 
 var query = require('../../config/query');
@@ -16,7 +18,22 @@ function create(bot) {
     bot.dialog('/korConvenienceMain', [
 
         function (session, args) {
-            session.send(session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae"));
+            
+            var text = session.localizer.gettext(session.preferredLocale(), "convenienceMainMessgae");
+            tts.Synthesize(text, 'convenienceMainMessgae');
+            
+            var audioMsg = new builder.Message(session);
+            audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
+            audioMsg.attachments([
+                new builder.AudioCard(session)
+                    .text(text)
+                    .autostart(true)
+                    .media([
+                    { url: audioPath + '/convenienceMainMessgae.mp3' }
+                ])
+            ]);
+
+            session.send(audioMsg);
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 //.attachmentLayout(builder.AttachmentLayout.carousel)
