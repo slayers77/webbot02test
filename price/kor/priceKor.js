@@ -147,10 +147,10 @@ function create(bot) {
                 || args.sendMsg.match(/익스클루시브/g) || args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g) 
                 || args.sendMsg.match(/셀러브리티/g)) {
                 var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae1");
-                introMsg(session, text, "priceTrimWelcomeMessgae1");
+                introMsg(session, text, "priceTrimWelcomeMessgae1", text);
             } else {
                 var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae2");
-                introMsg(session, text, "priceTrimWelcomeMessgae2");
+                introMsg(session, text, "priceTrimWelcomeMessgae2", text);
             }
             if (args.sendMsg.match(/가솔린2.4/g) || args.sendMsg.match(/가솔린 2.4/g)) {
                 model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4Model");
@@ -1257,19 +1257,19 @@ function create(bot) {
                 switch (args.intent) {
                     case "korCompareModel":
                         var text = session.localizer.gettext(session.preferredLocale(), "korCompareModelMessage");
-                        introMsg(session, text, "compareMessage");
+                        introMsg(session, text, "compareMessage", text);
                         break;
                     case "korCompareBeforeModel":
                         var text = session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelMessage");
-                        introMsg(session, text, "korCompareBeforeModelMessage");
+                        introMsg(session, text, "korCompareBeforeModelMessage", text);
                         break;
                     case "korCompareBeforeModels":
                         var text = session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelsMessage");
-                        introMsg(session, text, "korCompareBeforeModelsMessage");
+                        introMsg(session, text, "korCompareBeforeModelsMessage", text);
                         break;
                     default:
                         var text = session.localizer.gettext(session.preferredLocale(), "NocompareModelMessage");
-                        introMsg(session, text, "NocompareModelMessage");
+                        introMsg(session, text, "NocompareModelMessage", text);
                 }
                 
             }
