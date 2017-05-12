@@ -28,8 +28,11 @@ var config = {
 
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
-function introMsg(session, text, msg) {
-    tts.Synthesize(text, msg);
+function introMsg(session, text, msg, audioText) {
+    if (audioText == null || audioText == "" || audioText == "undefined"){
+        audioText = text;
+    }
+    tts.Synthesize(audioText, msg);
     var audioMsg = new builder.Message(session);
     audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
     audioMsg.attachments([
@@ -537,8 +540,8 @@ function create(bot) {
             var selectItem7;
             var options;
 
-            //var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
-            var text = session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
+            var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
+            var audioText = session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
             introMsg(session, text, "selectOptionInitMessage");
             
             if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionModern")) {
@@ -1195,9 +1198,9 @@ function create(bot) {
             
             if (title1 != null && title2 != null) {
 
-                //var text = title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage");
-                var text = session.localizer.gettext(session.preferredLocale(), "compareMessageCall");
-                introMsg(session, text, "compareMessageCall");
+                var text = title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage");
+                var audioText = session.localizer.gettext(session.preferredLocale(), "compareMessageCall");
+                introMsg(session, text, "compareMessageCall", audioText);
                 
                 /*
                 msg = new builder.Message(session)
@@ -1321,9 +1324,9 @@ function create(bot) {
             
             console.log(fnResultsplit[5] + " fnResultsplit : " + fnResultsplit.length);
 
-            //var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
-            var text = session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
-            introMsg(session, text, "priceOptionAddMessage");
+            var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
+            var audioText = session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
+            introMsg(session, text, "priceOptionAddMessage", audioText);
             
             //functionOptionUpdate(userId, fnResultModel, fnResultOption, 1);
             
@@ -1379,9 +1382,9 @@ function create(bot) {
             fnResultCarPrice = fnResultsplit[4];
             fnResultOptionNm = fnResultsplit[5];
 
-            //var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
-            var text = session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
-            introMsg(session, text, "priceOptionRemoveMessage");
+            var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
+            var audioText = session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
+            introMsg(session, text, "priceOptionRemoveMessage", audioText);
             
             functionOptionUpdate(userId, fnResultModel, fnResultOption, 0);
             
