@@ -4,7 +4,7 @@ var date = require('date-utils');
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
 
-function introMsg(msg) {
+function introMsg(session, msg) {
     var text = session.localizer.gettext(session.preferredLocale(), msg);
     tts.Synthesize(text, msg);
     var audioMsg = new builder.Message(session);
@@ -52,7 +52,7 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            introMsg("convenienceMainMessgae");
+            introMsg(session,"convenienceMainMessgae");
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 //.attachmentLayout(builder.AttachmentLayout.carousel)
