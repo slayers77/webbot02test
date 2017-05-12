@@ -56,7 +56,7 @@ exports.Synthesize = function Synthesize(botMsg,fileName){
                         console.log(err, resp.body);
                     } else {
                         try {
-                            fs.writeFile('./' + fileName + '.mp3', speak_data, function (err) {
+                            fs.writeFile('./public/' + fileName + '.mp3', speak_data, function (err) {
                                 if (err) throw err;
                                 console.log('File write completed');
                             });
