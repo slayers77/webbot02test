@@ -5,9 +5,9 @@ var date = require('date-utils');
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
 
-function introMsg(session, msg) {
+function introMsg(session, msg, fileName) {
     var text = session.localizer.gettext(session.preferredLocale(), msg);
-    tts.Synthesize(text, msg);
+    tts.Synthesize(text, fileName);
     var audioMsg = new builder.Message(session);
     audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
     audioMsg.attachments([
@@ -15,7 +15,7 @@ function introMsg(session, msg) {
             .text(text)
             .autostart(true)
             .media([
-            { url: audioPath + '/' + msg + '.mp3' }
+            { url: audioPath + '/' + fileName + '.mp3' }
         ])
     ]);
     session.send(audioMsg);
@@ -38,7 +38,14 @@ function create(bot) {
         function (session, args, next) {
             
             var testDriveSubtitleMessage = session.localizer.gettext(session.preferredLocale(), "testDriveSubtitleMessage");
-            tts.Synthesize(testDriveSubtitleMessage, 'testDriveSubtitleMessage');;
+            var fileName;
+            if (session.preferredLocale() == "Ko") {
+                fileName = "testDriveSubtitleMessage";
+                tts.Synthesize(testDriveSubtitleMessage, fileName);
+            } else if (session.preferredLocale() == "En") {
+                fileName = "enTestDriveSubtitleMessage";
+                tts.Synthesize(testDriveSubtitleMessage, fileName);
+            }
 
             var msg = new builder.Message(session)
             .attachments([
@@ -48,7 +55,7 @@ function create(bot) {
                     .text(testDriveSubtitleMessage)
                     .autostart(true)
                     .media([
-                        { url: audioPath + '/testDriveSubtitleMessage.mp3' }
+                        { url: audioPath + '/' + fileName + '.mp3' }
                     ])
                     .buttons([
                 
@@ -75,7 +82,12 @@ function create(bot) {
             console.log("sid : " + args.key +" || message : "+ args.sendMsg +"|| begin date : " + args.beginTime + " || intent : "+args.intent);
             //session.send("korOnlineTestDrive session key : " + session.message.sourceEvent.clientActivityId);
             //query.getData(args);
-            introMsg(session, "onlineReservationWelcomeMessage");
+
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "onlineReservationWelcomeMessage", "onlineReservationWelcomeMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "onlineReservationWelcomeMessage", "enOnlineReservationWelcomeMessage");
+            }
             
                                 var onlineReserveCard = new builder.HeroCard(session)
                                     .title(session.localizer.gettext(session.preferredLocale(), "onlineReservationTitleName"))
@@ -127,7 +139,15 @@ function create(bot) {
             //session.send(session.message.text);
             
             var centerCallReservationSubTitleMessage = session.localizer.gettext(session.preferredLocale(), "centerCallReservationSubTitleMessage");
-            tts.Synthesize(centerCallReservationSubTitleMessage, 'centerCallReservationSubTitleMessage');
+            
+            var fileName;
+            if (session.preferredLocale() == "Ko") {
+                fileName = "centerCallReservationSubTitleMessage";
+                tts.Synthesize(centerCallReservationSubTitleMessage, fileName);
+            } else if (session.preferredLocale() == "En") {
+                fileName = "enCenterCallReservationSubTitleMessage";
+                tts.Synthesize(centerCallReservationSubTitleMessage, fileName);
+            }
 
             var msg = new builder.Message(session)
             .attachments([
@@ -137,7 +157,7 @@ function create(bot) {
                     .text(centerCallReservationSubTitleMessage)
                     .autostart(true)
                     .media([
-                        { url: audioPath + '/centerCallReservationSubTitleMessage.mp3' }
+                        { url: audioPath + '/' + fileName + '.mp3' }
                     ])
                     .buttons([
                 
