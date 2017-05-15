@@ -4,9 +4,9 @@ var date = require('date-utils');
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
 
-function introMsg(session, msg) {
+function introMsg(session, msg, fileName) {
     var text = session.localizer.gettext(session.preferredLocale(), msg);
-    tts.Synthesize(text, msg);
+    tts.Synthesize(text, fileName);
     var audioMsg = new builder.Message(session);
     audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
     audioMsg.attachments([
@@ -14,7 +14,7 @@ function introMsg(session, msg) {
             .text(text)
             .autostart(true)
             .media([
-            { url: audioPath + '/' + msg + '.mp3' }
+            { url: audioPath + '/' + fileName + '.mp3' }
         ])
     ]);
     session.send(audioMsg);
@@ -49,7 +49,12 @@ function create(bot) {
         function (session, args) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "designMainMessage")); 
-            introMsg(session, "designMainMessage");
+
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "designMainMessage", "designMainMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "designMainMessage", "enDesignMainMessage");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -111,7 +116,12 @@ function create(bot) {
 
         function (session, args) {
             //session.send(session.localizer.gettext(session.preferredLocale(), "colorSelectWelcomeMessage")); 
-            introMsg(session, "colorSelectWelcomeMessage");
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "colorSelectWelcomeMessage", "colorSelectWelcomeMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "colorSelectWelcomeMessage", "enColorSelectWelcomeMessage");
+            }
+
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -229,7 +239,11 @@ function create(bot) {
         function (session, args) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "exteriorMainMessage")); 
-            introMsg(session, "exteriorMainMessage");
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "exteriorMainMessage", "exteriorMainMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "exteriorMainMessage", "enExteriorMainMessage");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -276,7 +290,11 @@ function create(bot) {
         function (session, args, results) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "exteriorDetailMessage")); 
-            introMsg(session, "exteriorDetailMessage");
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "exteriorDetailMessage", "exteriorDetailMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "exteriorDetailMessage", "enExteriorDetailMessage");
+            }
 
             //if (results.response.entity == "외관상세") {
                 var msg1 = new builder.Message(session)
@@ -361,7 +379,11 @@ function create(bot) {
         function (session, args) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "interiorMainMessage")); 
-            introMsg(session, "interiorMainMessage");
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "interiorMainMessage", "interiorMainMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "interiorMainMessage", "enInteriorMainMessage");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -407,7 +429,11 @@ function create(bot) {
         function (session, args, results) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "interiorDetailMessage")); 
-            introMsg(session, "interiorDetailMessage");
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, "interiorDetailMessage", "interiorDetailMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "interiorDetailMessage", "enInteriorDetailMessage");
+            }
 
             //if (results.response.entity == "내관상세") {
                 var msg1 = new builder.Message(session)
@@ -480,7 +506,11 @@ function create(bot) {
             //session.send("화이트 크림 색상의 정면 | 좌측면 | 우측면 | 후면 모습입니다.");
             //session.send(session.localizer.gettext(session.preferredLocale(), "whiteCream")+" "+ session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var whiteCream = session.localizer.gettext(session.preferredLocale(), "whiteCream") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, whiteCream, "whiteCream");
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, whiteCream, "whiteCream");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, whiteCream, "enWhiteCream");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -565,7 +595,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "IonSilver") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var IonSilver = session.localizer.gettext(session.preferredLocale(), "IonSilver") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, IonSilver, "IonSilver");
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, IonSilver, "IonSilver");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, IonSilver, "enIonSilver");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -647,7 +681,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "LunaGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var LunaGray = session.localizer.gettext(session.preferredLocale(), "LunaGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, LunaGray, "LunaGray");
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, LunaGray, "LunaGray");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, LunaGray, "enLunaGray");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -718,7 +756,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "PanteraGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var PanteraGray = session.localizer.gettext(session.preferredLocale(), "PanteraGray") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, PanteraGray, "PanteraGray");
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, PanteraGray, "PanteraGray");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, PanteraGray, "enPanteraGray");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -792,7 +834,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "MidnightBlack") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var MidnightBlack = session.localizer.gettext(session.preferredLocale(), "MidnightBlack") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, MidnightBlack, 'MidnightBlack');
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, MidnightBlack, "MidnightBlack");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, MidnightBlack, "enMidnightBlack");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -865,7 +911,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "ValentineRed") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var ValentineRed = session.localizer.gettext(session.preferredLocale(), "ValentineRed") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, ValentineRed, 'ValentineRed');
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, ValentineRed, "ValentineRed");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, ValentineRed, "enValentineRed");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -938,7 +988,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "GrandBlue") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var GrandBlue = session.localizer.gettext(session.preferredLocale(), "GrandBlue") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, GrandBlue, 'GrandBlue');
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, GrandBlue, "GrandBlue");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, GrandBlue, "enGrandBlue");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -1009,7 +1063,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var ShadeBronze = session.localizer.gettext(session.preferredLocale(), "ShadeBronze") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, ShadeBronze, 'ShadeBronze');
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, ShadeBronze, "ShadeBronze");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, ShadeBronze, "enShadeBronze");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
@@ -1082,7 +1140,11 @@ function create(bot) {
             
             //session.send(session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage"));
             var KakiMetal = session.localizer.gettext(session.preferredLocale(), "KakiMetal") + " " + session.localizer.gettext(session.preferredLocale(), "selectedColorMessage");
-            colorMsg(session, KakiMetal, 'KakiMetal');
+            if (session.preferredLocale() == "Ko") {
+                colorMsg(session, KakiMetal, "KakiMetal");
+            } else if (session.preferredLocale() == "En") {
+                colorMsg(session, KakiMetal, "enKakiMetal");
+            }
 
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)

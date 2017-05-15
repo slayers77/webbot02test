@@ -1,6 +1,6 @@
 {
-  "name": "Grandizer",
-  "welcomeMessage": "Are you curious about the Grandeur ig price? What information would you like to know?",
+  "name": "Car",
+  "welcomeMessage": "Are you curious about the Car price? What information would you like to know?",
   "price": "price",
   "priceClickMessage": "show me the price",
   "design": "design",
@@ -49,7 +49,7 @@
   "designMenuList": "Color|Interior|Exterior",
 
   "colorSelect": "Select",
-  "colorSelectWelcomeMessage": "If you choose the color you want, Grandeur's color will change",
+  "colorSelectWelcomeMessage": "If you choose the color you want, Car's color will change",
   "whiteCream": "White Cream",
   "whiteCreamCilckMessage": "Show me the White cream color",
   "IonSilver": "Ion Silver",
@@ -78,7 +78,7 @@
   "colorDetailLeft": "Left",
   "colorDetailRear": "Rear",
 
-  "exteriorTitleName": "Grandeur Exterior",
+  "exteriorTitleName": "Car Exterior",
   "exteriorMainMessage": "It is an appearance design introduction.",
   "exteriorDetailMessage": "It is detailed introduction of appearance design.",
   "exteriorSubtitleMessage": "It is equipped with rigid body and new platform, balanced driving stability, agile and dynamic acceleration response, smooth ride.",
@@ -92,10 +92,10 @@
   "exteriorDetailItem3": "LED Outside mirror with direction indicator & Castin chrome molding",
   "exteriorDetailItem4": "LED Rear combination lamp",
 
-  "interiorTitleName": "Grandeur Interior",
+  "interiorTitleName": "Car Interior",
   "interiorMainMessage": "Introducing the interior design.",
   "interiorDetailMessage": "Introducing the interior design details.",
-  "interiorSubtitleMessage": "The lowered dashboard with a horizontal layout opens up the \n\n interior of the new Grandeur, making it look larger and well-balanced.",
+  "interiorSubtitleMessage": "The lowered dashboard with a horizontal layout opens up the \n\n interior of the new Car, making it look larger and well-balanced.",
   "interiorTextMessage": "With carefully selected high-quality materials, deep colors, new floating displays and smart multimedia systems, the refined details will satisfy your taste and delicate taste.",
   "interiorDetail": "Details of interior image",
   "interiorDetailClickMessage": "interior detail",
@@ -106,7 +106,7 @@
 
   "convenienceTitleName": "Convenience",
   "convenienceMainMessgae": "Convenience Introduction.",
-  "convenienceWelcomeMessage": "All the conveniences of a luxury semi-large sedan such as smart multimedia system and high-quality sound system have been applied to Grandeur.",
+  "convenienceWelcomeMessage": "All the conveniences of a luxury semi-large sedan such as smart multimedia system and high-quality sound system have been applied to Car.",
   "smartSense": "SmartSense",
   "smartSenseClickMessage": "show me smartsense",
   "infotainment": "Infotainment",
@@ -118,7 +118,7 @@
   "smartSenseTitleName": "SmartSense",
   "smartSenseMainMessage": "SmartSence of Convenience Introduction.",
   "smartSenseDetailMessage": "SmartSence details of Convenience Introduction.",
-  "smartSenseSubtitleMessage": "Intelligent safety technology applied to Grandeur",
+  "smartSenseSubtitleMessage": "Intelligent safety technology applied to Car",
   "smartSenseDetail": "SmartSense Detailed list",
   "smartSenseDetailClickMessgae": "show me the smart sense detail",
   "smartSenseDetailItem1": "Active Blind Spot Detection",
@@ -139,7 +139,7 @@
   "infotainmentTitleName": "Infotainment",
   "InfotainmentMainMessage": "Infotainment of Convenience Introduction.",
   "InfotainmentDetailMessage": "Infotainment details of Convenience Introduction.",
-  "infotainmentSubtitleMessage": "Smart multimedia systems and high-end sound systems have all the conveniences of a luxury semi sedan. Grandeur goes one step further to make your life smarter.",
+  "infotainmentSubtitleMessage": "Smart multimedia systems and high-end sound systems have all the conveniences of a luxury semi sedan. Car goes one step further to make your life smarter.",
   "infotainmentDetail": "Infotainment Detailed list",
   "infotainmentDetailClickMessage": "let me know infotainment detail",
 
@@ -152,13 +152,13 @@
   "safetyMainMessage": "Safety of Convenience Introduction.",
   "safetyDetailMessage": "Safety details of Convenience Introduction.",
   "safetySubtitleMessage": "A new paradigm of safety",
-  "safetyTextMessage": "BEFORE crashing into the car in front of you. BEFORE being rear-ended by the car behind you. BEFORE skidding off the road. For the Grandeur, safety means preventing accidents. The new Grandeur's collision avoidance systems include a variety of features such as automatic emergency braking, a 360-degree view of the vehicle's surroundings, and other driving aids that prevent accidents caused by driver negligence. Ensuring safety for both passengers and pedestrians at all times.",
+  "safetyTextMessage": "BEFORE crashing into the car in front of you. BEFORE being rear-ended by the car behind you. BEFORE skidding off the road. For the Car, safety means preventing accidents. The new Car's collision avoidance systems include a variety of features such as automatic emergency braking, a 360-degree view of the vehicle's surroundings, and other driving aids that prevent accidents caused by driver negligence. Ensuring safety for both passengers and pedestrians at all times.",
   "safetyDetail": "safety Detailed list",
   "safetyDetailClickMessgae": "show me the safety detail",
 
   "safetyDetailItem1": "9 Air Bag System",
   "safetyDetailItem2": "Enhancement of Rigidity of Body",
-  "safetyDetailItem2SubtitleMessage": "Compared to the previous model, the new Grandeur’s average stiffness has been increased by 34 percent and its torsional rigidity by 23 percent. Moreover, the elements that protect the passenger compartment in the event of a collision have also been reinforced",
+  "safetyDetailItem2SubtitleMessage": "Compared to the previous model, the new Car’s average stiffness has been increased by 34 percent and its torsional rigidity by 23 percent. Moreover, the elements that protect the passenger compartment in the event of a collision have also been reinforced",
   "safetyDetailItem3": "Electric Parking Brake (including the Auto-hold Function)",
   "safetyDetailItem4": "Safety Unlock",
 
@@ -168,7 +168,7 @@
   "returnItem2": "Infotainment",
   "returnItem3": "Safety",
   "returnItem4": "Convenience",
-  "returnitem5": "Grandizer",
+  "returnitem5": "Car",
 
   "testDriveTitleName": "Test drive",
   "testDriveSubtitleMessage": "That's right!! \n\n You can get to know me better \n\n if you drives me once!! To apply for a test drive, \n\n you must make an online reservation or contact the branch directly. \n\n I'll help you. Which way would you be comfortable?",
