@@ -1389,7 +1389,7 @@ function create(bot) {                                                  // funct
 
             var msg = new builder.Message(session)
                 .attachments([
-                    new builder.HeroCard(session)
+                    new builder.AudioCard(session)
                         .title(session.localizer.gettext(session.preferredLocale(), "name"))
                         .text(engWelcomeMessage)
                         .autostart(true)
