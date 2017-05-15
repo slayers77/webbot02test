@@ -189,7 +189,11 @@ function create(bot) {
             if (session.message.text.match(/서울/g) || session.message.text.match(/Seoul/g)) { 
                 
                 //session.send(session.localizer.gettext(session.preferredLocale(), "seoulCenterCallReservationWelcomeMessage"));
-                introMsg(session, "seoulCenterCallReservationWelcomeMessage");
+                if (session.preferredLocale() == "Ko") {
+                    introMsg(session, "seoulCenterCallReservationWelcomeMessage", "seoulCenterCallReservationWelcomeMessage");
+                } else if (session.preferredLocale() == "En") {
+                    introMsg(session, "seoulCenterCallReservationWelcomeMessage", "enSeoulCenterCallReservationWelcomeMessage");
+                }
                 var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
@@ -242,7 +246,11 @@ function create(bot) {
             } else if (session.message.text.match(/부산/g) || session.message.text.match(/Busan/g) ) { 
             
                 //session.send(session.localizer.gettext(session.preferredLocale(), "busanCenterCallReservationWelcomeMessage"));
-                introMsg(session, "busanCenterCallReservationWelcomeMessage");
+                if (session.preferredLocale() == "Ko") {
+                    introMsg(session, "busanCenterCallReservationWelcomeMessage", "busanCenterCallReservationWelcomeMessage");
+                } else if (session.preferredLocale() == "En") {
+                    introMsg(session, "busanCenterCallReservationWelcomeMessage", "enBusanCenterCallReservationWelcomeMessage");
+                }
                 var msg = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments([
