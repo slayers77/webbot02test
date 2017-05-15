@@ -52,7 +52,10 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+
+            console.log("session.preferredLocale() ----------------------- : " + session.preferredLocale());
+
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "convenienceMainMessgae", "convenienceMainMessgae");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "convenienceMainMessgae", "enConvenienceMainMessgae");
@@ -144,7 +147,7 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "smartSenseMainMessage", "smartSenseMainMessage");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "smartSenseMainMessage", "enSmartSenseMainMessage");
@@ -211,7 +214,7 @@ function create(bot) {
             
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "smartSenseDetailMessage", "smartSenseDetailMessage");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "smartSenseDetailMessage", "enSmartSenseDetailMessage");
@@ -331,7 +334,7 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "InfotainmentMainMessage", "InfotainmentMainMessage");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "InfotainmentMainMessage", "enInfotainmentMainMessage");
@@ -401,7 +404,7 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "InfotainmentDetailMessage", "InfotainmentDetailMessage");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "InfotainmentDetailMessage", "enInfotainmentDetailMessage");
@@ -566,7 +569,7 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "safetyMainMessage", "safetyMainMessage");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "safetyMainMessage", "enSafetyMainMessage");
@@ -636,7 +639,7 @@ function create(bot) {
             ]);
             session.send(audioMsg);
             */
-            if (session.preferredLocale() == "Kr") {
+            if (session.preferredLocale() == "Ko") {
                 introMsg(session, "safetyDetailMessage", "safetyDetailMessage");
             } else if (session.preferredLocale() == "En") {
                 introMsg(session, "safetyDetailMessage", "enSafetyDetailMessage");
