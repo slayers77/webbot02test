@@ -4,9 +4,9 @@ var date = require('date-utils');
 var tts = require('../../TTSService');
 var audioPath = 'http://taiholabchatbot.azurewebsites.net';
 
-function introMsg(session, msg) {
+function introMsg(session, msg, fileName) {
     var text = session.localizer.gettext(session.preferredLocale(), msg);
-    tts.Synthesize(text, msg);
+    tts.Synthesize(text, fileName);
     var audioMsg = new builder.Message(session);
     audioMsg.attachmentLayout(builder.AttachmentLayout.carousel);
     audioMsg.attachments([
@@ -14,7 +14,7 @@ function introMsg(session, msg) {
             .text(text)
             .autostart(true)
             .media([
-            { url: audioPath + '/' + msg + '.mp3' }
+            { url: audioPath + '/' + fileName + '.mp3' }
         ])
     ]);
     session.send(audioMsg);
@@ -52,7 +52,11 @@ function create(bot) {
 
             session.send(audioMsg);
             */
-            introMsg(session,"convenienceMainMessgae");
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "convenienceMainMessgae", "convenienceMainMessgae");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "convenienceMainMessgae", "enConvenienceMainMessgae");
+            }
             var msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.xml)
                 //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -123,7 +127,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSmartSenseSimple', [
     
         function (session, args, results) {
-            
+            /*
             var smartSenseMainMessage = session.localizer.gettext(session.preferredLocale(), "smartSenseMainMessage");
             tts.Synthesize(smartSenseMainMessage, 'smartSenseMainMessage');
             
@@ -139,6 +143,12 @@ function create(bot) {
             ]);
 
             session.send(audioMsg);
+            */
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "smartSenseMainMessage", "smartSenseMainMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "smartSenseMainMessage", "enSmartSenseMainMessage");
+            }
             //if (results.response.entity == '스마트 센스 소개') {
                 var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
@@ -184,7 +194,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSmartsenseList', [
     
         function (session, args) {
-            
+            /*
             var smartSenseDetailMessage = session.localizer.gettext(session.preferredLocale(), "smartSenseDetailMessage");
             tts.Synthesize(smartSenseDetailMessage, 'smartSenseDetailMessage');
             
@@ -200,7 +210,13 @@ function create(bot) {
             ]);
             
             session.send(audioMsg);
-            
+            */
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "smartSenseDetailMessage", "smartSenseDetailMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "smartSenseDetailMessage", "enSmartSenseDetailMessage");
+            }
+
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -298,7 +314,7 @@ function create(bot) {
     bot.dialog('/korConvenienceInfotainmentSimple', [
     
         function (session, args, results) {
-            
+            /*
             var InfotainmentMainMessage = session.localizer.gettext(session.preferredLocale(), "InfotainmentMainMessage");
             tts.Synthesize(InfotainmentMainMessage, 'InfotainmentMainMessage');
             
@@ -314,7 +330,13 @@ function create(bot) {
             ]);
 
             session.send(audioMsg);
-            
+            */
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "InfotainmentMainMessage", "InfotainmentMainMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "InfotainmentMainMessage", "enInfotainmentMainMessage");
+            }
+
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
                     //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -362,7 +384,7 @@ function create(bot) {
     bot.dialog('/korConvenienceInfotainmentList', [
     
         function (session, args, results) {
-            
+            /*
             var InfotainmentDetailMessage = session.localizer.gettext(session.preferredLocale(), "InfotainmentDetailMessage");
             tts.Synthesize(InfotainmentDetailMessage, 'InfotainmentDetailMessage');
             
@@ -378,6 +400,12 @@ function create(bot) {
             ]);
 
             session.send(audioMsg);
+            */
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "InfotainmentDetailMessage", "InfotainmentDetailMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "InfotainmentDetailMessage", "enInfotainmentDetailMessage");
+            }
 
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
@@ -521,7 +549,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSafetySimple', [
     
         function (session, args, results) {
-            
+            /*
             var safetyMainMessage = session.localizer.gettext(session.preferredLocale(), "safetyMainMessage");
             tts.Synthesize(safetyMainMessage, 'safetyMainMessage');
             
@@ -537,6 +565,12 @@ function create(bot) {
             ]);
 
             session.send(audioMsg);
+            */
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "safetyMainMessage", "safetyMainMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "safetyMainMessage", "enSafetyMainMessage");
+            }
             var msg = new builder.Message(session)
                     .textFormat(builder.TextFormat.xml)
                     //.attachmentLayout(builder.AttachmentLayout.carousel)
@@ -586,7 +620,7 @@ function create(bot) {
     bot.dialog('/korConvenienceSafetyList', [
     
         function (session, args, results) {
-            
+            /*
             var safetyDetailMessage = session.localizer.gettext(session.preferredLocale(), "safetyDetailMessage");
             tts.Synthesize(safetyDetailMessage, 'safetyDetailMessage');
             
@@ -601,7 +635,12 @@ function create(bot) {
                 ])
             ]);
             session.send(audioMsg);
-
+            */
+            if (session.preferredLocale() == "Kr") {
+                introMsg(session, "safetyDetailMessage", "safetyDetailMessage");
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, "safetyDetailMessage", "enSafetyDetailMessage");
+            }
             var msg = new builder.Message(session)
                         .textFormat(builder.TextFormat.xml)
                         .attachmentLayout(builder.AttachmentLayout.carousel)

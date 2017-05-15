@@ -1384,11 +1384,16 @@ function create(bot) {                                                  // funct
                     session.error(err);
                 }
             });
+            var engWelcomeMessage = session.localizer.gettext(session.preferredLocale(), "welcomeMessage");
+            tts.Synthesize(engWelcomeMessage, 'engWelcomeMessage');
+
             var msg = new builder.Message(session)
                 .attachments([
                     new builder.HeroCard(session)
                         .title(session.localizer.gettext(session.preferredLocale(), "name"))
-                        .text(session.localizer.gettext(session.preferredLocale(), "welcomeMessage"))
+                        .text(engWelcomeMessage)
+                        .autostart(true)
+                        .media([{ url: 'http://taiholabchatbot.azurewebsites.net/engWelcomeMessage.mp3' }])
                         .buttons([
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "priceClickMessage"), session.localizer.gettext(session.preferredLocale(), "price")),
                             builder.CardAction.imBack(session, session.localizer.gettext(session.preferredLocale(), "designClickMessage"), session.localizer.gettext(session.preferredLocale(), "design")),
