@@ -442,6 +442,7 @@
 
   "compareAndMessage": " with",
   "compareMessage": "I'll compare",
+  "compareMessageCall": "I'll compare the two cars",
 
   "korCompareModelMessage": "I can not compare models because the model name is not correct. Please check your model name again.",
   "korCompareBeforeModelMessage": "You have not seen model before. Please look at the model and compare.",

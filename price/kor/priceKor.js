@@ -147,10 +147,18 @@ function create(bot) {
                 || args.sendMsg.match(/익스클루시브/g) || args.sendMsg.match(/익스클루시브스페셜/g) || args.sendMsg.match(/익스클루시브 스페셜/g) 
                 || args.sendMsg.match(/셀러브리티/g)) {
                 var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae1");
-                introMsg(session, text, "priceTrimWelcomeMessgae1", text);
+                if (session.preferredLocale() == "Ko") {
+                    introMsg(session, text, "priceTrimWelcomeMessgae1", text);
+                } else if (session.preferredLocale() == "En") {
+                    introMsg(session, text, "enPriceTrimWelcomeMessgae1", text);
+                }
             } else {
                 var text = session.localizer.gettext(session.preferredLocale(), "priceTrimWelcomeMessgae2");
-                introMsg(session, text, "priceTrimWelcomeMessgae2", text);
+                if (session.preferredLocale() == "Ko") {
+                    introMsg(session, text, "priceTrimWelcomeMessgae2", text);
+                } else if (session.preferredLocale() == "En") {
+                    introMsg(session, text, "enPriceTrimWelcomeMessgae2", text);
+                }
             }
             if (args.sendMsg.match(/가솔린2.4/g) || args.sendMsg.match(/가솔린 2.4/g)) {
                 model = session.localizer.gettext(session.preferredLocale(), "priceTrimGasoline2.4Model");
@@ -542,7 +550,11 @@ function create(bot) {
 
             var text = args.model + " " + args.trim + session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
             var audioText = session.localizer.gettext(session.preferredLocale(), "selectOptionInitMessage");
-            introMsg(session, text, "selectOptionInitMessage", audioText);
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, text, "selectOptionInitMessage", audioText);
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, text, "enSelectOptionInitMessage", audioText);
+            }
             
             if (args.trim == session.localizer.gettext(session.preferredLocale(), "selectOptionModern")) {
                 options = [new builder.HeroCard(session)
@@ -1200,7 +1212,11 @@ function create(bot) {
 
                 var text = title1 + session.localizer.gettext(session.preferredLocale(), "compareAndMessage") + title2 + session.localizer.gettext(session.preferredLocale(), "compareMessage");
                 var audioText = session.localizer.gettext(session.preferredLocale(), "compareMessageCall");
-                introMsg(session, text, "compareMessageCall", audioText);
+                if (session.preferredLocale() == "Ko") {
+                    introMsg(session, text, "compareMessageCall", audioText);
+                } else if (session.preferredLocale() == "En") {
+                    introMsg(session, text, "enCompareMessageCall", audioText);
+                }
                 
                 /*
                 msg = new builder.Message(session)
@@ -1257,19 +1273,35 @@ function create(bot) {
                 switch (args.intent) {
                     case "korCompareModel":
                         var text = session.localizer.gettext(session.preferredLocale(), "korCompareModelMessage");
-                        introMsg(session, text, "compareMessage", text);
+                        if (session.preferredLocale() == "Ko") {
+                            introMsg(session, text, "compareMessage", text);
+                        } else if (session.preferredLocale() == "En") {
+                            introMsg(session, text, "enCompareMessage", text);
+                        }
                         break;
                     case "korCompareBeforeModel":
                         var text = session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelMessage");
-                        introMsg(session, text, "korCompareBeforeModelMessage", text);
+                        if (session.preferredLocale() == "Ko") {
+                            introMsg(session, text, "korCompareBeforeModelMessage", text);
+                        } else if (session.preferredLocale() == "En") {
+                            introMsg(session, text, "enKorCompareBeforeModelMessage", text);
+                        }
                         break;
                     case "korCompareBeforeModels":
                         var text = session.localizer.gettext(session.preferredLocale(), "korCompareBeforeModelsMessage");
-                        introMsg(session, text, "korCompareBeforeModelsMessage", text);
+                        if (session.preferredLocale() == "Ko") {
+                            introMsg(session, text, "korCompareBeforeModelsMessage", text);
+                        } else if (session.preferredLocale() == "En") {
+                            introMsg(session, text, "enKorCompareBeforeModelsMessage", text);
+                        }
                         break;
                     default:
                         var text = session.localizer.gettext(session.preferredLocale(), "NocompareModelMessage");
-                        introMsg(session, text, "NocompareModelMessage", text);
+                        if (session.preferredLocale() == "Ko") {
+                            introMsg(session, text, "NocompareModelMessage", text);
+                        } else if (session.preferredLocale() == "En") {
+                            introMsg(session, text, "enNocompareModelMessage", text);
+                        }
                 }
                 
             }
@@ -1326,7 +1358,11 @@ function create(bot) {
 
             var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
             var audioText = session.localizer.gettext(session.preferredLocale(), "priceOptionAddMessage");
-            introMsg(session, text, "priceOptionAddMessage", audioText);
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, text, "priceOptionAddMessage", audioText);
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, text, "enPriceOptionAddMessage", audioText);
+            }
             
             //functionOptionUpdate(userId, fnResultModel, fnResultOption, 1);
             
@@ -1384,7 +1420,11 @@ function create(bot) {
 
             var text = fnResultModelNm + " " + fnResultTrimNm + " [ " + fnResultOptionNm + " ] " + session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
             var audioText = session.localizer.gettext(session.preferredLocale(), "priceOptionRemoveMessage");
-            introMsg(session, text, "priceOptionRemoveMessage", audioText);
+            if (session.preferredLocale() == "Ko") {
+                introMsg(session, text, "priceOptionRemoveMessage", audioText);
+            } else if (session.preferredLocale() == "En") {
+                introMsg(session, text, "enPriceOptionRemoveMessage", audioText);
+            }
             
             functionOptionUpdate(userId, fnResultModel, fnResultOption, 0);
             
