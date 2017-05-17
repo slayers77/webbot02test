@@ -116,8 +116,8 @@ function create(bot) {                                                  // funct
                         new builder.VideoCard(session)
                             .title('자동차11')
                             .autostart(true)
-                            .subtitle('Grandizer')
-                            .text(botMsg + "\n\n Hi. My name is Grandizer. \n\n At any time, type 'Grandizer' to return to the initial screen. ")
+                            .subtitle('Car')
+                            .text(botMsg + "\n\n Hi. My name is Car. \n\n At any time, type 'Grandizer' to return to the initial screen. ")
                             .image(builder.CardImage.create(session, img_path + "/images/img_car01.jpg"))
                             .media([
                                 { url: 'http://webbot02.azurewebsites.net/openning.wav' }
